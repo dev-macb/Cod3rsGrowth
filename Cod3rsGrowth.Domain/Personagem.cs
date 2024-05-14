@@ -1,14 +1,5 @@
 ﻿namespace CodersGrowth.Domain
 {
-    public enum CategoriasEnum 
-    {
-        Fraco,
-        Medio,
-        Bom,
-        Excepcional,
-        Extraordinario
-    }
-
     public class Personagem
     {
         public int Id { get; }
@@ -33,7 +24,7 @@
             Forca = forca;
             Inteligencia = inteligencia;
             Habilidades = habilidades;
-            EhVilao = ehVilao;
+            EVilao = ehVilao;
             CriadoEm = DateTime.Now;
             AtualizadoEm = DateTime.Now;
         }
