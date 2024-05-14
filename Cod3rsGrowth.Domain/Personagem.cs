@@ -1,6 +1,6 @@
 ﻿namespace CodersGrowth.Domain
 {
-    public enum ECategorias 
+    public enum CategoriasEnum 
     {
         Fraco,
         Medio,
@@ -16,15 +16,15 @@
         public int Vida { get; set; }
         public int Energia { get; set; }
         public float Velocidade { get; set; }
-        public ECategorias Forca { get; set; }
-        public ECategorias Inteligencia { get; set; }
+        public CategoriasEnum Forca { get; set; }
+        public CategoriasEnum Inteligencia { get; set; }
         public List<Habilidade> Habilidades { get; set; }
-        public bool EhVilao { get; set; }
+        public bool EVilao { get; set; }
         public DateTime CriadoEm { get; set; }
         public DateTime AtualizadoEm { get; set; }
 
 
-        public Personagem(string nome, int vida, int energia, float velocidade, ECategorias forca, ECategorias inteligencia, List<Habilidade> habilidades, bool EhVivao)
+        public Personagem(string nome, int vida, int energia, float velocidade, CategoriasEnum forca, CategoriasEnum inteligencia, List<Habilidade> habilidades, bool EVilao)
         {
             Nome = nome;
             Vida = vida;
