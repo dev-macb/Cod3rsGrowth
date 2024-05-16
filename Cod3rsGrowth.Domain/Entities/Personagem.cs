@@ -1,4 +1,6 @@
-﻿namespace CodersGrowth.Domain
+﻿using CodersGrowth.Domain.Enum;
+
+namespace CodersGrowth.Domain.Entities
 {
     public class Personagem
     {
@@ -37,7 +39,6 @@
         public void Descansar()
         {
             Energia += 10;
-            return;
         }
     }
 }
