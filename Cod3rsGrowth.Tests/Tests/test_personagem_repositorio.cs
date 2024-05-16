@@ -5,18 +5,18 @@ namespace Cod3rsGrowth.Tests
 {
     public class TestePersonagem : TesteBase
     {
-        public PersonagemRepositorio mockPersonagem;
+        public PersonagemRepositorio personagemRepositorio;
 
         public TestePersonagem() : base() 
         {
-            mockPersonagem = ServiceProvider.GetRequiredService<PersonagemRepositorio>();
+            personagemRepositorio = ServiceProvider.GetRequiredService<PersonagemRepositorio>();
         }
 
         [Fact]
         public void TestarAtaque()
         {
             // Arrange
-            var personagem = mockPersonagem.ObterTodos()[0];
+            var personagem = personagemRepositorio.ObterTodos()[0];
             var ataqueEsperado = (int)personagem.Forca * personagem.Energia;
 
             // Act
