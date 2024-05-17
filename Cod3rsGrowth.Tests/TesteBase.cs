@@ -1,4 +1,3 @@
-using Cod3rsGrowth.Domain;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cod3rsGrowth.Tests
