@@ -26,20 +26,5 @@ namespace CodersGrowth.Domain.Entities
             Forca = forca;
             Inteligencia = inteligencia;
         }
-
-        public int Atacar()
-        {
-            return (int)Forca * Energia;
-        }
-
-        public int Defender()
-        {
-            return (int)Inteligencia * Energia;
-        }
-
-        public void Descansar()
-        {
-            Energia += 10;
-        }
     }
 }

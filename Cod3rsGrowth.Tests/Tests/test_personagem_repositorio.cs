@@ -13,17 +13,9 @@ namespace Cod3rsGrowth.Tests
         }
 
         [Fact]
-        public void TestarAtaque()
+        public void Teste1()
         {
-            // Arrange
-            var personagem = personagemRepositorio.ObterTodos()[0];
-            var ataqueEsperado = (int)personagem.Forca * personagem.Energia;
 
-            // Act
-            var resultado = personagem.Atacar();
-
-            // Assert
-            Assert.Equal(ataqueEsperado, resultado);
         }
     }
 }

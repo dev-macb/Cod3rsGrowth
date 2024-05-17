@@ -23,47 +23,5 @@ namespace Cod3rsGrowth.Tests.Repositories
                 new(8, "Vega", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio)
             };
         }
-
-        public List<Personagem> ObterTodos()
-        {
-            return personagens;
-        }
-
-        public Personagem? ObterPorId(int id)
-        {
-            var personagem = personagens.Find(p => p.Id == id);
-            return personagem;
-        }
-
-        public int Criar(string nome, int vida, int energia, double velocidade, CategoriasEnum forca, CategoriasEnum inteligencia)
-        {
-            int novoId = personagens.Last().Id + 1;
-            var novoPersonagem = new Personagem(novoId, nome, vida, energia, velocidade, forca, inteligencia);
-            personagens.Add(novoPersonagem);
-
-            return novoPersonagem.Id;
-        }
-
-        public void Editar(int id, int vida, int energia, double velocidade, CategoriasEnum forca, CategoriasEnum inteligencia)
-        {
-            var personagem = personagens.Find(p => p.Id == id);
-            if(personagem != null)
-            {
-                personagem.Vida = vida;
-                personagem.Energia = energia;
-                personagem.Velocidade = velocidade;
-                personagem.Forca = forca;
-                personagem.Inteligencia = inteligencia;
-            }
-        }
-
-        public void Remover(int id)
-        {
-            var personagem = personagens.Find(p => p.Id == id);
-            if(personagem != null)
-            {
-                personagens.Remove(personagem);
-            }
-        }
     }
 }
