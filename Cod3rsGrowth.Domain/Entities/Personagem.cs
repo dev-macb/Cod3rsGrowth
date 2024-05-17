@@ -16,8 +16,9 @@ namespace CodersGrowth.Domain.Entities
         public DateTime? CriadoEm { get; set; }
         public DateTime? AtualizadoEm { get; set; }
 
-        public Personagem(string nome, int vida, int energia, double velocidade, CategoriasEnum forca, CategoriasEnum inteligencia)
+        public Personagem(int id, string nome, int vida, int energia, double velocidade, CategoriasEnum forca, CategoriasEnum inteligencia)
         {
+            Id = id;
             Nome = nome;
             Vida = vida;
             Energia = energia;
