@@ -6,7 +6,7 @@ namespace Cod3rsGrowth.Tests.Tests
 {
     public class TestePersonagemServicos : TesteBase
     {
-        public IPersonagemServico personagemService;
+        private readonly IPersonagemServico personagemService;
 
         public TestePersonagemServicos() : base()
         {
