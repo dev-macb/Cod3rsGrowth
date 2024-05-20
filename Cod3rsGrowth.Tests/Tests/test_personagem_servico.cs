@@ -1,7 +1,6 @@
-using CodersGrowth.Domain.Enum;
-using CodersGrowth.Domain.Entities;
-using Cod3rsGrowth.Domain.Services;
-using Cod3rsGrowth.Domain.Interfaces;
+using Cod3rsGrowth.Infra;
+using Cod3rsGrowth.Service;
+using CodersGrowth.Domain;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cod3rsGrowth.Tests.Tests
@@ -9,38 +8,28 @@ namespace Cod3rsGrowth.Tests.Tests
     public class TestePersonagemServicos : TesteBase
     {
         private readonly IPersonagemServico personagemService;
+        private readonly IPersonagemRepositorio personagemRepositorio;
 
         public TestePersonagemServicos() : base()
         {
             personagemService = ServiceProvider.GetRequiredService<IPersonagemServico>();
+            personagemRepositorio = ServiceProvider.GetRequiredService<IPersonagemRepositorio>();
         }
 
         [Fact]
-        public void TestarPersonagemServicoBuscarPorId()
+        public void TestarObterTodos()
         {
-            // Arrange
-            const int Id = 1;
-            bool resultadoEsperado = true;
+             // Arrange
+            var novoPersonagem = new Personagem("NovoPersonagem", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
 
             // Act
-            var resultado = personagemService.ValidarObterPorId(Id);
+            var idCriado = personagemService.Criar(novoPersonagem);
 
             // Assert
-            Assert.Equal(resultado, resultadoEsperado);
-        }
-
-        [Fact]
-        public void TestarPersonagemServicoCriar()
-        {
-            // Arrange
-            Personagem personagem = new(10, "Teste", 100, 50, 1.0, CategoriasEnum.Bom, CategoriasEnum.Bom);
-            bool resultadoEsperado = true;
-
-            // Act
-            var resultado = personagemService.ValidarCriar(personagem);
-
-            // Assert
-            Assert.Equal(resultado, resultadoEsperado);
+            Assert.Equal(9, idCriado);
+            var personagemCriado = personagemRepositorio.ObterTodos("NovoPersonagem").FirstOrDefault();
+            Assert.NotNull(personagemCriado);
+            Assert.Equal(novoPersonagem.Nome, personagemCriado.Nome);
         }
     }
 }
