@@ -1,4 +1,5 @@
 using Cod3rsGrowth.Infra;
+using FluentValidation.Results;
 using CodersGrowth.Domain.Entities;
 using CodersGrowth.Domain.Validators;
 
@@ -6,11 +7,13 @@ namespace Cod3rsGrowth.Service
 {
     public class PersonagemServico : IPersonagemServico
     {
+        private readonly PersonagemValidador personagemValidador;
         private readonly IPersonagemRepositorio personagemRepositorio;
 
-        public PersonagemServico(IPersonagemRepositorio personagemMock)
+        public PersonagemServico(IPersonagemRepositorio repositorioMock, PersonagemValidador validador)
         {
-            personagemRepositorio = personagemMock;
+            personagemValidador = validador;
+            personagemRepositorio = repositorioMock;
         }
 
         public List<Personagem> ObterTodos()
@@ -25,9 +28,8 @@ namespace Cod3rsGrowth.Service
 
         public int Criar(Personagem personagem)
         {
-            var validador = new PersonagemValidador();
-            FluentValidation.Results.ValidationResult resultado = validador.Validate(personagem);
-            if (!resultado.IsValid) return 0;
+            ValidationResult resultado = personagemValidador.Validate(personagem);
+            if (!resultado.IsValid) throw new Exception("Falha na validação do personagem");
 
             int IdNovoPersonagem = personagemRepositorio.Criar(personagem);
             

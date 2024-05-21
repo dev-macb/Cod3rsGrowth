@@ -1,4 +1,3 @@
-using Cod3rsGrowth.Infra;
 using Cod3rsGrowth.Service;
 using CodersGrowth.Domain.Enums;
 using CodersGrowth.Domain.Entities;
