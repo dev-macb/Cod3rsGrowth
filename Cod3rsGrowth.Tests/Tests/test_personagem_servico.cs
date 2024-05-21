@@ -33,18 +33,12 @@ namespace Cod3rsGrowth.Tests.Tests
         [Fact]
         public void TestarCriarNovoPersonagemInvalido()
         {
-            // Arrange
-            Exception? mensagemErro = null;
+             // Arrange
             var personagemInvalido = new Personagem(null, "", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
 
-            // Act
-            try { personagemService.Criar(personagemInvalido); }
-            catch (Exception erro) { mensagemErro = erro; }
-            
-            // Assert
-            Assert.NotNull(mensagemErro);
-            Assert.IsType<Exception>(mensagemErro);
-            Assert.Equal("Falha na validação do personagem", mensagemErro.Message);
+            // Act - Assert
+            var resultado = Assert.Throws<Exception>(() => personagemService.Criar(personagemInvalido));
+            Assert.Equal("Falha na validação do personagem", resultado.Message);
         }
     }
 }
