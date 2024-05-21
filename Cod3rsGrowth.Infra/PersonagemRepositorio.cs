@@ -27,9 +27,9 @@ namespace Cod3rsGrowth.Infra
             return personagens;
         }
 
-        public Personagem? ObterPorId(int id)
+        public Personagem ObterPorId(int id)
         {
-            return personagens.Find(personagem => personagem.Id == id);
+            return personagens.Find(personagem => personagem.Id == id) ?? throw new Exception("Personagem não encontrado");
         }
 
         public int Criar(Personagem personagem)
@@ -38,6 +38,20 @@ namespace Cod3rsGrowth.Infra
             personagens.Add(personagem);
 
             return personagem.Id ?? 0;
+        }
+
+        public void Editar(int id, Personagem personagemAtualizado)
+        {
+            var personagemExistente = personagens.Find(personagem => personagem.Id == id) ?? throw new Exception("Personagem não encontrado");
+            personagemExistente.Nome = personagemAtualizado.Nome;
+            personagemExistente.Vida = personagemAtualizado.Vida;
+            personagemExistente.Energia = personagemAtualizado.Energia;
+            personagemExistente.Velocidade = personagemAtualizado.Velocidade;
+            personagemExistente.Forca = personagemAtualizado.Forca;
+            personagemExistente.Inteligencia = personagemAtualizado.Inteligencia;
+            personagemExistente.Habilidades = personagemAtualizado.Habilidades;
+            personagemExistente.EVilao = personagemAtualizado.EVilao;
+            personagemExistente.AtualizadoEm = DateTime.Now;
         }
     }
 }
