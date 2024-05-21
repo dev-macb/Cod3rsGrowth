@@ -1,4 +1,6 @@
-﻿namespace CodersGrowth.Domain
+﻿using CodersGrowth.Domain.Enums;
+
+namespace CodersGrowth.Domain.Entities
 {
     public class Personagem
     {

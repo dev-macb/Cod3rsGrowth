@@ -1,4 +1,4 @@
-using CodersGrowth.Domain;
+using CodersGrowth.Domain.Entities;
 
 namespace Cod3rsGrowth.Infra
 {

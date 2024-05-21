@@ -1,4 +1,5 @@
-using CodersGrowth.Domain;
+using CodersGrowth.Domain.Enums;
+using CodersGrowth.Domain.Entities;
 
 namespace Cod3rsGrowth.Infra
 {
@@ -33,9 +34,7 @@ namespace Cod3rsGrowth.Infra
 
         public int Criar(Personagem personagem)
         {
-            int novoId = (int)(personagens.Any() ? personagens.Max(p => p.Id) + 1 : 1);
-            personagem.Id = novoId;
-
+            personagem.Id = personagens.Any() ? personagens.Max(p => p.Id) + 1 : 1;
             personagens.Add(personagem);
 
             return personagem.Id ?? 0;
