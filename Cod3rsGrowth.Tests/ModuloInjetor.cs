@@ -1,5 +1,5 @@
-using Cod3rsGrowth.Domain.Services;
-using Cod3rsGrowth.Domain.Interfaces;
+using Cod3rsGrowth.Infra;
+using Cod3rsGrowth.Service;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cod3rsGrowth.Tests
@@ -8,7 +8,11 @@ namespace Cod3rsGrowth.Tests
     {
         public static void RegistrarServicos(IServiceCollection servicos)
         {
+            // Serviços
             servicos.AddScoped<IPersonagemServico, PersonagemServico>();
+
+            // Repositório Mock
+            servicos.AddSingleton<IPersonagemRepositorio, PersonagemRepositorio>();
         }
     }
 }

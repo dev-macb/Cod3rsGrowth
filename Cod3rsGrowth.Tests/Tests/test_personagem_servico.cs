@@ -1,5 +1,6 @@
-using Cod3rsGrowth.Domain.Services;
-using Cod3rsGrowth.Domain.Interfaces;
+using Cod3rsGrowth.Service;
+using CodersGrowth.Domain.Enums;
+using CodersGrowth.Domain.Entities;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cod3rsGrowth.Tests.Tests
@@ -14,17 +15,30 @@ namespace Cod3rsGrowth.Tests.Tests
         }
 
         [Fact]
-        public void TestarPersonagemServicoBuscarPorId()
+        public void TestarCriarNovoPersonagem()
         {
-            // Arrange
-            int id = 1;
-            bool resultadoEsperado = true;
+             // Arrange
+            var novoPersonagem = new Personagem(null, "Teste da Silva", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
 
             // Act
-            var resultado = personagemService.ValidarObterPorId(id);
+            var resultado = personagemService.Criar(novoPersonagem);
+            var personagemCriado = personagemService.ObterPorId(resultado);
 
             // Assert
-            Assert.Equal(resultado, resultadoEsperado);
+            Assert.NotNull(personagemCriado);
+            Assert.Equal(personagemCriado.Id, resultado);
+            Assert.Equal(novoPersonagem.Nome, personagemCriado.Nome);
+        }
+
+        [Fact]
+        public void TestarCriarNovoPersonagemInvalido()
+        {
+             // Arrange
+            var personagemInvalido = new Personagem(null, "", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
+
+            // Act - Assert
+            var resultado = Assert.Throws<Exception>(() => personagemService.Criar(personagemInvalido));
+            Assert.Equal("Falha na validação do personagem", resultado.Message);
         }
     }
 }

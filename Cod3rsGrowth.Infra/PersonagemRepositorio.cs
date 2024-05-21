@@ -1,13 +1,11 @@
-using CodersGrowth.Domain.Enum;
+using CodersGrowth.Domain.Enums;
 using CodersGrowth.Domain.Entities;
-using Cod3rsGrowth.Domain.Interfaces;
 
-
-namespace Cod3rsGrowth.Tests.Repositories
+namespace Cod3rsGrowth.Infra
 {
     public class PersonagemRepositorio : IPersonagemRepositorio
     {
-        public List<Personagem> personagens;
+        private readonly List<Personagem> personagens;
 
         public PersonagemRepositorio()
         {
@@ -22,6 +20,24 @@ namespace Cod3rsGrowth.Tests.Repositories
                 new(7, "Dhalsim", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio),
                 new(8, "Vega", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio)
             };
+        }
+
+        public List<Personagem> ObterTodos()
+        {
+            return personagens;
+        }
+
+        public Personagem? ObterPorId(int id)
+        {
+            return personagens.Find(personagem => personagem.Id == id);
+        }
+
+        public int Criar(Personagem personagem)
+        {
+            personagem.Id = personagens.Any() ? personagens.Max(p => p.Id) + 1 : 1;
+            personagens.Add(personagem);
+
+            return personagem.Id ?? 0;
         }
     }
 }
