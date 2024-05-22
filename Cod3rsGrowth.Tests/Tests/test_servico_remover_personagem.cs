@@ -19,6 +19,7 @@ namespace Cod3rsGrowth.Tests.Tests
         public void RemoverPersonagemComExito()
         {
             // Arrange
+            int listaVazia = 0;
             int idNovoPersonagem = personagemService.Criar(new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio));
 
             // Act
@@ -26,7 +27,7 @@ namespace Cod3rsGrowth.Tests.Tests
 
             // Assert
             var quantidadePersonagens = personagemService.ObterTodos().Count;
-            Assert.Equal(0, quantidadePersonagens);
+            Assert.Equal(listaVazia, quantidadePersonagens);
             var resultado = Assert.Throws<Exception>(() => personagemService.ObterPorId(idNovoPersonagem));
             Assert.Equal("Personagem não encontrado.", resultado.Message);
         }
@@ -35,6 +36,7 @@ namespace Cod3rsGrowth.Tests.Tests
         public void RemoverPersonagemComIdInvalido()
         {
             // Arrange
+            int listaComUm = 1;
             int idInvalido = 99999;
             int idNovoPersonagem = personagemService.Criar(new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio));
 
@@ -44,7 +46,7 @@ namespace Cod3rsGrowth.Tests.Tests
             // Assert
             Assert.Equal("Personagem não encontrado.", resultado.Message);
             var quantidadePersonagens = personagemService.ObterTodos().Count;
-            Assert.Equal(1, quantidadePersonagens);
+            Assert.Equal(listaComUm, quantidadePersonagens);
             var novoPersonagem = personagemService.ObterPorId(idNovoPersonagem);
             Assert.IsType<Personagem>(novoPersonagem);
         }
