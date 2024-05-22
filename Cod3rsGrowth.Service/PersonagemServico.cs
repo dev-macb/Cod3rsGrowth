@@ -41,10 +41,14 @@ namespace Cod3rsGrowth.Service
             ValidationResult resultado = personagemValidador.Validate(personagemAtualizado);
             if (!resultado.IsValid) throw new Exception(resultado.Errors.First().ErrorMessage);
 
-            var personagemExistente = personagemRepositorio.ObterPorId(id);
-            if (personagemExistente == null) throw new Exception("Personagem não encontrado");
+            personagemRepositorio.ObterPorId(id);
 
             personagemRepositorio.Editar(id, personagemAtualizado);
+        }
+
+        public void Remover(int id)
+        {
+            personagemRepositorio.Remover(id);
         }
     }
 }

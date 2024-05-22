@@ -41,7 +41,7 @@ namespace Cod3rsGrowth.Infra
 
         public void Editar(int id, Personagem personagemAtualizado)
         {
-            var personagemExistente = personagens.Find(personagem => personagem.Id == id) ?? throw new Exception("Personagem não encontrado");
+            var personagemExistente = personagens.Find(personagem => personagem.Id == id) ?? throw new Exception("Personagem não encontrado.");
             personagemExistente.Nome = personagemAtualizado.Nome;
             personagemExistente.Vida = personagemAtualizado.Vida;
             personagemExistente.Energia = personagemAtualizado.Energia;
@@ -51,6 +51,12 @@ namespace Cod3rsGrowth.Infra
             personagemExistente.Habilidades = personagemAtualizado.Habilidades;
             personagemExistente.EVilao = personagemAtualizado.EVilao;
             personagemExistente.AtualizadoEm = DateTime.Now;
+        }
+
+        public void Remover(int id)
+        {
+            var personagemExistente = personagens.Find(personagem => personagem.Id == id) ?? throw new Exception("Personagem não encontrado.");
+            if (personagemExistente != null) personagens.Remove(personagemExistente);
         }
     }
 }
