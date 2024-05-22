@@ -9,7 +9,9 @@ namespace Cod3rsGrowth.Tests
         protected TesteBase()
         {
             var serviceCollection = new ServiceCollection();
+            
             ModuloInjetor.RegistrarServicos(serviceCollection);
+
             ServiceProvider = serviceCollection.BuildServiceProvider();
         }
 

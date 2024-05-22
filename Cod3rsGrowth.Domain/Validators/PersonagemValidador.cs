@@ -7,9 +7,12 @@ namespace CodersGrowth.Domain.Validators
     {
         public PersonagemValidador()
         {
+            RuleFor(personagem => personagem.Id)
+                .GreaterThanOrEqualTo(1).WithMessage("O id deve ser maior que 0.");
+
             RuleFor(personagem => personagem.Nome)
                 .NotEmpty().WithMessage("O nome é obrigatório.")
-                .Length(4, 50).WithMessage("O nome deve ter no mínimo 5 caracteres.");
+                .Length(3, 50).WithMessage("O nome deve ter no mínimo 5 caracteres e no máximo 50.");
 
             RuleFor(personagem => personagem.Vida)
                 .InclusiveBetween(0, 100).WithMessage("A vida deve estar entre 0 e 100.");

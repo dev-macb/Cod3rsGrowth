@@ -25,6 +25,7 @@ namespace CodersGrowth.Domain.Entities
             Velocidade = velocidade;
             Forca = forca;
             Inteligencia = inteligencia;
+            CriadoEm = DateTime.Now;
         }
     }
 }
