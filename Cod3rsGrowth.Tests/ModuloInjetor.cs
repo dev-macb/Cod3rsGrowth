@@ -14,9 +14,11 @@ namespace Cod3rsGrowth.Tests
             
             // Serviços
             servicos.AddScoped<IPersonagemServico, PersonagemServico>();
+            servicos.AddScoped<IHabilidadeServico, HabilidadeServico>();
 
             // Repositório Mock
             servicos.AddSingleton<IPersonagemRepositorio, PersonagemRepositorio>();
+            servicos.AddSingleton<IHabilidadeRepositorio, HabilidadeRepositorio>();
         }
     }
 }
