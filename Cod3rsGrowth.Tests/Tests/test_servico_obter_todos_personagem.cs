@@ -15,42 +15,30 @@ namespace Cod3rsGrowth.Tests.Tests
         }
 
         [Fact]
-        public void ObterTodosPersonagensComExito()
+        public void ObterTodosPersonagensComListaVazia()
         {
-            // Arrange
-            var personagens = personagemService.ObterTodos();
-
-            // Assert
-            Assert.Equal(9, personagens.Count);
-        }
-
-        [Fact]
-        public void TentarObterTodosPersonagensComListaVazia()
-        {
-            // Arrange
-            var personagens = GerarLista();
-
-            
-
             // Act
+            var personagens = personagemService.ObterTodos();
 
             // Assert
             Assert.Empty(personagens);
         }
 
-        private List<Personagem> GerarLista()
+        [Fact]
+        public void ObterTodosPersonagensComCincoInclusoes()
         {
-            return new List<Personagem>()
-            {
-                new(1, "Ryu", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio),
-                new(2, "Ken", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio),
-                new(3, "Chun-Li", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio),
-                new(4, "Blanka", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio),
-                new(5, "Zangief", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio),
-                new(6, "Guile", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio),
-                new(7, "Dhalsim", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio),
-                new(8, "Vega", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio)
-            };
+            // Arrange
+            personagemService.Criar(new Personagem(null, "Ryu", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio));
+            personagemService.Criar(new Personagem(null, "Ken", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio));
+            personagemService.Criar(new Personagem(null, "Chun-Li", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio));
+            personagemService.Criar(new Personagem(null, "Blanka", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio));
+            personagemService.Criar(new Personagem(null, "Zangief", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio));
+
+            // Act
+            var personagens = personagemService.ObterTodos();
+
+            // Assert
+            Assert.Equal(5, personagens.Count);
         }
     }
 }

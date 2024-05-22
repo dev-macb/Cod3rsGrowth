@@ -14,58 +14,181 @@ namespace Cod3rsGrowth.Tests.Tests
             personagemService = ServiceProvider.GetRequiredService<IPersonagemServico>();
         }
 
-        private List<Personagem> GerarLista()
-        {
-            return new List<Personagem>()
-            {
-                new(1, "Ryu", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio),
-                new(2, "Ken", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio),
-                new(3, "Chun-Li", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio),
-                new(4, "Blanka", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio),
-                new(5, "Zangief", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio),
-                new(6, "Guile", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio),
-                new(7, "Dhalsim", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio),
-                new(8, "Vega", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio)
-            };
-        }
-
         [Fact]
         public void EditarPersonagemComExito()
         {
             // Arrange
-            var personagemOriginal = new Personagem(null, "Testudo", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
-            int idNovoPersonagem = personagemService.Criar(personagemOriginal);
+            var personagem = new Personagem(null, "Teste", 100, 50, 1.0, CategoriasEnum.Bom, CategoriasEnum.Medio);
+            int idNovoPersonagem = personagemService.Criar(personagem);
             var novoPersonagem = personagemService.ObterPorId(idNovoPersonagem);
 
             // Act
-            novoPersonagem.Nome = "Testudo Alterado";
+            novoPersonagem.Nome = "Testudo";
             novoPersonagem.Vida = 10;
+            novoPersonagem.Energia = 5;
+            novoPersonagem.Velocidade = 0.5;
+            novoPersonagem.Forca = CategoriasEnum.Fraco;
+            novoPersonagem.Inteligencia = CategoriasEnum.Fraco;
             personagemService.Editar(idNovoPersonagem, novoPersonagem);
 
             // Assert
             var personagemAtualizado = personagemService.ObterPorId(idNovoPersonagem);
-            Assert.Equal("Testudo Alterado", personagemAtualizado.Nome);
-            Assert.Equal(10, personagemAtualizado.Vida);
+            Assert.Equivalent(novoPersonagem, personagemAtualizado);
         }
 
         [Fact]
         public void TentarEditarPersonagemComIdInvalido()
         {
-            var lista = GerarLista();
+            // Arrange
+            var idInvalido = 99999;
+            var personagem = new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
+            int idNovoPersonagem = personagemService.Criar(personagem);
+            var novoPersonagem = personagemService.ObterPorId(idNovoPersonagem);
+
+            // Act - Assert
+            novoPersonagem.Nome = "Testudo";
+            var resultado = Assert.Throws<Exception>(() => personagemService.Editar(idInvalido, novoPersonagem));
+            Assert.Equal("Personagem não encontrado.", resultado.Message);
         }
 
         [Fact]
         public void TentarEditarPersonagemComNomeCurto()
         {
             // Arrange
-            var personagemOriginal = new Personagem(null, "Testudo", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
+            var personagemOriginal = new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
             int idNovoPersonagem = personagemService.Criar(personagemOriginal);
             var novoPersonagem = personagemService.ObterPorId(idNovoPersonagem);
 
             // Act - Assert
             novoPersonagem.Nome = "T";
-            novoPersonagem.Vida = 10;
-            Assert.Throws<Exception>(() => personagemService.Editar(idNovoPersonagem, novoPersonagem));
+            var resultado = Assert.Throws<Exception>(() => personagemService.Editar(idNovoPersonagem, novoPersonagem));
+            Assert.Equal("O nome deve ter no mínimo 5 caracteres e no máximo 50.", resultado.Message);
+        }
+
+        [Fact]
+        public void TentarEditarPersonagemComNomeGrande()
+        {
+            // Arrange
+            var personagemOriginal = new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
+            int idNovoPersonagem = personagemService.Criar(personagemOriginal);
+            var novoPersonagem = personagemService.ObterPorId(idNovoPersonagem);
+
+            // Act - Assert
+            novoPersonagem.Nome = "Um nome qualquer que seja grande o suficiente para ser inutil";
+            var resultado = Assert.Throws<Exception>(() => personagemService.Editar(idNovoPersonagem, novoPersonagem));
+            Assert.Equal("O nome deve ter no mínimo 5 caracteres e no máximo 50.", resultado.Message);
+        }
+
+        [Fact]
+        public void TentarEditarPersonagemComVidaMenorQueZero()
+        {
+            // Arrange
+            var personagemOriginal = new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
+            int idNovoPersonagem = personagemService.Criar(personagemOriginal);
+            var novoPersonagem = personagemService.ObterPorId(idNovoPersonagem);
+
+            // Act - Assert
+            novoPersonagem.Vida = -1;
+            var resultado = Assert.Throws<Exception>(() => personagemService.Editar(idNovoPersonagem, novoPersonagem));
+            Assert.Equal("A vida deve estar entre 0 e 100.", resultado.Message);
+        }
+
+        [Fact]
+        public void TentarEditarPersonagemComVidaMaiorQueCem()
+        {
+            // Arrange
+            var personagemOriginal = new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
+            int idNovoPersonagem = personagemService.Criar(personagemOriginal);
+            var novoPersonagem = personagemService.ObterPorId(idNovoPersonagem);
+
+            // Act - Assert
+            novoPersonagem.Vida = 101;
+            var resultado = Assert.Throws<Exception>(() => personagemService.Editar(idNovoPersonagem, novoPersonagem));
+            Assert.Equal("A vida deve estar entre 0 e 100.", resultado.Message);
+        }
+
+        [Fact]
+        public void TentarEditarPersonagemComEnergiaMenorQueZero()
+        {
+            // Arrange
+            var personagemOriginal = new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
+            int idNovoPersonagem = personagemService.Criar(personagemOriginal);
+            var novoPersonagem = personagemService.ObterPorId(idNovoPersonagem);
+
+            // Act - Assert
+            novoPersonagem.Energia = -1;
+            var resultado = Assert.Throws<Exception>(() => personagemService.Editar(idNovoPersonagem, novoPersonagem));
+            Assert.Equal("A energia deve estar entre 0 e 50.", resultado.Message);
+        }
+
+        [Fact]
+        public void TentarEditarPersonagemComEnergiaMaiorQueCem()
+        {
+            // Arrange
+            var personagemOriginal = new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
+            int idNovoPersonagem = personagemService.Criar(personagemOriginal);
+            var novoPersonagem = personagemService.ObterPorId(idNovoPersonagem);
+
+            // Act - Assert
+            novoPersonagem.Energia = 51;
+            var resultado = Assert.Throws<Exception>(() => personagemService.Editar(idNovoPersonagem, novoPersonagem));
+            Assert.Equal("A energia deve estar entre 0 e 50.", resultado.Message);
+        }
+
+        [Fact]
+        public void TentarEditarPersonagemComVelocidadeMenorQueZero()
+        {
+            // Arrange
+            var personagemOriginal = new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
+            int idNovoPersonagem = personagemService.Criar(personagemOriginal);
+            var novoPersonagem = personagemService.ObterPorId(idNovoPersonagem);
+
+            // Act - Assert
+            novoPersonagem.Velocidade = -1;
+            var resultado = Assert.Throws<Exception>(() => personagemService.Editar(idNovoPersonagem, novoPersonagem));
+            Assert.Equal("A velocidade deve estar entre 0 e 2.", resultado.Message);
+        }
+
+        [Fact]
+        public void TentarEditarPersonagemComVelocidadeMaiorQueDois()
+        {
+            // Arrange
+            var personagemOriginal = new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
+            int idNovoPersonagem = personagemService.Criar(personagemOriginal);
+            var novoPersonagem = personagemService.ObterPorId(idNovoPersonagem);
+
+            // Act - Assert
+            novoPersonagem.Velocidade = 2.1;
+            var resultado = Assert.Throws<Exception>(() => personagemService.Editar(idNovoPersonagem, novoPersonagem));
+            Assert.Equal("A velocidade deve estar entre 0 e 2.", resultado.Message);
+        }
+
+        [Fact]
+        public void TentarEditarPersonagemComForcaInvalida()
+        {
+            // Arrange
+            var personagemOriginal = new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
+            int idNovoPersonagem = personagemService.Criar(personagemOriginal);
+            var novoPersonagem = personagemService.ObterPorId(idNovoPersonagem);
+
+            // Act - Assert
+            novoPersonagem.Forca = (CategoriasEnum)99999;
+            var resultado = Assert.Throws<Exception>(() => personagemService.Editar(idNovoPersonagem, novoPersonagem));
+            Assert.Equal("A força deve ser um valor válido de CategoriasEnum.", resultado.Message);
+        }
+
+        [Fact]
+        public void TentarEditarPersonagemComInteligenciaInvalida()
+        {
+            // Arrange
+            var personagemOriginal = new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
+            int idNovoPersonagem = personagemService.Criar(personagemOriginal);
+            var novoPersonagem = personagemService.ObterPorId(idNovoPersonagem);
+
+            // Act - Assert
+            novoPersonagem.Inteligencia = (CategoriasEnum)99999;;
+            var resultado = Assert.Throws<Exception>(() => personagemService.Editar(idNovoPersonagem, novoPersonagem));
+            Assert.Equal("A inteligência deve ser um valor válido de CategoriasEnum.", resultado.Message);
         }
     }
 }
