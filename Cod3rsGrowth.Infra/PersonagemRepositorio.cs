@@ -1,4 +1,3 @@
-using CodersGrowth.Domain.Enums;
 using CodersGrowth.Domain.Entities;
 
 namespace Cod3rsGrowth.Infra
@@ -29,15 +28,15 @@ namespace Cod3rsGrowth.Infra
 
         public Personagem ObterPorId(int id)
         {
-            return personagens.Find(personagem => personagem.Id == id) ?? throw new Exception("Personagem não encontrado");
+            return personagens.Find(personagem => personagem.Id == id) ?? throw new Exception("Personagem não encontrado.");
         }
 
         public int Criar(Personagem personagem)
         {
-            personagem.Id = personagens.Any() ? personagens.Max(p => p.Id) + 1 : 1;
+            personagem.Id = personagens.Any() ? personagens.Max(personagem => personagem.Id) + 1 : 1;
             personagens.Add(personagem);
 
-            return personagem.Id ?? 0;
+            return personagem.Id ?? throw new Exception("Erro ao criar id do personagem.");
         }
 
         public void Editar(int id, Personagem personagemAtualizado)

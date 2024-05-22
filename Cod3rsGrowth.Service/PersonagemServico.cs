@@ -23,13 +23,13 @@ namespace Cod3rsGrowth.Service
 
         public Personagem ObterPorId(int id)
         {
-            return personagemRepositorio.ObterPorId(id) ?? throw new Exception("Personagem não encontrado");
+            return personagemRepositorio.ObterPorId(id);
         }
 
         public int Criar(Personagem personagem)
         {
             ValidationResult resultado = personagemValidador.Validate(personagem);
-            if (!resultado.IsValid) throw new Exception("Falha na validação do personagem");
+            if (!resultado.IsValid) throw new Exception(resultado.Errors.First().ErrorMessage);
 
             int IdNovoPersonagem = personagemRepositorio.Criar(personagem);
             
@@ -39,7 +39,7 @@ namespace Cod3rsGrowth.Service
         public void Editar(int id, Personagem personagemAtualizado)
         {
             ValidationResult resultado = personagemValidador.Validate(personagemAtualizado);
-            if (!resultado.IsValid) throw new Exception("Falha na validação do personagem");
+            if (!resultado.IsValid) throw new Exception(resultado.Errors.First().ErrorMessage);
 
             var personagemExistente = personagemRepositorio.ObterPorId(id);
             if (personagemExistente == null) throw new Exception("Personagem não encontrado");
