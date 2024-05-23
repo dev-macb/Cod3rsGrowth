@@ -8,11 +8,11 @@ namespace Cod3rsGrowth.Tests.Tests
 {
     public class TesteServicoRemoverPersonagem : TesteBase
     {
-        private readonly IPersonagemServico personagemService;
+        private readonly IPersonagemServico _personagemService;
 
         public TesteServicoRemoverPersonagem() : base()
         {
-            personagemService = ServiceProvider.GetRequiredService<IPersonagemServico>();
+            _personagemService = ServiceProvider.GetRequiredService<IPersonagemServico>();
         }
 
         [Fact]
@@ -20,15 +20,15 @@ namespace Cod3rsGrowth.Tests.Tests
         {
             // Arrange
             int listaVazia = 0;
-            int idNovoPersonagem = personagemService.Criar(new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio));
+            int idNovoPersonagem = _personagemService.Criar(new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio));
 
             // Act
-            personagemService.Remover(idNovoPersonagem);
+            _personagemService.Remover(idNovoPersonagem);
 
             // Assert
-            var quantidadePersonagens = personagemService.ObterTodos().Count;
+            var quantidadePersonagens = _personagemService.ObterTodos().Count;
             Assert.Equal(listaVazia, quantidadePersonagens);
-            var resultado = Assert.Throws<Exception>(() => personagemService.ObterPorId(idNovoPersonagem));
+            var resultado = Assert.Throws<Exception>(() => _personagemService.ObterPorId(idNovoPersonagem));
             Assert.Equal("Personagem não encontrado.", resultado.Message);
         }
 
@@ -38,16 +38,16 @@ namespace Cod3rsGrowth.Tests.Tests
             // Arrange
             int listaComUm = 1;
             int idInvalido = 99999;
-            int idNovoPersonagem = personagemService.Criar(new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio));
+            int idNovoPersonagem = _personagemService.Criar(new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio));
 
             // Act
-            var resultado = Assert.Throws<Exception>(() => personagemService.Remover(idInvalido));
+            var resultado = Assert.Throws<Exception>(() => _personagemService.Remover(idInvalido));
 
             // Assert
             Assert.Equal("Personagem não encontrado.", resultado.Message);
-            var quantidadePersonagens = personagemService.ObterTodos().Count;
+            var quantidadePersonagens = _personagemService.ObterTodos().Count;
             Assert.Equal(listaComUm, quantidadePersonagens);
-            var novoPersonagem = personagemService.ObterPorId(idNovoPersonagem);
+            var novoPersonagem = _personagemService.ObterPorId(idNovoPersonagem);
             Assert.IsType<Personagem>(novoPersonagem);
         }
     }

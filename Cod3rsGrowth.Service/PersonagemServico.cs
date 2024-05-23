@@ -7,48 +7,48 @@ namespace Cod3rsGrowth.Service
 {
     public class PersonagemServico : IPersonagemServico
     {
-        private readonly PersonagemValidador personagemValidador;
-        private readonly IPersonagemRepositorio personagemRepositorio;
+        private readonly PersonagemValidador _personagemValidador;
+        private readonly IPersonagemRepositorio _personagemRepositorio;
 
         public PersonagemServico(IPersonagemRepositorio repositorioMock, PersonagemValidador validador)
         {
-            personagemValidador = validador;
-            personagemRepositorio = repositorioMock;
+            _personagemValidador = validador;
+            _personagemRepositorio = repositorioMock;
         }
 
         public List<Personagem> ObterTodos()
         {
-            return personagemRepositorio.ObterTodos();
+            return _personagemRepositorio.ObterTodos();
         }
 
         public Personagem ObterPorId(int id)
         {
-            return personagemRepositorio.ObterPorId(id);
+            return _personagemRepositorio.ObterPorId(id);
         }
 
         public int Criar(Personagem personagem)
         {
-            ValidationResult resultado = personagemValidador.Validate(personagem);
+            ValidationResult resultado = _personagemValidador.Validate(personagem);
             if (!resultado.IsValid) throw new Exception(resultado.Errors.First().ErrorMessage);
 
-            int IdNovoPersonagem = personagemRepositorio.Criar(personagem);
+            int IdNovoPersonagem = _personagemRepositorio.Criar(personagem);
             
             return IdNovoPersonagem;
         }
 
         public void Editar(int id, Personagem personagemAtualizado)
         {
-            ValidationResult resultado = personagemValidador.Validate(personagemAtualizado);
+            ValidationResult resultado = _personagemValidador.Validate(personagemAtualizado);
             if (!resultado.IsValid) throw new Exception(resultado.Errors.First().ErrorMessage);
 
-            personagemRepositorio.ObterPorId(id);
+            _personagemRepositorio.ObterPorId(id);
 
-            personagemRepositorio.Editar(id, personagemAtualizado);
+            _personagemRepositorio.Editar(id, personagemAtualizado);
         }
 
         public void Remover(int id)
         {
-            personagemRepositorio.Remover(id);
+            _personagemRepositorio.Remover(id);
         }
     }
 }
