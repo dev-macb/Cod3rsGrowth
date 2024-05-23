@@ -6,29 +6,29 @@ namespace Cod3rsGrowth.Tests.Tests
 {
     public class TesteServicoObterTodosHabilidade : TesteBase
     {
-        private readonly IHabilidadeServico habilidadeService;
+        private readonly IHabilidadeServico _habilidadeService;
 
         public TesteServicoObterTodosHabilidade() : base()
         {
-            habilidadeService = ServiceProvider.GetRequiredService<IHabilidadeServico>();
+            _habilidadeService = ServiceProvider.GetRequiredService<IHabilidadeServico>();
         }
 
         [Fact]
         public void ObterTodasHabilidadesComListaVazia()
         {
             // Act
-            var habilidades = new List<Habilidade>(); // habilidadeService.ObterTodos();
+            var habilidades = new List<Habilidade>(); // _habilidadeService.ObterTodos();
 
             // Assert
             Assert.Empty(habilidades);
         }
 
         [Fact]
-        public void ObterTodasHabilidadesComTresInclusoes()
+        public void ObtemListaCompletaAoObterTodasAoHabilidades()
         {
             // Act
             var quantidadeHabilidades = 3;
-            var habilidades = habilidadeService.ObterTodos();
+            var habilidades = _habilidadeService.ObterTodos();
 
             // Assert
             Assert.Equal(quantidadeHabilidades, habilidades.Count);

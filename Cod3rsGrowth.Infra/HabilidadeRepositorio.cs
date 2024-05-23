@@ -4,11 +4,11 @@ namespace Cod3rsGrowth.Infra
 {
     public class HabilidadeRepositorio : IHabilidadeRepositorio
     {
-        private readonly List<Habilidade> personagens;
+        private readonly List<Habilidade> _habilidades;
 
         public HabilidadeRepositorio()
         {
-            personagens = new List<Habilidade>()
+            _habilidades = new List<Habilidade>()
             {
                 new(1, "Talento", "Descrevem todas as Habilidades intuitivas. Não precisam ser praticados per se e não podem ser estudados ou aprendidos em livros. Costumam ser adquiridos através da experiência direta."),
                 new(2, "Perícia", "são habilidades adquiridas através de rigoroso treinamento. Esta categoria inclui qualquer Habilidade que deve ser aprendida passo-a-passo através da prática, mas que pode ser ensinada e aprendida"),
@@ -18,7 +18,7 @@ namespace Cod3rsGrowth.Infra
 
         public List<Habilidade> ObterTodos()
         {
-            return personagens;
+            return _habilidades;
         }
     }
 }

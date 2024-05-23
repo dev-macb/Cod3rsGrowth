@@ -7,11 +7,11 @@ namespace Cod3rsGrowth.Tests.Tests
 {
     public class TesteServicoObterPorIdPersonagem : TesteBase
     {
-        private readonly IPersonagemServico personagemService;
+        private readonly IPersonagemServico _personagemService;
 
         public TesteServicoObterPorIdPersonagem() : base()
         {
-            personagemService = ServiceProvider.GetRequiredService<IPersonagemServico>();
+            _personagemService = ServiceProvider.GetRequiredService<IPersonagemServico>();
         }
 
         [Fact]
@@ -19,10 +19,10 @@ namespace Cod3rsGrowth.Tests.Tests
         {
             // Arrange
             var novoPersonagem = new Personagem(null, "Ryu", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
-            var idNovoPersonagem = personagemService.Criar(novoPersonagem);
+            var idNovoPersonagem = _personagemService.Criar(novoPersonagem);
 
             // Act
-            var personagemEncontrado = personagemService.ObterPorId(idNovoPersonagem);
+            var personagemEncontrado = _personagemService.ObterPorId(idNovoPersonagem);
 
             // Assert
             Assert.Equivalent(novoPersonagem, personagemEncontrado);
@@ -34,10 +34,10 @@ namespace Cod3rsGrowth.Tests.Tests
             // Arrange
             var idInvalido = 99999;
             var novoPersonagem = new Personagem(null, "Ryu", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
-            var idNovoPersonagem = personagemService.Criar(novoPersonagem);
+            var idNovoPersonagem = _personagemService.Criar(novoPersonagem);
 
             // Act - Assert
-            var resultado = Assert.Throws<Exception>(() => personagemService.ObterPorId(idInvalido));
+            var resultado = Assert.Throws<Exception>(() => _personagemService.ObterPorId(idInvalido));
             Assert.Equal("Personagem não encontrado.", resultado.Message);
         }
     }
