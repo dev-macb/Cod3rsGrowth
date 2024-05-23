@@ -1,7 +1,7 @@
 using FluentValidation;
-using CodersGrowth.Domain.Entities;
+using Cod3rsGrowth.Domain.Entities;
 
-namespace CodersGrowth.Domain.Validators
+namespace Cod3rsGrowth.Domain.Validators
 {
     public class PersonagemValidador : AbstractValidator<Personagem>
     {

@@ -1,6 +1,6 @@
 using Cod3rsGrowth.Service;
-using CodersGrowth.Domain.Enums;
-using CodersGrowth.Domain.Entities;
+using Cod3rsGrowth.Domain.Enums;
+using Cod3rsGrowth.Domain.Entities;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cod3rsGrowth.Tests.Tests

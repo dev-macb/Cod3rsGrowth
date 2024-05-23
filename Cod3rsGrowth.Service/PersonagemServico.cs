@@ -1,7 +1,7 @@
 using Cod3rsGrowth.Infra;
 using FluentValidation.Results;
-using CodersGrowth.Domain.Entities;
-using CodersGrowth.Domain.Validators;
+using Cod3rsGrowth.Domain.Entities;
+using Cod3rsGrowth.Domain.Validators;
 
 namespace Cod3rsGrowth.Service
 {

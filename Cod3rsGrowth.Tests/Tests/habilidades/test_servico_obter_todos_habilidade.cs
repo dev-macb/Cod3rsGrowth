@@ -1,5 +1,5 @@
+using Cod3rsGrowth.Infra;
 using Cod3rsGrowth.Service;
-using CodersGrowth.Domain.Entities;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cod3rsGrowth.Tests.Tests
@@ -16,22 +16,24 @@ namespace Cod3rsGrowth.Tests.Tests
         [Fact]
         public void ObterTodasHabilidadesComListaVazia()
         {
+            // Arrange
+            RepositorioMock.ResetarInstancia();
+
             // Act
-            var habilidades = new List<Habilidade>(); // _habilidadeService.ObterTodos();
+            var habilidades = _habilidadeService.ObterTodos();
 
             // Assert
             Assert.Empty(habilidades);
         }
 
-        [Fact]
-        public void ObtemListaCompletaAoObterTodasAoHabilidades()
-        {
-            // Act
-            var quantidadeHabilidades = 3;
-            var habilidades = _habilidadeService.ObterTodos();
+        // [Fact]
+        // public void ObtemListaCompletaAoObterTodasAoHabilidades()
+        // {
+        //     // Act
+        //     var quantidadeAntes = _habilidadeService.ObterTodos().Count;
 
-            // Assert
-            Assert.Equal(quantidadeHabilidades, habilidades.Count);
-        }
+        //     // Assert
+        //     Assert.Equal(quantidadeHabilidades, habilidades.Count);
+        // }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace CodersGrowth.Domain.Entities
+﻿namespace Cod3rsGrowth.Domain.Entities
 {
     public class Habilidade
     {

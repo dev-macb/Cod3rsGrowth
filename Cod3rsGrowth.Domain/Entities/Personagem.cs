@@ -1,6 +1,6 @@
-﻿using CodersGrowth.Domain.Enums;
+﻿using Cod3rsGrowth.Domain.Enums;
 
-namespace CodersGrowth.Domain.Entities
+namespace Cod3rsGrowth.Domain.Entities
 {
     public class Personagem
     {
