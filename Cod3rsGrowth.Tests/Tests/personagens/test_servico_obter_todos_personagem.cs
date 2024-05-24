@@ -16,7 +16,7 @@ namespace Cod3rsGrowth.Tests.Tests
         }
 
         [Fact]
-        public void ObterTodosPersonagensComListaVazia()
+        public void ObterTodosPersonagensRetornaLista()
         {
             // Act
             var personagens = _personagemService.ObterTodos();

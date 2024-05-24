@@ -19,15 +19,14 @@ namespace Cod3rsGrowth.Tests.Tests
         public void RemoverPersonagemComExito()
         {
             // Arrange
-            int quantidadeAntes = _personagemService.ObterTodos().Count;
-            int idNovoPersonagem = _personagemService.Criar(new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio));
+            int idNovoPersonagem = _personagemService.Criar(new Personagem(null, "Teste", 100, 50, 1.0, CategoriasEnum.Bom, CategoriasEnum.Medio));
             
             // Act
             _personagemService.Remover(idNovoPersonagem);
-            int quantidadeApos = _personagemService.ObterTodos().Count;
 
             // Assert
-            Assert.Equal(quantidadeAntes, quantidadeApos);
+            var excecao = Assert.Throws<Exception>(() => _personagemService.ObterPorId(idNovoPersonagem));
+            Assert.Equal("Personagem não encontrado.", excecao.Message);
         }
 
         [Fact]
