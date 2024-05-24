@@ -29,7 +29,11 @@ namespace Cod3rsGrowth.Service
         public int Criar(Personagem personagem)
         {
             ValidationResult resultado = _personagemValidador.Validate(personagem);
-            if (!resultado.IsValid) throw new Exception(resultado.Errors.First().ErrorMessage);
+            if (!resultado.IsValid) 
+            {
+                string todosErros = string.Join(" ", resultado.Errors.Select(erro => erro.ErrorMessage));
+                throw new Exception(todosErros);
+            }
 
             int IdNovoPersonagem = _personagemRepositorio.Criar(personagem);
             
@@ -39,8 +43,11 @@ namespace Cod3rsGrowth.Service
         public void Editar(int id, Personagem personagemAtualizado)
         {
             ValidationResult resultado = _personagemValidador.Validate(personagemAtualizado);
-            if (!resultado.IsValid) throw new Exception(resultado.Errors.First().ErrorMessage);
-
+            if (!resultado.IsValid)
+            {
+                string todosErros = string.Join(" ", resultado.Errors.Select(erro => erro.ErrorMessage));
+                throw new Exception(todosErros);
+            }
             _personagemRepositorio.ObterPorId(id);
 
             _personagemRepositorio.Editar(id, personagemAtualizado);
