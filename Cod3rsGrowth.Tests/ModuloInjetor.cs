@@ -1,4 +1,3 @@
-
 using Cod3rsGrowth.Infra;
 using Cod3rsGrowth.Service;
 using Cod3rsGrowth.Domain.Validators;
@@ -12,6 +11,7 @@ namespace Cod3rsGrowth.Tests
         {
             // Validadores
             servicos.AddScoped<PersonagemValidador>();
+            servicos.AddScoped<HabilidadeValidador>();
             
             // Serviços
             servicos.AddScoped<IPersonagemServico, PersonagemServico>();

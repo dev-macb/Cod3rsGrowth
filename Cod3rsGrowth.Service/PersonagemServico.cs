@@ -28,16 +28,17 @@ namespace Cod3rsGrowth.Service
 
         public int Criar(Personagem personagem)
         {
+            const string separador = " "; 
             ValidationResult resultado = _personagemValidador.Validate(personagem);
             if (!resultado.IsValid) 
             {
-                string todosErros = string.Join(" ", resultado.Errors.Select(erro => erro.ErrorMessage));
+                string todosErros = string.Join(separador, resultado.Errors.Select(erro => erro.ErrorMessage));
                 throw new Exception(todosErros);
             }
 
-            int IdNovoPersonagem = _personagemRepositorio.Criar(personagem);
+            int idNovoPersonagem = _personagemRepositorio.Criar(personagem);
             
-            return IdNovoPersonagem;
+            return idNovoPersonagem;
         }
 
         public void Editar(int id, Personagem personagemAtualizado)

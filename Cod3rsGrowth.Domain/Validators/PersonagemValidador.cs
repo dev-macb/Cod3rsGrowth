@@ -12,7 +12,7 @@ namespace Cod3rsGrowth.Domain.Validators
 
             RuleFor(personagem => personagem.Nome)
                 .NotEmpty().WithMessage("O nome é obrigatório.")
-                .Length(3, 50).WithMessage("O nome deve ter no mínimo 5 caracteres e no máximo 50.");
+                .Length(3, 50).WithMessage("O nome deve ter no mínimo 3 caracteres e no máximo 50.");
 
             RuleFor(personagem => personagem.Vida)
                 .InclusiveBetween(0, 100).WithMessage("A vida deve estar entre 0 e 100.");

@@ -39,7 +39,7 @@ namespace Cod3rsGrowth.Tests.Tests
 
             // Act - Assert
             var excecao = Assert.Throws<Exception>(() => _personagemService.Criar(personagemInvalido));
-            Assert.Equal("O nome deve ter no mínimo 5 caracteres e no máximo 50.", excecao.Message);
+            Assert.Equal("O nome deve ter no mínimo 3 caracteres e no máximo 50.", excecao.Message);
         }
 
         [Fact]
@@ -51,7 +51,7 @@ namespace Cod3rsGrowth.Tests.Tests
 
             // Act - Assert
             var excecao = Assert.Throws<Exception>(() => _personagemService.Criar(personagemInvalido));
-            Assert.Equal("O nome deve ter no mínimo 5 caracteres e no máximo 50.", excecao.Message);
+            Assert.Equal("O nome deve ter no mínimo 3 caracteres e no máximo 50.", excecao.Message);
         }
 
         [Fact]
@@ -169,7 +169,7 @@ namespace Cod3rsGrowth.Tests.Tests
                 (CategoriasEnum)forcaInvalida, 
                 (CategoriasEnum)inteligenciaInvalida
             );
-            string mensagemEsperada = "O nome deve ter no mínimo 5 caracteres e no máximo 50. " +
+            string mensagemEsperada = "O nome deve ter no mínimo 3 caracteres e no máximo 50. " +
                 "A vida deve estar entre 0 e 100. " +
                 "A energia deve estar entre 0 e 50. " +
                 "A velocidade deve estar entre 0 e 2. " +

@@ -15,5 +15,13 @@ namespace Cod3rsGrowth.Infra
         {
             return _habilidades.Find(habilidade => habilidade.Id == id) ?? throw new Exception("Habilidade não encontrada.");
         }
+
+        public int Criar(Habilidade habilidade)
+        {
+            habilidade.Id = _habilidades.Any() ? _habilidades.Max(habilidade => habilidade.Id) + 1 : 1;
+            _habilidades.Add(habilidade);
+
+            return habilidade.Id ?? throw new Exception("Erro ao criar id da habilidade.");
+        }
     }
 }
