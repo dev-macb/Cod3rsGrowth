@@ -1,11 +1,11 @@
-﻿using CodersGrowth.Domain.Enum;
+﻿using Cod3rsGrowth.Domain.Enums;
 
-namespace CodersGrowth.Domain.Entities
+namespace Cod3rsGrowth.Domain.Entities
 {
     public class Personagem
     {
-        public int Id { get; }
-        public string Nome { get; }
+        public int? Id { get; set; }
+        public string Nome { get; set; }
         public int Vida { get; set; }
         public int Energia { get; set; }
         public double Velocidade { get; set; }
@@ -16,7 +16,7 @@ namespace CodersGrowth.Domain.Entities
         public DateTime? CriadoEm { get; set; }
         public DateTime? AtualizadoEm { get; set; }
 
-        public Personagem(int id, string nome, int vida, int energia, double velocidade, CategoriasEnum forca, CategoriasEnum inteligencia)
+        public Personagem(int? id, string nome, int vida, int energia, double velocidade, CategoriasEnum forca, CategoriasEnum inteligencia)
         {
             Id = id;
             Nome = nome;

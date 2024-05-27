@@ -1,4 +1,4 @@
-namespace CodersGrowth.Domain.Enum
+namespace Cod3rsGrowth.Domain.Enums
 {
     public enum CategoriasEnum 
     {

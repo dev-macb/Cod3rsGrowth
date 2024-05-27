@@ -1,4 +1,3 @@
-using Cod3rsGrowth.Domain;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cod3rsGrowth.Tests
@@ -10,7 +9,9 @@ namespace Cod3rsGrowth.Tests
         protected TesteBase()
         {
             var serviceCollection = new ServiceCollection();
+            
             ModuloInjetor.RegistrarServicos(serviceCollection);
+
             ServiceProvider = serviceCollection.BuildServiceProvider();
         }
 
