@@ -16,7 +16,7 @@ namespace Cod3rsGrowth.Tests.Tests
         }
 
         [Fact]
-        public void ObterHabilidadePorIdComExito()
+        public void ObtemHabilidadePorIdComExito()
         {
             // Arrange
             Habilidade novaHabilidade = new Habilidade(10, "Teste", "Uma descrição qualquer");
@@ -30,7 +30,7 @@ namespace Cod3rsGrowth.Tests.Tests
         }
 
         [Fact]
-        public void TentaObterHabilidadeComIdInvalido()
+        public void DeveLancarExcecaoAoBuscarPorIdComIdInvalido()
         {
             // Arrange
             var idInvalido = 99999;

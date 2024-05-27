@@ -9,7 +9,6 @@ namespace Cod3rsGrowth.Tests.Tests
     public class TesteServicoObterPorIdPersonagem : TesteBase
     {
         private readonly IPersonagemServico _personagemService;
-        private readonly List<Personagem> _personagens = RepositorioMock.ObterInstancia.Personagens;
 
         public TesteServicoObterPorIdPersonagem() : base()
         {
@@ -20,19 +19,18 @@ namespace Cod3rsGrowth.Tests.Tests
         public void ObterPersonagemPorIdComExito()
         {
             // Arrange
-            int idTeste = 10;
-            Personagem novoPersonagem = new (idTeste, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
-            _personagens.Add(novoPersonagem);
+            Personagem novoPersonagem = new (null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
+            int idNovoPersonagem = _personagemService.Criar(novoPersonagem);
 
             // Act
-            var personagemEncontrado = _personagemService.ObterPorId(idTeste);
+            var personagemEncontrado = _personagemService.ObterPorId(idNovoPersonagem);
 
             // Assert
             Assert.Equivalent(novoPersonagem, personagemEncontrado);
         }
 
         [Fact]
-        public void TentaObterPersonagemComIdInvalido()
+        public void DeveLancarExcecaoAoObterPorIdComIdInvalido()
         {
             // Arrange
             var idInvalido = 99999;
