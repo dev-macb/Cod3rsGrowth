@@ -42,10 +42,11 @@ namespace Cod3rsGrowth.Service
 
         public void Editar(int id, Personagem personagemAtualizado)
         {
+            const string separador = " "; 
             ValidationResult resultado = _personagemValidador.Validate(personagemAtualizado);
             if (!resultado.IsValid)
             {
-                string todosErros = string.Join(" ", resultado.Errors.Select(erro => erro.ErrorMessage));
+                string todosErros = string.Join(separador, resultado.Errors.Select(erro => erro.ErrorMessage));
                 throw new Exception(todosErros);
             }
             _personagemRepositorio.ObterPorId(id);

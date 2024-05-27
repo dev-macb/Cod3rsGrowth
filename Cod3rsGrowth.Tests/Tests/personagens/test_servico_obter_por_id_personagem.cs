@@ -20,11 +20,12 @@ namespace Cod3rsGrowth.Tests.Tests
         public void ObterPersonagemPorIdComExito()
         {
             // Arrange
-            Personagem novoPersonagem = new (10, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
+            int idTeste = 10;
+            Personagem novoPersonagem = new (idTeste, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
             _personagens.Add(novoPersonagem);
 
             // Act
-            var personagemEncontrado = _personagemService.ObterPorId(10);
+            var personagemEncontrado = _personagemService.ObterPorId(idTeste);
 
             // Assert
             Assert.Equivalent(novoPersonagem, personagemEncontrado);
