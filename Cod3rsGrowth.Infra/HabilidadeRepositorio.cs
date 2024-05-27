@@ -31,5 +31,12 @@ namespace Cod3rsGrowth.Infra
             habilidadeExistente.Descricao = habilidadeAtualizada.Descricao;
             habilidadeExistente.AtualizadoEm = DateTime.Now;
         }
+
+        public void Remover(int id)
+        {
+            var habilidadeExistente = _habilidades.Find(habilidade => habilidade.Id == id) ?? throw new Exception("Habilidade não encontrada.");
+            
+            _habilidades.Remove(habilidadeExistente);
+        }
     }
 }

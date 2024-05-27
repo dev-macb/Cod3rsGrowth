@@ -53,5 +53,10 @@ namespace Cod3rsGrowth.Service
 
             _habilidadeRepositorio.Editar(id, habilidadeAtualizada);
         }
+
+        public void Remover(int id)
+        {
+            _habilidadeRepositorio.Remover(id);
+        }
     }
 }

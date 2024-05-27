@@ -40,10 +40,9 @@ namespace Cod3rsGrowth.Infra
 
         public void Remover(int id)
         {
-            var personagemExistente = _personagens.Find(personagem => personagem.Id == id);
+            var personagemExistente = _personagens.Find(personagem => personagem.Id == id) ?? throw new Exception("Personagem não encontrado.");
             
-            if (personagemExistente == null) throw new Exception("Personagem não encontrado.");
-            else _personagens.Remove(personagemExistente);
+            _personagens.Remove(personagemExistente);
         }
     }
 }

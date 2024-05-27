@@ -8,5 +8,6 @@ namespace Cod3rsGrowth.Service
         public Habilidade ObterPorId(int id);
         public int Criar(Habilidade habilidade);
         public void Editar(int id, Habilidade habilidade);
+        public void Remover(int id);
     }
 }
