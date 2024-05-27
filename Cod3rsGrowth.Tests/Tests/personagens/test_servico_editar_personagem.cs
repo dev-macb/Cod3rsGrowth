@@ -37,7 +37,7 @@ namespace Cod3rsGrowth.Tests.Tests
         }
 
         [Fact]
-        public void TentarEditarPersonagemComIdInvalido()
+        public void DeveLancarExcecaoAoEditarComIdInvalido()
         {
             // Arrange
             var idInvalido = 99999;
@@ -52,7 +52,7 @@ namespace Cod3rsGrowth.Tests.Tests
         }
 
         [Fact]
-        public void TentarEditarPersonagemComNomeCurto()
+        public void DeveLancarExcecaoAoEditarComNomeCurto()
         {
             // Arrange
             var personagemOriginal = new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
@@ -66,7 +66,7 @@ namespace Cod3rsGrowth.Tests.Tests
         }
 
         [Fact]
-        public void TentarEditarPersonagemComNomeGrande()
+        public void DeveLancarExcecaoAoEditarComNomeGrande()
         {
             // Arrange
             var personagemOriginal = new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
@@ -80,7 +80,7 @@ namespace Cod3rsGrowth.Tests.Tests
         }
 
         [Fact]
-        public void TentarEditarPersonagemComVidaMenorQueZero()
+        public void DeveLancarExcecaoAoEditarComVidaMenorQueZero()
         {
             // Arrange
             var personagemOriginal = new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
@@ -94,7 +94,7 @@ namespace Cod3rsGrowth.Tests.Tests
         }
 
         [Fact]
-        public void TentarEditarPersonagemComVidaMaiorQueCem()
+        public void DeveLancarExcecaoAoEditarComVidaMaiorQueCem()
         {
             // Arrange
             var personagemOriginal = new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
@@ -108,7 +108,7 @@ namespace Cod3rsGrowth.Tests.Tests
         }
 
         [Fact]
-        public void TentarEditarPersonagemComEnergiaMenorQueZero()
+        public void DeveLancarExcecaoAoEditarComEnergiaMenorQueZero()
         {
             // Arrange
             var personagemOriginal = new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
@@ -122,7 +122,7 @@ namespace Cod3rsGrowth.Tests.Tests
         }
 
         [Fact]
-        public void TentarEditarPersonagemComEnergiaMaiorQueCem()
+        public void DeveLancarExcecaoAoEditarComEnergiaMaiorQueCinquenta()
         {
             // Arrange
             var personagemOriginal = new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
@@ -136,7 +136,7 @@ namespace Cod3rsGrowth.Tests.Tests
         }
 
         [Fact]
-        public void TentarEditarPersonagemComVelocidadeMenorQueZero()
+        public void DeveLancarExcecaoAoEditarComVelocidadeMenorQueZero()
         {
             // Arrange
             var personagemOriginal = new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
@@ -150,7 +150,7 @@ namespace Cod3rsGrowth.Tests.Tests
         }
 
         [Fact]
-        public void TentarEditarPersonagemComVelocidadeMaiorQueDois()
+        public void DeveLancarExcecaoAoEditarComVelocidadeMaiorQueDois()
         {
             // Arrange
             var personagemOriginal = new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
@@ -164,7 +164,7 @@ namespace Cod3rsGrowth.Tests.Tests
         }
 
         [Fact]
-        public void TentarEditarPersonagemComForcaInvalida()
+        public void DeveLancarExcecaoAoCriarComForcaInvalida()
         {
             // Arrange
             var personagemOriginal = new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
@@ -178,7 +178,7 @@ namespace Cod3rsGrowth.Tests.Tests
         }
 
         [Fact]
-        public void TentarEditarPersonagemComInteligenciaInvalida()
+        public void DeveLancarExcecaoAoCriarComInteligenciaInvalida()
         {
             // Arrange
             var personagemOriginal = new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);

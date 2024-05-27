@@ -30,7 +30,7 @@ namespace Cod3rsGrowth.Tests.Tests
         }
 
         [Fact]
-        public void RemoverPersonagemComIdInvalido()
+        public void DeveLancarExcecaoAoRemoverComIdInvalido()
         {
             // Arrange
             int idInvalido = 99999;

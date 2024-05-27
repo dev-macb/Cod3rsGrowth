@@ -30,7 +30,7 @@ namespace Cod3rsGrowth.Tests.Tests
         }
 
         [Fact]
-        public void TentaCriarHabilidadeComNomeCurto()
+        public void DeveLancarExcecaoAoCriarComNomeCurto()
         {
             // Arrange
             string nomeCurto = "T";
@@ -42,7 +42,7 @@ namespace Cod3rsGrowth.Tests.Tests
         }
 
         [Fact]
-        public void TentaCriarHabilidadeComNomeGrande()
+        public void DeveLancarExcecaoAoCriarComNomeGrande()
         {
             // Arrange
             string nomeGrande = "Teste Teste Teste Teste Teste Teste Teste Teste Tes";
@@ -54,7 +54,7 @@ namespace Cod3rsGrowth.Tests.Tests
         }
 
         [Fact]
-        public void TentaCriarHabilidadeComDescricaoGrande()
+        public void DeveLancarExcecaoAoCriarComDescricaoGrande()
         {
             // Arrange
             string descricaoGrande = "Teste Teste Teste Teste Teste Teste Teste Teste Teste " +

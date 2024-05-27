@@ -30,7 +30,7 @@ namespace Cod3rsGrowth.Tests.Tests
         }
 
         [Fact]
-        public void TentaObterPersonagemComIdInvalido()
+        public void DeveLancarExcecaoAoObterPorIdComIdInvalido()
         {
             // Arrange
             var idInvalido = 99999;

@@ -31,7 +31,7 @@ namespace Cod3rsGrowth.Tests.Tests
         }
 
         [Fact]
-        public void TentaCriarNovoPersonagemComNomeCurto()
+        public void DeveLancarExcecaoAoCriarComNomeCurto()
         {
             // Arrange
             string nomeCurto = "Te";
@@ -43,7 +43,7 @@ namespace Cod3rsGrowth.Tests.Tests
         }
 
         [Fact]
-        public void TentaCriarNovoPersonagemComNomeGrande()
+        public void DeveLancarExcecaoAoCriarComNomeGrande()
         {
             // Arrange
             string nomeGrande = "Um nome qualquer que seja grande o suficiente para ser inutil";
@@ -55,7 +55,7 @@ namespace Cod3rsGrowth.Tests.Tests
         }
 
         [Fact]
-        public void TentaCriarNovoPersonagemComVidaMenorQueZero()
+        public void DeveLancarExcecaoAoCriarComVidaMenorQueZero()
         {
             // Arrange
             int vidaNegativa = -1;
@@ -67,7 +67,7 @@ namespace Cod3rsGrowth.Tests.Tests
         }
 
         [Fact]
-        public void TentaCriarNovoPersonagemComVidaMaiorQueCem()
+        public void DeveLancarExcecaoAoCriarComVidaMaiorQueCem()
         {
             // Arrange
             int vidaMaiorQueCem = 101;
@@ -79,7 +79,7 @@ namespace Cod3rsGrowth.Tests.Tests
         }
 
         [Fact]
-        public void TentaCriarNovoPersonagemComEnergiaMenorQueZero()
+        public void DeveLancarExcecaoAoCriarComEnergiaMenorQueZero()
         {
             // Arrange
             int EnergiaMenorQueZero = -1;
@@ -91,7 +91,7 @@ namespace Cod3rsGrowth.Tests.Tests
         }
 
         [Fact]
-        public void TentaCriarNovoPersonagemComEnergiaMaiorQueCinquenta()
+        public void DeveLancarExcecaoAoCriarComEnergiaMaiorQueCinquenta()
         {
             // Arrange
             int energiaMaiorQueCinquenta = 51;
@@ -103,7 +103,7 @@ namespace Cod3rsGrowth.Tests.Tests
         }
 
         [Fact]
-        public void TentaCriarNovoPersonagemComVelocidadeMenorQueZero()
+        public void DeveLancarExcecaoAoCriarComVelocidadeMenorQueZero()
         {
             // Arrange
             int velocidadeMenorQueZero = -1;
@@ -115,7 +115,7 @@ namespace Cod3rsGrowth.Tests.Tests
         }
 
         [Fact]
-        public void TentaCriarNovoPersonagemComVelocidadeMaiorQueDois()
+        public void DeveLancarExcecaoAoCriarComVelocidadeMaiorQueDois()
         {
             // Arrange
             double velocidadeMaiorQueDois = 2.1;
@@ -127,7 +127,7 @@ namespace Cod3rsGrowth.Tests.Tests
         }
 
         [Fact]
-        public void TentaCriarNovoPersonagemComForcaInvalida()
+        public void DeveLancarExcecaoAoCriarComForcaInvalida()
         {
             // Arrange
             int forcaInvalida = 99999;
@@ -139,7 +139,7 @@ namespace Cod3rsGrowth.Tests.Tests
         }
 
         [Fact]
-        public void TentaCriarNovoPersonagemComInteligenciaInvalida()
+        public void DeveLancarExcecaoAoCriarComInteligenciaInvalida()
         {
             // Arrange
             int inteligenciaInvalida = 99999;
