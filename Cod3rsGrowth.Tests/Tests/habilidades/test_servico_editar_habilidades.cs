@@ -32,7 +32,7 @@ namespace Cod3rsGrowth.Tests.Tests
         }
 
         [Fact]
-        public void TentarEditarHabilidadeComIdInvalido()
+        public void TentaTentarEditarHabilidadeComIdInvalido()
         {
             // Arrange
             var idInvalido = 99999;
@@ -47,7 +47,7 @@ namespace Cod3rsGrowth.Tests.Tests
         }
 
         [Fact]
-        public void EditarHabilidadeComNomeCurto()
+        public void TentaEditarHabilidadeComNomeCurto()
         {
             // Arrange
             var habilidade = new Habilidade(null, "Teste", "Uma descrição qualquer");
@@ -61,7 +61,7 @@ namespace Cod3rsGrowth.Tests.Tests
         }
 
         [Fact]
-        public void EditarHabilidadeComNomeGrande()
+        public void TentaEditarHabilidadeComNomeGrande()
         {
             // Arrange
             var habilidade = new Habilidade(null, "Teste", "Uma descrição qualquer");
@@ -75,7 +75,7 @@ namespace Cod3rsGrowth.Tests.Tests
         }
 
         [Fact]
-        public void EditarHabilidadeComDescricaoGrande()
+        public void TentaEditarHabilidadeComDescricaoGrande()
         {
             // Arrange
             var habilidade = new Habilidade(null, "Teste", "Uma descrição qualquer");
