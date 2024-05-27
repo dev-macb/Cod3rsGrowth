@@ -23,5 +23,13 @@ namespace Cod3rsGrowth.Infra
 
             return habilidade.Id ?? throw new Exception("Erro ao criar id da habilidade.");
         }
+
+        public void Editar(int id, Habilidade habilidadeAtualizada)
+        {
+            var habilidadeExistente = _habilidades.Find(habilidade => habilidade.Id == id) ?? throw new Exception("Habilidade não encontrada.");
+            habilidadeExistente.Nome = habilidadeAtualizada.Nome;
+            habilidadeExistente.Descricao = habilidadeAtualizada.Descricao;
+            habilidadeExistente.AtualizadoEm = DateTime.Now;
+        }
     }
 }

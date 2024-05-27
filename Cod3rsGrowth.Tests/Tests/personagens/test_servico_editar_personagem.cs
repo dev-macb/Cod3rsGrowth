@@ -62,7 +62,7 @@ namespace Cod3rsGrowth.Tests.Tests
             // Act - Assert
             novoPersonagem.Nome = "T";
             var resultado = Assert.Throws<Exception>(() => _personagemService.Editar(idNovoPersonagem, novoPersonagem));
-            Assert.Equal("O nome deve ter no mínimo 5 caracteres e no máximo 50.", resultado.Message);
+            Assert.Equal("O nome deve ter no mínimo 3 caracteres e no máximo 50.", resultado.Message);
         }
 
         [Fact]
@@ -76,7 +76,7 @@ namespace Cod3rsGrowth.Tests.Tests
             // Act - Assert
             novoPersonagem.Nome = "Um nome qualquer que seja grande o suficiente para ser inutil";
             var resultado = Assert.Throws<Exception>(() => _personagemService.Editar(idNovoPersonagem, novoPersonagem));
-            Assert.Equal("O nome deve ter no mínimo 5 caracteres e no máximo 50.", resultado.Message);
+            Assert.Equal("O nome deve ter no mínimo 3 caracteres e no máximo 50.", resultado.Message);
         }
 
         [Fact]

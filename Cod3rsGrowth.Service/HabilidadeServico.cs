@@ -40,5 +40,19 @@ namespace Cod3rsGrowth.Service
             
             return idNovaHabilidade;
         }
+
+        public void Editar(int id, Habilidade habilidadeAtualizada)
+        {
+            const string separador = " "; 
+            ValidationResult resultado = _habilidadeValidador.Validate(habilidadeAtualizada);
+            if (!resultado.IsValid)
+            {
+                string todosErros = string.Join(separador, resultado.Errors.Select(erro => erro.ErrorMessage));
+                throw new Exception(todosErros);
+            }
+            _habilidadeRepositorio.ObterPorId(id);
+
+            _habilidadeRepositorio.Editar(id, habilidadeAtualizada);
+        }
     }
 }
