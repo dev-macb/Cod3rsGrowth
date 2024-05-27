@@ -1,5 +1,5 @@
 using Cod3rsGrowth.Infra;
-using CodersGrowth.Domain.Entities;
+using Cod3rsGrowth.Domain.Entities;
 
 namespace Cod3rsGrowth.Service
 {
@@ -15,6 +15,11 @@ namespace Cod3rsGrowth.Service
         public List<Habilidade> ObterTodos()
         {
             return _habilidadeRepositorio.ObterTodos();
+        }
+
+        public Habilidade ObterPorId(int id)
+        {
+            return _habilidadeRepositorio.ObterPorId(id);
         }
     }
 }

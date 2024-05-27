@@ -1,6 +1,7 @@
+
 using Cod3rsGrowth.Infra;
 using Cod3rsGrowth.Service;
-using CodersGrowth.Domain.Validators;
+using Cod3rsGrowth.Domain.Validators;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cod3rsGrowth.Tests
@@ -16,7 +17,7 @@ namespace Cod3rsGrowth.Tests
             servicos.AddScoped<IPersonagemServico, PersonagemServico>();
             servicos.AddScoped<IHabilidadeServico, HabilidadeServico>();
 
-            // Repositório Mock
+            // Repositórios
             servicos.AddSingleton<IPersonagemRepositorio, PersonagemRepositorio>();
             servicos.AddSingleton<IHabilidadeRepositorio, HabilidadeRepositorio>();
         }

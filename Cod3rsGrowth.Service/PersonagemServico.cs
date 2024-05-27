@@ -1,7 +1,7 @@
 using Cod3rsGrowth.Infra;
 using FluentValidation.Results;
-using CodersGrowth.Domain.Entities;
-using CodersGrowth.Domain.Validators;
+using Cod3rsGrowth.Domain.Entities;
+using Cod3rsGrowth.Domain.Validators;
 
 namespace Cod3rsGrowth.Service
 {
@@ -29,7 +29,11 @@ namespace Cod3rsGrowth.Service
         public int Criar(Personagem personagem)
         {
             ValidationResult resultado = _personagemValidador.Validate(personagem);
-            if (!resultado.IsValid) throw new Exception(resultado.Errors.First().ErrorMessage);
+            if (!resultado.IsValid) 
+            {
+                string todosErros = string.Join(" ", resultado.Errors.Select(erro => erro.ErrorMessage));
+                throw new Exception(todosErros);
+            }
 
             int IdNovoPersonagem = _personagemRepositorio.Criar(personagem);
             
@@ -38,9 +42,13 @@ namespace Cod3rsGrowth.Service
 
         public void Editar(int id, Personagem personagemAtualizado)
         {
+            const string separador = " "; 
             ValidationResult resultado = _personagemValidador.Validate(personagemAtualizado);
-            if (!resultado.IsValid) throw new Exception(resultado.Errors.First().ErrorMessage);
-
+            if (!resultado.IsValid)
+            {
+                string todosErros = string.Join(separador, resultado.Errors.Select(erro => erro.ErrorMessage));
+                throw new Exception(todosErros);
+            }
             _personagemRepositorio.ObterPorId(id);
 
             _personagemRepositorio.Editar(id, personagemAtualizado);

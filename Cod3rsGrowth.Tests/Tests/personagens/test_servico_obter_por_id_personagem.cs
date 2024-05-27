@@ -1,13 +1,15 @@
 using Cod3rsGrowth.Service;
-using CodersGrowth.Domain.Enums;
-using CodersGrowth.Domain.Entities;
+using Cod3rsGrowth.Domain.Enums;
+using Cod3rsGrowth.Domain.Entities;
 using Microsoft.Extensions.DependencyInjection;
+using Cod3rsGrowth.Infra;
 
 namespace Cod3rsGrowth.Tests.Tests
 {
     public class TesteServicoObterPorIdPersonagem : TesteBase
     {
         private readonly IPersonagemServico _personagemService;
+        private readonly List<Personagem> _personagens = RepositorioMock.ObterInstancia.Personagens;
 
         public TesteServicoObterPorIdPersonagem() : base()
         {
@@ -18,11 +20,12 @@ namespace Cod3rsGrowth.Tests.Tests
         public void ObterPersonagemPorIdComExito()
         {
             // Arrange
-            var novoPersonagem = new Personagem(null, "Ryu", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
-            var idNovoPersonagem = _personagemService.Criar(novoPersonagem);
+            int idTeste = 10;
+            Personagem novoPersonagem = new (idTeste, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
+            _personagens.Add(novoPersonagem);
 
             // Act
-            var personagemEncontrado = _personagemService.ObterPorId(idNovoPersonagem);
+            var personagemEncontrado = _personagemService.ObterPorId(idTeste);
 
             // Assert
             Assert.Equivalent(novoPersonagem, personagemEncontrado);

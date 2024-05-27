@@ -1,6 +1,6 @@
 using Cod3rsGrowth.Service;
-using CodersGrowth.Domain.Enums;
-using CodersGrowth.Domain.Entities;
+using Cod3rsGrowth.Domain.Enums;
+using Cod3rsGrowth.Domain.Entities;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cod3rsGrowth.Tests.Tests
@@ -35,7 +35,7 @@ namespace Cod3rsGrowth.Tests.Tests
         {
             // Arrange
             string nomeCurto = "Te";
-            var personagemInvalido = new Personagem(null, nomeCurto, 200, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
+            var personagemInvalido = new Personagem(null, nomeCurto, 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
 
             // Act - Assert
             var excecao = Assert.Throws<Exception>(() => _personagemService.Criar(personagemInvalido));
@@ -47,7 +47,7 @@ namespace Cod3rsGrowth.Tests.Tests
         {
             // Arrange
             string nomeGrande = "Um nome qualquer que seja grande o suficiente para ser inutil";
-            var personagemInvalido = new Personagem(null, nomeGrande, 200, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
+            var personagemInvalido = new Personagem(null, nomeGrande, 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
 
             // Act - Assert
             var excecao = Assert.Throws<Exception>(() => _personagemService.Criar(personagemInvalido));
@@ -148,6 +148,38 @@ namespace Cod3rsGrowth.Tests.Tests
             // Act - Assert
             var excecao = Assert.Throws<Exception>(() => _personagemService.Criar(personagemInvalido));
             Assert.Equal("A inteligência deve ser um valor válido de CategoriasEnum.", excecao.Message);
+        }
+
+        [Fact]
+        public void TentaCriarNovoPersonagemComNomeVidaEnergiaVelociadeForcaEInteligenciaIncorreto()
+        {
+            // Arrange
+            string nomePequeno = "T";
+            int vidaNegativa = -1;
+            int energiaNegativa = -1;
+            double velocidadeNegativa = -0.1;
+            int forcaInvalida = 99999;
+            int inteligenciaInvalida = 99999;
+            var personagemInvalido = new Personagem(
+                null, 
+                nomePequeno, 
+                vidaNegativa, 
+                energiaNegativa, 
+                velocidadeNegativa, 
+                (CategoriasEnum)forcaInvalida, 
+                (CategoriasEnum)inteligenciaInvalida
+            );
+            string mensagemEsperada = "O nome deve ter no mínimo 5 caracteres e no máximo 50. " +
+                "A vida deve estar entre 0 e 100. " +
+                "A energia deve estar entre 0 e 50. " +
+                "A velocidade deve estar entre 0 e 2. " +
+                "A força deve ser um valor válido de CategoriasEnum. " +
+                "A inteligência deve ser um valor válido de CategoriasEnum.";
+
+
+            // Act - Assert
+            var excecao = Assert.Throws<Exception>(() => _personagemService.Criar(personagemInvalido));
+            Assert.Equal(mensagemEsperada, excecao.Message);
         }
     }
 }

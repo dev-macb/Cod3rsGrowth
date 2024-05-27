@@ -1,25 +1,10 @@
-using CodersGrowth.Domain.Entities;
+using Cod3rsGrowth.Domain.Entities;
 
 namespace Cod3rsGrowth.Infra
 {
     public class PersonagemRepositorio : IPersonagemRepositorio
     {
-        private readonly List<Personagem> _personagens;
-
-        public PersonagemRepositorio()
-        {
-            _personagens = new List<Personagem>()
-            {
-                // new(1, "Ryu", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio),
-                // new(2, "Ken", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio),
-                // new(3, "Chun-Li", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio),
-                // new(4, "Blanka", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio),
-                // new(5, "Zangief", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio),
-                // new(6, "Guile", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio),
-                // new(7, "Dhalsim", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio),
-                // new(8, "Vega", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio)
-            };
-        }
+        private readonly List<Personagem> _personagens = RepositorioMock.ObterInstancia.Personagens;
 
         public List<Personagem> ObterTodos()
         {
@@ -55,8 +40,10 @@ namespace Cod3rsGrowth.Infra
 
         public void Remover(int id)
         {
-            var personagemExistente = _personagens.Find(personagem => personagem.Id == id) ?? throw new Exception("Personagem não encontrado.");
-            if (personagemExistente != null) _personagens.Remove(personagemExistente);
+            var personagemExistente = _personagens.Find(personagem => personagem.Id == id);
+            
+            if (personagemExistente == null) throw new Exception("Personagem não encontrado.");
+            else _personagens.Remove(personagemExistente);
         }
     }
 }
