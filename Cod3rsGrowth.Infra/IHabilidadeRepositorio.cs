@@ -6,5 +6,6 @@ namespace Cod3rsGrowth.Infra
     {
         public List<Habilidade> ObterTodos();
         public Habilidade ObterPorId(int id);
+        public int Criar(Habilidade habilidade);
     }
 }
