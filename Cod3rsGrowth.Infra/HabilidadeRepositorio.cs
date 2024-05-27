@@ -34,10 +34,9 @@ namespace Cod3rsGrowth.Infra
 
         public void Remover(int id)
         {
-            var habilidadeExistente = _habilidades.Find(habilidade => habilidade.Id == id);
+            var habilidadeExistente = _habilidades.Find(habilidade => habilidade.Id == id) ?? throw new Exception("Habilidade não encontrada.");
             
-            if (habilidadeExistente == null) throw new Exception("Habilidade não encontrada.");
-            else _habilidades.Remove(habilidadeExistente);
+            _habilidades.Remove(habilidadeExistente);
         }
     }
 }
