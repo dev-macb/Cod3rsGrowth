@@ -1,6 +1,7 @@
-using Cod3rsGrowth.Infra;
 using Cod3rsGrowth.Service;
+using Cod3rsGrowth.Domain.Interfaces;
 using Cod3rsGrowth.Domain.Validators;
+using Cod3rsGrowth.Infra.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cod3rsGrowth.Tests

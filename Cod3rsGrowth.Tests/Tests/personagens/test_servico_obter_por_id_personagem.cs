@@ -19,7 +19,17 @@ namespace Cod3rsGrowth.Tests.Tests
         public void ObterPersonagemPorIdComExito()
         {
             // Arrange
-            Personagem novoPersonagem = new (null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
+            var novoPersonagem = new Personagem
+            {
+                Nome = "Teste", 
+                Vida = 100,
+                Energia = 50,
+                Velocidade = 1.0,
+                Forca = CategoriasEnum.Bom,
+                Inteligencia = CategoriasEnum.Bom,
+                Habilidades = new List<int> { 1, 2, 3, },
+                EVilao = false
+            };
             int idNovoPersonagem = _personagemService.Criar(novoPersonagem);
 
             // Act
@@ -34,7 +44,17 @@ namespace Cod3rsGrowth.Tests.Tests
         {
             // Arrange
             var idInvalido = 99999;
-            var novoPersonagem = new Personagem(null, "Ryu", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
+            var novoPersonagem = new Personagem
+            {
+                Nome = "Teste", 
+                Vida = 100,
+                Energia = 50,
+                Velocidade = 1.0,
+                Forca = CategoriasEnum.Bom,
+                Inteligencia = CategoriasEnum.Bom,
+                Habilidades = new List<int> { 1, 2, 3, },
+                EVilao = false
+            };
             var idNovoPersonagem = _personagemService.Criar(novoPersonagem);
 
             // Act - Assert

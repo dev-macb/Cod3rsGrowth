@@ -17,7 +17,7 @@ namespace Cod3rsGrowth.Tests.Tests
         public void CriarHabilidadeComExito()
         {
             // Arrange
-            var novoHabilidade = new Habilidade(null, "Teste da Silva", "Uma descrição qualquer");
+            var novoHabilidade = new Habilidade { Nome = "Teste", Descricao = "Uma descrição qualquer." };
 
             // Act
             var resultado = _habilidadeService.Criar(novoHabilidade);
@@ -34,7 +34,7 @@ namespace Cod3rsGrowth.Tests.Tests
         {
             // Arrange
             string nomeCurto = "T";
-            var habilidadeInvalida = new Habilidade(null, nomeCurto, "Uma descrição qualquer");
+            var habilidadeInvalida = new Habilidade { Nome = nomeCurto, Descricao = "Uma descrição qualquer." };
 
             // Act - Assert
             var excecao = Assert.Throws<Exception>(() => _habilidadeService.Criar(habilidadeInvalida));
@@ -46,7 +46,8 @@ namespace Cod3rsGrowth.Tests.Tests
         {
             // Arrange
             string nomeGrande = "Teste Teste Teste Teste Teste Teste Teste Teste Tes";
-            var habilidadeInvalida = new Habilidade(null, nomeGrande, "Uma descrição qualquer");
+            var habilidadeInvalida = new Habilidade { Nome = nomeGrande, Descricao = "Uma descrição qualquer." };
+
 
             // Act - Assert
             var excecao = Assert.Throws<Exception>(() => _habilidadeService.Criar(habilidadeInvalida));
@@ -61,7 +62,8 @@ namespace Cod3rsGrowth.Tests.Tests
                 "Teste Teste Teste Teste Teste Teste Teste Teste Teste Teste Teste " + 
                 "Teste Teste Teste Teste Teste Teste Teste Teste Teste Teste Teste " +
                 "Teste Teste Tes";
-            var habilidadeInvalida = new Habilidade(null, "Teste", descricaoGrande);
+            var habilidadeInvalida = new Habilidade { Nome = "Teste", Descricao = descricaoGrande };
+
 
             // Act - Assert
             var excecao = Assert.Throws<Exception>(() => _habilidadeService.Criar(habilidadeInvalida));

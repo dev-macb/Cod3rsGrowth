@@ -17,7 +17,7 @@ namespace Cod3rsGrowth.Tests.Tests
         public void EditarHabilidadeComExito()
         {
             // Arrange
-            var habilidade = new Habilidade(null, "Teste", "Uma descrição qualquer");
+            var habilidade = new Habilidade { Nome = "Teste", Descricao = "Uma descrição qualquer." };
             int idNovaHabilidade = _habilidadeService.Criar(habilidade);
             var novaHabilidade = _habilidadeService.ObterPorId(idNovaHabilidade);
 
@@ -36,7 +36,7 @@ namespace Cod3rsGrowth.Tests.Tests
         {
             // Arrange
             var idInvalido = 99999;
-            var personagem = new Habilidade(null, "Teste", "Uma descrição qualquer");
+            var personagem = new Habilidade { Nome = "Teste", Descricao = "Uma descrição qualquer." };
             int idNovaHabilidade = _habilidadeService.Criar(personagem);
             var novaHabilidade = _habilidadeService.ObterPorId(idNovaHabilidade);
 
@@ -50,7 +50,7 @@ namespace Cod3rsGrowth.Tests.Tests
         public void DeveLancarExcecaoAoEditarComNomeCurto()
         {
             // Arrange
-            var habilidade = new Habilidade(null, "Teste", "Uma descrição qualquer");
+            var habilidade = new Habilidade { Nome = "Teste", Descricao = "Uma descrição qualquer." };
             int idNovaHabilidade = _habilidadeService.Criar(habilidade);
             var novaHabilidade = _habilidadeService.ObterPorId(idNovaHabilidade);
 
@@ -64,7 +64,7 @@ namespace Cod3rsGrowth.Tests.Tests
         public void DeveLancarExcecaoAoEditarComNomeGrande()
         {
             // Arrange
-            var habilidade = new Habilidade(null, "Teste", "Uma descrição qualquer");
+            var habilidade = new Habilidade { Nome = "Teste", Descricao = "Uma descrição qualquer." };
             int idNovaHabilidade = _habilidadeService.Criar(habilidade);
             var novaHabilidade = _habilidadeService.ObterPorId(idNovaHabilidade);
 
@@ -78,7 +78,7 @@ namespace Cod3rsGrowth.Tests.Tests
         public void DeveLancarExcecaoAoEditarComDescricaoGrande()
         {
             // Arrange
-            var habilidade = new Habilidade(null, "Teste", "Uma descrição qualquer");
+            var habilidade = new Habilidade { Nome = "Teste", Descricao = "Uma descrição qualquer." };
             int idNovaHabilidade = _habilidadeService.Criar(habilidade);
             var novaHabilidade = _habilidadeService.ObterPorId(idNovaHabilidade);
 

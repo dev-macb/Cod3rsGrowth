@@ -1,6 +1,7 @@
 using Cod3rsGrowth.Domain.Entities;
+using Cod3rsGrowth.Domain.Interfaces;
 
-namespace Cod3rsGrowth.Infra
+namespace Cod3rsGrowth.Infra.Repositories
 {
     public class PersonagemRepositorio : IPersonagemRepositorio
     {

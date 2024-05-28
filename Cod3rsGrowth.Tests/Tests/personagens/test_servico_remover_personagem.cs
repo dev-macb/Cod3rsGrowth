@@ -2,7 +2,6 @@ using Cod3rsGrowth.Service;
 using Cod3rsGrowth.Domain.Enums;
 using Cod3rsGrowth.Domain.Entities;
 using Microsoft.Extensions.DependencyInjection;
-using Cod3rsGrowth.Infra;
 
 namespace Cod3rsGrowth.Tests.Tests
 {
@@ -19,7 +18,18 @@ namespace Cod3rsGrowth.Tests.Tests
         public void RemoverPersonagemComExito()
         {
             // Arrange
-            int idNovoPersonagem = _personagemService.Criar(new Personagem(null, "Teste", 100, 50, 1.0, CategoriasEnum.Bom, CategoriasEnum.Medio));
+            var personagem = new Personagem
+            {
+                Nome = "Teste", 
+                Vida = 100,
+                Energia = 50,
+                Velocidade = 1.0,
+                Forca = CategoriasEnum.Bom,
+                Inteligencia = CategoriasEnum.Bom,
+                Habilidades = new List<int> { 1, 2, 3, },
+                EVilao = false
+            };
+            int idNovoPersonagem = _personagemService.Criar(personagem);
             
             // Act
             _personagemService.Remover(idNovoPersonagem);
@@ -34,7 +44,18 @@ namespace Cod3rsGrowth.Tests.Tests
         {
             // Arrange
             int idInvalido = 99999;
-            int idNovoPersonagem = _personagemService.Criar(new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio));
+            var personagem = new Personagem
+            {
+                Nome = "Teste", 
+                Vida = 100,
+                Energia = 50,
+                Velocidade = 1.0,
+                Forca = CategoriasEnum.Bom,
+                Inteligencia = CategoriasEnum.Bom,
+                Habilidades = new List<int> { 1, 2, 3, },
+                EVilao = false
+            };
+            int idNovoPersonagem = _personagemService.Criar(personagem);
 
             // Act
             var resultado = Assert.Throws<Exception>(() => _personagemService.Remover(idInvalido));

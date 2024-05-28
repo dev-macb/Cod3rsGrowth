@@ -19,7 +19,8 @@ namespace Cod3rsGrowth.Tests.Tests
         public void RemoverHabilidadeComExito()
         {
             // Arrange
-            int idNovoHabilidade = _habilidadeService.Criar(new Habilidade(null, "Teste", "Uma descição qualquer"));
+            var novaHabilidade = new Habilidade { Nome = "Teste", Descricao = "Uma descrição qualquer." };
+            int idNovoHabilidade = _habilidadeService.Criar(novaHabilidade);
             
             // Act
             _habilidadeService.Remover(idNovoHabilidade);
@@ -33,8 +34,10 @@ namespace Cod3rsGrowth.Tests.Tests
         public void DeveLancarExcecaoAoRemoverComIdInvalido()
         {
             // Arrange
+            int idTeste = 100;
             int idInvalido = 99999;
-            int idNovoHabilidade = _habilidadeService.Criar(new Habilidade(null, "Teste", "Uma descição qualquer"));
+            var novaHabilidade = new Habilidade { Id = idTeste, Nome = "Teste", Descricao = "Uma descrição qualquer." };
+            int idNovoHabilidade = _habilidadeService.Criar(novaHabilidade);
 
             // Act
             var resultado = Assert.Throws<Exception>(() => _habilidadeService.Remover(idInvalido));

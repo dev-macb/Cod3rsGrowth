@@ -19,11 +19,12 @@ namespace Cod3rsGrowth.Tests.Tests
         public void ObtemHabilidadePorIdComExito()
         {
             // Arrange
-            Habilidade novaHabilidade = new Habilidade(10, "Teste", "Uma descrição qualquer");
+            int idTeste = 1000;
+            var novaHabilidade = new Habilidade { Id = idTeste, Nome = "Teste", Descricao = "Uma descrição qualquer." };
             _habilidades.Add(novaHabilidade);
 
             // Act
-            var personagemEncontrado = habilidadeService.ObterPorId(10);
+            var personagemEncontrado = habilidadeService.ObterPorId(idTeste);
 
             // Assert
             Assert.Equivalent(novaHabilidade, personagemEncontrado);
@@ -33,8 +34,9 @@ namespace Cod3rsGrowth.Tests.Tests
         public void DeveLancarExcecaoAoBuscarPorIdComIdInvalido()
         {
             // Arrange
+            int idTeste = 1000;
             var idInvalido = 99999;
-            Habilidade novaHabilidade = new (10, "Teste", "Uma descrição qualquer");
+            var novaHabilidade = new Habilidade { Id = idTeste, Nome = "Teste", Descricao = "Uma descrição qualquer." };
             _habilidades.Add(novaHabilidade);
 
             // Act - Assert

@@ -18,7 +18,17 @@ namespace Cod3rsGrowth.Tests.Tests
         public void EditarPersonagemComExito()
         {
             // Arrange
-            var personagem = new Personagem(null, "Teste", 100, 50, 1.0, CategoriasEnum.Bom, CategoriasEnum.Medio);
+            var personagem = new Personagem
+            {
+                Nome = "Teste", 
+                Vida = 100,
+                Energia = 50,
+                Velocidade = 1.0,
+                Forca = CategoriasEnum.Bom,
+                Inteligencia = CategoriasEnum.Bom,
+                Habilidades = new List<int> { 1, 2, 3, },
+                EVilao = false
+            };
             int idNovoPersonagem = _personagemService.Criar(personagem);
             var novoPersonagem = _personagemService.ObterPorId(idNovoPersonagem);
 
@@ -41,7 +51,17 @@ namespace Cod3rsGrowth.Tests.Tests
         {
             // Arrange
             var idInvalido = 99999;
-            var personagem = new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
+            var personagem = new Personagem
+            {
+                Nome = "Teste", 
+                Vida = 100,
+                Energia = 50,
+                Velocidade = 1.0,
+                Forca = CategoriasEnum.Bom,
+                Inteligencia = CategoriasEnum.Bom,
+                Habilidades = new List<int> { 1, 2, 3, },
+                EVilao = false
+            };
             int idNovoPersonagem = _personagemService.Criar(personagem);
             var novoPersonagem = _personagemService.ObterPorId(idNovoPersonagem);
 
@@ -55,7 +75,17 @@ namespace Cod3rsGrowth.Tests.Tests
         public void DeveLancarExcecaoAoEditarComNomeCurto()
         {
             // Arrange
-            var personagemOriginal = new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
+            var personagemOriginal = new Personagem
+            {
+                Nome = "Teste", 
+                Vida = 100,
+                Energia = 50,
+                Velocidade = 1.0,
+                Forca = CategoriasEnum.Bom,
+                Inteligencia = CategoriasEnum.Bom,
+                Habilidades = new List<int> { 1, 2, 3, },
+                EVilao = false
+            };
             int idNovoPersonagem = _personagemService.Criar(personagemOriginal);
             var novoPersonagem = _personagemService.ObterPorId(idNovoPersonagem);
 
@@ -69,7 +99,17 @@ namespace Cod3rsGrowth.Tests.Tests
         public void DeveLancarExcecaoAoEditarComNomeGrande()
         {
             // Arrange
-            var personagemOriginal = new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
+            var personagemOriginal = new Personagem
+            {
+                Nome = "Teste", 
+                Vida = 100,
+                Energia = 50,
+                Velocidade = 1.0,
+                Forca = CategoriasEnum.Bom,
+                Inteligencia = CategoriasEnum.Bom,
+                Habilidades = new List<int> { 1, 2, 3, },
+                EVilao = false
+            };
             int idNovoPersonagem = _personagemService.Criar(personagemOriginal);
             var novoPersonagem = _personagemService.ObterPorId(idNovoPersonagem);
 
@@ -83,7 +123,17 @@ namespace Cod3rsGrowth.Tests.Tests
         public void DeveLancarExcecaoAoEditarComVidaMenorQueZero()
         {
             // Arrange
-            var personagemOriginal = new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
+            var personagemOriginal = new Personagem
+            {
+                Nome = "Teste", 
+                Vida = 100,
+                Energia = 50,
+                Velocidade = 1.0,
+                Forca = CategoriasEnum.Bom,
+                Inteligencia = CategoriasEnum.Bom,
+                Habilidades = new List<int> { 1, 2, 3, },
+                EVilao = false
+            };
             int idNovoPersonagem = _personagemService.Criar(personagemOriginal);
             var novoPersonagem = _personagemService.ObterPorId(idNovoPersonagem);
 
@@ -97,7 +147,17 @@ namespace Cod3rsGrowth.Tests.Tests
         public void DeveLancarExcecaoAoEditarComVidaMaiorQueCem()
         {
             // Arrange
-            var personagemOriginal = new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
+            var personagemOriginal = new Personagem
+            {
+                Nome = "Teste", 
+                Vida = 100,
+                Energia = 50,
+                Velocidade = 1.0,
+                Forca = CategoriasEnum.Bom,
+                Inteligencia = CategoriasEnum.Bom,
+                Habilidades = new List<int> { 1, 2, 3, },
+                EVilao = false
+            };
             int idNovoPersonagem = _personagemService.Criar(personagemOriginal);
             var novoPersonagem = _personagemService.ObterPorId(idNovoPersonagem);
 
@@ -111,7 +171,17 @@ namespace Cod3rsGrowth.Tests.Tests
         public void DeveLancarExcecaoAoEditarComEnergiaMenorQueZero()
         {
             // Arrange
-            var personagemOriginal = new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
+            var personagemOriginal = new Personagem
+            {
+                Nome = "Teste", 
+                Vida = 100,
+                Energia = 50,
+                Velocidade = 1.0,
+                Forca = CategoriasEnum.Bom,
+                Inteligencia = CategoriasEnum.Bom,
+                Habilidades = new List<int> { 1, 2, 3, },
+                EVilao = false
+            };
             int idNovoPersonagem = _personagemService.Criar(personagemOriginal);
             var novoPersonagem = _personagemService.ObterPorId(idNovoPersonagem);
 
@@ -125,7 +195,17 @@ namespace Cod3rsGrowth.Tests.Tests
         public void DeveLancarExcecaoAoEditarComEnergiaMaiorQueCinquenta()
         {
             // Arrange
-            var personagemOriginal = new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
+            var personagemOriginal = new Personagem
+            {
+                Nome = "Teste", 
+                Vida = 100,
+                Energia = 50,
+                Velocidade = 1.0,
+                Forca = CategoriasEnum.Bom,
+                Inteligencia = CategoriasEnum.Bom,
+                Habilidades = new List<int> { 1, 2, 3, },
+                EVilao = false
+            };
             int idNovoPersonagem = _personagemService.Criar(personagemOriginal);
             var novoPersonagem = _personagemService.ObterPorId(idNovoPersonagem);
 
@@ -139,7 +219,17 @@ namespace Cod3rsGrowth.Tests.Tests
         public void DeveLancarExcecaoAoEditarComVelocidadeMenorQueZero()
         {
             // Arrange
-            var personagemOriginal = new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
+            var personagemOriginal = new Personagem
+            {
+                Nome = "Teste", 
+                Vida = 100,
+                Energia = 50,
+                Velocidade = 1.0,
+                Forca = CategoriasEnum.Bom,
+                Inteligencia = CategoriasEnum.Bom,
+                Habilidades = new List<int> { 1, 2, 3, },
+                EVilao = false
+            };
             int idNovoPersonagem = _personagemService.Criar(personagemOriginal);
             var novoPersonagem = _personagemService.ObterPorId(idNovoPersonagem);
 
@@ -153,7 +243,17 @@ namespace Cod3rsGrowth.Tests.Tests
         public void DeveLancarExcecaoAoEditarComVelocidadeMaiorQueDois()
         {
             // Arrange
-            var personagemOriginal = new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
+            var personagemOriginal = new Personagem
+            {
+                Nome = "Teste", 
+                Vida = 100,
+                Energia = 50,
+                Velocidade = 1.0,
+                Forca = CategoriasEnum.Bom,
+                Inteligencia = CategoriasEnum.Bom,
+                Habilidades = new List<int> { 1, 2, 3, },
+                EVilao = false
+            };
             int idNovoPersonagem = _personagemService.Criar(personagemOriginal);
             var novoPersonagem = _personagemService.ObterPorId(idNovoPersonagem);
 
@@ -167,7 +267,17 @@ namespace Cod3rsGrowth.Tests.Tests
         public void DeveLancarExcecaoAoCriarComForcaInvalida()
         {
             // Arrange
-            var personagemOriginal = new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
+            var personagemOriginal = new Personagem
+            {
+                Nome = "Teste", 
+                Vida = 100,
+                Energia = 50,
+                Velocidade = 1.0,
+                Forca = CategoriasEnum.Bom,
+                Inteligencia = CategoriasEnum.Bom,
+                Habilidades = new List<int> { 1, 2, 3, },
+                EVilao = false
+            };
             int idNovoPersonagem = _personagemService.Criar(personagemOriginal);
             var novoPersonagem = _personagemService.ObterPorId(idNovoPersonagem);
 
@@ -181,7 +291,17 @@ namespace Cod3rsGrowth.Tests.Tests
         public void DeveLancarExcecaoAoCriarComInteligenciaInvalida()
         {
             // Arrange
-            var personagemOriginal = new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio);
+            var personagemOriginal = new Personagem
+            {
+                Nome = "Teste", 
+                Vida = 100,
+                Energia = 50,
+                Velocidade = 1.0,
+                Forca = CategoriasEnum.Bom,
+                Inteligencia = CategoriasEnum.Bom,
+                Habilidades = new List<int> { 1, 2, 3, },
+                EVilao = false
+            };
             int idNovoPersonagem = _personagemService.Criar(personagemOriginal);
             var novoPersonagem = _personagemService.ObterPorId(idNovoPersonagem);
 
