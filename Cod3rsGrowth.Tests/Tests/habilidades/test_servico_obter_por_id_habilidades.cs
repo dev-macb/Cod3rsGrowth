@@ -1,25 +1,26 @@
 using Cod3rsGrowth.Service;
 using Cod3rsGrowth.Domain.Entities;
+using Cod3rsGrowth.Tests.Repositories;
 using Microsoft.Extensions.DependencyInjection;
-using Cod3rsGrowth.Infra;
 
 namespace Cod3rsGrowth.Tests.Tests
 {
     public class TesteServicoObterPorIdHabilidade : TesteBase
     {
-        private readonly IHabilidadeServico habilidadeService;
+        private readonly HabilidadeServico habilidadeService;
         private readonly List<Habilidade> _habilidades = RepositorioMock.ObterInstancia.Habilidades;
 
         public TesteServicoObterPorIdHabilidade() : base()
         {
-            habilidadeService = ServiceProvider.GetRequiredService<IHabilidadeServico>();
+            habilidadeService = ServiceProvider.GetRequiredService<HabilidadeServico>();
+            RepositorioMock.ResetarInstancia();
         }
 
         [Fact]
         public void ObtemHabilidadePorIdComExito()
         {
             // Arrange
-            int idTeste = 1000;
+            int idTeste = 1;
             var novaHabilidade = new Habilidade { Id = idTeste, Nome = "Teste", Descricao = "Uma descrição qualquer." };
             _habilidades.Add(novaHabilidade);
 
@@ -34,8 +35,7 @@ namespace Cod3rsGrowth.Tests.Tests
         public void DeveLancarExcecaoAoBuscarPorIdComIdInvalido()
         {
             // Arrange
-            int idTeste = 1000;
-            var idInvalido = 99999;
+            int idTeste = 2, idInvalido = 99999;
             var novaHabilidade = new Habilidade { Id = idTeste, Nome = "Teste", Descricao = "Uma descrição qualquer." };
             _habilidades.Add(novaHabilidade);
 

@@ -5,7 +5,7 @@ using Cod3rsGrowth.Domain.Validators;
 
 namespace Cod3rsGrowth.Service
 {
-    public class PersonagemServico : IPersonagemServico
+    public class PersonagemServico
     {
         private readonly PersonagemValidador _personagemValidador;
         private readonly IPersonagemRepositorio _personagemRepositorio;

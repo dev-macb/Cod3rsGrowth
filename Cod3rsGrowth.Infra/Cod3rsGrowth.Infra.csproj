@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\Cod3rsGrowth.Domain\Cod3rsGrowth.Domain.csproj" />
+    <ProjectReference Include="..\Cod3rsGrowth.Service\Cod3rsGrowth.Service.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

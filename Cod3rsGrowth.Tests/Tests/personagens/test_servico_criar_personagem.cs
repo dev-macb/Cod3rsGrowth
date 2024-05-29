@@ -1,17 +1,20 @@
 using Cod3rsGrowth.Service;
 using Cod3rsGrowth.Domain.Enums;
 using Cod3rsGrowth.Domain.Entities;
+using Cod3rsGrowth.Tests.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cod3rsGrowth.Tests.Tests
 {
     public class TesteServicoCriarPersonagem : TesteBase
     {
-        private readonly IPersonagemServico _personagemService;
+        private readonly PersonagemServico _personagemService;
+        private readonly List<Personagem> _personagens = RepositorioMock.ObterInstancia.Personagens;
 
         public TesteServicoCriarPersonagem() : base()
         {
-            _personagemService = ServiceProvider.GetRequiredService<IPersonagemServico>();
+            _personagemService = ServiceProvider.GetRequiredService<PersonagemServico>();
+            RepositorioMock.ResetarInstancia();
         }
 
         [Fact]
@@ -32,12 +35,11 @@ namespace Cod3rsGrowth.Tests.Tests
 
             // Act
             var resultado = _personagemService.Criar(novoPersonagem);
-            var personagemCriado = _personagemService.ObterPorId(resultado);
+            var personagemCriado = _personagens.Find(personagem => personagem.Id == resultado);
 
             // Assert
             Assert.NotNull(personagemCriado);
-            Assert.Equal(personagemCriado.Id, resultado);
-            Assert.Equal(novoPersonagem.Nome, personagemCriado.Nome);
+            Assert.Equivalent(personagemCriado, novoPersonagem);
         }
 
         [Fact]
