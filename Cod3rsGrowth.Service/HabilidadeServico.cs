@@ -1,11 +1,11 @@
-using Cod3rsGrowth.Infra;
 using FluentValidation.Results;
 using Cod3rsGrowth.Domain.Entities;
+using Cod3rsGrowth.Domain.Interfaces;
 using Cod3rsGrowth.Domain.Validators;
 
 namespace Cod3rsGrowth.Service
 {
-    public class HabilidadeServico : IHabilidadeServico
+    public class HabilidadeServico
     {
         private readonly HabilidadeValidador _habilidadeValidador;
         private readonly IHabilidadeRepositorio _habilidadeRepositorio;
@@ -35,10 +35,8 @@ namespace Cod3rsGrowth.Service
                 string todosErros = string.Join(separador, resultado.Errors.Select(erro => erro.ErrorMessage));
                 throw new Exception(todosErros);
             }
-
-            int idNovaHabilidade = _habilidadeRepositorio.Criar(habilidade);
             
-            return idNovaHabilidade;
+            return _habilidadeRepositorio.Criar(habilidade);
         }
 
         public void Editar(int id, Habilidade habilidadeAtualizada)

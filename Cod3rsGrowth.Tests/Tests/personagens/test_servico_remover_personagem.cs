@@ -1,40 +1,67 @@
 using Cod3rsGrowth.Service;
 using Cod3rsGrowth.Domain.Enums;
 using Cod3rsGrowth.Domain.Entities;
+using Cod3rsGrowth.Tests.Repositories;
 using Microsoft.Extensions.DependencyInjection;
-using Cod3rsGrowth.Infra;
 
 namespace Cod3rsGrowth.Tests.Tests
 {
     public class TesteServicoRemoverPersonagem : TesteBase
     {
-        private readonly IPersonagemServico _personagemService;
+        private readonly PersonagemServico _personagemService;
+        private readonly List<Personagem> _personagens = RepositorioMock.ObterInstancia.Personagens;
 
         public TesteServicoRemoverPersonagem() : base()
         {
-            _personagemService = ServiceProvider.GetRequiredService<IPersonagemServico>();
+            _personagemService = ServiceProvider.GetRequiredService<PersonagemServico>();
+            RepositorioMock.ResetarInstancia();
         }
 
         [Fact]
         public void RemoverPersonagemComExito()
         {
             // Arrange
-            int idNovoPersonagem = _personagemService.Criar(new Personagem(null, "Teste", 100, 50, 1.0, CategoriasEnum.Bom, CategoriasEnum.Medio));
+            int idTeste = 16;
+            var personagem = new Personagem
+            {
+                Id = idTeste,
+                Nome = "Teste", 
+                Vida = 100,
+                Energia = 50,
+                Velocidade = 1.0,
+                Forca = CategoriasEnum.Bom,
+                Inteligencia = CategoriasEnum.Bom,
+                Habilidades = new List<int> { 1, 2, 3, },
+                EVilao = false
+            };
+            _personagens.Add(personagem);
             
             // Act
-            _personagemService.Remover(idNovoPersonagem);
+            _personagemService.Remover(idTeste);
 
             // Assert
-            var excecao = Assert.Throws<Exception>(() => _personagemService.ObterPorId(idNovoPersonagem));
-            Assert.Equal("Personagem não encontrado.", excecao.Message);
+            var personagemNaoEncontrado = _personagens.Find(personagem => personagem.Id == idTeste);
+            Assert.Null(personagemNaoEncontrado);
         }
 
         [Fact]
         public void DeveLancarExcecaoAoRemoverComIdInvalido()
         {
             // Arrange
-            int idInvalido = 99999;
-            int idNovoPersonagem = _personagemService.Criar(new Personagem(null, "Teste", 100, 50, 1.0f, CategoriasEnum.Bom, CategoriasEnum.Medio));
+            int idTeste = 17, idInvalido = 99999;
+            var personagem = new Personagem
+            {
+                Id = idTeste,
+                Nome = "Teste", 
+                Vida = 100,
+                Energia = 50,
+                Velocidade = 1.0,
+                Forca = CategoriasEnum.Bom,
+                Inteligencia = CategoriasEnum.Bom,
+                Habilidades = new List<int> { 1, 2, 3, },
+                EVilao = false
+            };
+            _personagens.Add(personagem);
 
             // Act
             var resultado = Assert.Throws<Exception>(() => _personagemService.Remover(idInvalido));

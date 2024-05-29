@@ -1,29 +1,31 @@
 using Cod3rsGrowth.Service;
 using Cod3rsGrowth.Domain.Entities;
+using Cod3rsGrowth.Tests.Repositories;
 using Microsoft.Extensions.DependencyInjection;
-using Cod3rsGrowth.Infra;
 
 namespace Cod3rsGrowth.Tests.Tests
 {
     public class TesteServicoObterPorIdHabilidade : TesteBase
     {
-        private readonly IHabilidadeServico habilidadeService;
+        private readonly HabilidadeServico habilidadeService;
         private readonly List<Habilidade> _habilidades = RepositorioMock.ObterInstancia.Habilidades;
 
         public TesteServicoObterPorIdHabilidade() : base()
         {
-            habilidadeService = ServiceProvider.GetRequiredService<IHabilidadeServico>();
+            habilidadeService = ServiceProvider.GetRequiredService<HabilidadeServico>();
+            RepositorioMock.ResetarInstancia();
         }
 
         [Fact]
         public void ObtemHabilidadePorIdComExito()
         {
             // Arrange
-            Habilidade novaHabilidade = new Habilidade(10, "Teste", "Uma descrição qualquer");
+            int idTeste = 1;
+            var novaHabilidade = new Habilidade { Id = idTeste, Nome = "Teste", Descricao = "Uma descrição qualquer." };
             _habilidades.Add(novaHabilidade);
 
             // Act
-            var personagemEncontrado = habilidadeService.ObterPorId(10);
+            var personagemEncontrado = habilidadeService.ObterPorId(idTeste);
 
             // Assert
             Assert.Equivalent(novaHabilidade, personagemEncontrado);
@@ -33,8 +35,8 @@ namespace Cod3rsGrowth.Tests.Tests
         public void DeveLancarExcecaoAoBuscarPorIdComIdInvalido()
         {
             // Arrange
-            var idInvalido = 99999;
-            Habilidade novaHabilidade = new (10, "Teste", "Uma descrição qualquer");
+            int idTeste = 2, idInvalido = 99999;
+            var novaHabilidade = new Habilidade { Id = idTeste, Nome = "Teste", Descricao = "Uma descrição qualquer." };
             _habilidades.Add(novaHabilidade);
 
             // Act - Assert

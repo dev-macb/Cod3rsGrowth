@@ -1,33 +1,37 @@
 using Cod3rsGrowth.Service;
 using Cod3rsGrowth.Domain.Entities;
+using Cod3rsGrowth.Tests.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cod3rsGrowth.Tests.Tests
 {
     public class TesteServicoEditarHabilidade : TesteBase
     {
-        private readonly IHabilidadeServico _habilidadeService;
+        private readonly HabilidadeServico _habilidadeService;
+        private readonly List<Habilidade> _habilidades = RepositorioMock.ObterInstancia.Habilidades;    
 
         public TesteServicoEditarHabilidade() : base()
         {
-            _habilidadeService = ServiceProvider.GetRequiredService<IHabilidadeServico>();
+            _habilidadeService = ServiceProvider.GetRequiredService<HabilidadeServico>();
+            RepositorioMock.ResetarInstancia();
         }
 
         [Fact]
         public void EditarHabilidadeComExito()
         {
             // Arrange
-            var habilidade = new Habilidade(null, "Teste", "Uma descrição qualquer");
-            int idNovaHabilidade = _habilidadeService.Criar(habilidade);
-            var novaHabilidade = _habilidadeService.ObterPorId(idNovaHabilidade);
+            int idTeste = 1;
+            _habilidades.Add(new Habilidade { Id = idTeste, Nome = "Teste", Descricao = "Uma descrição qualquer." });
+            var novaHabilidade = _habilidades.Find(habilidade => habilidade.Id == idTeste);
+            Assert.NotNull(novaHabilidade);
 
             // Act
             novaHabilidade.Nome = "Testudo";
             novaHabilidade.Descricao = "Uma outra descrição da habilidade";
-            _habilidadeService.Editar(idNovaHabilidade, novaHabilidade);
+            _habilidadeService.Editar(idTeste, novaHabilidade);
 
             // Assert
-            var personagemAtualizado = _habilidadeService.ObterPorId(idNovaHabilidade);
+            var personagemAtualizado = _habilidades.Find(habilidade => habilidade.Id == idTeste);
             Assert.Equivalent(novaHabilidade, personagemAtualizado);
         }
 
@@ -35,10 +39,10 @@ namespace Cod3rsGrowth.Tests.Tests
         public void DeveLancarExcecaoAoEditarComIdInvalido()
         {
             // Arrange
-            var idInvalido = 99999;
-            var personagem = new Habilidade(null, "Teste", "Uma descrição qualquer");
-            int idNovaHabilidade = _habilidadeService.Criar(personagem);
-            var novaHabilidade = _habilidadeService.ObterPorId(idNovaHabilidade);
+            int idTeste = 2, idInvalido = 99999;
+            _habilidades.Add(new Habilidade { Id = idTeste, Nome = "Teste", Descricao = "Uma descrição qualquer." });
+            var novaHabilidade = _habilidades.Find(habilidade => habilidade.Id == idTeste);
+            Assert.NotNull(novaHabilidade);
 
             // Act - Assert
             novaHabilidade.Nome = "Testudo";
@@ -50,13 +54,14 @@ namespace Cod3rsGrowth.Tests.Tests
         public void DeveLancarExcecaoAoEditarComNomeCurto()
         {
             // Arrange
-            var habilidade = new Habilidade(null, "Teste", "Uma descrição qualquer");
-            int idNovaHabilidade = _habilidadeService.Criar(habilidade);
-            var novaHabilidade = _habilidadeService.ObterPorId(idNovaHabilidade);
+            int idTeste = 3;
+            _habilidades.Add(new Habilidade { Id = idTeste, Nome = "Teste", Descricao = "Uma descrição qualquer." });
+            var novaHabilidade = _habilidades.Find(habilidade => habilidade.Id == idTeste);
+            Assert.NotNull(novaHabilidade);
 
             // Act - Assert
             novaHabilidade.Nome = "T";
-            var resultado = Assert.Throws<Exception>(() => _habilidadeService.Editar(idNovaHabilidade, novaHabilidade));
+            var resultado = Assert.Throws<Exception>(() => _habilidadeService.Editar(idTeste, novaHabilidade));
             Assert.Equal("O nome deve ter no mínimo 3 caracteres e no máximo 50.", resultado.Message);
         }
 
@@ -64,13 +69,14 @@ namespace Cod3rsGrowth.Tests.Tests
         public void DeveLancarExcecaoAoEditarComNomeGrande()
         {
             // Arrange
-            var habilidade = new Habilidade(null, "Teste", "Uma descrição qualquer");
-            int idNovaHabilidade = _habilidadeService.Criar(habilidade);
-            var novaHabilidade = _habilidadeService.ObterPorId(idNovaHabilidade);
+            int idTeste = 4;
+            _habilidades.Add(new Habilidade { Id = idTeste, Nome = "Teste", Descricao = "Uma descrição qualquer." });
+            var novaHabilidade = _habilidades.Find(habilidade => habilidade.Id == idTeste);
+            Assert.NotNull(novaHabilidade);
 
             // Act - Assert
             novaHabilidade.Nome = "Teste Teste Teste Teste Teste Teste Teste Teste Tes";
-            var resultado = Assert.Throws<Exception>(() => _habilidadeService.Editar(idNovaHabilidade, novaHabilidade));
+            var resultado = Assert.Throws<Exception>(() => _habilidadeService.Editar(idTeste, novaHabilidade));
             Assert.Equal("O nome deve ter no mínimo 3 caracteres e no máximo 50.", resultado.Message);
         }
 
@@ -78,16 +84,17 @@ namespace Cod3rsGrowth.Tests.Tests
         public void DeveLancarExcecaoAoEditarComDescricaoGrande()
         {
             // Arrange
-            var habilidade = new Habilidade(null, "Teste", "Uma descrição qualquer");
-            int idNovaHabilidade = _habilidadeService.Criar(habilidade);
-            var novaHabilidade = _habilidadeService.ObterPorId(idNovaHabilidade);
+            int idTeste = 5;
+            _habilidades.Add(new Habilidade { Id = idTeste, Nome = "Teste", Descricao = "Uma descrição qualquer." });
+            var novaHabilidade = _habilidades.Find(habilidade => habilidade.Id == idTeste);
+            Assert.NotNull(novaHabilidade);
 
             // Act - Assert
             novaHabilidade.Descricao = "Teste Teste Teste Teste Teste Teste Teste Teste Teste " +
                 "Teste Teste Teste Teste Teste Teste Teste Teste Teste Teste Teste " + 
                 "Teste Teste Teste Teste Teste Teste Teste Teste Teste Teste Teste " +
                 "Teste Teste Tes";
-            var resultado = Assert.Throws<Exception>(() => _habilidadeService.Editar(idNovaHabilidade, novaHabilidade));
+            var resultado = Assert.Throws<Exception>(() => _habilidadeService.Editar(idTeste, novaHabilidade));
             Assert.Equal("A descrição deve ter no mínimo 0 caracteres e no máximo 200.", resultado.Message);
         }
     }

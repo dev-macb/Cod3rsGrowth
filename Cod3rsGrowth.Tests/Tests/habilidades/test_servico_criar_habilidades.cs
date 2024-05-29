@@ -1,32 +1,38 @@
 using Cod3rsGrowth.Service;
 using Cod3rsGrowth.Domain.Entities;
+using Cod3rsGrowth.Tests.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cod3rsGrowth.Tests.Tests
 {
     public class TesteServicoCriarHabilidade : TesteBase
     {
-        private readonly IHabilidadeServico _habilidadeService;
+        private readonly HabilidadeServico _habilidadeService;
+        private readonly List<Habilidade> _habilidades = RepositorioMock.ObterInstancia.Habilidades;
 
         public TesteServicoCriarHabilidade() : base()
         {
-            _habilidadeService = ServiceProvider.GetRequiredService<IHabilidadeServico>();
+            _habilidadeService = ServiceProvider.GetRequiredService<HabilidadeServico>();
+            RepositorioMock.ResetarInstancia();
         }
 
         [Fact]
         public void CriarHabilidadeComExito()
         {
             // Arrange
-            var novoHabilidade = new Habilidade(null, "Teste da Silva", "Uma descrição qualquer");
+            var novaHabilidade = new Habilidade 
+            { 
+                Nome = "Teste", 
+                Descricao = "Uma descrição qualquer."
+            };
 
             // Act
-            var resultado = _habilidadeService.Criar(novoHabilidade);
-            var personagemCriado = _habilidadeService.ObterPorId(resultado);
+            var idNovaHabilidade = _habilidadeService.Criar(novaHabilidade);
+            var personagemCriado = _habilidades.Find(personagem => personagem.Id == idNovaHabilidade);
 
             // Assert
             Assert.NotNull(personagemCriado);
-            Assert.Equal(personagemCriado.Id, resultado);
-            Assert.Equal(novoHabilidade.Nome, personagemCriado.Nome);
+            Assert.Equivalent(novaHabilidade, personagemCriado);
         }
 
         [Fact]
@@ -34,7 +40,11 @@ namespace Cod3rsGrowth.Tests.Tests
         {
             // Arrange
             string nomeCurto = "T";
-            var habilidadeInvalida = new Habilidade(null, nomeCurto, "Uma descrição qualquer");
+            var habilidadeInvalida = new Habilidade 
+            { 
+                Nome = nomeCurto, 
+                Descricao = "Uma descrição qualquer."
+            };
 
             // Act - Assert
             var excecao = Assert.Throws<Exception>(() => _habilidadeService.Criar(habilidadeInvalida));
@@ -46,7 +56,11 @@ namespace Cod3rsGrowth.Tests.Tests
         {
             // Arrange
             string nomeGrande = "Teste Teste Teste Teste Teste Teste Teste Teste Tes";
-            var habilidadeInvalida = new Habilidade(null, nomeGrande, "Uma descrição qualquer");
+            var habilidadeInvalida = new Habilidade 
+            { 
+                Nome = nomeGrande, 
+                Descricao = "Uma descrição qualquer." 
+            };
 
             // Act - Assert
             var excecao = Assert.Throws<Exception>(() => _habilidadeService.Criar(habilidadeInvalida));
@@ -58,10 +72,15 @@ namespace Cod3rsGrowth.Tests.Tests
         {
             // Arrange
             string descricaoGrande = "Teste Teste Teste Teste Teste Teste Teste Teste Teste " +
-                "Teste Teste Teste Teste Teste Teste Teste Teste Teste Teste Teste " + 
-                "Teste Teste Teste Teste Teste Teste Teste Teste Teste Teste Teste " +
-                "Teste Teste Tes";
-            var habilidadeInvalida = new Habilidade(null, "Teste", descricaoGrande);
+                "Teste Teste Teste Teste Teste Teste Teste Teste Teste " + 
+                "Teste Teste Teste Teste Teste Teste Teste Teste Teste " + 
+                "Teste Teste Teste Teste Teste Teste Tes";
+            var habilidadeInvalida = new Habilidade 
+            { 
+                Nome = "Teste", 
+                Descricao = descricaoGrande 
+            };
+
 
             // Act - Assert
             var excecao = Assert.Throws<Exception>(() => _habilidadeService.Criar(habilidadeInvalida));
