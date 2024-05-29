@@ -1,10 +1,11 @@
 using Cod3rsGrowth.Domain.Entities;
+using Cod3rsGrowth.Domain.Interfaces;
 
-namespace Cod3rsGrowth.Infra
+namespace Cod3rsGrowth.Tests.Repositories
 {
     public class PersonagemRepositorio : IPersonagemRepositorio
     {
-        private readonly List<Personagem> _personagens = RepositorioMock.ObterInstancia.Personagens;
+        private readonly List<Personagem> _personagens = RepositorioMock.ObterInstancia.Personagens; 
 
         public List<Personagem> ObterTodos()
         {

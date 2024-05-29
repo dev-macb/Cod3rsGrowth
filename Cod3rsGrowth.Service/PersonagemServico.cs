@@ -1,11 +1,11 @@
-using Cod3rsGrowth.Infra;
 using FluentValidation.Results;
 using Cod3rsGrowth.Domain.Entities;
+using Cod3rsGrowth.Domain.Interfaces;
 using Cod3rsGrowth.Domain.Validators;
 
 namespace Cod3rsGrowth.Service
 {
-    public class PersonagemServico : IPersonagemServico
+    public class PersonagemServico
     {
         private readonly PersonagemValidador _personagemValidador;
         private readonly IPersonagemRepositorio _personagemRepositorio;

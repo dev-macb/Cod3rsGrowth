@@ -1,8 +1,8 @@
 using Cod3rsGrowth.Domain.Entities;
 
-namespace Cod3rsGrowth.Service
+namespace Cod3rsGrowth.Domain.Interfaces
 {
-    public interface IHabilidadeServico
+    public interface IHabilidadeRepositorio
     {
         public List<Habilidade> ObterTodos();
         public Habilidade ObterPorId(int id);

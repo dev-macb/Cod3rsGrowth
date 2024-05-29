@@ -26,8 +26,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Cod3rsGrowth.Domain\Cod3rsGrowth.Domain.csproj" />
-    <ProjectReference Include="..\Cod3rsGrowth.Service\Cod3rsGrowth.Service.csproj" />
     <ProjectReference Include="..\Cod3rsGrowth.Infra\Cod3rsGrowth.Infra.csproj" />
   </ItemGroup>
 

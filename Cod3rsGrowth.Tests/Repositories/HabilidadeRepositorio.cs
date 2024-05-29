@@ -1,6 +1,7 @@
 using Cod3rsGrowth.Domain.Entities;
+using Cod3rsGrowth.Domain.Interfaces;
 
-namespace Cod3rsGrowth.Infra
+namespace Cod3rsGrowth.Tests.Repositories
 {
     public class HabilidadeRepositorio : IHabilidadeRepositorio
     {
@@ -21,7 +22,7 @@ namespace Cod3rsGrowth.Infra
             habilidade.Id = _habilidades.Any() ? _habilidades.Max(habilidade => habilidade.Id) + 1 : 1;
             _habilidades.Add(habilidade);
 
-            return habilidade.Id ?? throw new Exception("Erro ao criar id da habilidade.");
+            return habilidade.Id  ?? throw new Exception("Erro ao criar id da habilidade.");;
         }
 
         public void Editar(int id, Habilidade habilidadeAtualizada)

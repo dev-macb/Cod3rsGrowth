@@ -1,6 +1,6 @@
 using Cod3rsGrowth.Domain.Entities;
 
-namespace Cod3rsGrowth.Infra
+namespace Cod3rsGrowth.Tests.Repositories
 {
     public sealed class RepositorioMock
     {
