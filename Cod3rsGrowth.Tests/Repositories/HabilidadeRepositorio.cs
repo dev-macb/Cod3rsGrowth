@@ -3,11 +3,11 @@ using Cod3rsGrowth.Domain.Interfaces;
 
 namespace Cod3rsGrowth.Tests.Repositories
 {
-    public class HabilidadeRepositorio : IHabilidadeRepositorio
+    public class HabilidadeRepositorio : IRepositorio<Habilidade>
     {
         private readonly List<Habilidade> _habilidades = RepositorioMock.ObterInstancia.Habilidades;
 
-        public List<Habilidade> ObterTodos()
+        public List<Habilidade> ObterTodos(string filtro)
         {
             return _habilidades;
         }
@@ -17,15 +17,13 @@ namespace Cod3rsGrowth.Tests.Repositories
             return _habilidades.Find(habilidade => habilidade.Id == id) ?? throw new Exception("Habilidade não encontrada.");
         }
 
-        public int Criar(Habilidade habilidade)
+        public void Criar(Habilidade habilidade)
         {
             habilidade.Id = _habilidades.Any() ? _habilidades.Max(habilidade => habilidade.Id) + 1 : 1;
             _habilidades.Add(habilidade);
-
-            return habilidade.Id  ?? throw new Exception("Erro ao criar id da habilidade.");;
         }
 
-        public void Editar(int id, Habilidade habilidadeAtualizada)
+        public void Atualizar(int id, Habilidade habilidadeAtualizada)
         {
             var habilidadeExistente = _habilidades.Find(habilidade => habilidade.Id == id) ?? throw new Exception("Habilidade não encontrada.");
             habilidadeExistente.Nome = habilidadeAtualizada.Nome;

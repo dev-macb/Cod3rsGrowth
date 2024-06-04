@@ -3,11 +3,11 @@ using Cod3rsGrowth.Domain.Interfaces;
 
 namespace Cod3rsGrowth.Tests.Repositories
 {
-    public class PersonagemRepositorio : IPersonagemRepositorio
+    public class PersonagemRepositorio : IRepositorio<Personagem>
     {
         private readonly List<Personagem> _personagens = RepositorioMock.ObterInstancia.Personagens; 
 
-        public List<Personagem> ObterTodos()
+        public List<Personagem> ObterTodos(string filtro)
         {
             return _personagens;
         }
@@ -17,15 +17,13 @@ namespace Cod3rsGrowth.Tests.Repositories
             return _personagens.Find(personagem => personagem.Id == id) ?? throw new Exception("Personagem não encontrado.");
         }
 
-        public int Criar(Personagem personagem)
+        public void Criar(Personagem personagem)
         {
             personagem.Id = _personagens.Any() ? _personagens.Max(personagem => personagem.Id) + 1 : 1;
             _personagens.Add(personagem);
-
-            return personagem.Id ?? throw new Exception("Erro ao criar id do personagem.");
         }
 
-        public void Editar(int id, Personagem personagemAtualizado)
+        public void Atualizar(int id, Personagem personagemAtualizado)
         {
             var personagemExistente = _personagens.Find(personagem => personagem.Id == id) ?? throw new Exception("Personagem não encontrado.");
             personagemExistente.Nome = personagemAtualizado.Nome;

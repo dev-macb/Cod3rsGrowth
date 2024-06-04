@@ -4,7 +4,7 @@ using Cod3rsGrowth.Domain.Entities;
 using Cod3rsGrowth.Tests.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Cod3rsGrowth.Tests.Tests
+namespace Cod3rsGrowth.Tests.Tests.Personagens
 {
     public class TesteServicoCriarPersonagem : TesteBase
     {
@@ -13,7 +13,7 @@ namespace Cod3rsGrowth.Tests.Tests
 
         public TesteServicoCriarPersonagem() : base()
         {
-            _personagemService = ServiceProvider.GetRequiredService<PersonagemServico>();
+            _personagemService = _serviceProvider.GetRequiredService<PersonagemServico>();
             RepositorioMock.ResetarInstancia();
         }
 
@@ -23,6 +23,7 @@ namespace Cod3rsGrowth.Tests.Tests
             // Arrange
             var novoPersonagem = new Personagem
             {
+                Id = 1,
                 Nome = "Teste", 
                 Vida = 100,
                 Energia = 50,
@@ -34,8 +35,8 @@ namespace Cod3rsGrowth.Tests.Tests
             };
 
             // Act
-            var resultado = _personagemService.Criar(novoPersonagem);
-            var personagemCriado = _personagens.Find(personagem => personagem.Id == resultado);
+            _personagemService.Criar(novoPersonagem);
+            var personagemCriado = _personagens.Find(personagem => personagem.Id == 1);
 
             // Assert
             Assert.NotNull(personagemCriado);

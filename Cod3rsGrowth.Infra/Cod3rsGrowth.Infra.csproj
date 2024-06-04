@@ -4,6 +4,13 @@
     <ProjectReference Include="..\Cod3rsGrowth.Service\Cod3rsGrowth.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <PackageReference Include="FluentMigrator" Version="5.2.0" />
+    <PackageReference Include="linq2db.Sqlserver" Version="5.4.1" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.1" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
+  </ItemGroup>
+
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>

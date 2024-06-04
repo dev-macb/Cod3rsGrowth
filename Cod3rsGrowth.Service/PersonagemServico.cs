@@ -8,17 +8,17 @@ namespace Cod3rsGrowth.Service
     public class PersonagemServico
     {
         private readonly PersonagemValidador _personagemValidador;
-        private readonly IPersonagemRepositorio _personagemRepositorio;
+        private readonly IRepositorio<Personagem> _personagemRepositorio;
 
-        public PersonagemServico(IPersonagemRepositorio repositorioMock, PersonagemValidador validador)
+        public PersonagemServico(IRepositorio<Personagem> repositorioMock, PersonagemValidador validador)
         {
             _personagemValidador = validador;
             _personagemRepositorio = repositorioMock;
         }
 
-        public List<Personagem> ObterTodos()
+        public List<Personagem> ObterTodos(string filtro)
         {
-            return _personagemRepositorio.ObterTodos();
+            return _personagemRepositorio.ObterTodos(filtro);
         }
 
         public Personagem ObterPorId(int id)
@@ -26,7 +26,7 @@ namespace Cod3rsGrowth.Service
             return _personagemRepositorio.ObterPorId(id);
         }
 
-        public int Criar(Personagem personagem)
+        public void Criar(Personagem personagem)
         {
             const string separador = " "; 
             ValidationResult resultado = _personagemValidador.Validate(personagem);
@@ -36,9 +36,7 @@ namespace Cod3rsGrowth.Service
                 throw new Exception(todosErros);
             }
 
-            int idNovoPersonagem = _personagemRepositorio.Criar(personagem);
-            
-            return idNovoPersonagem;
+            _personagemRepositorio.Criar(personagem);
         }
 
         public void Editar(int id, Personagem personagemAtualizado)
@@ -52,7 +50,7 @@ namespace Cod3rsGrowth.Service
             }
             _personagemRepositorio.ObterPorId(id);
 
-            _personagemRepositorio.Editar(id, personagemAtualizado);
+            _personagemRepositorio.Atualizar(id, personagemAtualizado);
         }
 
         public void Remover(int id)
