@@ -5,6 +5,13 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="app.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+
+  <ItemGroup>
     <PackageReference Include="FluentMigrator" Version="5.2.0" />
     <PackageReference Include="linq2db.Sqlserver" Version="5.4.1" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.1" />
