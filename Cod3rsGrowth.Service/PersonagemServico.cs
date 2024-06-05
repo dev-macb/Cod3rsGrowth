@@ -21,12 +21,12 @@ namespace Cod3rsGrowth.Service
             return _personagemRepositorio.ObterTodos(filtro);
         }
 
-        public Personagem ObterPorId(int id)
+        public Personagem? ObterPorId(int id)
         {
             return _personagemRepositorio.ObterPorId(id);
         }
 
-        public void Criar(Personagem personagem)
+        public void Adicionar(Personagem personagem)
         {
             const string separador = " "; 
             ValidationResult resultado = _personagemValidador.Validate(personagem);
@@ -36,10 +36,10 @@ namespace Cod3rsGrowth.Service
                 throw new Exception(todosErros);
             }
 
-            _personagemRepositorio.Criar(personagem);
+            _personagemRepositorio.Adicionar(personagem);
         }
 
-        public void Editar(int id, Personagem personagemAtualizado)
+        public void Atualizar(int id, Personagem personagemAtualizado)
         {
             const string separador = " "; 
             ValidationResult resultado = _personagemValidador.Validate(personagemAtualizado);
@@ -53,9 +53,9 @@ namespace Cod3rsGrowth.Service
             _personagemRepositorio.Atualizar(id, personagemAtualizado);
         }
 
-        public void Remover(int id)
+        public void Deletar(int id)
         {
-            _personagemRepositorio.Remover(id);
+            _personagemRepositorio.Deletar(id);
         }
     }
 }

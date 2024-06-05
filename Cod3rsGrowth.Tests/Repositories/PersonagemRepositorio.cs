@@ -7,7 +7,7 @@ namespace Cod3rsGrowth.Tests.Repositories
     {
         private readonly List<Personagem> _personagens = RepositorioMock.ObterInstancia.Personagens; 
 
-        public List<Personagem> ObterTodos(string filtro)
+        public IEnumerable<Personagem> ObterTodos(string filtro)
         {
             return _personagens;
         }
@@ -17,7 +17,7 @@ namespace Cod3rsGrowth.Tests.Repositories
             return _personagens.Find(personagem => personagem.Id == id) ?? throw new Exception("Personagem não encontrado.");
         }
 
-        public void Criar(Personagem personagem)
+        public void Adicionar(Personagem personagem)
         {
             personagem.Id = _personagens.Any() ? _personagens.Max(personagem => personagem.Id) + 1 : 1;
             _personagens.Add(personagem);
@@ -37,7 +37,7 @@ namespace Cod3rsGrowth.Tests.Repositories
             personagemExistente.AtualizadoEm = DateTime.Now;
         }
 
-        public void Remover(int id)
+        public void Deletar(int id)
         {
             var personagemExistente = _personagens.Find(personagem => personagem.Id == id) ?? throw new Exception("Personagem não encontrado.");
             

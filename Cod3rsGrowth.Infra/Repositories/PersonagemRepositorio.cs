@@ -19,9 +19,9 @@ namespace Cod3rsGrowth.Infra.Repositories
             return _bancoDeDados.Personagens.Where(personagem => personagem.Nome.Contains(filtro)).ToList();
         }
 
-        public Personagem ObterPorId(int id)
+        public Personagem? ObterPorId(int id)
         {
-            throw new NotImplementedException();
+            return _bancoDeDados.Personagens.FirstOrDefault(personagem => personagem.Id == id);
         }
 
         public void Adicionar(Personagem personagem)

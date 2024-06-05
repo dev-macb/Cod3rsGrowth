@@ -7,7 +7,7 @@ namespace Cod3rsGrowth.Tests.Repositories
     {
         private readonly List<Habilidade> _habilidades = RepositorioMock.ObterInstancia.Habilidades;
 
-        public List<Habilidade> ObterTodos(string filtro)
+        public IEnumerable<Habilidade> ObterTodos(string filtro)
         {
             return _habilidades;
         }
@@ -17,7 +17,7 @@ namespace Cod3rsGrowth.Tests.Repositories
             return _habilidades.Find(habilidade => habilidade.Id == id) ?? throw new Exception("Habilidade não encontrada.");
         }
 
-        public void Criar(Habilidade habilidade)
+        public void Adicionar(Habilidade habilidade)
         {
             habilidade.Id = _habilidades.Any() ? _habilidades.Max(habilidade => habilidade.Id) + 1 : 1;
             _habilidades.Add(habilidade);
@@ -31,7 +31,7 @@ namespace Cod3rsGrowth.Tests.Repositories
             habilidadeExistente.AtualizadoEm = DateTime.Now;
         }
 
-        public void Remover(int id)
+        public void Deletar(int id)
         {
             var habilidadeExistente = _habilidades.Find(habilidade => habilidade.Id == id) ?? throw new Exception("Habilidade não encontrada.");
             
