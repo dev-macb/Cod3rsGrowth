@@ -21,12 +21,12 @@ namespace Cod3rsGrowth.Service
             return _habilidadeRepositorio.ObterTodos(filtro);
         }
 
-        public Habilidade ObterPorId(int id)
+        public Habilidade? ObterPorId(int id)
         {
             return _habilidadeRepositorio.ObterPorId(id);
         }
 
-        public void Criar(Habilidade habilidade)
+        public void Adicionar(Habilidade habilidade)
         {
             const string separador = " ";
             ValidationResult resultado = _habilidadeValidador.Validate(habilidade);
@@ -36,11 +36,11 @@ namespace Cod3rsGrowth.Service
                 throw new Exception(todosErros);
             }
             
-            _habilidadeRepositorio.Criar(habilidade);
+            _habilidadeRepositorio.Adicionar(habilidade);
             // return _habilidadeRepositorio.Criar(habilidade);
         }
 
-        public void Editar(int id, Habilidade habilidadeAtualizada)
+        public void Atualizar(int id, Habilidade habilidadeAtualizada)
         {
             const string separador = " ";
             ValidationResult resultado = _habilidadeValidador.Validate(habilidadeAtualizada);
@@ -53,9 +53,9 @@ namespace Cod3rsGrowth.Service
             _habilidadeRepositorio.Atualizar(id, habilidadeAtualizada);
         }
 
-        public void Remover(int id)
+        public void Deletar(int id)
         {
-            _habilidadeRepositorio.Remover(id);
+            _habilidadeRepositorio.Deletar(id);
         }
     }
 }
