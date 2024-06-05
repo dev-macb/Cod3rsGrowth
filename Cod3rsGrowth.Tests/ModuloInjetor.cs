@@ -1,26 +1,29 @@
 using Cod3rsGrowth.Service;
-using Cod3rsGrowth.Domain.Interfaces;
 using Cod3rsGrowth.Domain.Validators;
-using Cod3rsGrowth.Tests.Repositories;
 using Microsoft.Extensions.DependencyInjection;
+using Cod3rsGrowth.Domain.Interfaces;
+using Cod3rsGrowth.Domain.Entities;
+using Cod3rsGrowth.Tests.Repositories;
 
 namespace Cod3rsGrowth.Tests
 {
     public class ModuloInjetor
     {
-        public static void RegistrarServicos(IServiceCollection servicos)
+        public static ServiceProvider RegistrarServicos(IServiceCollection servicos)
         {
-            // Validadores
-            servicos.AddScoped<PersonagemValidador>();
-            servicos.AddScoped<HabilidadeValidador>();
-            
             // Serviços
             servicos.AddScoped<PersonagemServico>();
             servicos.AddScoped<HabilidadeServico>();
 
+            // Validadores
+            servicos.AddScoped<PersonagemValidador>();
+            servicos.AddScoped<HabilidadeValidador>();
+
             // Repositórios
-            servicos.AddSingleton<IPersonagemRepositorio, PersonagemRepositorio>();
-            servicos.AddSingleton<IHabilidadeRepositorio, HabilidadeRepositorio>();
+            servicos.AddScoped<IRepositorio<Personagem>, PersonagemRepositorio>();
+            servicos.AddScoped<IRepositorio<Habilidade>, HabilidadeRepositorio>();
+
+            return servicos.BuildServiceProvider();
         }
     }
 }
