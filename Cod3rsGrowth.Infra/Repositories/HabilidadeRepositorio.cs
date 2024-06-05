@@ -21,7 +21,7 @@ namespace Cod3rsGrowth.Infra.Repositories
 
         public Habilidade? ObterPorId(int id)
         {
-            return _bancoDeDados.Habilidades.Where(habilidade => habilidade.Id == id).FirstOrDefault();
+            return _bancoDeDados.Habilidades.FirstOrDefault(habilidade => habilidade.Id == id);
         }
 
         public void Adicionar(Habilidade habilidade)

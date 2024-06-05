@@ -21,7 +21,7 @@ namespace Cod3rsGrowth.Infra.Repositories
 
         public Personagem? ObterPorId(int id)
         {
-            return _bancoDeDados.Personagens.Where(personagem => personagem.Id == id).FirstOrDefault();
+            return _bancoDeDados.Personagens.FirstOrDefault(personagem => personagem.Id == id);
         }
 
         public void Adicionar(Personagem personagem)
