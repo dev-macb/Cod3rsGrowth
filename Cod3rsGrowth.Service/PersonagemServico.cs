@@ -16,7 +16,7 @@ namespace Cod3rsGrowth.Service
             _personagemRepositorio = repositorioMock;
         }
 
-        public List<Personagem> ObterTodos(string filtro)
+        public IEnumerable<Personagem> ObterTodos(string filtro)
         {
             return _personagemRepositorio.ObterTodos(filtro);
         }
