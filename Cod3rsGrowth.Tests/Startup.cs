@@ -7,7 +7,7 @@ using Cod3rsGrowth.Tests.Repositories;
 
 namespace Cod3rsGrowth.Tests
 {
-    public class ModuloInjetor
+    public class Startup
     {
         public static ServiceProvider RegistrarServicos(IServiceCollection servicos)
         {

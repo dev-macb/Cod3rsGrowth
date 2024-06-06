@@ -7,8 +7,6 @@ namespace Cod3rsGrowth.Infra
 {
     public class ContextoConexao : DataConnection
     {
-        public ContextoConexao(DataOptions<ContextoConexao> opcao) : base(opcao.Options) { }
-
         private ContextoConexao(string stringDeConexao) : base(stringDeConexao) { }
 
         public static ContextoConexao CriarConexao(string contexto)

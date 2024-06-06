@@ -17,7 +17,7 @@ namespace Cod3rsGrowth.Infra.Repositories
         {
             if (filtro == null) return _bancoDeDados.Habilidades;
 
-            return _bancoDeDados.Habilidades.Where(habilidade => habilidade.Nome.Contains(filtro)).ToList();
+            return _bancoDeDados.Habilidades.Where(habilidade => habilidade.Nome.Contains(filtro, StringComparison.OrdinalIgnoreCase)).ToList();
         }
 
         public Habilidade? ObterPorId(int id)

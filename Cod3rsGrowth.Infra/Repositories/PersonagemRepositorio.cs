@@ -17,7 +17,7 @@ namespace Cod3rsGrowth.Infra.Repositories
         {
             if (filtro == null) return _bancoDeDados.Personagens;
 
-            return _bancoDeDados.Personagens.Where(personagem => personagem.Nome.Contains(filtro)).ToList();
+            return _bancoDeDados.Personagens.Where(personagem => personagem.Nome.Contains(filtro, StringComparison.OrdinalIgnoreCase)).ToList();
         }
 
         public Personagem? ObterPorId(int id)
