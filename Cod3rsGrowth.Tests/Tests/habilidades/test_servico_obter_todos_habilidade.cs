@@ -13,18 +13,18 @@ namespace Cod3rsGrowth.Tests.Tests.Habilidades
         public TesteServicoObterTodosHabilidade() : base()
         {
             _habilidadeService = _serviceProvider.GetRequiredService<HabilidadeServico>();
-            RepositorioMock.ResetarInstancia();
         }
 
         [Fact]
         public void ObterTodosHabilidadeRetornaLista()
         {
             // Act
+            RepositorioMock.ResetarInstancia();
             var habilidades = _habilidadeService.ObterTodos("");
 
             // Assert
             Assert.IsType<List<Habilidade>>(habilidades);
-            Assert.Equivalent(habilidades, _habilidades);
+            Assert.Equivalent(_habilidades, habilidades);
         }
     }
 }

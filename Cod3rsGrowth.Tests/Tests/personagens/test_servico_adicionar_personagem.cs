@@ -14,16 +14,15 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
         public TesteServicoAdicionarPersonagem() : base()
         {
             _personagemService = _serviceProvider.GetRequiredService<PersonagemServico>();
-            RepositorioMock.ResetarInstancia();
         }
 
         [Fact]
         public void AdicionarNovoPersonagemComExito()
         {
             // Arrange
+            RepositorioMock.ResetarInstancia();
             var novoPersonagem = new Personagem
             {
-                Id = 1,
                 Nome = "Teste", 
                 Vida = 100,
                 Energia = 50,
@@ -35,8 +34,8 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
             };
 
             // Act
-            _personagemService.Adicionar(novoPersonagem);
-            var personagemCriado = _personagens.Find(personagem => personagem.Id == 1);
+            int idnovoPersonagem = _personagemService.Adicionar(novoPersonagem);
+            var personagemCriado = _personagens.Find(personagem => personagem.Id == idnovoPersonagem);
 
             // Assert
             Assert.NotNull(personagemCriado);

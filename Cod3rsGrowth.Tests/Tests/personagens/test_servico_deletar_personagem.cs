@@ -14,13 +14,13 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
         public TesteServicoDeletarPersonagem() : base()
         {
             _personagemService = _serviceProvider.GetRequiredService<PersonagemServico>();
-            RepositorioMock.ResetarInstancia();
         }
 
         [Fact]
         public void DeletarPersonagemComExito()
         {
             // Arrange
+            RepositorioMock.ResetarInstancia();
             int idTeste = 16;
             var personagem = new Personagem
             {

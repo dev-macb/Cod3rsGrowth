@@ -13,13 +13,13 @@ namespace Cod3rsGrowth.Tests.Tests.Habilidades
         public TesteServicoDeletarHabilidade() : base()
         {
             _habilidadeService = _serviceProvider.GetRequiredService<HabilidadeServico>();
-            RepositorioMock.ResetarInstancia();
         }
 
         [Fact]
         public void DeletarHabilidadeComExito()
         {
             // Arrange
+            RepositorioMock.ResetarInstancia();
             int idTeste = 1;
             _habilidades.Add(new Habilidade { Id = idTeste, Nome = "Teste", Descricao = "Uma descrição qualquer." });
             

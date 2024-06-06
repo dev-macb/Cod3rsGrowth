@@ -26,7 +26,7 @@ namespace Cod3rsGrowth.Service
             return _personagemRepositorio.ObterPorId(id);
         }
 
-        public void Adicionar(Personagem personagem)
+        public int Adicionar(Personagem personagem)
         {
             const string separador = " "; 
             ValidationResult resultado = _personagemValidador.Validate(personagem);
@@ -36,7 +36,7 @@ namespace Cod3rsGrowth.Service
                 throw new Exception(todosErros);
             }
 
-            _personagemRepositorio.Adicionar(personagem);
+            return _personagemRepositorio.Adicionar(personagem);
         }
 
         public void Atualizar(int id, Personagem personagemAtualizado)
