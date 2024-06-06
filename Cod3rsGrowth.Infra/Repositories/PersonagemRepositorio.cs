@@ -1,5 +1,6 @@
 using Cod3rsGrowth.Domain.Entities;
 using Cod3rsGrowth.Domain.Interfaces;
+using LinqToDB;
 
 namespace Cod3rsGrowth.Infra.Repositories
 {
@@ -24,9 +25,9 @@ namespace Cod3rsGrowth.Infra.Repositories
             return _bancoDeDados.Personagens.FirstOrDefault(personagem => personagem.Id == id);
         }
 
-        public void Adicionar(Personagem personagem)
+        public int Adicionar(Personagem novoPersonagem)
         {
-            throw new NotImplementedException();
+            return _bancoDeDados.Insert(novoPersonagem);
         }
 
         public void Atualizar(int id, Personagem personagem)

@@ -17,8 +17,8 @@ namespace Cod3rsGrowth.Infra
             return new ContextoConexao(stringDeConexao);
         }
 
-        public ITable<Personagem>? Personagens = null;
-        public ITable<Habilidade>? Habilidades = null;
+        public ITable<Personagem> Personagens => this.GetTable<Personagem>();
+        public ITable<Habilidade> Habilidades => this.GetTable<Habilidade>();
     } 
 }
  
