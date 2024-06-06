@@ -17,10 +17,11 @@ namespace Cod3rsGrowth.Tests.Repositories
             return _habilidades.Find(habilidade => habilidade.Id == id) ?? throw new Exception("Habilidade não encontrada.");
         }
 
-        public void Adicionar(Habilidade habilidade)
+        public int Adicionar(Habilidade habilidade)
         {
             habilidade.Id = _habilidades.Any() ? _habilidades.Max(habilidade => habilidade.Id) + 1 : 1;
             _habilidades.Add(habilidade);
+            return habilidade.Id ?? throw new Exception("Erro ao gerar id da habilidade");
         }
 
         public void Atualizar(int id, Habilidade habilidadeAtualizada)

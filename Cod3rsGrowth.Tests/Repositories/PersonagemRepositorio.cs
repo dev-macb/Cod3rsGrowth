@@ -17,10 +17,11 @@ namespace Cod3rsGrowth.Tests.Repositories
             return _personagens.Find(personagem => personagem.Id == id) ?? throw new Exception("Personagem não encontrado.");
         }
 
-        public void Adicionar(Personagem personagem)
+        public int Adicionar(Personagem personagem)
         {
             personagem.Id = _personagens.Any() ? _personagens.Max(personagem => personagem.Id) + 1 : 1;
             _personagens.Add(personagem);
+            return personagem.Id ?? throw new Exception("Erro oa gerar id do personagem.");
         }
 
         public void Atualizar(int id, Personagem personagemAtualizado)
