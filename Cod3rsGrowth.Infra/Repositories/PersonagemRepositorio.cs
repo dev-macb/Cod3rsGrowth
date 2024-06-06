@@ -30,9 +30,12 @@ namespace Cod3rsGrowth.Infra.Repositories
             return _bancoDeDados.Insert(novoPersonagem);
         }
 
-        public void Atualizar(int id, Personagem personagem)
+        public void Atualizar(int id, Personagem personagemAtualizado)
         {
-            throw new NotImplementedException();
+            _bancoDeDados.Personagens
+                .Where(personagem => personagem.Id == id)
+                .Set(personagem => personagem, personagemAtualizado)
+                .Update();
         }
 
         public void Deletar(int id)

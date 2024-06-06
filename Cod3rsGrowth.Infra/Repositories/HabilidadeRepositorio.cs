@@ -1,6 +1,6 @@
+using LinqToDB;
 using Cod3rsGrowth.Domain.Entities;
 using Cod3rsGrowth.Domain.Interfaces;
-using LinqToDB;
 
 namespace Cod3rsGrowth.Infra.Repositories
 {
@@ -30,9 +30,12 @@ namespace Cod3rsGrowth.Infra.Repositories
             return _bancoDeDados.Insert(novaHabilidade);
         }
 
-        public void Atualizar(int id, Habilidade habilidade)
+        public void Atualizar(int id, Habilidade habilidadeAtualizada)
         {
-            throw new NotImplementedException();
+            _bancoDeDados.Habilidades
+                .Where(habilidade => habilidade.Id == id)
+                .Set(habilidade => habilidade, habilidadeAtualizada)
+                .Update();
         }
 
         public void Deletar(int id)
