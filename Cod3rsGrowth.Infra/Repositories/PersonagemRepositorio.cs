@@ -40,7 +40,7 @@ namespace Cod3rsGrowth.Infra.Repositories
 
         public void Deletar(int id)
         {
-            throw new NotImplementedException();
+            _bancoDeDados.Personagens.Where(habilidade => habilidade.Id == id).Delete();
         }
     }
 }
