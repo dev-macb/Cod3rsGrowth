@@ -1,22 +1,14 @@
 using LinqToDB;
 using LinqToDB.Data;
-using System.Configuration;
 using Cod3rsGrowth.Domain.Entities;
 
 namespace Cod3rsGrowth.Infra
 {
     public class ContextoConexao : DataConnection
     {
-        private ContextoConexao(string stringDeConexao) : base(stringDeConexao) { }
-
-        public static ContextoConexao CriarConexao(string contexto)
-        {
-            string stringDeConexao = ConfigurationManager.ConnectionStrings[contexto].ConnectionString;
-            return new ContextoConexao(stringDeConexao);
-        }
+        public ContextoConexao(DataOptions<ContextoConexao> opcoes) : base(opcoes.Options) { }
 
         public ITable<Personagem> Personagens => this.GetTable<Personagem>();
         public ITable<Habilidade> Habilidades => this.GetTable<Habilidade>();
     } 
 }
- 

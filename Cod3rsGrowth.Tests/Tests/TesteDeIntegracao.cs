@@ -1,34 +1,28 @@
-using LinqToDB;
-using LinqToDB.Data;
-using Cod3rsGrowth.Domain.Entities;
 using Cod3rsGrowth.Infra;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Cod3rsGrowth.Tests.Tests
 {
     public class TesteDeIntegracao : TesteBase
     {
-        public TesteDeIntegracao() : base() { }
+        private readonly ContextoConexao _bancoDeDados;
+
+        public TesteDeIntegracao() : base() 
+        {
+            _bancoDeDados = _serviceProvider.GetRequiredService<ContextoConexao>();
+        }
 
         [Fact]
         public void DeveConectarNoBancoDeDadosComExito()
         {
             // Arrange
-            ContextoConexao? bancoDeDados = null;
-
-            // Act
-            try 
-            {
-                bancoDeDados = ContextoConexao.CriarConexao("ConexaoPadrao");
-                bool statusDeConexao = bancoDeDados.Connection.State == System.Data.ConnectionState.Open;
-                    
-                // Assert
-                Assert.True(statusDeConexao, "A conexão com o banco de dados deve estar aberta.");
-            }
-            catch 
-            {
-                bancoDeDados?.Dispose();
-            }
+            bool statusDaConexao;
             
+            // Act
+            statusDaConexao = _bancoDeDados.Connection.State == System.Data.ConnectionState.Open;
+
+            // Assert
+            Assert.True(statusDaConexao, "A conexão com o banco de dados deve estar aberta.");
         }
     }
 }

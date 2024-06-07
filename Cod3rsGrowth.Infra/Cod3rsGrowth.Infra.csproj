@@ -5,16 +5,16 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="app.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include=".env" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
-
   <ItemGroup>
+    <PackageReference Include="DotNetEnv" Version="3.0.0" />
     <PackageReference Include="FluentMigrator" Version="5.2.0" />
+    <PackageReference Include="linq2db.AspNet" Version="5.4.1" />
     <PackageReference Include="linq2db.Sqlserver" Version="5.4.1" />
     <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="8.0.0" />
   </ItemGroup>
 
