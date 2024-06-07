@@ -1,43 +1,45 @@
 using Cod3rsGrowth.Service;
-using Cod3rsGrowth.Domain.Enums;
 using Cod3rsGrowth.Domain.Entities;
+using Cod3rsGrowth.Tests.Repositories;
 using Microsoft.Extensions.DependencyInjection;
-using Cod3rsGrowth.Infra;
 
-namespace Cod3rsGrowth.Tests.Tests
+namespace Cod3rsGrowth.Tests.Tests.Habilidades
 {
-    public class TesteServicoRemoverHabilidade : TesteBase
+    public class TesteServicoDeletarHabilidade : TesteBase
     {
-        private readonly IHabilidadeServico _habilidadeService;
+        private readonly HabilidadeServico _habilidadeService;
+        private readonly List<Habilidade> _habilidades = RepositorioMock.ObterInstancia.Habilidades;    
 
-        public TesteServicoRemoverHabilidade() : base()
+        public TesteServicoDeletarHabilidade() : base()
         {
-            _habilidadeService = ServiceProvider.GetRequiredService<IHabilidadeServico>();
+            _habilidadeService = _serviceProvider.GetRequiredService<HabilidadeServico>();
         }
 
         [Fact]
-        public void RemoverHabilidadeComExito()
+        public void DeletarHabilidadeComExito()
         {
             // Arrange
-            int idNovoHabilidade = _habilidadeService.Criar(new Habilidade(null, "Teste", "Uma descição qualquer"));
+            RepositorioMock.ResetarInstancia();
+            int idTeste = 1;
+            _habilidades.Add(new Habilidade { Id = idTeste, Nome = "Teste", Descricao = "Uma descrição qualquer." });
             
             // Act
-            _habilidadeService.Remover(idNovoHabilidade);
+            _habilidadeService.Deletar(idTeste);
 
             // Assert
-            var excecao = Assert.Throws<Exception>(() => _habilidadeService.ObterPorId(idNovoHabilidade));
-            Assert.Equal("Habilidade não encontrada.", excecao.Message);
+            var habilidadeNaoEncontrada = _habilidades.Find(habilidade => habilidade.Id == idTeste);
+            Assert.Null(habilidadeNaoEncontrada);
         }
 
         [Fact]
-        public void DeveLancarExcecaoAoRemoverComIdInvalido()
+        public void DeveLancarExcecaoAoDeletarComIdInvalido()
         {
             // Arrange
-            int idInvalido = 99999;
-            int idNovoHabilidade = _habilidadeService.Criar(new Habilidade(null, "Teste", "Uma descição qualquer"));
-
+            int idTeste = 2, idInvalido = 99999;
+            _habilidades.Add(new Habilidade { Id = idTeste, Nome = "Teste", Descricao = "Uma descrição qualquer." });
+            
             // Act
-            var resultado = Assert.Throws<Exception>(() => _habilidadeService.Remover(idInvalido));
+            var resultado = Assert.Throws<Exception>(() => _habilidadeService.Deletar(idInvalido));
 
             // Assert
             Assert.Equal("Habilidade não encontrada.", resultado.Message);

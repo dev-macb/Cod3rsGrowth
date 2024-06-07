@@ -6,23 +6,23 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace Cod3rsGrowth.Tests.Tests.Personagens
 {
-    public class TesteServicoObterPorIdPersonagem : TesteBase
+    public class TesteServicoDeletarPersonagem : TesteBase
     {
         private readonly PersonagemServico _personagemService;
         private readonly List<Personagem> _personagens = RepositorioMock.ObterInstancia.Personagens;
 
-        public TesteServicoObterPorIdPersonagem() : base()
+        public TesteServicoDeletarPersonagem() : base()
         {
             _personagemService = _serviceProvider.GetRequiredService<PersonagemServico>();
-            RepositorioMock.ResetarInstancia();
         }
 
         [Fact]
-        public void ObterPersonagemPorIdComExito()
+        public void DeletarPersonagemComExito()
         {
             // Arrange
-            int idTeste = 14;
-            var novoPersonagem = new Personagem
+            RepositorioMock.ResetarInstancia();
+            int idTeste = 16;
+            var personagem = new Personagem
             {
                 Id = idTeste,
                 Nome = "Teste", 
@@ -34,21 +34,22 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
                 Habilidades = new List<int> { 1, 2, 3, },
                 EVilao = false
             };
-            _personagens.Add(novoPersonagem);
-
+            _personagens.Add(personagem);
+            
             // Act
-            var personagemAtualizado = _personagens.Find(personagem => personagem.Id == idTeste);
+            _personagemService.Deletar(idTeste);
 
             // Assert
-            Assert.Equivalent(novoPersonagem, personagemAtualizado);
+            var personagemNaoEncontrado = _personagens.Find(personagem => personagem.Id == idTeste);
+            Assert.Null(personagemNaoEncontrado);
         }
 
         [Fact]
-        public void DeveLancarExcecaoAoObterPorIdComIdInvalido()
+        public void DeveLancarExcecaoAoDeletarComIdInvalido()
         {
             // Arrange
-            int idTeste = 15, idInvalido = 99999;
-            var novoPersonagem = new Personagem
+            int idTeste = 17, idInvalido = 99999;
+            var personagem = new Personagem
             {
                 Id = idTeste,
                 Nome = "Teste", 
@@ -60,10 +61,12 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
                 Habilidades = new List<int> { 1, 2, 3, },
                 EVilao = false
             };
-            _personagens.Add(novoPersonagem);
+            _personagens.Add(personagem);
 
-            // Act - Assert
-            var resultado = Assert.Throws<Exception>(() => _personagemService.ObterPorId(idInvalido));
+            // Act
+            var resultado = Assert.Throws<Exception>(() => _personagemService.Deletar(idInvalido));
+
+            // Assert
             Assert.Equal("Personagem não encontrado.", resultado.Message);
         }
     }

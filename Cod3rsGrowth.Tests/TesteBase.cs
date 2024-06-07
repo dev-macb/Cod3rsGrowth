@@ -1,23 +1,25 @@
 using Microsoft.Extensions.DependencyInjection;
+using Cod3rsGrowth.Infra;
 
 namespace Cod3rsGrowth.Tests
 {
     public abstract class TesteBase : IDisposable
     {
-        protected ServiceProvider ServiceProvider { get; }
+        protected ServiceProvider _serviceProvider;
 
         protected TesteBase()
         {
-            var serviceCollection = new ServiceCollection();
+            var colecaoServicos = new ServiceCollection();
             
-            ModuloInjetor.RegistrarServicos(serviceCollection);
+            StartupInfra.Registrar(colecaoServicos);
+            StartupService.Registrar(colecaoServicos);
 
-            ServiceProvider = serviceCollection.BuildServiceProvider();
+            _serviceProvider = colecaoServicos.BuildServiceProvider();
         }
 
         public void Dispose()
         {
-            ServiceProvider.Dispose();
+            _serviceProvider.Dispose();
         }
     }
 }
