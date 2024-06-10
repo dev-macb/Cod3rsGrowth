@@ -5,10 +5,19 @@ namespace Cod3rsGrowth.Domain.Entities
     [Table("habilidades")]
     public class Habilidade
     {
-        public int? Id { get; set; }
+        [Column("id"), PrimaryKey, Identity]
+        public int Id { get; set; }
+
+        [Column("nome"), NotNull]
         public required string Nome { get; set; }
+
+        [Column("descricao")]
         public string? Descricao { get; set; }
-        public DateTime? CriadoEm { get; set; }
-        public DateTime? AtualizadoEm { get; set; }
+
+        [Column("criado_em"), NotNull]
+        public DateTime CriadoEm { get; set; }
+
+        [Column("atualizado_em"), NotNull]
+        public DateTime AtualizadoEm { get; set; }
     }
 }
