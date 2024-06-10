@@ -1,10 +1,10 @@
 using LinqToDB;
+using DotNetEnv;
 using LinqToDB.AspNet;
 using Cod3rsGrowth.Domain.Entities;
 using Cod3rsGrowth.Domain.Interfaces;
 using Cod3rsGrowth.Infra.Repositories;
 using Microsoft.Extensions.DependencyInjection;
-using DotNetEnv;
 
 namespace Cod3rsGrowth.Infra
 {

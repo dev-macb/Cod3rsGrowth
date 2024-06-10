@@ -1,5 +1,8 @@
-﻿namespace Cod3rsGrowth.Domain.Entities
+﻿using LinqToDB.Mapping;
+
+namespace Cod3rsGrowth.Domain.Entities
 {
+    [Table("habilidades")]
     public class Habilidade
     {
         public int? Id { get; set; }

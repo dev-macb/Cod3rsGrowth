@@ -1,7 +1,9 @@
 ﻿using Cod3rsGrowth.Domain.Enums;
+using LinqToDB.Mapping;
 
 namespace Cod3rsGrowth.Domain.Entities
 {
+    [Table("personagens")]
     public class Personagem
     {
         public int? Id { get; set; }

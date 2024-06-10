@@ -1,0 +1,34 @@
+using System.Data;
+using FluentMigrator;
+
+namespace Cod3rsGrowth.Infra.Migrations
+{
+    [Migration(003)]
+    public class PersonagensHabilidadesMigration : Migration
+    {
+        public override void Up()
+    {
+        Create.Table("personagens_habilidades")
+            .WithColumn("id").AsInt64().PrimaryKey().Identity()
+            .WithColumn("id_personagem").AsInt64().NotNullable()
+            .WithColumn("id_habilidade").AsInt64().NotNullable()
+            .WithColumn("CriadoEm").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime)
+            .WithColumn("AtualizadoEm").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime);
+
+        Create.ForeignKey("fk_id_personagem")
+            .FromTable("personagens_habilidades").ForeignColumns("id_personagem")
+            .ToTable("personagens").PrimaryColumn("id")
+            .OnDeleteOrUpdate(Rule.Cascade);
+
+        Create.ForeignKey("fk_id_habilidade")
+            .FromTable("personagens_habilidades").ForeignColumns("id_habilidade")
+            .ToTable("habilidades").PrimaryColumn("id")
+            .OnDeleteOrUpdate(Rule.Cascade);
+    }
+
+        public override void Down()
+        {
+            Delete.Table("habilidades");
+        }
+    }
+}
