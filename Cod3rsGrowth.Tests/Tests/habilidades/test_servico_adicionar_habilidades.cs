@@ -3,32 +3,33 @@ using Cod3rsGrowth.Domain.Entities;
 using Cod3rsGrowth.Tests.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Cod3rsGrowth.Tests.Tests
+namespace Cod3rsGrowth.Tests.Tests.Habilidades
 {
-    public class TesteServicoCriarHabilidade : TesteBase
+    public class TesteServicoAdicionarHabilidade : TesteBase
     {
         private readonly HabilidadeServico _habilidadeService;
         private readonly List<Habilidade> _habilidades = RepositorioMock.ObterInstancia.Habilidades;
 
-        public TesteServicoCriarHabilidade() : base()
+        public TesteServicoAdicionarHabilidade() : base()
         {
-            _habilidadeService = ServiceProvider.GetRequiredService<HabilidadeServico>();
+            _habilidadeService = _serviceProvider.GetRequiredService<HabilidadeServico>();
             RepositorioMock.ResetarInstancia();
         }
 
         [Fact]
-        public void CriarHabilidadeComExito()
+        public void AdicionarHabilidadeComExito()
         {
             // Arrange
             var novaHabilidade = new Habilidade 
-            { 
+            {
+                Id = 1,
                 Nome = "Teste", 
                 Descricao = "Uma descrição qualquer."
             };
 
             // Act
-            var idNovaHabilidade = _habilidadeService.Criar(novaHabilidade);
-            var personagemCriado = _habilidades.Find(personagem => personagem.Id == idNovaHabilidade);
+            _habilidadeService.Adicionar(novaHabilidade);
+            var personagemCriado = _habilidades.Find(personagem => personagem.Id == 1);
 
             // Assert
             Assert.NotNull(personagemCriado);
@@ -36,7 +37,7 @@ namespace Cod3rsGrowth.Tests.Tests
         }
 
         [Fact]
-        public void DeveLancarExcecaoAoCriarComNomeCurto()
+        public void DeveLancarExcecaoAoAdicionarComNomeCurto()
         {
             // Arrange
             string nomeCurto = "T";
@@ -47,12 +48,12 @@ namespace Cod3rsGrowth.Tests.Tests
             };
 
             // Act - Assert
-            var excecao = Assert.Throws<Exception>(() => _habilidadeService.Criar(habilidadeInvalida));
+            var excecao = Assert.Throws<Exception>(() => _habilidadeService.Adicionar(habilidadeInvalida));
             Assert.Equal("O nome deve ter no mínimo 3 caracteres e no máximo 50.", excecao.Message);
         }
 
         [Fact]
-        public void DeveLancarExcecaoAoCriarComNomeGrande()
+        public void DeveLancarExcecaoAoAdicionarComNomeGrande()
         {
             // Arrange
             string nomeGrande = "Teste Teste Teste Teste Teste Teste Teste Teste Tes";
@@ -63,12 +64,12 @@ namespace Cod3rsGrowth.Tests.Tests
             };
 
             // Act - Assert
-            var excecao = Assert.Throws<Exception>(() => _habilidadeService.Criar(habilidadeInvalida));
+            var excecao = Assert.Throws<Exception>(() => _habilidadeService.Adicionar(habilidadeInvalida));
             Assert.Equal("O nome deve ter no mínimo 3 caracteres e no máximo 50.", excecao.Message);
         }
 
         [Fact]
-        public void DeveLancarExcecaoAoCriarComDescricaoGrande()
+        public void DeveLancarExcecaoAoAdicionarComDescricaoGrande()
         {
             // Arrange
             string descricaoGrande = "Teste Teste Teste Teste Teste Teste Teste Teste Teste " +
@@ -83,7 +84,7 @@ namespace Cod3rsGrowth.Tests.Tests
 
 
             // Act - Assert
-            var excecao = Assert.Throws<Exception>(() => _habilidadeService.Criar(habilidadeInvalida));
+            var excecao = Assert.Throws<Exception>(() => _habilidadeService.Adicionar(habilidadeInvalida));
             Assert.Equal("A descrição deve ter no mínimo 0 caracteres e no máximo 200.", excecao.Message);
         }
     }

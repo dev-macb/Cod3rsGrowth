@@ -3,7 +3,7 @@ using Cod3rsGrowth.Domain.Entities;
 using Cod3rsGrowth.Tests.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Cod3rsGrowth.Tests.Tests
+namespace Cod3rsGrowth.Tests.Tests.Habilidades
 {
     public class TesteServicoObterTodosHabilidade : TesteBase
     {
@@ -12,19 +12,19 @@ namespace Cod3rsGrowth.Tests.Tests
 
         public TesteServicoObterTodosHabilidade() : base()
         {
-            _habilidadeService = ServiceProvider.GetRequiredService<HabilidadeServico>();
-            RepositorioMock.ResetarInstancia();
+            _habilidadeService = _serviceProvider.GetRequiredService<HabilidadeServico>();
         }
 
         [Fact]
         public void ObterTodosHabilidadeRetornaLista()
         {
             // Act
-            var habilidades = _habilidadeService.ObterTodos();
+            RepositorioMock.ResetarInstancia();
+            var habilidades = _habilidadeService.ObterTodos("");
 
             // Assert
             Assert.IsType<List<Habilidade>>(habilidades);
-            Assert.Equivalent(habilidades, _habilidades);
+            Assert.Equivalent(_habilidades, habilidades);
         }
     }
 }

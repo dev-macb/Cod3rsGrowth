@@ -3,7 +3,7 @@ using Cod3rsGrowth.Domain.Entities;
 using Cod3rsGrowth.Tests.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Cod3rsGrowth.Tests.Tests
+namespace Cod3rsGrowth.Tests.Tests.Habilidades
 {
     public class TesteServicoObterPorIdHabilidade : TesteBase
     {
@@ -12,14 +12,14 @@ namespace Cod3rsGrowth.Tests.Tests
 
         public TesteServicoObterPorIdHabilidade() : base()
         {
-            habilidadeService = ServiceProvider.GetRequiredService<HabilidadeServico>();
-            RepositorioMock.ResetarInstancia();
+            habilidadeService = _serviceProvider.GetRequiredService<HabilidadeServico>();
         }
 
         [Fact]
         public void ObtemHabilidadePorIdComExito()
         {
             // Arrange
+            RepositorioMock.ResetarInstancia();
             int idTeste = 1;
             var novaHabilidade = new Habilidade { Id = idTeste, Nome = "Teste", Descricao = "Uma descrição qualquer." };
             _habilidades.Add(novaHabilidade);

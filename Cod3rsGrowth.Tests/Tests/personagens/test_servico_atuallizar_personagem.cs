@@ -4,21 +4,21 @@ using Cod3rsGrowth.Domain.Entities;
 using Cod3rsGrowth.Tests.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Cod3rsGrowth.Tests.Tests
+namespace Cod3rsGrowth.Tests.Tests.Personagens
 {
-    public class TesteServicoEditarPersonagem : TesteBase
+    public class TesteServicoAtualizarPersonagem : TesteBase
     {
         private readonly PersonagemServico _personagemService;
         private readonly List<Personagem> _personagens = RepositorioMock.ObterInstancia.Personagens;
 
-        public TesteServicoEditarPersonagem() : base()
+        public TesteServicoAtualizarPersonagem() : base()
         {
-            _personagemService = ServiceProvider.GetRequiredService<PersonagemServico>();
+            _personagemService = _serviceProvider.GetRequiredService<PersonagemServico>();
             RepositorioMock.ResetarInstancia();
         }
 
         [Fact]
-        public void EditarPersonagemComExito()
+        public void AtualizarPersonagemComExito()
         {
             // Arrange
             int idTeste = 2;
@@ -44,7 +44,7 @@ namespace Cod3rsGrowth.Tests.Tests
             novoPersonagem.Velocidade = 0.5;
             novoPersonagem.Forca = CategoriasEnum.Fraco;
             novoPersonagem.Inteligencia = CategoriasEnum.Fraco;
-            _personagemService.Editar(idTeste, novoPersonagem);
+            _personagemService.Atualizar(idTeste, novoPersonagem);
 
             // Assert
             var personagemAtualizado = _personagens.Find(personagem => personagem.Id == idTeste);
@@ -52,7 +52,7 @@ namespace Cod3rsGrowth.Tests.Tests
         }
 
         [Fact]
-        public void DeveLancarExcecaoAoEditarComIdInvalido()
+        public void DeveLancarExcecaoAoAtualizarComIdInvalido()
         {
             // Arrange
             int idTeste = 3, idInvalido = 99999;
@@ -73,12 +73,12 @@ namespace Cod3rsGrowth.Tests.Tests
 
             // Act - Assert
             novoPersonagem.Nome = "Testudo";
-            var resultado = Assert.Throws<Exception>(() => _personagemService.Editar(idInvalido, novoPersonagem));
+            var resultado = Assert.Throws<Exception>(() => _personagemService.Atualizar(idInvalido, novoPersonagem));
             Assert.Equal("Personagem não encontrado.", resultado.Message);
         }
 
         [Fact]
-        public void DeveLancarExcecaoAoEditarComNomeCurto()
+        public void DeveLancarExcecaoAoAtualizarComNomeCurto()
         {
             // Arrange
             int idTeste = 4;
@@ -99,12 +99,12 @@ namespace Cod3rsGrowth.Tests.Tests
 
             // Act - Assert
             novoPersonagem.Nome = "T";
-            var resultado = Assert.Throws<Exception>(() => _personagemService.Editar(idTeste, novoPersonagem));
+            var resultado = Assert.Throws<Exception>(() => _personagemService.Atualizar(idTeste, novoPersonagem));
             Assert.Equal("O nome deve ter no mínimo 3 caracteres e no máximo 50.", resultado.Message);
         }
 
         [Fact]
-        public void DeveLancarExcecaoAoEditarComNomeGrande()
+        public void DeveLancarExcecaoAoAtualizarComNomeGrande()
         {
             // Arrange
             int idTeste = 5;
@@ -125,12 +125,12 @@ namespace Cod3rsGrowth.Tests.Tests
 
             // Act - Assert
             novoPersonagem.Nome = "Um nome qualquer que seja grande o suficiente para ser inutil";
-            var resultado = Assert.Throws<Exception>(() => _personagemService.Editar(idTeste, novoPersonagem));
+            var resultado = Assert.Throws<Exception>(() => _personagemService.Atualizar(idTeste, novoPersonagem));
             Assert.Equal("O nome deve ter no mínimo 3 caracteres e no máximo 50.", resultado.Message);
         }
 
         [Fact]
-        public void DeveLancarExcecaoAoEditarComVidaMenorQueZero()
+        public void DeveLancarExcecaoAoAtualizarComVidaMenorQueZero()
         {
             // Arrange
             int idTeste = 6;
@@ -151,12 +151,12 @@ namespace Cod3rsGrowth.Tests.Tests
 
             // Act - Assert
             novoPersonagem.Vida = -1;
-            var resultado = Assert.Throws<Exception>(() => _personagemService.Editar(idTeste, novoPersonagem));
+            var resultado = Assert.Throws<Exception>(() => _personagemService.Atualizar(idTeste, novoPersonagem));
             Assert.Equal("A vida deve estar entre 0 e 100.", resultado.Message);
         }
 
         [Fact]
-        public void DeveLancarExcecaoAoEditarComVidaMaiorQueCem()
+        public void DeveLancarExcecaoAoAtualizarComVidaMaiorQueCem()
         {
             // Arrange
             int idTeste = 7;
@@ -177,12 +177,12 @@ namespace Cod3rsGrowth.Tests.Tests
 
             // Act - Assert
             novoPersonagem.Vida = 101;
-            var resultado = Assert.Throws<Exception>(() => _personagemService.Editar(idTeste, novoPersonagem));
+            var resultado = Assert.Throws<Exception>(() => _personagemService.Atualizar(idTeste, novoPersonagem));
             Assert.Equal("A vida deve estar entre 0 e 100.", resultado.Message);
         }
 
         [Fact]
-        public void DeveLancarExcecaoAoEditarComEnergiaMenorQueZero()
+        public void DeveLancarExcecaoAoAtualizarComEnergiaMenorQueZero()
         {
             // Arrange
             int idTeste = 8;
@@ -203,12 +203,12 @@ namespace Cod3rsGrowth.Tests.Tests
 
             // Act - Assert
             novoPersonagem.Energia = -1;
-            var resultado = Assert.Throws<Exception>(() => _personagemService.Editar(idTeste, novoPersonagem));
+            var resultado = Assert.Throws<Exception>(() => _personagemService.Atualizar(idTeste, novoPersonagem));
             Assert.Equal("A energia deve estar entre 0 e 50.", resultado.Message);
         }
 
         [Fact]
-        public void DeveLancarExcecaoAoEditarComEnergiaMaiorQueCinquenta()
+        public void DeveLancarExcecaoAoAtualizarComEnergiaMaiorQueCinquenta()
         {
             // Arrange
             int idTeste = 9;
@@ -229,12 +229,12 @@ namespace Cod3rsGrowth.Tests.Tests
 
             // Act - Assert
             novoPersonagem.Energia = 51;
-            var resultado = Assert.Throws<Exception>(() => _personagemService.Editar(idTeste, novoPersonagem));
+            var resultado = Assert.Throws<Exception>(() => _personagemService.Atualizar(idTeste, novoPersonagem));
             Assert.Equal("A energia deve estar entre 0 e 50.", resultado.Message);
         }
 
         [Fact]
-        public void DeveLancarExcecaoAoEditarComVelocidadeMenorQueZero()
+        public void DeveLancarExcecaoAoAtualizarComVelocidadeMenorQueZero()
         {
             // Arrange
             int idTeste = 10;
@@ -255,12 +255,12 @@ namespace Cod3rsGrowth.Tests.Tests
 
             // Act - Assert
             novoPersonagem.Velocidade = -1;
-            var resultado = Assert.Throws<Exception>(() => _personagemService.Editar(idTeste, novoPersonagem));
+            var resultado = Assert.Throws<Exception>(() => _personagemService.Atualizar(idTeste, novoPersonagem));
             Assert.Equal("A velocidade deve estar entre 0 e 2.", resultado.Message);
         }
 
         [Fact]
-        public void DeveLancarExcecaoAoEditarComVelocidadeMaiorQueDois()
+        public void DeveLancarExcecaoAoAtualizarComVelocidadeMaiorQueDois()
         {
             // Arrange
             int idTeste = 11;
@@ -281,7 +281,7 @@ namespace Cod3rsGrowth.Tests.Tests
 
             // Act - Assert
             novoPersonagem.Velocidade = 2.1;
-            var resultado = Assert.Throws<Exception>(() => _personagemService.Editar(idTeste, novoPersonagem));
+            var resultado = Assert.Throws<Exception>(() => _personagemService.Atualizar(idTeste, novoPersonagem));
             Assert.Equal("A velocidade deve estar entre 0 e 2.", resultado.Message);
         }
 
@@ -307,7 +307,7 @@ namespace Cod3rsGrowth.Tests.Tests
 
             // Act - Assert
             novoPersonagem.Forca = (CategoriasEnum)99999;
-            var resultado = Assert.Throws<Exception>(() => _personagemService.Editar(idTeste, novoPersonagem));
+            var resultado = Assert.Throws<Exception>(() => _personagemService.Atualizar(idTeste, novoPersonagem));
             Assert.Equal("A força deve ser um valor válido de CategoriasEnum.", resultado.Message);
         }
 
@@ -333,7 +333,7 @@ namespace Cod3rsGrowth.Tests.Tests
 
             // Act - Assert
             novoPersonagem.Inteligencia = (CategoriasEnum)99999;;
-            var resultado = Assert.Throws<Exception>(() => _personagemService.Editar(idTeste, novoPersonagem));
+            var resultado = Assert.Throws<Exception>(() => _personagemService.Atualizar(idTeste, novoPersonagem));
             Assert.Equal("A inteligência deve ser um valor válido de CategoriasEnum.", resultado.Message);
         }
     }

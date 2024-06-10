@@ -8,25 +8,25 @@ namespace Cod3rsGrowth.Service
     public class HabilidadeServico
     {
         private readonly HabilidadeValidador _habilidadeValidador;
-        private readonly IHabilidadeRepositorio _habilidadeRepositorio;
+        private readonly IRepositorio<Habilidade> _habilidadeRepositorio;
 
-        public HabilidadeServico(IHabilidadeRepositorio repositorioMock, HabilidadeValidador validador)
+        public HabilidadeServico(IRepositorio<Habilidade> repositorio, HabilidadeValidador validador)
         {
             _habilidadeValidador = validador;
-            _habilidadeRepositorio = repositorioMock;
+            _habilidadeRepositorio = repositorio;
         }
 
-        public List<Habilidade> ObterTodos()
+        public IEnumerable<Habilidade> ObterTodos(string filtro)
         {
-            return _habilidadeRepositorio.ObterTodos();
+            return _habilidadeRepositorio.ObterTodos(filtro);
         }
 
-        public Habilidade ObterPorId(int id)
+        public Habilidade? ObterPorId(int id)
         {
             return _habilidadeRepositorio.ObterPorId(id);
         }
 
-        public int Criar(Habilidade habilidade)
+        public void Adicionar(Habilidade habilidade)
         {
             const string separador = " ";
             ValidationResult resultado = _habilidadeValidador.Validate(habilidade);
@@ -36,10 +36,11 @@ namespace Cod3rsGrowth.Service
                 throw new Exception(todosErros);
             }
             
-            return _habilidadeRepositorio.Criar(habilidade);
+            _habilidadeRepositorio.Adicionar(habilidade);
+            // return _habilidadeRepositorio.Criar(habilidade);
         }
 
-        public void Editar(int id, Habilidade habilidadeAtualizada)
+        public void Atualizar(int id, Habilidade habilidadeAtualizada)
         {
             const string separador = " ";
             ValidationResult resultado = _habilidadeValidador.Validate(habilidadeAtualizada);
@@ -49,12 +50,12 @@ namespace Cod3rsGrowth.Service
                 throw new Exception(todosErros);
             }
 
-            _habilidadeRepositorio.Editar(id, habilidadeAtualizada);
+            _habilidadeRepositorio.Atualizar(id, habilidadeAtualizada);
         }
 
-        public void Remover(int id)
+        public void Deletar(int id)
         {
-            _habilidadeRepositorio.Remover(id);
+            _habilidadeRepositorio.Deletar(id);
         }
     }
 }
