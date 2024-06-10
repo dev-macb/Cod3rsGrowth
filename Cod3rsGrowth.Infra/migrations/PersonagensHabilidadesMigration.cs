@@ -28,7 +28,9 @@ namespace Cod3rsGrowth.Infra.Migrations
 
         public override void Down()
         {
-            Delete.Table("habilidades");
+            Delete.ForeignKey("fk_id_personagem").OnTable("personagens_habilidades");
+            Delete.ForeignKey("fk_id_habilidade").OnTable("personagens_habilidades");
+            Delete.Table("personagens_habilidades");
         }
     }
 }

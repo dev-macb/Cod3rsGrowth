@@ -13,11 +13,15 @@ namespace Cod3rsGrowth.Infra.Repositories
             _bancoDeDados = bancoDeDados;
         }
 
-        public IEnumerable<Personagem> ObterTodos(string filtro)
+        public IEnumerable<Personagem> ObterTodos(IFiltro<Personagem> filtro)
         {
             if (filtro == null) return _bancoDeDados.Personagens;
 
-            return _bancoDeDados.Personagens.Where(personagem => personagem.Nome.Contains(filtro, StringComparison.OrdinalIgnoreCase)).ToList();
+            return _bancoDeDados.Personagens.Where(personagem => 
+                personagem.Nome.Contains(filtro.Nome, StringComparison.OrdinalIgnoreCase) &&
+                personagem.EVilao == filtro.EVilao &&
+                personagem.CriadoEm > filtro.CriadoEm
+            ).ToList();
         }
 
         public Personagem? ObterPorId(int id)
