@@ -8,7 +8,7 @@ namespace Cod3rsGrowth.Infra.Migrations
         public override void Up()
     {
         Create.Table("personagens")
-            .WithColumn("id").AsInt64().PrimaryKey().Identity()
+            .WithColumn("id").AsInt32().PrimaryKey().Identity()
             .WithColumn("nome").AsString().NotNullable()
             .WithColumn("vida").AsInt32().NotNullable()
             .WithColumn("energia").AsInt32().NotNullable()

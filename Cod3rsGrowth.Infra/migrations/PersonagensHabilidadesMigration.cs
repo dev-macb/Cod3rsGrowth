@@ -9,9 +9,9 @@ namespace Cod3rsGrowth.Infra.Migrations
         public override void Up()
     {
         Create.Table("personagens_habilidades")
-            .WithColumn("id").AsInt64().PrimaryKey().Identity()
-            .WithColumn("id_personagem").AsInt64().NotNullable()
-            .WithColumn("id_habilidade").AsInt64().NotNullable()
+            .WithColumn("id").AsInt32().PrimaryKey().Identity()
+            .WithColumn("id_personagem").AsInt32().NotNullable()
+            .WithColumn("id_habilidade").AsInt32().NotNullable()
             .WithColumn("CriadoEm").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime)
             .WithColumn("AtualizadoEm").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime);
 
