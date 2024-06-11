@@ -9,9 +9,9 @@ namespace Cod3rsGrowth.Infra.Migrations
         public override void Up()
     {
         Create.Table("personagens_habilidades")
-            .WithColumn("id").AsInt64().PrimaryKey().Identity()
-            .WithColumn("id_personagem").AsInt64().NotNullable()
-            .WithColumn("id_habilidade").AsInt64().NotNullable()
+            .WithColumn("id").AsInt32().PrimaryKey().Identity()
+            .WithColumn("id_personagem").AsInt32().NotNullable()
+            .WithColumn("id_habilidade").AsInt32().NotNullable()
             .WithColumn("CriadoEm").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime)
             .WithColumn("AtualizadoEm").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime);
 
@@ -28,7 +28,9 @@ namespace Cod3rsGrowth.Infra.Migrations
 
         public override void Down()
         {
-            Delete.Table("habilidades");
+            Delete.ForeignKey("fk_id_personagem").OnTable("personagens_habilidades");
+            Delete.ForeignKey("fk_id_habilidade").OnTable("personagens_habilidades");
+            Delete.Table("personagens_habilidades");
         }
     }
 }
