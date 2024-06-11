@@ -19,6 +19,8 @@ namespace Cod3rsGrowth.Forms
 
             StartupForms.ResetarBancoDeDados(_serviceProvider);
             StartupForms.InicializarBancoDeDados(_serviceProvider);
+
+            
             
             ApplicationConfiguration.Initialize();
             Application.Run(new Form1());

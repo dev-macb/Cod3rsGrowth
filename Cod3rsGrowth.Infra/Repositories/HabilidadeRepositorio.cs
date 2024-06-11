@@ -13,14 +13,16 @@ namespace Cod3rsGrowth.Infra.Repositories
             _bancoDeDados = bancoDeDados;
         }
 
-        public IEnumerable<Habilidade> ObterTodos(IFiltro<Habilidade> filtro)
+        public IEnumerable<Habilidade> ObterTodos(IFiltro filtro)
         {
             if (filtro == null) return _bancoDeDados.Habilidades;
 
-            return _bancoDeDados.Habilidades.Where(habilidade => 
-                habilidade.Nome.Contains(filtro.Nome, StringComparison.OrdinalIgnoreCase) && 
-                habilidade.CriadoEm > filtro.CriadoEm
-            ).ToList();
+            var habilidades = _bancoDeDados.Habilidades.AsQueryable();
+            if (!string.IsNullOrEmpty(filtro.Nome)) habilidades = habilidades.Where(habilidade => habilidade.Nome.Contains(filtro.Nome, StringComparison.OrdinalIgnoreCase));
+            if (filtro.DataBase.HasValue) habilidades = habilidades.Where(habilidade => habilidade.CriadoEm >= filtro.DataBase.Value);
+            if (filtro.DataTeto.HasValue) habilidades = habilidades.Where(habilidade => habilidade.CriadoEm <= filtro.DataTeto.Value);
+
+            return habilidades.ToList();
         }
 
         public Habilidade? ObterPorId(int id)
