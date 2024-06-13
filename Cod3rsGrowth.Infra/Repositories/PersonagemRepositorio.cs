@@ -13,9 +13,9 @@ namespace Cod3rsGrowth.Infra.Repositories
             _bancoDeDados = bancoDeDados;
         }
 
-        public IEnumerable<Personagem> ObterTodos(IFiltro filtro)
+        public IEnumerable<Personagem> ObterTodos(Filtro? filtro)
         {
-            if (filtro == null) return _bancoDeDados.Personagens;
+            if (filtro == null) return _bancoDeDados.Personagens.ToList();
 
             var personagens = _bancoDeDados.Personagens.AsQueryable();
             if (!string.IsNullOrEmpty(filtro.Nome)) personagens = personagens.Where(habilidade => habilidade.Nome.Contains(filtro.Nome, StringComparison.OrdinalIgnoreCase));

@@ -1,5 +1,6 @@
 using Cod3rsGrowth.Infra;
-using Cod3rsGrowth.Tests;
+using Cod3rsGrowth.Service;
+using Cod3rsGrowth.Service.Services;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cod3rsGrowth.Forms
@@ -17,13 +18,13 @@ namespace Cod3rsGrowth.Forms
             StartupService.Registrar(colecaoServicos);
             _serviceProvider = colecaoServicos.BuildServiceProvider();
 
-            StartupForms.ResetarBancoDeDados(_serviceProvider);
             StartupForms.InicializarBancoDeDados(_serviceProvider);
 
-            
-            
             ApplicationConfiguration.Initialize();
-            Application.Run(new Form1());
+            Application.Run(new FormularioPrincipal(
+                _serviceProvider.GetRequiredService<PersonagemServico>(), 
+                _serviceProvider.GetRequiredService<HabilidadeServico>())
+            );
         }
     }
 }

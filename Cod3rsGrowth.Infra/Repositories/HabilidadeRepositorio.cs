@@ -13,7 +13,7 @@ namespace Cod3rsGrowth.Infra.Repositories
             _bancoDeDados = bancoDeDados;
         }
 
-        public IEnumerable<Habilidade> ObterTodos(IFiltro filtro)
+        public IEnumerable<Habilidade> ObterTodos(Filtro? filtro)
         {
             if (filtro == null) return _bancoDeDados.Habilidades;
 

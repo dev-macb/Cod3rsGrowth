@@ -1,7 +1,7 @@
 using FluentValidation;
 using Cod3rsGrowth.Domain.Entities;
 
-namespace Cod3rsGrowth.Domain.Validators
+namespace Cod3rsGrowth.Service.Validators
 {
     public class HabilidadeValidador : AbstractValidator<Habilidade>
     {
