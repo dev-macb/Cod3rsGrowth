@@ -1,5 +1,6 @@
-using Microsoft.Extensions.DependencyInjection;
 using Cod3rsGrowth.Infra;
+using Cod3rsGrowth.Service;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Cod3rsGrowth.Tests
 {

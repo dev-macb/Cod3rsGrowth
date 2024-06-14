@@ -18,7 +18,7 @@ namespace Cod3rsGrowth.Domain.Entities
         [Column("energia"), NotNull]
         public int Energia { get; set; }
 
-        [Column("valociadade"), NotNull]
+        [Column("velocidade"), NotNull]
         public double Velocidade { get; set; }
 
         [Column("forca"), NotNull]

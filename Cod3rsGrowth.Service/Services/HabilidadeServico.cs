@@ -1,9 +1,9 @@
 using FluentValidation.Results;
 using Cod3rsGrowth.Domain.Entities;
 using Cod3rsGrowth.Domain.Interfaces;
-using Cod3rsGrowth.Domain.Validators;
+using Cod3rsGrowth.Service.Validators;
 
-namespace Cod3rsGrowth.Service
+namespace Cod3rsGrowth.Service.Services
 {
     public class HabilidadeServico
     {
@@ -16,7 +16,7 @@ namespace Cod3rsGrowth.Service
             _habilidadeRepositorio = repositorio;
         }
 
-        public IEnumerable<Habilidade> ObterTodos(IFiltro filtro)
+        public IEnumerable<Habilidade> ObterTodos(Filtro filtro)
         {
             return _habilidadeRepositorio.ObterTodos(filtro);
         }
@@ -30,12 +30,12 @@ namespace Cod3rsGrowth.Service
         {
             const string separador = " ";
             ValidationResult resultado = _habilidadeValidador.Validate(habilidade);
-            if (!resultado.IsValid) 
+            if (!resultado.IsValid)
             {
                 string todosErros = string.Join(separador, resultado.Errors.Select(erro => erro.ErrorMessage));
                 throw new Exception(todosErros);
             }
-            
+
             _habilidadeRepositorio.Adicionar(habilidade);
             // return _habilidadeRepositorio.Criar(habilidade);
         }
