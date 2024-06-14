@@ -11,19 +11,16 @@ using System.Windows.Forms;
 
 namespace Cod3rsGrowth.Forms.Forms
 {
-    public partial class FormFiltros : Form
+    public partial class FormularioFiltros : Form
     {
         private Filtro? _filtroAtual;
+        private readonly DateTime _dataBasePadrao = DateTime.Today.AddDays(-1);
+        private readonly DateTime _dataTetoPadrao = DateTime.Today.AddDays(1);
 
-        public FormFiltros(Filtro filtro)
+        public FormularioFiltros(Filtro filtro)
         {
             InitializeComponent();
             DefinirValoresNosFiltros(filtro);
-
-            radioHeroi.Checked = filtro.EVilao == false;
-            radioVilao.Checked = filtro.EVilao == true;
-            datetimeFiltroDataBase.Value = filtro.DataBase ?? DateTime.Today.AddDays(-1);
-            datetimeFiltroDataTeto.Value = filtro.DataTeto ?? DateTime.Today.AddDays(1);
         }
 
         public Filtro ObterFiltros()
@@ -41,22 +38,11 @@ namespace Cod3rsGrowth.Forms.Forms
         {
             _filtroAtual = filtro;
 
-            if (_filtroAtual.EVilao == true)
-            {
-                radioVilao.Checked = true;
-            }
-            else if (_filtroAtual.EVilao == false)
-            {
-                radioHeroi.Checked = true;
-            }
-            else
-            {
-                radioHeroi.Checked = false;
-                radioVilao.Checked = false;
-            }
+            radioVilao.Checked = _filtroAtual.EVilao == true;
+            radioHeroi.Checked = _filtroAtual.EVilao == false;
 
-            datetimeFiltroDataBase.Value = _filtroAtual.DataBase ?? DateTime.Today.AddDays(-1);
-            datetimeFiltroDataTeto.Value = _filtroAtual.DataTeto ?? DateTime.Today.AddDays(1);
+            datetimeFiltroDataBase.Value = _filtroAtual.DataBase ?? _dataBasePadrao;
+            datetimeFiltroDataTeto.Value = _filtroAtual.DataTeto ?? _dataTetoPadrao;
         }
 
         private void AoClicarNoButaoResetarLimpaOsFiltros(object sender, EventArgs e)
@@ -66,8 +52,8 @@ namespace Cod3rsGrowth.Forms.Forms
             radioHeroi.Checked = false;
             radioVilao.Checked = false;
 
-            datetimeFiltroDataBase.Value = DateTime.Today.AddDays(-1);
-            datetimeFiltroDataTeto.Value = DateTime.Today.AddDays(1);
+            datetimeFiltroDataBase.Value = _dataBasePadrao;
+            datetimeFiltroDataTeto.Value = _dataTetoPadrao;
         }
 
         private void AoClicarNoButaoAplcarFechaOsFiltros(object sender, EventArgs e)

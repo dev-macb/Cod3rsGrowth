@@ -1,6 +1,6 @@
 ﻿namespace Cod3rsGrowth.Forms.Forms
 {
-    partial class FormFiltros
+    partial class FormularioFiltros
     {
         private System.ComponentModel.IContainer components = null;
 

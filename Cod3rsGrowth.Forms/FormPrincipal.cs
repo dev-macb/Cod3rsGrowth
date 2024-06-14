@@ -24,10 +24,10 @@ namespace Cod3rsGrowth.Forms
 
         private void CarregarFormularioPrincipal(object sender, EventArgs e)
         {
-            AplicarFiltros();
+            DefinirFonteDeDadosDasTabelas();
         }
 
-        private void AplicarFiltros()
+        private void DefinirFonteDeDadosDasTabelas()
         {
             tabelaPersonagens.DataSource = _personagemServico.ObterTodos(_personagemFiltro);
             lblTotalPersonagens.Text = $"Total: {tabelaPersonagens.Rows.Count}";
@@ -38,11 +38,11 @@ namespace Cod3rsGrowth.Forms
 
         private void AoClicarNoBotaoDeFiltrarPersonagem(object sender, EventArgs e)
         {
-            var formularioFiltros = new FormFiltros(_personagemFiltro);
+            var formularioFiltros = new FormularioFiltros(_personagemFiltro);
             if (formularioFiltros.ShowDialog() == DialogResult.OK)
             {
                 _personagemFiltro = formularioFiltros.ObterFiltros();
-                AplicarFiltros();
+                DefinirFonteDeDadosDasTabelas();
             }
         }
 
@@ -51,29 +51,29 @@ namespace Cod3rsGrowth.Forms
             if (e.KeyCode == Keys.Enter)
             {
                 _personagemFiltro.Nome = txtboxFiltroPersonagemNome.Text;
-                AplicarFiltros();
+                DefinirFonteDeDadosDasTabelas();
             }
         }
 
         private void btnBuscarPersonagem_Click(object sender, EventArgs e)
         {
             _personagemFiltro.Nome = txtboxFiltroPersonagemNome.Text;
-            AplicarFiltros();
+            DefinirFonteDeDadosDasTabelas();
         }
 
         private void btnBuscarHabilidade_Click(object sender, EventArgs e)
         {
             _habilidadeFiltro.Nome = txtboxFiltroHabilidadeNome.Text;
-            AplicarFiltros();
+            DefinirFonteDeDadosDasTabelas();
         }
 
         private void btnFiltrarHabilidade_Click(object sender, EventArgs e)
         {
-            var formularioFiltros = new FormFiltros(_habilidadeFiltro);
+            var formularioFiltros = new FormularioFiltros(_habilidadeFiltro);
             if (formularioFiltros.ShowDialog() == DialogResult.OK)
             {
                 _habilidadeFiltro = formularioFiltros.ObterFiltros();
-                AplicarFiltros();
+                DefinirFonteDeDadosDasTabelas();
             }
         }
 
@@ -82,7 +82,7 @@ namespace Cod3rsGrowth.Forms
             if (e.KeyCode == Keys.Enter)
             {
                 _habilidadeFiltro.Nome = txtboxFiltroHabilidadeNome.Text;
-                AplicarFiltros();
+                DefinirFonteDeDadosDasTabelas();
             }
         }
     }
