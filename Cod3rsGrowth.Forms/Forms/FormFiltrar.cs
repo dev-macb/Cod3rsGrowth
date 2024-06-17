@@ -58,6 +58,7 @@ namespace Cod3rsGrowth.Forms.Forms
 
         private void AoClicarNoButaoAplcarFechaOsFiltros(object sender, EventArgs e)
         {
+            ObterFiltros();
             DialogResult = DialogResult.OK;
             Close();
         }

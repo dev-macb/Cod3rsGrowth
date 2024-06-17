@@ -11,6 +11,10 @@ namespace Cod3rsGrowth.Forms
         {
             Env.Load();
             string? stringDeConexao = Environment.GetEnvironmentVariable("BANCO_DADOS_URI");
+            if (string.IsNullOrEmpty(stringDeConexao))
+            {
+                throw new InvalidOperationException("A string de conexão com o banco de dados não foi configurada.");
+            }
 
             servicos
                 .AddFluentMigratorCore()
@@ -25,7 +29,16 @@ namespace Cod3rsGrowth.Forms
         {
             using var scope = serviceProvider.CreateScope();
             var runner = scope.ServiceProvider.GetRequiredService<IMigrationRunner>();
-            runner.MigrateUp();
+            try
+            {
+                runner.MigrateUp();
+                Console.WriteLine("Migrações aplicadas com sucesso.");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro ao aplicar migrações: {ex.Message}");
+                throw;
+            }
         }
 
         public static void ResetarBancoDeDados(IServiceProvider serviceProvider)

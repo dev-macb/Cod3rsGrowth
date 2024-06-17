@@ -1,3 +1,4 @@
+using FluentValidation;
 using FluentValidation.Results;
 using Cod3rsGrowth.Domain.Entities;
 using Cod3rsGrowth.Domain.Interfaces;
@@ -33,11 +34,10 @@ namespace Cod3rsGrowth.Service.Services
             if (!resultado.IsValid)
             {
                 string todosErros = string.Join(separador, resultado.Errors.Select(erro => erro.ErrorMessage));
-                throw new Exception(todosErros);
+                throw new ValidationException(todosErros);
             }
 
             _habilidadeRepositorio.Adicionar(habilidade);
-            // return _habilidadeRepositorio.Criar(habilidade);
         }
 
         public void Atualizar(int id, Habilidade habilidadeAtualizada)
@@ -47,7 +47,7 @@ namespace Cod3rsGrowth.Service.Services
             if (!resultado.IsValid)
             {
                 string todosErros = string.Join(separador, resultado.Errors.Select(erro => erro.ErrorMessage));
-                throw new Exception(todosErros);
+                throw new ValidationException(todosErros);
             }
 
             _habilidadeRepositorio.Atualizar(id, habilidadeAtualizada);

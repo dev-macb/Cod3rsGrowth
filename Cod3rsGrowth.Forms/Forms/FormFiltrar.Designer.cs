@@ -140,7 +140,7 @@
             button1.UseVisualStyleBackColor = true;
             button1.Click += AoClicarNoButaoResetarLimpaOsFiltros;
             // 
-            // FormFiltros
+            // FormularioFiltros
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -151,7 +151,8 @@
             Controls.Add(grupoDataCriacao);
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "FormFiltros";
+            Name = "FormularioFiltros";
+            StartPosition = FormStartPosition.CenterParent;
             Text = "Filtros";
             grupoDataCriacao.ResumeLayout(false);
             grupoDataCriacao.PerformLayout();

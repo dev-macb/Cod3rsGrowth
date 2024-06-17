@@ -41,6 +41,16 @@ namespace Cod3rsGrowth.Forms
             menuSuperiorAplicacaoSair = new ToolStripMenuItem();
             txtboxFiltroPersonagemId = new TextBox();
             tabelaPersonagens = new DataGridView();
+            idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            nomeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            vidaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            energiaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            velocidadeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            forcaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            inteligenciaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            eVilaoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            criadoEmDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            atualizadoEmDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             personagemBindingSource = new BindingSource(components);
             txtboxFiltroPersonagemNome = new TextBox();
             personagemServicoBindingSource1 = new BindingSource(components);
@@ -53,27 +63,17 @@ namespace Cod3rsGrowth.Forms
             AbaHabilidade = new TabPage();
             lblTotalHabilidades = new Label();
             tabelaHabilidades = new DataGridView();
+            idDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
+            nomeDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
+            descricaoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            criadoEmDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
+            atualizadoEmDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
             habilidadeBindingSource = new BindingSource(components);
             btnFiltrarHabilidade = new Button();
             btnBuscarHabilidade = new Button();
             txtboxFiltroHabilidadeNome = new TextBox();
             txtboxFiltroHabilidadeId = new TextBox();
             fbCommand1 = new FirebirdSql.Data.FirebirdClient.FbCommand();
-            atualizadoEmDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            criadoEmDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            eVilaoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            inteligenciaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            forcaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            velocidadeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            energiaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            vidaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            nomeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            atualizadoEmDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
-            criadoEmDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
-            descricaoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            nomeDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
-            idDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
             menuSuperior.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tabelaPersonagens).BeginInit();
             ((System.ComponentModel.ISupportInitialize)personagemBindingSource).BeginInit();
@@ -106,30 +106,32 @@ namespace Cod3rsGrowth.Forms
             // 
             menuSuperiorAplicacaoCadastro.DropDownItems.AddRange(new ToolStripItem[] { menuSuperiorCadastroPersonagem, menuSuperiorCadastroHabilidade });
             menuSuperiorAplicacaoCadastro.Name = "menuSuperiorAplicacaoCadastro";
-            menuSuperiorAplicacaoCadastro.Size = new Size(121, 22);
+            menuSuperiorAplicacaoCadastro.Size = new Size(180, 22);
             menuSuperiorAplicacaoCadastro.Text = "Cadastro";
             // 
             // menuSuperiorCadastroPersonagem
             // 
             menuSuperiorCadastroPersonagem.Name = "menuSuperiorCadastroPersonagem";
-            menuSuperiorCadastroPersonagem.Size = new Size(140, 22);
+            menuSuperiorCadastroPersonagem.Size = new Size(180, 22);
             menuSuperiorCadastroPersonagem.Text = "Personagem";
+            menuSuperiorCadastroPersonagem.Click += menuSuperiorCadastroPersonagem_Click;
             // 
             // menuSuperiorCadastroHabilidade
             // 
             menuSuperiorCadastroHabilidade.Name = "menuSuperiorCadastroHabilidade";
-            menuSuperiorCadastroHabilidade.Size = new Size(140, 22);
+            menuSuperiorCadastroHabilidade.Size = new Size(180, 22);
             menuSuperiorCadastroHabilidade.Text = "Habilidade";
+            menuSuperiorCadastroHabilidade.Click += menuSuperiorCadastroHabilidade_Click;
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(118, 6);
+            toolStripSeparator1.Size = new Size(177, 6);
             // 
             // menuSuperiorAplicacaoSair
             // 
             menuSuperiorAplicacaoSair.Name = "menuSuperiorAplicacaoSair";
-            menuSuperiorAplicacaoSair.Size = new Size(121, 22);
+            menuSuperiorAplicacaoSair.Size = new Size(180, 22);
             menuSuperiorAplicacaoSair.Text = "Sair";
             // 
             // txtboxFiltroPersonagemId
@@ -152,6 +154,66 @@ namespace Cod3rsGrowth.Forms
             tabelaPersonagens.RowTemplate.Height = 25;
             tabelaPersonagens.Size = new Size(762, 347);
             tabelaPersonagens.TabIndex = 6;
+            // 
+            // idDataGridViewTextBoxColumn
+            // 
+            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            idDataGridViewTextBoxColumn.HeaderText = "Id";
+            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            // 
+            // nomeDataGridViewTextBoxColumn
+            // 
+            nomeDataGridViewTextBoxColumn.DataPropertyName = "Nome";
+            nomeDataGridViewTextBoxColumn.HeaderText = "Nome";
+            nomeDataGridViewTextBoxColumn.Name = "nomeDataGridViewTextBoxColumn";
+            // 
+            // vidaDataGridViewTextBoxColumn
+            // 
+            vidaDataGridViewTextBoxColumn.DataPropertyName = "Vida";
+            vidaDataGridViewTextBoxColumn.HeaderText = "Vida";
+            vidaDataGridViewTextBoxColumn.Name = "vidaDataGridViewTextBoxColumn";
+            // 
+            // energiaDataGridViewTextBoxColumn
+            // 
+            energiaDataGridViewTextBoxColumn.DataPropertyName = "Energia";
+            energiaDataGridViewTextBoxColumn.HeaderText = "Energia";
+            energiaDataGridViewTextBoxColumn.Name = "energiaDataGridViewTextBoxColumn";
+            // 
+            // velocidadeDataGridViewTextBoxColumn
+            // 
+            velocidadeDataGridViewTextBoxColumn.DataPropertyName = "Velocidade";
+            velocidadeDataGridViewTextBoxColumn.HeaderText = "Velocidade";
+            velocidadeDataGridViewTextBoxColumn.Name = "velocidadeDataGridViewTextBoxColumn";
+            // 
+            // forcaDataGridViewTextBoxColumn
+            // 
+            forcaDataGridViewTextBoxColumn.DataPropertyName = "Forca";
+            forcaDataGridViewTextBoxColumn.HeaderText = "Forca";
+            forcaDataGridViewTextBoxColumn.Name = "forcaDataGridViewTextBoxColumn";
+            // 
+            // inteligenciaDataGridViewTextBoxColumn
+            // 
+            inteligenciaDataGridViewTextBoxColumn.DataPropertyName = "Inteligencia";
+            inteligenciaDataGridViewTextBoxColumn.HeaderText = "Inteligencia";
+            inteligenciaDataGridViewTextBoxColumn.Name = "inteligenciaDataGridViewTextBoxColumn";
+            // 
+            // eVilaoDataGridViewTextBoxColumn
+            // 
+            eVilaoDataGridViewTextBoxColumn.DataPropertyName = "EVilao";
+            eVilaoDataGridViewTextBoxColumn.HeaderText = "EVilao";
+            eVilaoDataGridViewTextBoxColumn.Name = "eVilaoDataGridViewTextBoxColumn";
+            // 
+            // criadoEmDataGridViewTextBoxColumn
+            // 
+            criadoEmDataGridViewTextBoxColumn.DataPropertyName = "CriadoEm";
+            criadoEmDataGridViewTextBoxColumn.HeaderText = "CriadoEm";
+            criadoEmDataGridViewTextBoxColumn.Name = "criadoEmDataGridViewTextBoxColumn";
+            // 
+            // atualizadoEmDataGridViewTextBoxColumn
+            // 
+            atualizadoEmDataGridViewTextBoxColumn.DataPropertyName = "AtualizadoEm";
+            atualizadoEmDataGridViewTextBoxColumn.HeaderText = "AtualizadoEm";
+            atualizadoEmDataGridViewTextBoxColumn.Name = "atualizadoEmDataGridViewTextBoxColumn";
             // 
             // personagemBindingSource
             // 
@@ -267,6 +329,36 @@ namespace Cod3rsGrowth.Forms
             tabelaHabilidades.Size = new Size(762, 347);
             tabelaHabilidades.TabIndex = 4;
             // 
+            // idDataGridViewTextBoxColumn1
+            // 
+            idDataGridViewTextBoxColumn1.DataPropertyName = "Id";
+            idDataGridViewTextBoxColumn1.HeaderText = "Id";
+            idDataGridViewTextBoxColumn1.Name = "idDataGridViewTextBoxColumn1";
+            // 
+            // nomeDataGridViewTextBoxColumn1
+            // 
+            nomeDataGridViewTextBoxColumn1.DataPropertyName = "Nome";
+            nomeDataGridViewTextBoxColumn1.HeaderText = "Nome";
+            nomeDataGridViewTextBoxColumn1.Name = "nomeDataGridViewTextBoxColumn1";
+            // 
+            // descricaoDataGridViewTextBoxColumn
+            // 
+            descricaoDataGridViewTextBoxColumn.DataPropertyName = "Descricao";
+            descricaoDataGridViewTextBoxColumn.HeaderText = "Descricao";
+            descricaoDataGridViewTextBoxColumn.Name = "descricaoDataGridViewTextBoxColumn";
+            // 
+            // criadoEmDataGridViewTextBoxColumn1
+            // 
+            criadoEmDataGridViewTextBoxColumn1.DataPropertyName = "CriadoEm";
+            criadoEmDataGridViewTextBoxColumn1.HeaderText = "CriadoEm";
+            criadoEmDataGridViewTextBoxColumn1.Name = "criadoEmDataGridViewTextBoxColumn1";
+            // 
+            // atualizadoEmDataGridViewTextBoxColumn1
+            // 
+            atualizadoEmDataGridViewTextBoxColumn1.DataPropertyName = "AtualizadoEm";
+            atualizadoEmDataGridViewTextBoxColumn1.HeaderText = "AtualizadoEm";
+            atualizadoEmDataGridViewTextBoxColumn1.Name = "atualizadoEmDataGridViewTextBoxColumn1";
+            // 
             // habilidadeBindingSource
             // 
             habilidadeBindingSource.DataSource = typeof(Domain.Entities.Habilidade);
@@ -310,96 +402,6 @@ namespace Cod3rsGrowth.Forms
             txtboxFiltroHabilidadeId.Size = new Size(50, 23);
             txtboxFiltroHabilidadeId.TabIndex = 0;
             // 
-            // atualizadoEmDataGridViewTextBoxColumn
-            // 
-            atualizadoEmDataGridViewTextBoxColumn.DataPropertyName = "AtualizadoEm";
-            atualizadoEmDataGridViewTextBoxColumn.HeaderText = "AtualizadoEm";
-            atualizadoEmDataGridViewTextBoxColumn.Name = "atualizadoEmDataGridViewTextBoxColumn";
-            // 
-            // criadoEmDataGridViewTextBoxColumn
-            // 
-            criadoEmDataGridViewTextBoxColumn.DataPropertyName = "CriadoEm";
-            criadoEmDataGridViewTextBoxColumn.HeaderText = "CriadoEm";
-            criadoEmDataGridViewTextBoxColumn.Name = "criadoEmDataGridViewTextBoxColumn";
-            // 
-            // eVilaoDataGridViewTextBoxColumn
-            // 
-            eVilaoDataGridViewTextBoxColumn.DataPropertyName = "EVilao";
-            eVilaoDataGridViewTextBoxColumn.HeaderText = "EVilao";
-            eVilaoDataGridViewTextBoxColumn.Name = "eVilaoDataGridViewTextBoxColumn";
-            // 
-            // inteligenciaDataGridViewTextBoxColumn
-            // 
-            inteligenciaDataGridViewTextBoxColumn.DataPropertyName = "Inteligencia";
-            inteligenciaDataGridViewTextBoxColumn.HeaderText = "Inteligencia";
-            inteligenciaDataGridViewTextBoxColumn.Name = "inteligenciaDataGridViewTextBoxColumn";
-            // 
-            // forcaDataGridViewTextBoxColumn
-            // 
-            forcaDataGridViewTextBoxColumn.DataPropertyName = "Forca";
-            forcaDataGridViewTextBoxColumn.HeaderText = "Forca";
-            forcaDataGridViewTextBoxColumn.Name = "forcaDataGridViewTextBoxColumn";
-            // 
-            // velocidadeDataGridViewTextBoxColumn
-            // 
-            velocidadeDataGridViewTextBoxColumn.DataPropertyName = "Velocidade";
-            velocidadeDataGridViewTextBoxColumn.HeaderText = "Velocidade";
-            velocidadeDataGridViewTextBoxColumn.Name = "velocidadeDataGridViewTextBoxColumn";
-            // 
-            // energiaDataGridViewTextBoxColumn
-            // 
-            energiaDataGridViewTextBoxColumn.DataPropertyName = "Energia";
-            energiaDataGridViewTextBoxColumn.HeaderText = "Energia";
-            energiaDataGridViewTextBoxColumn.Name = "energiaDataGridViewTextBoxColumn";
-            // 
-            // vidaDataGridViewTextBoxColumn
-            // 
-            vidaDataGridViewTextBoxColumn.DataPropertyName = "Vida";
-            vidaDataGridViewTextBoxColumn.HeaderText = "Vida";
-            vidaDataGridViewTextBoxColumn.Name = "vidaDataGridViewTextBoxColumn";
-            // 
-            // nomeDataGridViewTextBoxColumn
-            // 
-            nomeDataGridViewTextBoxColumn.DataPropertyName = "Nome";
-            nomeDataGridViewTextBoxColumn.HeaderText = "Nome";
-            nomeDataGridViewTextBoxColumn.Name = "nomeDataGridViewTextBoxColumn";
-            // 
-            // idDataGridViewTextBoxColumn
-            // 
-            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            idDataGridViewTextBoxColumn.HeaderText = "Id";
-            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            // 
-            // atualizadoEmDataGridViewTextBoxColumn1
-            // 
-            atualizadoEmDataGridViewTextBoxColumn1.DataPropertyName = "AtualizadoEm";
-            atualizadoEmDataGridViewTextBoxColumn1.HeaderText = "AtualizadoEm";
-            atualizadoEmDataGridViewTextBoxColumn1.Name = "atualizadoEmDataGridViewTextBoxColumn1";
-            // 
-            // criadoEmDataGridViewTextBoxColumn1
-            // 
-            criadoEmDataGridViewTextBoxColumn1.DataPropertyName = "CriadoEm";
-            criadoEmDataGridViewTextBoxColumn1.HeaderText = "CriadoEm";
-            criadoEmDataGridViewTextBoxColumn1.Name = "criadoEmDataGridViewTextBoxColumn1";
-            // 
-            // descricaoDataGridViewTextBoxColumn
-            // 
-            descricaoDataGridViewTextBoxColumn.DataPropertyName = "Descricao";
-            descricaoDataGridViewTextBoxColumn.HeaderText = "Descricao";
-            descricaoDataGridViewTextBoxColumn.Name = "descricaoDataGridViewTextBoxColumn";
-            // 
-            // nomeDataGridViewTextBoxColumn1
-            // 
-            nomeDataGridViewTextBoxColumn1.DataPropertyName = "Nome";
-            nomeDataGridViewTextBoxColumn1.HeaderText = "Nome";
-            nomeDataGridViewTextBoxColumn1.Name = "nomeDataGridViewTextBoxColumn1";
-            // 
-            // idDataGridViewTextBoxColumn1
-            // 
-            idDataGridViewTextBoxColumn1.DataPropertyName = "Id";
-            idDataGridViewTextBoxColumn1.HeaderText = "Id";
-            idDataGridViewTextBoxColumn1.Name = "idDataGridViewTextBoxColumn1";
-            // 
             // FormularioPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -409,6 +411,7 @@ namespace Cod3rsGrowth.Forms
             Controls.Add(menuSuperior);
             MainMenuStrip = menuSuperior;
             Name = "FormularioPrincipal";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Coder's Growth";
             Load += CarregarFormularioPrincipal;
             menuSuperior.ResumeLayout(false);

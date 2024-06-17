@@ -85,5 +85,16 @@ namespace Cod3rsGrowth.Forms
                 DefinirFonteDeDadosDasTabelas();
             }
         }
+
+        private void menuSuperiorCadastroPersonagem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void menuSuperiorCadastroHabilidade_Click(object sender, EventArgs e)
+        {
+            var formularioCadastroHabilidade = new FormularioCadastroHabilidade(_habilidadeServico);
+            formularioCadastroHabilidade.ShowDialog();
+        }
     }
 }
