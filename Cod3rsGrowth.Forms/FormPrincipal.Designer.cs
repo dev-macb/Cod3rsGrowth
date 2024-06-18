@@ -114,14 +114,14 @@ namespace Cod3rsGrowth.Forms
             menuSuperiorCadastroPersonagem.Name = "menuSuperiorCadastroPersonagem";
             menuSuperiorCadastroPersonagem.Size = new Size(180, 22);
             menuSuperiorCadastroPersonagem.Text = "Personagem";
-            menuSuperiorCadastroPersonagem.Click += menuSuperiorCadastroPersonagem_Click;
+            menuSuperiorCadastroPersonagem.Click += AoClicarEmMenuSuperiorCadastroPersonagemAbreFormularioCadastroPersonagem;
             // 
             // menuSuperiorCadastroHabilidade
             // 
             menuSuperiorCadastroHabilidade.Name = "menuSuperiorCadastroHabilidade";
             menuSuperiorCadastroHabilidade.Size = new Size(180, 22);
             menuSuperiorCadastroHabilidade.Text = "Habilidade";
-            menuSuperiorCadastroHabilidade.Click += menuSuperiorCadastroHabilidade_Click;
+            menuSuperiorCadastroHabilidade.Click += AoClicarEmMenuSuperiorCadastroHabilidadeAbreFormularioCadastroHabilidade;
             // 
             // toolStripSeparator1
             // 
@@ -227,7 +227,7 @@ namespace Cod3rsGrowth.Forms
             txtboxFiltroPersonagemNome.PlaceholderText = "Pesquise pelo nome...";
             txtboxFiltroPersonagemNome.Size = new Size(200, 23);
             txtboxFiltroPersonagemNome.TabIndex = 5;
-            txtboxFiltroPersonagemNome.KeyDown += txtboxFiltroPersonagemNome_KeyDown;
+            txtboxFiltroPersonagemNome.KeyDown += AoDigitarEnterEmFiltroNomeAtualizaFiltroPersonagem;
             // 
             // AbasInicio
             // 
@@ -263,7 +263,7 @@ namespace Cod3rsGrowth.Forms
             btnBuscar.TabIndex = 10;
             btnBuscar.Text = "Buscar";
             btnBuscar.UseVisualStyleBackColor = true;
-            btnBuscar.Click += btnBuscarPersonagem_Click;
+            btnBuscar.Click += AoClicarEmBuscaPersonagemAtualizaFiltroNome;
             // 
             // btnFiltrarPersonagem
             // 
@@ -273,7 +273,7 @@ namespace Cod3rsGrowth.Forms
             btnFiltrarPersonagem.TabIndex = 9;
             btnFiltrarPersonagem.Text = "Filtrar";
             btnFiltrarPersonagem.UseVisualStyleBackColor = true;
-            btnFiltrarPersonagem.Click += AoClicarNoBotaoDeFiltrarPersonagem;
+            btnFiltrarPersonagem.Click += AoClicarEmFiltrarPersonagemAbreFormularioFiltros;
             // 
             // lblTotalPersonagens
             // 
@@ -371,7 +371,7 @@ namespace Cod3rsGrowth.Forms
             btnFiltrarHabilidade.TabIndex = 3;
             btnFiltrarHabilidade.Text = "Filtrar";
             btnFiltrarHabilidade.UseVisualStyleBackColor = true;
-            btnFiltrarHabilidade.Click += btnFiltrarHabilidade_Click;
+            btnFiltrarHabilidade.Click += AoClicarEmFiltrarHabilidadeAbreFormularioFiltros;
             // 
             // btnBuscarHabilidade
             // 
@@ -381,7 +381,7 @@ namespace Cod3rsGrowth.Forms
             btnBuscarHabilidade.TabIndex = 2;
             btnBuscarHabilidade.Text = "Buscar";
             btnBuscarHabilidade.UseVisualStyleBackColor = true;
-            btnBuscarHabilidade.Click += btnBuscarHabilidade_Click;
+            btnBuscarHabilidade.Click += AoClicarEmBuscarHabilidadeAtualizaFiltroNome;
             // 
             // txtboxFiltroHabilidadeNome
             // 
@@ -391,7 +391,7 @@ namespace Cod3rsGrowth.Forms
             txtboxFiltroHabilidadeNome.PlaceholderText = "Pesquise pelo nome...";
             txtboxFiltroHabilidadeNome.Size = new Size(200, 23);
             txtboxFiltroHabilidadeNome.TabIndex = 1;
-            txtboxFiltroHabilidadeNome.KeyDown += txtboxFiltroHabilidadeNome_KeyDown;
+            txtboxFiltroHabilidadeNome.KeyDown += AoDigitarEnterEmFiltroNomeAtualizaFiltroHabilidade;
             // 
             // txtboxFiltroHabilidadeId
             // 
