@@ -17,7 +17,7 @@ namespace Cod3rsGrowth.Service.Services
             _habilidadeRepositorio = repositorio;
         }
 
-        public IEnumerable<Habilidade> ObterTodos(Filtro filtro)
+        public IEnumerable<Habilidade> ObterTodos(Filtro? filtro)
         {
             return _habilidadeRepositorio.ObterTodos(filtro);
         }
@@ -29,7 +29,7 @@ namespace Cod3rsGrowth.Service.Services
 
         public void Adicionar(Habilidade habilidade)
         {
-            const string separador = " ";
+            const string separador = "\n";
             ValidationResult resultado = _habilidadeValidador.Validate(habilidade);
             if (!resultado.IsValid)
             {
@@ -42,7 +42,7 @@ namespace Cod3rsGrowth.Service.Services
 
         public void Atualizar(int id, Habilidade habilidadeAtualizada)
         {
-            const string separador = " ";
+            const string separador = "\n";
             ValidationResult resultado = _habilidadeValidador.Validate(habilidadeAtualizada);
             if (!resultado.IsValid)
             {

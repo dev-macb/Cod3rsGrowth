@@ -15,7 +15,7 @@ namespace Cod3rsGrowth.Infra.Repositories
 
         public IEnumerable<Habilidade> ObterTodos(Filtro? filtro)
         {
-            if (filtro == null) return _bancoDeDados.Habilidades;
+            if (filtro == null) return _bancoDeDados.Habilidades.ToList();
 
             var habilidades = _bancoDeDados.Habilidades.AsQueryable();
             if (!string.IsNullOrEmpty(filtro.Nome)) habilidades = habilidades.Where(habilidade => habilidade.Nome.Contains(filtro.Nome, StringComparison.OrdinalIgnoreCase));
@@ -32,7 +32,7 @@ namespace Cod3rsGrowth.Infra.Repositories
 
         public int Adicionar(Habilidade novaHabilidade)
         {
-            return _bancoDeDados.Insert(novaHabilidade);
+            return Convert.ToInt32(_bancoDeDados.InsertWithIdentity(novaHabilidade));
         }
 
         public void Atualizar(int id, Habilidade habilidadeAtualizada)

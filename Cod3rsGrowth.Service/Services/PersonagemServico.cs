@@ -2,6 +2,7 @@ using FluentValidation.Results;
 using Cod3rsGrowth.Domain.Entities;
 using Cod3rsGrowth.Domain.Interfaces;
 using Cod3rsGrowth.Service.Validators;
+using FluentValidation;
 
 namespace Cod3rsGrowth.Service.Services
 {
@@ -28,12 +29,12 @@ namespace Cod3rsGrowth.Service.Services
 
         public int Adicionar(Personagem personagem)
         {
-            const string separador = " ";
+            const string separador = "\n";
             ValidationResult resultado = _personagemValidador.Validate(personagem);
             if (!resultado.IsValid)
             {
                 string todosErros = string.Join(separador, resultado.Errors.Select(erro => erro.ErrorMessage));
-                throw new Exception(todosErros);
+                throw new ValidationException(todosErros);
             }
 
             return _personagemRepositorio.Adicionar(personagem);
@@ -41,7 +42,7 @@ namespace Cod3rsGrowth.Service.Services
 
         public void Atualizar(int id, Personagem personagemAtualizado)
         {
-            const string separador = " ";
+            const string separador = "\n";
             ValidationResult resultado = _personagemValidador.Validate(personagemAtualizado);
             if (!resultado.IsValid)
             {

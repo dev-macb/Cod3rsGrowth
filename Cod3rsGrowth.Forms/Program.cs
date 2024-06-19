@@ -23,8 +23,9 @@ namespace Cod3rsGrowth.Forms
             ApplicationConfiguration.Initialize();
             Application.Run(new FormularioPrincipal(
                 _serviceProvider.GetRequiredService<PersonagemServico>(), 
-                _serviceProvider.GetRequiredService<HabilidadeServico>())
-            );
+                _serviceProvider.GetRequiredService<HabilidadeServico>(),
+                _serviceProvider.GetRequiredService<PersonagensHabilidadesServico>()
+            ));
         }
     }
 }

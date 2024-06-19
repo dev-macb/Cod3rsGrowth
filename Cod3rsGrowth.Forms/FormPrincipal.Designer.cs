@@ -48,9 +48,7 @@ namespace Cod3rsGrowth.Forms
             velocidadeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             forcaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             inteligenciaDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            eVilaoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            criadoEmDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            atualizadoEmDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            eVilaoDataGridViewTextBoxColumn = new DataGridViewCheckBoxColumn();
             personagemBindingSource = new BindingSource(components);
             txtboxFiltroPersonagemNome = new TextBox();
             personagemServicoBindingSource1 = new BindingSource(components);
@@ -66,8 +64,6 @@ namespace Cod3rsGrowth.Forms
             idDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
             nomeDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
             descricaoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            criadoEmDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
-            atualizadoEmDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
             habilidadeBindingSource = new BindingSource(components);
             btnFiltrarHabilidade = new Button();
             btnBuscarHabilidade = new Button();
@@ -106,32 +102,32 @@ namespace Cod3rsGrowth.Forms
             // 
             menuSuperiorAplicacaoCadastro.DropDownItems.AddRange(new ToolStripItem[] { menuSuperiorCadastroPersonagem, menuSuperiorCadastroHabilidade });
             menuSuperiorAplicacaoCadastro.Name = "menuSuperiorAplicacaoCadastro";
-            menuSuperiorAplicacaoCadastro.Size = new Size(180, 22);
+            menuSuperiorAplicacaoCadastro.Size = new Size(121, 22);
             menuSuperiorAplicacaoCadastro.Text = "Cadastro";
             // 
             // menuSuperiorCadastroPersonagem
             // 
             menuSuperiorCadastroPersonagem.Name = "menuSuperiorCadastroPersonagem";
-            menuSuperiorCadastroPersonagem.Size = new Size(180, 22);
+            menuSuperiorCadastroPersonagem.Size = new Size(140, 22);
             menuSuperiorCadastroPersonagem.Text = "Personagem";
-            menuSuperiorCadastroPersonagem.Click += menuSuperiorCadastroPersonagem_Click;
+            menuSuperiorCadastroPersonagem.Click += AoClicarEmMenuSuperiorCadastroPersonagemAbreFormularioCadastroPersonagem;
             // 
             // menuSuperiorCadastroHabilidade
             // 
             menuSuperiorCadastroHabilidade.Name = "menuSuperiorCadastroHabilidade";
-            menuSuperiorCadastroHabilidade.Size = new Size(180, 22);
+            menuSuperiorCadastroHabilidade.Size = new Size(140, 22);
             menuSuperiorCadastroHabilidade.Text = "Habilidade";
-            menuSuperiorCadastroHabilidade.Click += menuSuperiorCadastroHabilidade_Click;
+            menuSuperiorCadastroHabilidade.Click += AoClicarEmMenuSuperiorCadastroHabilidadeAbreFormularioCadastroHabilidade;
             // 
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(177, 6);
+            toolStripSeparator1.Size = new Size(118, 6);
             // 
             // menuSuperiorAplicacaoSair
             // 
             menuSuperiorAplicacaoSair.Name = "menuSuperiorAplicacaoSair";
-            menuSuperiorAplicacaoSair.Size = new Size(180, 22);
+            menuSuperiorAplicacaoSair.Size = new Size(121, 22);
             menuSuperiorAplicacaoSair.Text = "Sair";
             // 
             // txtboxFiltroPersonagemId
@@ -145,12 +141,18 @@ namespace Cod3rsGrowth.Forms
             // 
             // tabelaPersonagens
             // 
+            tabelaPersonagens.AllowUserToAddRows = false;
+            tabelaPersonagens.AllowUserToDeleteRows = false;
+            tabelaPersonagens.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabelaPersonagens.AutoGenerateColumns = false;
+            tabelaPersonagens.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             tabelaPersonagens.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            tabelaPersonagens.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, nomeDataGridViewTextBoxColumn, vidaDataGridViewTextBoxColumn, energiaDataGridViewTextBoxColumn, velocidadeDataGridViewTextBoxColumn, forcaDataGridViewTextBoxColumn, inteligenciaDataGridViewTextBoxColumn, eVilaoDataGridViewTextBoxColumn, criadoEmDataGridViewTextBoxColumn, atualizadoEmDataGridViewTextBoxColumn });
+            tabelaPersonagens.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, nomeDataGridViewTextBoxColumn, vidaDataGridViewTextBoxColumn, energiaDataGridViewTextBoxColumn, velocidadeDataGridViewTextBoxColumn, forcaDataGridViewTextBoxColumn, inteligenciaDataGridViewTextBoxColumn, eVilaoDataGridViewTextBoxColumn });
             tabelaPersonagens.DataSource = personagemBindingSource;
             tabelaPersonagens.Location = new Point(8, 36);
             tabelaPersonagens.Name = "tabelaPersonagens";
+            tabelaPersonagens.ReadOnly = true;
+            tabelaPersonagens.RowHeadersVisible = false;
             tabelaPersonagens.RowTemplate.Height = 25;
             tabelaPersonagens.Size = new Size(762, 347);
             tabelaPersonagens.TabIndex = 6;
@@ -158,62 +160,67 @@ namespace Cod3rsGrowth.Forms
             // idDataGridViewTextBoxColumn
             // 
             idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            idDataGridViewTextBoxColumn.FillWeight = 30F;
             idDataGridViewTextBoxColumn.HeaderText = "Id";
             idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            idDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // nomeDataGridViewTextBoxColumn
             // 
             nomeDataGridViewTextBoxColumn.DataPropertyName = "Nome";
             nomeDataGridViewTextBoxColumn.HeaderText = "Nome";
             nomeDataGridViewTextBoxColumn.Name = "nomeDataGridViewTextBoxColumn";
+            nomeDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // vidaDataGridViewTextBoxColumn
             // 
             vidaDataGridViewTextBoxColumn.DataPropertyName = "Vida";
+            vidaDataGridViewTextBoxColumn.FillWeight = 80F;
             vidaDataGridViewTextBoxColumn.HeaderText = "Vida";
             vidaDataGridViewTextBoxColumn.Name = "vidaDataGridViewTextBoxColumn";
+            vidaDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // energiaDataGridViewTextBoxColumn
             // 
             energiaDataGridViewTextBoxColumn.DataPropertyName = "Energia";
+            energiaDataGridViewTextBoxColumn.FillWeight = 80F;
             energiaDataGridViewTextBoxColumn.HeaderText = "Energia";
             energiaDataGridViewTextBoxColumn.Name = "energiaDataGridViewTextBoxColumn";
+            energiaDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // velocidadeDataGridViewTextBoxColumn
             // 
             velocidadeDataGridViewTextBoxColumn.DataPropertyName = "Velocidade";
+            velocidadeDataGridViewTextBoxColumn.FillWeight = 80F;
             velocidadeDataGridViewTextBoxColumn.HeaderText = "Velocidade";
             velocidadeDataGridViewTextBoxColumn.Name = "velocidadeDataGridViewTextBoxColumn";
+            velocidadeDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // forcaDataGridViewTextBoxColumn
             // 
             forcaDataGridViewTextBoxColumn.DataPropertyName = "Forca";
+            forcaDataGridViewTextBoxColumn.FillWeight = 80F;
             forcaDataGridViewTextBoxColumn.HeaderText = "Forca";
             forcaDataGridViewTextBoxColumn.Name = "forcaDataGridViewTextBoxColumn";
+            forcaDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // inteligenciaDataGridViewTextBoxColumn
             // 
             inteligenciaDataGridViewTextBoxColumn.DataPropertyName = "Inteligencia";
+            inteligenciaDataGridViewTextBoxColumn.FillWeight = 80F;
             inteligenciaDataGridViewTextBoxColumn.HeaderText = "Inteligencia";
             inteligenciaDataGridViewTextBoxColumn.Name = "inteligenciaDataGridViewTextBoxColumn";
+            inteligenciaDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // eVilaoDataGridViewTextBoxColumn
             // 
             eVilaoDataGridViewTextBoxColumn.DataPropertyName = "EVilao";
-            eVilaoDataGridViewTextBoxColumn.HeaderText = "EVilao";
+            eVilaoDataGridViewTextBoxColumn.FillWeight = 50F;
+            eVilaoDataGridViewTextBoxColumn.HeaderText = "Vilão";
             eVilaoDataGridViewTextBoxColumn.Name = "eVilaoDataGridViewTextBoxColumn";
-            // 
-            // criadoEmDataGridViewTextBoxColumn
-            // 
-            criadoEmDataGridViewTextBoxColumn.DataPropertyName = "CriadoEm";
-            criadoEmDataGridViewTextBoxColumn.HeaderText = "CriadoEm";
-            criadoEmDataGridViewTextBoxColumn.Name = "criadoEmDataGridViewTextBoxColumn";
-            // 
-            // atualizadoEmDataGridViewTextBoxColumn
-            // 
-            atualizadoEmDataGridViewTextBoxColumn.DataPropertyName = "AtualizadoEm";
-            atualizadoEmDataGridViewTextBoxColumn.HeaderText = "AtualizadoEm";
-            atualizadoEmDataGridViewTextBoxColumn.Name = "atualizadoEmDataGridViewTextBoxColumn";
+            eVilaoDataGridViewTextBoxColumn.ReadOnly = true;
+            eVilaoDataGridViewTextBoxColumn.Resizable = DataGridViewTriState.True;
+            eVilaoDataGridViewTextBoxColumn.SortMode = DataGridViewColumnSortMode.Automatic;
             // 
             // personagemBindingSource
             // 
@@ -227,10 +234,11 @@ namespace Cod3rsGrowth.Forms
             txtboxFiltroPersonagemNome.PlaceholderText = "Pesquise pelo nome...";
             txtboxFiltroPersonagemNome.Size = new Size(200, 23);
             txtboxFiltroPersonagemNome.TabIndex = 5;
-            txtboxFiltroPersonagemNome.KeyDown += txtboxFiltroPersonagemNome_KeyDown;
+            txtboxFiltroPersonagemNome.KeyDown += AoDigitarEnterEmFiltroNomeAtualizaFiltroPersonagem;
             // 
             // AbasInicio
             // 
+            AbasInicio.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             AbasInicio.Controls.Add(AbaPersonagem);
             AbasInicio.Controls.Add(AbaHabilidade);
             AbasInicio.Location = new Point(0, 27);
@@ -263,20 +271,22 @@ namespace Cod3rsGrowth.Forms
             btnBuscar.TabIndex = 10;
             btnBuscar.Text = "Buscar";
             btnBuscar.UseVisualStyleBackColor = true;
-            btnBuscar.Click += btnBuscarPersonagem_Click;
+            btnBuscar.Click += AoClicarEmBuscaPersonagemAtualizaFiltroNome;
             // 
             // btnFiltrarPersonagem
             // 
+            btnFiltrarPersonagem.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnFiltrarPersonagem.Location = new Point(695, 6);
             btnFiltrarPersonagem.Name = "btnFiltrarPersonagem";
             btnFiltrarPersonagem.Size = new Size(75, 23);
             btnFiltrarPersonagem.TabIndex = 9;
             btnFiltrarPersonagem.Text = "Filtrar";
             btnFiltrarPersonagem.UseVisualStyleBackColor = true;
-            btnFiltrarPersonagem.Click += AoClicarNoBotaoDeFiltrarPersonagem;
+            btnFiltrarPersonagem.Click += AoClicarEmFiltrarPersonagemAbreFormularioFiltros;
             // 
             // lblTotalPersonagens
             // 
+            lblTotalPersonagens.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             lblTotalPersonagens.AutoSize = true;
             lblTotalPersonagens.ForeColor = SystemColors.ControlDarkDark;
             lblTotalPersonagens.Location = new Point(6, 386);
@@ -303,6 +313,7 @@ namespace Cod3rsGrowth.Forms
             // 
             // lblTotalHabilidades
             // 
+            lblTotalHabilidades.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             lblTotalHabilidades.AutoSize = true;
             lblTotalHabilidades.ForeColor = SystemColors.ControlDarkDark;
             lblTotalHabilidades.Location = new Point(6, 386);
@@ -313,7 +324,11 @@ namespace Cod3rsGrowth.Forms
             // 
             // tabelaHabilidades
             // 
+            tabelaHabilidades.AllowUserToAddRows = false;
+            tabelaHabilidades.AllowUserToDeleteRows = false;
+            tabelaHabilidades.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabelaHabilidades.AutoGenerateColumns = false;
+            tabelaHabilidades.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCellStyle1.BackColor = SystemColors.Control;
             dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
             dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
@@ -321,10 +336,12 @@ namespace Cod3rsGrowth.Forms
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
             tabelaHabilidades.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             tabelaHabilidades.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            tabelaHabilidades.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn1, nomeDataGridViewTextBoxColumn1, descricaoDataGridViewTextBoxColumn, criadoEmDataGridViewTextBoxColumn1, atualizadoEmDataGridViewTextBoxColumn1 });
+            tabelaHabilidades.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn1, nomeDataGridViewTextBoxColumn1, descricaoDataGridViewTextBoxColumn });
             tabelaHabilidades.DataSource = habilidadeBindingSource;
             tabelaHabilidades.Location = new Point(8, 36);
             tabelaHabilidades.Name = "tabelaHabilidades";
+            tabelaHabilidades.ReadOnly = true;
+            tabelaHabilidades.RowHeadersVisible = false;
             tabelaHabilidades.RowTemplate.Height = 25;
             tabelaHabilidades.Size = new Size(762, 347);
             tabelaHabilidades.TabIndex = 4;
@@ -332,32 +349,26 @@ namespace Cod3rsGrowth.Forms
             // idDataGridViewTextBoxColumn1
             // 
             idDataGridViewTextBoxColumn1.DataPropertyName = "Id";
+            idDataGridViewTextBoxColumn1.FillWeight = 20F;
             idDataGridViewTextBoxColumn1.HeaderText = "Id";
             idDataGridViewTextBoxColumn1.Name = "idDataGridViewTextBoxColumn1";
+            idDataGridViewTextBoxColumn1.ReadOnly = true;
             // 
             // nomeDataGridViewTextBoxColumn1
             // 
             nomeDataGridViewTextBoxColumn1.DataPropertyName = "Nome";
+            nomeDataGridViewTextBoxColumn1.FillWeight = 80F;
             nomeDataGridViewTextBoxColumn1.HeaderText = "Nome";
             nomeDataGridViewTextBoxColumn1.Name = "nomeDataGridViewTextBoxColumn1";
+            nomeDataGridViewTextBoxColumn1.ReadOnly = true;
             // 
             // descricaoDataGridViewTextBoxColumn
             // 
             descricaoDataGridViewTextBoxColumn.DataPropertyName = "Descricao";
+            descricaoDataGridViewTextBoxColumn.FillWeight = 120F;
             descricaoDataGridViewTextBoxColumn.HeaderText = "Descricao";
             descricaoDataGridViewTextBoxColumn.Name = "descricaoDataGridViewTextBoxColumn";
-            // 
-            // criadoEmDataGridViewTextBoxColumn1
-            // 
-            criadoEmDataGridViewTextBoxColumn1.DataPropertyName = "CriadoEm";
-            criadoEmDataGridViewTextBoxColumn1.HeaderText = "CriadoEm";
-            criadoEmDataGridViewTextBoxColumn1.Name = "criadoEmDataGridViewTextBoxColumn1";
-            // 
-            // atualizadoEmDataGridViewTextBoxColumn1
-            // 
-            atualizadoEmDataGridViewTextBoxColumn1.DataPropertyName = "AtualizadoEm";
-            atualizadoEmDataGridViewTextBoxColumn1.HeaderText = "AtualizadoEm";
-            atualizadoEmDataGridViewTextBoxColumn1.Name = "atualizadoEmDataGridViewTextBoxColumn1";
+            descricaoDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // habilidadeBindingSource
             // 
@@ -365,13 +376,14 @@ namespace Cod3rsGrowth.Forms
             // 
             // btnFiltrarHabilidade
             // 
+            btnFiltrarHabilidade.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnFiltrarHabilidade.Location = new Point(695, 6);
             btnFiltrarHabilidade.Name = "btnFiltrarHabilidade";
             btnFiltrarHabilidade.Size = new Size(75, 23);
             btnFiltrarHabilidade.TabIndex = 3;
             btnFiltrarHabilidade.Text = "Filtrar";
             btnFiltrarHabilidade.UseVisualStyleBackColor = true;
-            btnFiltrarHabilidade.Click += btnFiltrarHabilidade_Click;
+            btnFiltrarHabilidade.Click += AoClicarEmFiltrarHabilidadeAbreFormularioFiltros;
             // 
             // btnBuscarHabilidade
             // 
@@ -381,7 +393,7 @@ namespace Cod3rsGrowth.Forms
             btnBuscarHabilidade.TabIndex = 2;
             btnBuscarHabilidade.Text = "Buscar";
             btnBuscarHabilidade.UseVisualStyleBackColor = true;
-            btnBuscarHabilidade.Click += btnBuscarHabilidade_Click;
+            btnBuscarHabilidade.Click += AoClicarEmBuscarHabilidadeAtualizaFiltroNome;
             // 
             // txtboxFiltroHabilidadeNome
             // 
@@ -391,7 +403,7 @@ namespace Cod3rsGrowth.Forms
             txtboxFiltroHabilidadeNome.PlaceholderText = "Pesquise pelo nome...";
             txtboxFiltroHabilidadeNome.Size = new Size(200, 23);
             txtboxFiltroHabilidadeNome.TabIndex = 1;
-            txtboxFiltroHabilidadeNome.KeyDown += txtboxFiltroHabilidadeNome_KeyDown;
+            txtboxFiltroHabilidadeNome.KeyDown += AoDigitarEnterEmFiltroNomeAtualizaFiltroHabilidade;
             // 
             // txtboxFiltroHabilidadeId
             // 
@@ -467,13 +479,9 @@ namespace Cod3rsGrowth.Forms
         private DataGridViewTextBoxColumn velocidadeDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn forcaDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn inteligenciaDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn eVilaoDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn criadoEmDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn atualizadoEmDataGridViewTextBoxColumn;
+        private DataGridViewCheckBoxColumn eVilaoDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn nomeDataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn descricaoDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn criadoEmDataGridViewTextBoxColumn1;
-        private DataGridViewTextBoxColumn atualizadoEmDataGridViewTextBoxColumn1;
     }
 }

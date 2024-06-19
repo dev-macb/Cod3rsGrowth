@@ -10,5 +10,6 @@ namespace Cod3rsGrowth.Infra
 
         public ITable<Personagem> Personagens => this.GetTable<Personagem>();
         public ITable<Habilidade> Habilidades => this.GetTable<Habilidade>();
-    } 
+        public ITable<PersonagensHabilidades> PersonagensHabilidades => this.GetTable<PersonagensHabilidades>();
+    }
 }
