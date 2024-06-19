@@ -21,9 +21,9 @@ namespace Cod3rsGrowth.Forms.Forms
 
         private void CarregarFormularioCadastroPersonagem(object sender, EventArgs e)
         {
-            tabelaPersonagensHabilidades.DataSource = _habilidadeServico.ObterTodos(null);
+            tabelaHabilidades.DataSource = _habilidadeServico.ObterTodos(null);
                 
-            foreach (DataGridViewRow linha in tabelaPersonagensHabilidades.Rows)
+            foreach (DataGridViewRow linha in tabelaHabilidades.Rows)
             {
                 linha.Cells["HabilidadesSelecionadas"].Value = false;
             }
@@ -49,7 +49,7 @@ namespace Cod3rsGrowth.Forms.Forms
                 int idNovoPersonagem = _personagemServico.Adicionar(novoPersonagem);
 
                 var habilidadesMarcadas = new List<int>();
-                foreach (DataGridViewRow linha in tabelaPersonagensHabilidades.Rows)
+                foreach (DataGridViewRow linha in tabelaHabilidades.Rows)
                 {
                     if (Convert.ToBoolean(linha.Cells["HabilidadesSelecionadas"].Value))
                     {

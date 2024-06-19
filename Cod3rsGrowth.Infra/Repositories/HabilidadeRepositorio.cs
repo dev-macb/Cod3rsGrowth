@@ -15,7 +15,7 @@ namespace Cod3rsGrowth.Infra.Repositories
 
         public IEnumerable<Habilidade> ObterTodos(Filtro? filtro)
         {
-            if (filtro == null) return _bancoDeDados.Habilidades;
+            if (filtro == null) return _bancoDeDados.Habilidades.ToList();
 
             var habilidades = _bancoDeDados.Habilidades.AsQueryable();
             if (!string.IsNullOrEmpty(filtro.Nome)) habilidades = habilidades.Where(habilidade => habilidade.Nome.Contains(filtro.Nome, StringComparison.OrdinalIgnoreCase));

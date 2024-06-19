@@ -46,17 +46,16 @@
             labelHabilidades = new Label();
             btnCancelar = new Button();
             btnSalvar = new Button();
-            tabelaPersonagensHabilidades = new DataGridView();
+            tabelaHabilidades = new DataGridView();
             habilidadeBindingSource = new BindingSource(components);
-            idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            HabilidadesSelecionadas = new DataGridViewCheckBoxColumn();
+            Id = new DataGridViewTextBoxColumn();
             nomeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             descricaoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            criadoEmDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            atualizadoEmDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)numupdownVida).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numupdownEnergia).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numupdownVelocidade).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)tabelaPersonagensHabilidades).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)tabelaHabilidades).BeginInit();
             ((System.ComponentModel.ISupportInitialize)habilidadeBindingSource).BeginInit();
             SuspendLayout();
             // 
@@ -212,68 +211,60 @@
             btnSalvar.UseVisualStyleBackColor = true;
             btnSalvar.Click += AoClicarEmSalvarAdicionaPersonagem;
             // 
-            // tabelaPersonagensHabilidades
+            // tabelaHabilidades
             // 
-            tabelaPersonagensHabilidades.AllowUserToAddRows = false;
-            tabelaPersonagensHabilidades.AllowUserToDeleteRows = false;
-            tabelaPersonagensHabilidades.AutoGenerateColumns = false;
-            tabelaPersonagensHabilidades.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            tabelaPersonagensHabilidades.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            tabelaPersonagensHabilidades.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, nomeDataGridViewTextBoxColumn, descricaoDataGridViewTextBoxColumn, criadoEmDataGridViewTextBoxColumn, atualizadoEmDataGridViewTextBoxColumn });
-            tabelaPersonagensHabilidades.DataSource = habilidadeBindingSource;
-            tabelaPersonagensHabilidades.Location = new Point(12, 159);
-            tabelaPersonagensHabilidades.Name = "tabelaPersonagensHabilidades";
-            tabelaPersonagensHabilidades.ReadOnly = true;
-            tabelaPersonagensHabilidades.RowHeadersVisible = false;
-            tabelaPersonagensHabilidades.RowTemplate.Height = 25;
-            tabelaPersonagensHabilidades.Size = new Size(400, 150);
-            tabelaPersonagensHabilidades.TabIndex = 18;
+            tabelaHabilidades.AllowUserToAddRows = false;
+            tabelaHabilidades.AllowUserToDeleteRows = false;
+            tabelaHabilidades.AutoGenerateColumns = false;
+            tabelaHabilidades.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            tabelaHabilidades.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            tabelaHabilidades.Columns.AddRange(new DataGridViewColumn[] { HabilidadesSelecionadas, Id, nomeDataGridViewTextBoxColumn, descricaoDataGridViewTextBoxColumn });
+            tabelaHabilidades.DataSource = habilidadeBindingSource;
+            tabelaHabilidades.Location = new Point(12, 159);
+            tabelaHabilidades.Name = "tabelaHabilidades";
+            tabelaHabilidades.RowHeadersVisible = false;
+            tabelaHabilidades.RowTemplate.Height = 25;
+            tabelaHabilidades.Size = new Size(400, 150);
+            tabelaHabilidades.TabIndex = 18;
             // 
             // habilidadeBindingSource
             // 
             habilidadeBindingSource.DataSource = typeof(Domain.Entities.Habilidade);
             // 
-            // idDataGridViewTextBoxColumn
+            // HabilidadesSelecionadas
             // 
-            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            idDataGridViewTextBoxColumn.HeaderText = "Id";
-            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            idDataGridViewTextBoxColumn.ReadOnly = true;
+            HabilidadesSelecionadas.FillWeight = 20F;
+            HabilidadesSelecionadas.HeaderText = "";
+            HabilidadesSelecionadas.Name = "HabilidadesSelecionadas";
+            HabilidadesSelecionadas.Resizable = DataGridViewTriState.False;
+            // 
+            // Id
+            // 
+            Id.DataPropertyName = "Id";
+            Id.HeaderText = "Id";
+            Id.Name = "Id";
+            Id.Visible = false;
             // 
             // nomeDataGridViewTextBoxColumn
             // 
             nomeDataGridViewTextBoxColumn.DataPropertyName = "Nome";
+            nomeDataGridViewTextBoxColumn.FillWeight = 80F;
             nomeDataGridViewTextBoxColumn.HeaderText = "Nome";
             nomeDataGridViewTextBoxColumn.Name = "nomeDataGridViewTextBoxColumn";
-            nomeDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // descricaoDataGridViewTextBoxColumn
             // 
             descricaoDataGridViewTextBoxColumn.DataPropertyName = "Descricao";
+            descricaoDataGridViewTextBoxColumn.FillWeight = 120F;
             descricaoDataGridViewTextBoxColumn.HeaderText = "Descricao";
             descricaoDataGridViewTextBoxColumn.Name = "descricaoDataGridViewTextBoxColumn";
-            descricaoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // criadoEmDataGridViewTextBoxColumn
-            // 
-            criadoEmDataGridViewTextBoxColumn.DataPropertyName = "CriadoEm";
-            criadoEmDataGridViewTextBoxColumn.HeaderText = "CriadoEm";
-            criadoEmDataGridViewTextBoxColumn.Name = "criadoEmDataGridViewTextBoxColumn";
-            criadoEmDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // atualizadoEmDataGridViewTextBoxColumn
-            // 
-            atualizadoEmDataGridViewTextBoxColumn.DataPropertyName = "AtualizadoEm";
-            atualizadoEmDataGridViewTextBoxColumn.HeaderText = "AtualizadoEm";
-            atualizadoEmDataGridViewTextBoxColumn.Name = "atualizadoEmDataGridViewTextBoxColumn";
-            atualizadoEmDataGridViewTextBoxColumn.ReadOnly = true;
             // 
             // FormularioCadastroPersonagem
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(424, 376);
-            Controls.Add(tabelaPersonagensHabilidades);
+            Controls.Add(tabelaHabilidades);
             Controls.Add(btnSalvar);
             Controls.Add(btnCancelar);
             Controls.Add(labelHabilidades);
@@ -300,7 +291,7 @@
             ((System.ComponentModel.ISupportInitialize)numupdownVida).EndInit();
             ((System.ComponentModel.ISupportInitialize)numupdownEnergia).EndInit();
             ((System.ComponentModel.ISupportInitialize)numupdownVelocidade).EndInit();
-            ((System.ComponentModel.ISupportInitialize)tabelaPersonagensHabilidades).EndInit();
+            ((System.ComponentModel.ISupportInitialize)tabelaHabilidades).EndInit();
             ((System.ComponentModel.ISupportInitialize)habilidadeBindingSource).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -325,12 +316,12 @@
         private Label labelHabilidades;
         private Button btnCancelar;
         private Button btnSalvar;
-        private DataGridView tabelaPersonagensHabilidades;
+        private DataGridView tabelaHabilidades;
+        private BindingSource habilidadeBindingSource;
+        private DataGridViewCheckBoxColumn HabilidadesSelecionadas;
         private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn nomeDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn descricaoDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn criadoEmDataGridViewTextBoxColumn;
-        private DataGridViewTextBoxColumn atualizadoEmDataGridViewTextBoxColumn;
-        private BindingSource habilidadeBindingSource;
+        private DataGridViewTextBoxColumn Id;
     }
 }

@@ -11,8 +11,9 @@ namespace Cod3rsGrowth.Service.Validators
                 .GreaterThanOrEqualTo(1).WithMessage("O id deve ser maior que 0.");
 
             RuleFor(personagem => personagem.Nome)
-                .NotEmpty().WithMessage("O nome é obrigatório.")
-                .Length(3, 50).WithMessage("O nome deve ter no mínimo 3 caracteres e no máximo 50.");
+                .Cascade(CascadeMode.StopOnFirstFailure)
+                    .NotEmpty().WithMessage("O nome é obrigatório.")
+                    .Length(3, 50).WithMessage("O nome deve ter no mínimo 3 caracteres e no máximo 50.");
 
             RuleFor(personagem => personagem.Vida)
                 .InclusiveBetween(0, 100).WithMessage("A vida deve estar entre 0 e 100.");
