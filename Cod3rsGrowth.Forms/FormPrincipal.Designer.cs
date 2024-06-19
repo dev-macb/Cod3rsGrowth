@@ -31,7 +31,7 @@ namespace Cod3rsGrowth.Forms
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             menuSuperior = new MenuStrip();
             menuSuperiorAplicacao = new ToolStripMenuItem();
             menuSuperiorAplicacaoCadastro = new ToolStripMenuItem();
@@ -59,6 +59,7 @@ namespace Cod3rsGrowth.Forms
             btnFiltrarPersonagem = new Button();
             lblTotalPersonagens = new Label();
             AbaHabilidade = new TabPage();
+            btnRemoverHabilidade = new Button();
             lblTotalHabilidades = new Label();
             tabelaHabilidades = new DataGridView();
             idDataGridViewTextBoxColumn1 = new DataGridViewTextBoxColumn();
@@ -70,6 +71,7 @@ namespace Cod3rsGrowth.Forms
             txtboxFiltroHabilidadeNome = new TextBox();
             txtboxFiltroHabilidadeId = new TextBox();
             fbCommand1 = new FirebirdSql.Data.FirebirdClient.FbCommand();
+            btnRemoverPersonagem = new Button();
             menuSuperior.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tabelaPersonagens).BeginInit();
             ((System.ComponentModel.ISupportInitialize)personagemBindingSource).BeginInit();
@@ -154,6 +156,7 @@ namespace Cod3rsGrowth.Forms
             tabelaPersonagens.ReadOnly = true;
             tabelaPersonagens.RowHeadersVisible = false;
             tabelaPersonagens.RowTemplate.Height = 25;
+            tabelaPersonagens.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             tabelaPersonagens.Size = new Size(762, 347);
             tabelaPersonagens.TabIndex = 6;
             // 
@@ -249,6 +252,7 @@ namespace Cod3rsGrowth.Forms
             // 
             // AbaPersonagem
             // 
+            AbaPersonagem.Controls.Add(btnRemoverPersonagem);
             AbaPersonagem.Controls.Add(btnBuscar);
             AbaPersonagem.Controls.Add(btnFiltrarPersonagem);
             AbaPersonagem.Controls.Add(lblTotalPersonagens);
@@ -297,6 +301,7 @@ namespace Cod3rsGrowth.Forms
             // 
             // AbaHabilidade
             // 
+            AbaHabilidade.Controls.Add(btnRemoverHabilidade);
             AbaHabilidade.Controls.Add(lblTotalHabilidades);
             AbaHabilidade.Controls.Add(tabelaHabilidades);
             AbaHabilidade.Controls.Add(btnFiltrarHabilidade);
@@ -310,6 +315,16 @@ namespace Cod3rsGrowth.Forms
             AbaHabilidade.TabIndex = 1;
             AbaHabilidade.Text = "Habilidades";
             AbaHabilidade.UseVisualStyleBackColor = true;
+            // 
+            // btnRemoverHabilidade
+            // 
+            btnRemoverHabilidade.Location = new Point(351, 6);
+            btnRemoverHabilidade.Name = "btnRemoverHabilidade";
+            btnRemoverHabilidade.Size = new Size(75, 23);
+            btnRemoverHabilidade.TabIndex = 6;
+            btnRemoverHabilidade.Text = "Remover";
+            btnRemoverHabilidade.UseVisualStyleBackColor = true;
+            btnRemoverHabilidade.Click += AoClicarEmRemoverExcluiHabilidade;
             // 
             // lblTotalHabilidades
             // 
@@ -329,12 +344,12 @@ namespace Cod3rsGrowth.Forms
             tabelaHabilidades.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabelaHabilidades.AutoGenerateColumns = false;
             tabelaHabilidades.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle1.BackColor = SystemColors.Control;
-            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            tabelaHabilidades.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.BackColor = SystemColors.Control;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            tabelaHabilidades.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             tabelaHabilidades.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tabelaHabilidades.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn1, nomeDataGridViewTextBoxColumn1, descricaoDataGridViewTextBoxColumn });
             tabelaHabilidades.DataSource = habilidadeBindingSource;
@@ -343,6 +358,7 @@ namespace Cod3rsGrowth.Forms
             tabelaHabilidades.ReadOnly = true;
             tabelaHabilidades.RowHeadersVisible = false;
             tabelaHabilidades.RowTemplate.Height = 25;
+            tabelaHabilidades.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             tabelaHabilidades.Size = new Size(762, 347);
             tabelaHabilidades.TabIndex = 4;
             // 
@@ -414,6 +430,16 @@ namespace Cod3rsGrowth.Forms
             txtboxFiltroHabilidadeId.Size = new Size(50, 23);
             txtboxFiltroHabilidadeId.TabIndex = 0;
             // 
+            // btnRemoverPersonagem
+            // 
+            btnRemoverPersonagem.Location = new Point(351, 6);
+            btnRemoverPersonagem.Name = "btnRemoverPersonagem";
+            btnRemoverPersonagem.Size = new Size(75, 23);
+            btnRemoverPersonagem.TabIndex = 11;
+            btnRemoverPersonagem.Text = "Remover";
+            btnRemoverPersonagem.UseVisualStyleBackColor = true;
+            btnRemoverPersonagem.Click += AoClicarEmRemoverExcluiPersonagem;
+            // 
             // FormularioPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -483,5 +509,7 @@ namespace Cod3rsGrowth.Forms
         private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn nomeDataGridViewTextBoxColumn1;
         private DataGridViewTextBoxColumn descricaoDataGridViewTextBoxColumn;
+        private Button btnRemoverHabilidade;
+        private Button btnRemoverPersonagem;
     }
 }

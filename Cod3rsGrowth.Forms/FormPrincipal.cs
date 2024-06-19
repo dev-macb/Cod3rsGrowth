@@ -101,5 +101,71 @@ namespace Cod3rsGrowth.Forms
             _habilidadeFiltro.Nome = txtboxFiltroHabilidadeNome.Text;
             DefinirFonteDeDadosDasTabelas();
         }
+
+        private void AoClicarEmRemoverExcluiPersonagem(object sender, EventArgs e)
+        {
+            const int celulaId = 0;
+            const string tituloJanela = "Aviso";
+            const string msgTabelaPersonagemVazia = "A tabela personagens está vazia.";
+            const string msgPersonagemNaoSelecionada = "Nenhum personagem foi selecionado!";
+
+            try
+            {
+                string? conteudoCelula = tabelaPersonagens.Rows[tabelaPersonagens.CurrentCell.RowIndex].Cells[celulaId].Value.ToString();
+                if (conteudoCelula != null)
+                {
+                    int idPersonagem = int.Parse(conteudoCelula);
+                    string msgConfirmarExclusaoHabilidade = $"Deseja excluir o personagem {idPersonagem}?";
+
+                    DialogResult msgConfirmacao = MessageBox.Show(msgConfirmarExclusaoHabilidade, tituloJanela, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (msgConfirmacao == DialogResult.Yes)
+                    {
+                        _personagemServico.Deletar(idPersonagem);
+                        DefinirFonteDeDadosDasTabelas();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(msgTabelaPersonagemVazia, tituloJanela, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(msgPersonagemNaoSelecionada, tituloJanela, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void AoClicarEmRemoverExcluiHabilidade(object sender, EventArgs e)
+        {
+            const int celulaId = 0;
+            const string tituloJanela = "Aviso";
+            const string msgTabelaHabilidadesVazia = "A tabela habilidades está vazia.";
+            const string msgHabilidadeNaoSelecionada = "Nenhuma habilidade foi selecionada!";
+
+            try
+            {
+                string? conteudoCelula = tabelaHabilidades.Rows[tabelaHabilidades.CurrentCell.RowIndex].Cells[celulaId].Value.ToString();
+                if (conteudoCelula != null)
+                {
+                    int idHabilidade = int.Parse(conteudoCelula);
+                    string msgConfirmarExclusaoHabilidade = $"Deseja excluir a habilidade {idHabilidade}?";
+
+                    DialogResult msgConfirmacao = MessageBox.Show(msgConfirmarExclusaoHabilidade, tituloJanela, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (msgConfirmacao == DialogResult.Yes)
+                    {
+                        _habilidadeServico.Deletar(idHabilidade);
+                        DefinirFonteDeDadosDasTabelas();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show(msgTabelaHabilidadesVazia, tituloJanela, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch
+            {
+                MessageBox.Show(msgHabilidadeNaoSelecionada, tituloJanela, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
     }
 }
