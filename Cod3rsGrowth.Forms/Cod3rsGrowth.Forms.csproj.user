@@ -16,8 +16,11 @@
     <Compile Update="Forms\FormularioEditarHabilidade.cs">
       <SubType>Form</SubType>
     </Compile>
+<<<<<<< Updated upstream
     <Compile Update="Forms\FormularioEditarPersonagem.cs">
       <SubType>Form</SubType>
     </Compile>
+=======
+>>>>>>> Stashed changes
   </ItemGroup>
 </Project>

@@ -131,6 +131,13 @@ namespace Cod3rsGrowth.Forms
             {
                 MessageBox.Show("Nenhuma habilidade foi selecionada!", tituloJanela, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+<<<<<<< Updated upstream
+=======
+
+
+
+            
+>>>>>>> Stashed changes
         }
 
         private void AoClicarEmRemoverExcluiPersonagem(object sender, EventArgs e)
