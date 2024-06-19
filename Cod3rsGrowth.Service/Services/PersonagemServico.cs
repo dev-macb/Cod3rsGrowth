@@ -29,7 +29,7 @@ namespace Cod3rsGrowth.Service.Services
 
         public int Adicionar(Personagem personagem)
         {
-            const string separador = " ";
+            const string separador = "\n";
             ValidationResult resultado = _personagemValidador.Validate(personagem);
             if (!resultado.IsValid)
             {
@@ -42,7 +42,7 @@ namespace Cod3rsGrowth.Service.Services
 
         public void Atualizar(int id, Personagem personagemAtualizado)
         {
-            const string separador = " ";
+            const string separador = "\n";
             ValidationResult resultado = _personagemValidador.Validate(personagemAtualizado);
             if (!resultado.IsValid)
             {
