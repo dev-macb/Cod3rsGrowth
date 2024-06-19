@@ -102,7 +102,7 @@ namespace Cod3rsGrowth.Forms
             // 
             menuSuperiorAplicacaoCadastro.DropDownItems.AddRange(new ToolStripItem[] { menuSuperiorCadastroPersonagem, menuSuperiorCadastroHabilidade });
             menuSuperiorAplicacaoCadastro.Name = "menuSuperiorAplicacaoCadastro";
-            menuSuperiorAplicacaoCadastro.Size = new Size(180, 22);
+            menuSuperiorAplicacaoCadastro.Size = new Size(121, 22);
             menuSuperiorAplicacaoCadastro.Text = "Cadastro";
             // 
             // menuSuperiorCadastroPersonagem
@@ -122,12 +122,12 @@ namespace Cod3rsGrowth.Forms
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(177, 6);
+            toolStripSeparator1.Size = new Size(118, 6);
             // 
             // menuSuperiorAplicacaoSair
             // 
             menuSuperiorAplicacaoSair.Name = "menuSuperiorAplicacaoSair";
-            menuSuperiorAplicacaoSair.Size = new Size(180, 22);
+            menuSuperiorAplicacaoSair.Size = new Size(121, 22);
             menuSuperiorAplicacaoSair.Text = "Sair";
             // 
             // txtboxFiltroPersonagemId
@@ -143,6 +143,7 @@ namespace Cod3rsGrowth.Forms
             // 
             tabelaPersonagens.AllowUserToAddRows = false;
             tabelaPersonagens.AllowUserToDeleteRows = false;
+            tabelaPersonagens.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabelaPersonagens.AutoGenerateColumns = false;
             tabelaPersonagens.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             tabelaPersonagens.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
@@ -237,6 +238,7 @@ namespace Cod3rsGrowth.Forms
             // 
             // AbasInicio
             // 
+            AbasInicio.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             AbasInicio.Controls.Add(AbaPersonagem);
             AbasInicio.Controls.Add(AbaHabilidade);
             AbasInicio.Location = new Point(0, 27);
@@ -273,6 +275,7 @@ namespace Cod3rsGrowth.Forms
             // 
             // btnFiltrarPersonagem
             // 
+            btnFiltrarPersonagem.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnFiltrarPersonagem.Location = new Point(695, 6);
             btnFiltrarPersonagem.Name = "btnFiltrarPersonagem";
             btnFiltrarPersonagem.Size = new Size(75, 23);
@@ -283,6 +286,7 @@ namespace Cod3rsGrowth.Forms
             // 
             // lblTotalPersonagens
             // 
+            lblTotalPersonagens.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             lblTotalPersonagens.AutoSize = true;
             lblTotalPersonagens.ForeColor = SystemColors.ControlDarkDark;
             lblTotalPersonagens.Location = new Point(6, 386);
@@ -309,6 +313,7 @@ namespace Cod3rsGrowth.Forms
             // 
             // lblTotalHabilidades
             // 
+            lblTotalHabilidades.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             lblTotalHabilidades.AutoSize = true;
             lblTotalHabilidades.ForeColor = SystemColors.ControlDarkDark;
             lblTotalHabilidades.Location = new Point(6, 386);
@@ -321,6 +326,7 @@ namespace Cod3rsGrowth.Forms
             // 
             tabelaHabilidades.AllowUserToAddRows = false;
             tabelaHabilidades.AllowUserToDeleteRows = false;
+            tabelaHabilidades.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabelaHabilidades.AutoGenerateColumns = false;
             tabelaHabilidades.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCellStyle1.BackColor = SystemColors.Control;
@@ -370,6 +376,7 @@ namespace Cod3rsGrowth.Forms
             // 
             // btnFiltrarHabilidade
             // 
+            btnFiltrarHabilidade.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnFiltrarHabilidade.Location = new Point(695, 6);
             btnFiltrarHabilidade.Name = "btnFiltrarHabilidade";
             btnFiltrarHabilidade.Size = new Size(75, 23);

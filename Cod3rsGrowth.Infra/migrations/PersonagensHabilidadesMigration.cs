@@ -12,8 +12,8 @@ namespace Cod3rsGrowth.Infra.Migrations
             .WithColumn("id").AsInt32().PrimaryKey().Identity()
             .WithColumn("id_personagem").AsInt32().NotNullable()
             .WithColumn("id_habilidade").AsInt32().NotNullable()
-            .WithColumn("CriadoEm").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime)
-            .WithColumn("AtualizadoEm").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime);
+            .WithColumn("criado_em").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime)
+            .WithColumn("atualizado_em").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime);
 
         Create.ForeignKey("fk_id_personagem")
             .FromTable("personagens_habilidades").ForeignColumns("id_personagem")
