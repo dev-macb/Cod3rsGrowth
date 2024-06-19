@@ -319,7 +319,6 @@
         private DataGridView tabelaHabilidades;
         private BindingSource habilidadeBindingSource;
         private DataGridViewCheckBoxColumn HabilidadesSelecionadas;
-        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn nomeDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn descricaoDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn Id;

@@ -102,6 +102,37 @@ namespace Cod3rsGrowth.Forms
             DefinirFonteDeDadosDasTabelas();
         }
 
+        private void AoClicarEmEditarAbreFormularioEditarPersonagem(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AoClicarEmEditarAbreFormularioEditarHabilidade(object sender, EventArgs e)
+        {
+            const int celulaId = 0;
+            const string tituloJanela = "Aviso";
+
+            try
+            {
+                string? conteudoCelula = tabelaHabilidades.Rows[tabelaHabilidades.CurrentCell.RowIndex].Cells[celulaId].Value.ToString();
+                if (conteudoCelula != null)
+                {
+                    int idHabilidade = int.Parse(conteudoCelula);
+                    var formularioEditarHabilidade = new FormularioEditarHabilidade(_habilidadeServico, idHabilidade);
+                    formularioEditarHabilidade.ShowDialog();
+                    DefinirFonteDeDadosDasTabelas();
+                }
+                else
+                {
+                    MessageBox.Show("A tabela habilidades está vazia.", tituloJanela, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Nenhuma habilidade foi selecionada!", tituloJanela, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
         private void AoClicarEmRemoverExcluiPersonagem(object sender, EventArgs e)
         {
             const int celulaId = 0;
