@@ -106,29 +106,32 @@ namespace Cod3rsGrowth.Forms
         {
             const int celulaId = 0;
             const string tituloJanela = "Aviso";
+            const string msgTabelaPersonagemVazia = "A tabela personagens está vazia.";
+            const string msgPersonagemNaoSelecionada = "Nenhum personagem foi selecionado!";
 
             try
             {
                 string? conteudoCelula = tabelaPersonagens.Rows[tabelaPersonagens.CurrentCell.RowIndex].Cells[celulaId].Value.ToString();
                 if (conteudoCelula != null)
                 {
-                    int idHabilidade = int.Parse(conteudoCelula);
+                    int idPersonagem = int.Parse(conteudoCelula);
+                    string msgConfirmarExclusaoHabilidade = $"Deseja excluir o personagem {idPersonagem}?";
 
-                    DialogResult msgConfirmacao = MessageBox.Show($"Deseja excluir o personagem {idHabilidade}?", tituloJanela, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    DialogResult msgConfirmacao = MessageBox.Show(msgConfirmarExclusaoHabilidade, tituloJanela, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                     if (msgConfirmacao == DialogResult.Yes)
                     {
-                        _personagemServico.Deletar(idHabilidade);
+                        _personagemServico.Deletar(idPersonagem);
                         DefinirFonteDeDadosDasTabelas();
                     }
                 }
                 else
                 {
-                    MessageBox.Show("A tabela personagens está vazia.", tituloJanela, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(msgTabelaPersonagemVazia, tituloJanela, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception)
             {
-                MessageBox.Show("Nenhum personagem foi selecionado!", tituloJanela, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(msgPersonagemNaoSelecionada, tituloJanela, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -136,6 +139,8 @@ namespace Cod3rsGrowth.Forms
         {
             const int celulaId = 0;
             const string tituloJanela = "Aviso";
+            const string msgTabelaHabilidadesVazia = "A tabela habilidades está vazia.";
+            const string msgHabilidadeNaoSelecionada = "Nenhuma habilidade foi selecionada!";
 
             try
             {
@@ -143,8 +148,9 @@ namespace Cod3rsGrowth.Forms
                 if (conteudoCelula != null)
                 {
                     int idHabilidade = int.Parse(conteudoCelula);
+                    string msgConfirmarExclusaoHabilidade = $"Deseja excluir a habilidade {idHabilidade}?";
 
-                    DialogResult msgConfirmacao = MessageBox.Show($"Deseja excluir a habilidade {idHabilidade}?", tituloJanela, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    DialogResult msgConfirmacao = MessageBox.Show(msgConfirmarExclusaoHabilidade, tituloJanela, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                     if (msgConfirmacao == DialogResult.Yes)
                     {
                         _habilidadeServico.Deletar(idHabilidade);
@@ -153,12 +159,12 @@ namespace Cod3rsGrowth.Forms
                 }
                 else
                 {
-                    MessageBox.Show("A tabela habilidades está vazia.", tituloJanela, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(msgTabelaHabilidadesVazia, tituloJanela, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch
             {
-                MessageBox.Show("Nenhuma habilidade foi selecionada!", tituloJanela, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(msgHabilidadeNaoSelecionada, tituloJanela, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }
