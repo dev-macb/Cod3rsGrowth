@@ -10,8 +10,9 @@ namespace Cod3rsGrowth.Forms
         private Filtro _habilidadeFiltro;
         private readonly PersonagemServico _personagemServico;
         private readonly HabilidadeServico _habilidadeServico;
+        private readonly PersonagensHabilidadesServico _personagensHabilidadesServico;
 
-        public FormularioPrincipal(PersonagemServico personagemServico, HabilidadeServico habilidadeServico)
+        public FormularioPrincipal(PersonagemServico personagemServico, HabilidadeServico habilidadeServico, PersonagensHabilidadesServico personagensHabilidadesServico)
         {
             InitializeComponent();
 
@@ -20,6 +21,7 @@ namespace Cod3rsGrowth.Forms
 
             _habilidadeFiltro = new Filtro();
             _habilidadeServico = habilidadeServico;
+            _personagensHabilidadesServico = personagensHabilidadesServico;
         }
 
         private void CarregarFormularioPrincipal(object sender, EventArgs e)
@@ -38,7 +40,7 @@ namespace Cod3rsGrowth.Forms
 
         private void AoClicarEmMenuSuperiorCadastroPersonagemAbreFormularioCadastroPersonagem(object sender, EventArgs e)
         {
-            var formularioCadastroPersonagem = new FormularioCadastroPersonagem(_personagemServico);
+            var formularioCadastroPersonagem = new FormularioCadastroPersonagem(_personagemServico, _habilidadeServico, _personagensHabilidadesServico);
             formularioCadastroPersonagem.ShowDialog();
             DefinirFonteDeDadosDasTabelas();
         }

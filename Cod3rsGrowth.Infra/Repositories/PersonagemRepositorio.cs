@@ -33,7 +33,7 @@ namespace Cod3rsGrowth.Infra.Repositories
 
         public int Adicionar(Personagem novoPersonagem)
         {
-            return (int)_bancoDeDados.InsertWithIdentity(novoPersonagem);
+            return Convert.ToInt32(_bancoDeDados.InsertWithIdentity(novoPersonagem));
         }
 
         public void Atualizar(int id, Personagem personagemAtualizado)

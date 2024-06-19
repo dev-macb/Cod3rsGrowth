@@ -44,14 +44,15 @@
             radioHeroi = new RadioButton();
             radioVilao = new RadioButton();
             labelHabilidades = new Label();
+            btnCancelar = new Button();
+            btnSalvar = new Button();
             tabelaPersonagensHabilidades = new DataGridView();
-            HabilidadesSelecionadas = new DataGridViewCheckBoxColumn();
+            habilidadeBindingSource = new BindingSource(components);
             idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             nomeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             descricaoDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
-            habilidadeBindingSource = new BindingSource(components);
-            btnCancelar = new Button();
-            btnSalvar = new Button();
+            criadoEmDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
+            atualizadoEmDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)numupdownVida).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numupdownEnergia).BeginInit();
             ((System.ComponentModel.ISupportInitialize)numupdownVelocidade).BeginInit();
@@ -145,6 +146,7 @@
             // comboboxForca
             // 
             comboboxForca.FormattingEnabled = true;
+            comboboxForca.Items.AddRange(new object[] { "Fraco", "Medio", "Bom", "Excepcional", "Extraordinario" });
             comboboxForca.Location = new Point(12, 115);
             comboboxForca.Name = "comboboxForca";
             comboboxForca.Size = new Size(195, 23);
@@ -153,6 +155,7 @@
             // comboboxInteligencia
             // 
             comboboxInteligencia.FormattingEnabled = true;
+            comboboxInteligencia.Items.AddRange(new object[] { "Fraco", "Medio", "Bom", "Excepcional", "Extraordinario" });
             comboboxInteligencia.Location = new Point(217, 115);
             comboboxInteligencia.Name = "comboboxInteligencia";
             comboboxInteligencia.Size = new Size(195, 23);
@@ -189,59 +192,6 @@
             labelHabilidades.TabIndex = 14;
             labelHabilidades.Text = "Habilidades:";
             // 
-            // tabelaPersonagensHabilidades
-            // 
-            tabelaPersonagensHabilidades.AllowUserToAddRows = false;
-            tabelaPersonagensHabilidades.AllowUserToDeleteRows = false;
-            tabelaPersonagensHabilidades.AutoGenerateColumns = false;
-            tabelaPersonagensHabilidades.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            tabelaPersonagensHabilidades.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            tabelaPersonagensHabilidades.Columns.AddRange(new DataGridViewColumn[] { HabilidadesSelecionadas, idDataGridViewTextBoxColumn, nomeDataGridViewTextBoxColumn, descricaoDataGridViewTextBoxColumn });
-            tabelaPersonagensHabilidades.DataSource = habilidadeBindingSource;
-            tabelaPersonagensHabilidades.Location = new Point(12, 159);
-            tabelaPersonagensHabilidades.Name = "tabelaPersonagensHabilidades";
-            tabelaPersonagensHabilidades.ReadOnly = true;
-            tabelaPersonagensHabilidades.RowHeadersVisible = false;
-            tabelaPersonagensHabilidades.RowTemplate.Height = 25;
-            tabelaPersonagensHabilidades.Size = new Size(400, 150);
-            tabelaPersonagensHabilidades.TabIndex = 15;
-            // 
-            // HabilidadesSelecionadas
-            // 
-            HabilidadesSelecionadas.FillWeight = 20F;
-            HabilidadesSelecionadas.HeaderText = "";
-            HabilidadesSelecionadas.Name = "HabilidadesSelecionadas";
-            HabilidadesSelecionadas.ReadOnly = true;
-            // 
-            // idDataGridViewTextBoxColumn
-            // 
-            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
-            idDataGridViewTextBoxColumn.FillWeight = 20F;
-            idDataGridViewTextBoxColumn.HeaderText = "Id";
-            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
-            idDataGridViewTextBoxColumn.ReadOnly = true;
-            idDataGridViewTextBoxColumn.Visible = false;
-            // 
-            // nomeDataGridViewTextBoxColumn
-            // 
-            nomeDataGridViewTextBoxColumn.DataPropertyName = "Nome";
-            nomeDataGridViewTextBoxColumn.FillWeight = 80F;
-            nomeDataGridViewTextBoxColumn.HeaderText = "Nome";
-            nomeDataGridViewTextBoxColumn.Name = "nomeDataGridViewTextBoxColumn";
-            nomeDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // descricaoDataGridViewTextBoxColumn
-            // 
-            descricaoDataGridViewTextBoxColumn.DataPropertyName = "Descricao";
-            descricaoDataGridViewTextBoxColumn.FillWeight = 120F;
-            descricaoDataGridViewTextBoxColumn.HeaderText = "Descricao";
-            descricaoDataGridViewTextBoxColumn.Name = "descricaoDataGridViewTextBoxColumn";
-            descricaoDataGridViewTextBoxColumn.ReadOnly = true;
-            // 
-            // habilidadeBindingSource
-            // 
-            habilidadeBindingSource.DataSource = typeof(Domain.Entities.Habilidade);
-            // 
             // btnCancelar
             // 
             btnCancelar.Location = new Point(256, 340);
@@ -262,14 +212,70 @@
             btnSalvar.UseVisualStyleBackColor = true;
             btnSalvar.Click += AoClicarEmSalvarAdicionaPersonagem;
             // 
+            // tabelaPersonagensHabilidades
+            // 
+            tabelaPersonagensHabilidades.AllowUserToAddRows = false;
+            tabelaPersonagensHabilidades.AllowUserToDeleteRows = false;
+            tabelaPersonagensHabilidades.AutoGenerateColumns = false;
+            tabelaPersonagensHabilidades.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            tabelaPersonagensHabilidades.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            tabelaPersonagensHabilidades.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, nomeDataGridViewTextBoxColumn, descricaoDataGridViewTextBoxColumn, criadoEmDataGridViewTextBoxColumn, atualizadoEmDataGridViewTextBoxColumn });
+            tabelaPersonagensHabilidades.DataSource = habilidadeBindingSource;
+            tabelaPersonagensHabilidades.Location = new Point(12, 159);
+            tabelaPersonagensHabilidades.Name = "tabelaPersonagensHabilidades";
+            tabelaPersonagensHabilidades.ReadOnly = true;
+            tabelaPersonagensHabilidades.RowHeadersVisible = false;
+            tabelaPersonagensHabilidades.RowTemplate.Height = 25;
+            tabelaPersonagensHabilidades.Size = new Size(400, 150);
+            tabelaPersonagensHabilidades.TabIndex = 18;
+            // 
+            // habilidadeBindingSource
+            // 
+            habilidadeBindingSource.DataSource = typeof(Domain.Entities.Habilidade);
+            // 
+            // idDataGridViewTextBoxColumn
+            // 
+            idDataGridViewTextBoxColumn.DataPropertyName = "Id";
+            idDataGridViewTextBoxColumn.HeaderText = "Id";
+            idDataGridViewTextBoxColumn.Name = "idDataGridViewTextBoxColumn";
+            idDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // nomeDataGridViewTextBoxColumn
+            // 
+            nomeDataGridViewTextBoxColumn.DataPropertyName = "Nome";
+            nomeDataGridViewTextBoxColumn.HeaderText = "Nome";
+            nomeDataGridViewTextBoxColumn.Name = "nomeDataGridViewTextBoxColumn";
+            nomeDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // descricaoDataGridViewTextBoxColumn
+            // 
+            descricaoDataGridViewTextBoxColumn.DataPropertyName = "Descricao";
+            descricaoDataGridViewTextBoxColumn.HeaderText = "Descricao";
+            descricaoDataGridViewTextBoxColumn.Name = "descricaoDataGridViewTextBoxColumn";
+            descricaoDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // criadoEmDataGridViewTextBoxColumn
+            // 
+            criadoEmDataGridViewTextBoxColumn.DataPropertyName = "CriadoEm";
+            criadoEmDataGridViewTextBoxColumn.HeaderText = "CriadoEm";
+            criadoEmDataGridViewTextBoxColumn.Name = "criadoEmDataGridViewTextBoxColumn";
+            criadoEmDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
+            // atualizadoEmDataGridViewTextBoxColumn
+            // 
+            atualizadoEmDataGridViewTextBoxColumn.DataPropertyName = "AtualizadoEm";
+            atualizadoEmDataGridViewTextBoxColumn.HeaderText = "AtualizadoEm";
+            atualizadoEmDataGridViewTextBoxColumn.Name = "atualizadoEmDataGridViewTextBoxColumn";
+            atualizadoEmDataGridViewTextBoxColumn.ReadOnly = true;
+            // 
             // FormularioCadastroPersonagem
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(424, 376);
+            Controls.Add(tabelaPersonagensHabilidades);
             Controls.Add(btnSalvar);
             Controls.Add(btnCancelar);
-            Controls.Add(tabelaPersonagensHabilidades);
             Controls.Add(labelHabilidades);
             Controls.Add(radioVilao);
             Controls.Add(radioHeroi);
@@ -285,8 +291,12 @@
             Controls.Add(labelVida);
             Controls.Add(txtboxNome);
             Controls.Add(labelNome);
+            MaximizeBox = false;
+            MinimizeBox = false;
             Name = "FormularioCadastroPersonagem";
+            StartPosition = FormStartPosition.CenterParent;
             Text = "Cadastro - Personagem";
+            Load += CarregarFormularioCadastroPersonagem;
             ((System.ComponentModel.ISupportInitialize)numupdownVida).EndInit();
             ((System.ComponentModel.ISupportInitialize)numupdownEnergia).EndInit();
             ((System.ComponentModel.ISupportInitialize)numupdownVelocidade).EndInit();
@@ -313,13 +323,14 @@
         private RadioButton radioHeroi;
         private RadioButton radioVilao;
         private Label labelHabilidades;
+        private Button btnCancelar;
+        private Button btnSalvar;
         private DataGridView tabelaPersonagensHabilidades;
-        private DataGridViewCheckBoxColumn HabilidadesSelecionadas;
         private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn nomeDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn descricaoDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn criadoEmDataGridViewTextBoxColumn;
+        private DataGridViewTextBoxColumn atualizadoEmDataGridViewTextBoxColumn;
         private BindingSource habilidadeBindingSource;
-        private Button btnCancelar;
-        private Button btnSalvar;
     }
 }

@@ -11,6 +11,7 @@ namespace Cod3rsGrowth.Service
             // Serviços
             servicos.AddScoped<PersonagemServico>();
             servicos.AddScoped<HabilidadeServico>();
+            servicos.AddScoped<PersonagensHabilidadesServico>();
 
             // Validadores
             servicos.AddScoped<PersonagemValidador>();

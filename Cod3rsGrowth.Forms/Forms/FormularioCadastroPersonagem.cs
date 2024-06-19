@@ -1,7 +1,7 @@
-﻿using Cod3rsGrowth.Domain.Entities;
+﻿using FluentValidation;
 using Cod3rsGrowth.Domain.Enums;
+using Cod3rsGrowth.Domain.Entities;
 using Cod3rsGrowth.Service.Services;
-using FluentValidation;
 
 namespace Cod3rsGrowth.Forms.Forms
 {
@@ -9,27 +9,24 @@ namespace Cod3rsGrowth.Forms.Forms
     {
         private readonly PersonagemServico _personagemServico;
         private readonly HabilidadeServico _habilidadeServico;
+        private readonly PersonagensHabilidadesServico _personagensHabilidadesServicos;
 
-        public FormularioCadastroPersonagem(PersonagemServico personagemServico, HabilidadeServico habilidadeServico)
+        public FormularioCadastroPersonagem(PersonagemServico personagemServico, HabilidadeServico habilidadeServico, PersonagensHabilidadesServico personagensHabilidadesServicos)
         {
             InitializeComponent();
             _personagemServico = personagemServico;
             _habilidadeServico = habilidadeServico;
+            _personagensHabilidadesServicos = personagensHabilidadesServicos;
         }
 
-        private void FormularioCadastroPersonagem_Load(object sender, EventArgs e)
+        private void CarregarFormularioCadastroPersonagem(object sender, EventArgs e)
         {
             tabelaPersonagensHabilidades.DataSource = _habilidadeServico.ObterTodos(null);
+                
             foreach (DataGridViewRow linha in tabelaPersonagensHabilidades.Rows)
             {
                 linha.Cells["HabilidadesSelecionadas"].Value = false;
             }
-        }
-
-        private void AoClicarEmCancelarFechaJanelaAtual(object sender, EventArgs e)
-        {
-            DialogResult = DialogResult.Cancel;
-            Close();
         }
 
         private void AoClicarEmSalvarAdicionaPersonagem(object sender, EventArgs e)
@@ -65,9 +62,11 @@ namespace Cod3rsGrowth.Forms.Forms
                     var personagemHabilidade = new PersonagensHabilidades
                     {
                         IdPersonagem = idNovoPersonagem,
-                        IdHabilidade = habilidadeId
+                        IdHabilidade = habilidadeId,
+                        CriadoEm = DateTime.Now,
+                        AtualizadoEm = DateTime.Now
                     };
-                    _personagemServico.Adicionar(personagemHabilidade);
+                    _personagensHabilidadesServicos.Adicionar(personagemHabilidade);
                 }
 
                 DialogResult = DialogResult.OK;
@@ -77,6 +76,12 @@ namespace Cod3rsGrowth.Forms.Forms
             {
                 MessageBox.Show(excecao.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        private void AoClicarEmCancelarFechaJanelaAtual(object sender, EventArgs e)
+        {
+            DialogResult = DialogResult.Cancel;
+            Close();
         }
     }
 }

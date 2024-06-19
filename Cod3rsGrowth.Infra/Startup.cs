@@ -21,7 +21,7 @@ namespace Cod3rsGrowth.Infra
             // Repositories
             servicos.AddScoped<IRepositorio<Personagem>, PersonagemRepositorio>();
             servicos.AddScoped<IRepositorio<Habilidade>, HabilidadeRepositorio>();
-            servicos.AddScoped<IRepositorio<PersonagemHabilidade>, PersonagensHabilidadesRepositorio>();
+            servicos.AddScoped<IRepositorio<PersonagensHabilidades>, PersonagensHabilidadesRepositorio>();
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Cod3rsGrowth.Service.Services
             _habilidadeRepositorio = repositorio;
         }
 
-        public IEnumerable<Habilidade> ObterTodos(Filtro filtro)
+        public IEnumerable<Habilidade> ObterTodos(Filtro? filtro)
         {
             return _habilidadeRepositorio.ObterTodos(filtro);
         }

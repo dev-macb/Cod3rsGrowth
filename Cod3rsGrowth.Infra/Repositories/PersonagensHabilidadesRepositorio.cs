@@ -25,7 +25,7 @@ namespace Cod3rsGrowth.Infra.Repositories
 
         public int Adicionar(PersonagensHabilidades novoPersonagensHabilidades)
         {
-            return (int)_bancoDeDados.InsertWithIdentity(novoPersonagensHabilidades);
+            return Convert.ToInt32(_bancoDeDados.InsertWithIdentity(novoPersonagensHabilidades));
         }
 
         public void Atualizar(int id, PersonagensHabilidades personagensHabilidadesAtualizado)

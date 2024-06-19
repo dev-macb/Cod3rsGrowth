@@ -32,7 +32,7 @@ namespace Cod3rsGrowth.Infra.Repositories
 
         public int Adicionar(Habilidade novaHabilidade)
         {
-            return (int)_bancoDeDados.InsertWithIdentity(novaHabilidade);
+            return Convert.ToInt32(_bancoDeDados.InsertWithIdentity(novaHabilidade));
         }
 
         public void Atualizar(int id, Habilidade habilidadeAtualizada)
