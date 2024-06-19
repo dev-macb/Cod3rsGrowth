@@ -16,8 +16,5 @@
     <Compile Update="Forms\FormularioEditarHabilidade.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Update="Forms\FormularioEditarPersonagem.cs">
-      <SubType>Form</SubType>
-    </Compile>
   </ItemGroup>
 </Project>
