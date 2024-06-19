@@ -46,7 +46,13 @@ namespace Cod3rsGrowth.Infra.Repositories
 
         public void Deletar(int id)
         {
-            _bancoDeDados.Personagens.Where(habilidade => habilidade.Id == id).Delete();
+            _bancoDeDados.PersonagensHabilidades
+                .Where(personagemHabilidade => personagemHabilidade.IdPersonagem == id)
+                .Delete();
+
+            _bancoDeDados.Personagens
+                .Where(habilidade => habilidade.Id == id)
+                .Delete();
         }
     }
 }

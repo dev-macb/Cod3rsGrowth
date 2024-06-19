@@ -101,5 +101,63 @@ namespace Cod3rsGrowth.Forms
             _habilidadeFiltro.Nome = txtboxFiltroHabilidadeNome.Text;
             DefinirFonteDeDadosDasTabelas();
         }
+
+        private void AoClicarEmRemoverExcluiPersonagem(object sender, EventArgs e)
+        {
+            const int celulaId = 0;
+            const string tituloJanela = "Aviso";
+
+            try
+            {
+                if (tabelaPersonagens.Rows.Count > 0)
+                {
+                    int idHabilidade = int.Parse(tabelaPersonagens.Rows[tabelaPersonagens.CurrentCell.RowIndex].Cells[celulaId].Value.ToString());
+                    
+                    DialogResult msgConfirmacao = MessageBox.Show($"Deseja excluir o personagem {idHabilidade}?", tituloJanela, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (msgConfirmacao == DialogResult.Yes)
+                    {
+                        _personagemServico.Deletar(idHabilidade);
+                        DefinirFonteDeDadosDasTabelas();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("A tabela personagens está vazia.", tituloJanela, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Nenhum personagem foi selecionado!", tituloJanela, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void AoClicarEmRemoverExcluiHabilidade(object sender, EventArgs e)
+        {
+            const int celulaId = 0;
+            const string tituloJanela = "Aviso";
+
+            try
+            {
+                if (tabelaHabilidades.Rows.Count > 0)
+                {
+                    int idHabilidade = int.Parse(tabelaHabilidades.Rows[tabelaHabilidades.CurrentCell.RowIndex].Cells[celulaId].Value.ToString());
+
+                    DialogResult msgConfirmacao = MessageBox.Show($"Deseja excluir a habilidade {idHabilidade}?", tituloJanela, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    if (msgConfirmacao == DialogResult.Yes)
+                    {
+                        _habilidadeServico.Deletar(idHabilidade);
+                        DefinirFonteDeDadosDasTabelas();
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("A tabela habilidades está vazia.", tituloJanela, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch
+            {
+                MessageBox.Show("Nenhuma habilidade foi selecionada!", tituloJanela, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
     }
 }
