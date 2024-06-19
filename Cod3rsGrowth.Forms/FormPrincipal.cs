@@ -109,10 +109,11 @@ namespace Cod3rsGrowth.Forms
 
             try
             {
-                if (tabelaPersonagens.Rows.Count > 0)
+                string? conteudoCelula = tabelaPersonagens.Rows[tabelaPersonagens.CurrentCell.RowIndex].Cells[celulaId].Value.ToString();
+                if (conteudoCelula != null)
                 {
-                    int idHabilidade = int.Parse(tabelaPersonagens.Rows[tabelaPersonagens.CurrentCell.RowIndex].Cells[celulaId].Value.ToString());
-                    
+                    int idHabilidade = int.Parse(conteudoCelula);
+
                     DialogResult msgConfirmacao = MessageBox.Show($"Deseja excluir o personagem {idHabilidade}?", tituloJanela, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                     if (msgConfirmacao == DialogResult.Yes)
                     {
@@ -138,9 +139,10 @@ namespace Cod3rsGrowth.Forms
 
             try
             {
-                if (tabelaHabilidades.Rows.Count > 0)
+                string? conteudoCelula = tabelaHabilidades.Rows[tabelaHabilidades.CurrentCell.RowIndex].Cells[celulaId].Value.ToString();
+                if (conteudoCelula != null)
                 {
-                    int idHabilidade = int.Parse(tabelaHabilidades.Rows[tabelaHabilidades.CurrentCell.RowIndex].Cells[celulaId].Value.ToString());
+                    int idHabilidade = int.Parse(conteudoCelula);
 
                     DialogResult msgConfirmacao = MessageBox.Show($"Deseja excluir a habilidade {idHabilidade}?", tituloJanela, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                     if (msgConfirmacao == DialogResult.Yes)
