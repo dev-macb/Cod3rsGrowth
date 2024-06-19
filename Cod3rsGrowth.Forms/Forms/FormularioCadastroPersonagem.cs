@@ -11,6 +11,10 @@ namespace Cod3rsGrowth.Forms.Forms
         private readonly HabilidadeServico _habilidadeServico;
         private readonly PersonagensHabilidadesServico _personagensHabilidadesServicos;
 
+        const string ColunaId = "Id";
+        const string TituloJanelaErro = "Erro de Validação";
+        const string ColunaHabilidadesSelecionadas = "HabilidadesSelecionadas";
+
         public FormularioCadastroPersonagem(PersonagemServico personagemServico, HabilidadeServico habilidadeServico, PersonagensHabilidadesServico personagensHabilidadesServicos)
         {
             InitializeComponent();
@@ -25,7 +29,7 @@ namespace Cod3rsGrowth.Forms.Forms
                 
             foreach (DataGridViewRow linha in tabelaHabilidades.Rows)
             {
-                linha.Cells["HabilidadesSelecionadas"].Value = false;
+                linha.Cells[ColunaHabilidadesSelecionadas].Value = false;
             }
         }
 
@@ -51,9 +55,9 @@ namespace Cod3rsGrowth.Forms.Forms
                 var habilidadesMarcadas = new List<int>();
                 foreach (DataGridViewRow linha in tabelaHabilidades.Rows)
                 {
-                    if (Convert.ToBoolean(linha.Cells["HabilidadesSelecionadas"].Value))
+                    if (Convert.ToBoolean(linha.Cells[ColunaHabilidadesSelecionadas].Value))
                     {
-                        int habilidadeId = Convert.ToInt32(linha.Cells["Id"].Value);
+                        int habilidadeId = Convert.ToInt32(linha.Cells[ColunaId].Value);
                         habilidadesMarcadas.Add(habilidadeId);
                     }
                 }
@@ -74,7 +78,7 @@ namespace Cod3rsGrowth.Forms.Forms
             }
             catch (ValidationException excecao)
             {
-                MessageBox.Show(excecao.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show(excecao.Message, TituloJanelaErro, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
