@@ -124,20 +124,13 @@ namespace Cod3rsGrowth.Forms
                 }
                 else
                 {
-                    MessageBox.Show("A tabela habilidades está vazia.", tituloJanela, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("A tabela habilidades estï¿½ vazia.", tituloJanela, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception)
             {
                 MessageBox.Show("Nenhuma habilidade foi selecionada!", tituloJanela, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-<<<<<<< Updated upstream
-=======
-
-
-
-            
->>>>>>> Stashed changes
         }
 
         private void AoClicarEmRemoverExcluiPersonagem(object sender, EventArgs e)
@@ -161,7 +154,7 @@ namespace Cod3rsGrowth.Forms
                 }
                 else
                 {
-                    MessageBox.Show("A tabela personagens está vazia.", tituloJanela, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("A tabela personagens estï¿½ vazia.", tituloJanela, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception)
@@ -191,7 +184,7 @@ namespace Cod3rsGrowth.Forms
                 }
                 else
                 {
-                    MessageBox.Show("A tabela habilidades está vazia.", tituloJanela, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show("A tabela habilidades estï¿½ vazia.", tituloJanela, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch
