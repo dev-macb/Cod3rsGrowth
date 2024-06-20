@@ -10,6 +10,7 @@ namespace Cod3rsGrowth.Forms.Forms
         private Habilidade? _habilidadeExistente;
         private readonly HabilidadeServico _habilidadeServico;
 
+        private const int ID_VAZIO = 0;
         private const string TITULO_CADASTRAR = "Habilidades - Cadastrar";
         private const string TITULO_EDITAR = "Habilidades - Editar";
         private const string TITULO_DIALOGO_ERRO = "Erro!";
@@ -19,13 +20,13 @@ namespace Cod3rsGrowth.Forms.Forms
         public FormularioHabilidade(int? idHabilidade, HabilidadeServico habilidadeServico)
         {
             InitializeComponent();
-            _idHabilidade = idHabilidade ?? 0;
+            _idHabilidade = idHabilidade ?? ID_VAZIO;
             _habilidadeServico = habilidadeServico;
         }
 
         private void CarregarFormularioEditarHabilidade(object sender, EventArgs e)
         {
-            if (_idHabilidade == 0)
+            if (_idHabilidade == ID_VAZIO)
             {
                 this.Text = TITULO_CADASTRAR;
                 btnSalvar.Text = BTN_CADASTRAR;
@@ -49,7 +50,7 @@ namespace Cod3rsGrowth.Forms.Forms
         {
             try
             {
-                if (_idHabilidade == 0)
+                if (_idHabilidade == ID_VAZIO)
                 {
                     var novaHabilidade = new Habilidade
                     {

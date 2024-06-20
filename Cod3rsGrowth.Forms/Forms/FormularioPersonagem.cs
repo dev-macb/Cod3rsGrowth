@@ -13,6 +13,7 @@ namespace Cod3rsGrowth.Forms.Forms
         private readonly HabilidadeServico _habilidadeServico;
         private readonly PersonagensHabilidadesServico _personagensHabilidadesServico;
 
+        private const int ID_VAZIO = 0;
         private const string TITULO_CADASTRAR = "Personagens - Cadastrar";
         private const string TITULO_EDITAR = "Personagens - Editar";
         private const string TITULO_DIALOGO_ERRO = "Erro!";
@@ -24,7 +25,7 @@ namespace Cod3rsGrowth.Forms.Forms
         public FormularioPersonagem(int? idPersonagem, PersonagemServico personagemServico, HabilidadeServico habilidadeServico, PersonagensHabilidadesServico personagensHabilidadesServico)
         {
             InitializeComponent();
-            _idPersonagem = idPersonagem ?? 0;
+            _idPersonagem = idPersonagem ?? ID_VAZIO;
             _personagemServico = personagemServico;
             _habilidadeServico = habilidadeServico;
             _personagensHabilidadesServico = personagensHabilidadesServico;
@@ -32,7 +33,7 @@ namespace Cod3rsGrowth.Forms.Forms
 
         private void CarregarFormularioEditarPersonagem(object sender, EventArgs e)
         {
-            if (_idPersonagem == 0)
+            if (_idPersonagem == ID_VAZIO)
             {
                 this.Text = TITULO_CADASTRAR;
                 btnSalvar.Text = BTN_CADASTRAR;
@@ -77,7 +78,7 @@ namespace Cod3rsGrowth.Forms.Forms
         {
             try
             {
-                if (_idPersonagem == 0)
+                if (_idPersonagem == ID_VAZIO)
                 {
                     // Cadastrar personagem
                     var novoPersonagem = new Personagem
