@@ -40,7 +40,15 @@ namespace Cod3rsGrowth.Infra.Repositories
         {
             _bancoDeDados.Personagens
                 .Where(personagem => personagem.Id == id)
-                .Set(personagem => personagem, personagemAtualizado)
+                .Set(personagem => personagem.Nome, personagemAtualizado.Nome)
+                .Set(personagem => personagem.Vida, personagemAtualizado.Vida)
+                .Set(personagem => personagem.Energia, personagemAtualizado.Energia)
+                .Set(personagem => personagem.Velocidade, personagemAtualizado.Velocidade)
+                .Set(personagem => personagem.Forca, personagemAtualizado.Forca)
+                .Set(personagem => personagem.Inteligencia, personagemAtualizado.Inteligencia)
+                .Set(personagem => personagem.EVilao, personagemAtualizado.EVilao)
+                .Set(personagem => personagem.CriadoEm, personagemAtualizado.CriadoEm)
+                .Set(personagem => personagem.AtualizadoEm, personagemAtualizado.AtualizadoEm)
                 .Update();
         }
 

@@ -7,7 +7,7 @@ namespace Cod3rsGrowth.Domain.Entities
     public class PersonagensHabilidades
     {
         [Column("id"), PrimaryKey, Identity]
-        public int? Id { get; set; }
+        public int Id { get; set; }
 
         [Column("id_personagem"), NotNull]
         public int IdPersonagem { get; set; }

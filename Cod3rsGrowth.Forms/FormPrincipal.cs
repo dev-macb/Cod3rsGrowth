@@ -104,7 +104,28 @@ namespace Cod3rsGrowth.Forms
 
         private void AoClicarEmEditarAbreFormularioEditarPersonagem(object sender, EventArgs e)
         {
+            const int celulaId = 0;
+            const string tituloJanela = "Aviso";
 
+            try
+            {
+                string? conteudoCelula = tabelaPersonagens.Rows[tabelaPersonagens.CurrentCell.RowIndex].Cells[celulaId].Value.ToString();
+                if (conteudoCelula != null)
+                {
+                    int idPersonagem = int.Parse(conteudoCelula);
+                    var formularioEditarPersonagem = new FormularioEditarPersonagem(idPersonagem, _personagemServico, _habilidadeServico, _personagensHabilidadesServico);
+                    formularioEditarPersonagem.ShowDialog();
+                    DefinirFonteDeDadosDasTabelas();
+                }
+                else
+                {
+                    MessageBox.Show("A tabela personagens está vazia.", tituloJanela, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Nenhum personagem foi selecionado!", tituloJanela, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
         }
 
         private void AoClicarEmEditarAbreFormularioEditarHabilidade(object sender, EventArgs e)
@@ -124,24 +145,13 @@ namespace Cod3rsGrowth.Forms
                 }
                 else
                 {
-<<<<<<< Updated upstream
-                    MessageBox.Show("A tabela habilidades estï¿½ vazia.", tituloJanela, MessageBoxButtons.OK, MessageBoxIcon.Information);
-=======
                     MessageBox.Show("A tabela habilidades está vazia.", tituloJanela, MessageBoxButtons.OK, MessageBoxIcon.Information);
->>>>>>> Stashed changes
                 }
             }
             catch (Exception)
             {
                 MessageBox.Show("Nenhuma habilidade foi selecionada!", tituloJanela, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-<<<<<<< Updated upstream
-=======
-
-
-
-            
->>>>>>> Stashed changes
         }
 
         private void AoClicarEmRemoverExcluiPersonagem(object sender, EventArgs e)

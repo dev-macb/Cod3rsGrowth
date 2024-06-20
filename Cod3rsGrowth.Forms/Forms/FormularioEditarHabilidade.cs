@@ -30,7 +30,7 @@ namespace Cod3rsGrowth.Forms.Forms
             }
         }
 
-        private void btnSalvar_Click(object sender, EventArgs e)
+        private void AoClicarEmSalvarAtualizaHabilidade(object sender, EventArgs e)
         {
             const string tituloJanela = "Erro";
 
