@@ -12,6 +12,12 @@ namespace Cod3rsGrowth.Forms
         private readonly HabilidadeServico _habilidadeServico;
         private readonly PersonagensHabilidadesServico _personagensHabilidadesServico;
 
+        private const string TITULO_AVISO = "Aviso";
+        private const string MSG_TABELA_PERSONAGENS_VAZIA = "A tabela personagens está vazia.";
+        private const string MSG_PESONAGEM_NAO_SELECIONADO = "Nenhum personagem foi selecionado!";
+        private const string MSG_TABELA_HABILIDADES_VAZIA = "A tabela habilidades está vazia.";
+        private const string MSG_HABILIDADE_NAO_SELECIONADA = "Nenhuma habilidade foi selecionada!";
+
         public FormularioPrincipal(PersonagemServico personagemServico, HabilidadeServico habilidadeServico, PersonagensHabilidadesServico personagensHabilidadesServico)
         {
             InitializeComponent();
@@ -102,12 +108,59 @@ namespace Cod3rsGrowth.Forms
             DefinirFonteDeDadosDasTabelas();
         }
 
+        private void AoClicarEmEditarAbreFormularioEditarPersonagem(object sender, EventArgs e)
+        {
+            const int celulaId = 0;
+
+            try
+            {
+                string? conteudoCelula = tabelaPersonagens.Rows[tabelaPersonagens.CurrentCell.RowIndex].Cells[celulaId].Value.ToString();
+                if (conteudoCelula != null)
+                {
+                    int idPersonagem = int.Parse(conteudoCelula);
+                    var formularioEditarPersonagem = new FormularioEditarPersonagem(idPersonagem, _personagemServico, _habilidadeServico, _personagensHabilidadesServico);
+                    formularioEditarPersonagem.ShowDialog();
+                    DefinirFonteDeDadosDasTabelas();
+                }
+                else
+                {
+                    MessageBox.Show(MSG_TABELA_PERSONAGENS_VAZIA, TITULO_AVISO, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(MSG_PESONAGEM_NAO_SELECIONADO, TITULO_AVISO, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void AoClicarEmEditarAbreFormularioEditarHabilidade(object sender, EventArgs e)
+        {
+            const int celulaId = 0;
+
+            try
+            {
+                string? conteudoCelula = tabelaHabilidades.Rows[tabelaHabilidades.CurrentCell.RowIndex].Cells[celulaId].Value.ToString();
+                if (conteudoCelula != null)
+                {
+                    int idHabilidade = int.Parse(conteudoCelula);
+                    var formularioEditarHabilidade = new FormularioEditarHabilidade(_habilidadeServico, idHabilidade);
+                    formularioEditarHabilidade.ShowDialog();
+                    DefinirFonteDeDadosDasTabelas();
+                }
+                else
+                {
+                    MessageBox.Show(MSG_TABELA_HABILIDADES_VAZIA, TITULO_AVISO, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+            }
+            catch (Exception)
+            {
+                MessageBox.Show(MSG_HABILIDADE_NAO_SELECIONADA, TITULO_AVISO, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
         private void AoClicarEmRemoverExcluiPersonagem(object sender, EventArgs e)
         {
             const int celulaId = 0;
-            const string tituloJanela = "Aviso";
-            const string msgTabelaPersonagemVazia = "A tabela personagens está vazia.";
-            const string msgPersonagemNaoSelecionada = "Nenhum personagem foi selecionado!";
 
             try
             {
@@ -117,7 +170,7 @@ namespace Cod3rsGrowth.Forms
                     int idPersonagem = int.Parse(conteudoCelula);
                     string msgConfirmarExclusaoHabilidade = $"Deseja excluir o personagem {idPersonagem}?";
 
-                    DialogResult msgConfirmacao = MessageBox.Show(msgConfirmarExclusaoHabilidade, tituloJanela, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    DialogResult msgConfirmacao = MessageBox.Show(msgConfirmarExclusaoHabilidade, TITULO_AVISO, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                     if (msgConfirmacao == DialogResult.Yes)
                     {
                         _personagemServico.Deletar(idPersonagem);
@@ -126,21 +179,18 @@ namespace Cod3rsGrowth.Forms
                 }
                 else
                 {
-                    MessageBox.Show(msgTabelaPersonagemVazia, tituloJanela, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(MSG_TABELA_PERSONAGENS_VAZIA, TITULO_AVISO, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception)
             {
-                MessageBox.Show(msgPersonagemNaoSelecionada, tituloJanela, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(MSG_PESONAGEM_NAO_SELECIONADO, TITULO_AVISO, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
         private void AoClicarEmRemoverExcluiHabilidade(object sender, EventArgs e)
         {
             const int celulaId = 0;
-            const string tituloJanela = "Aviso";
-            const string msgTabelaHabilidadesVazia = "A tabela habilidades está vazia.";
-            const string msgHabilidadeNaoSelecionada = "Nenhuma habilidade foi selecionada!";
 
             try
             {
@@ -150,7 +200,7 @@ namespace Cod3rsGrowth.Forms
                     int idHabilidade = int.Parse(conteudoCelula);
                     string msgConfirmarExclusaoHabilidade = $"Deseja excluir a habilidade {idHabilidade}?";
 
-                    DialogResult msgConfirmacao = MessageBox.Show(msgConfirmarExclusaoHabilidade, tituloJanela, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                    DialogResult msgConfirmacao = MessageBox.Show(msgConfirmarExclusaoHabilidade, TITULO_AVISO, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                     if (msgConfirmacao == DialogResult.Yes)
                     {
                         _habilidadeServico.Deletar(idHabilidade);
@@ -159,12 +209,12 @@ namespace Cod3rsGrowth.Forms
                 }
                 else
                 {
-                    MessageBox.Show(msgTabelaHabilidadesVazia, tituloJanela, MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    MessageBox.Show(MSG_TABELA_HABILIDADES_VAZIA, TITULO_AVISO, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch
             {
-                MessageBox.Show(msgHabilidadeNaoSelecionada, tituloJanela, MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show(MSG_HABILIDADE_NAO_SELECIONADA, TITULO_AVISO, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }
