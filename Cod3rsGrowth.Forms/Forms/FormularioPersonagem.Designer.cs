@@ -1,6 +1,6 @@
 ﻿namespace Cod3rsGrowth.Forms.Forms
 {
-    partial class FormularioEditarPersonagem
+    partial class FormularioPersonagem
     {
         /// <summary>
         /// Required designer variable.
@@ -292,7 +292,7 @@
             labelAtualizadoEm.TabIndex = 39;
             labelAtualizadoEm.Text = "Atualizado em: ...";
             // 
-            // FormularioEditarPersonagem
+            // FormularioPersonagem
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -318,7 +318,9 @@
             Controls.Add(labelVida);
             Controls.Add(txtboxNome);
             Controls.Add(labelNome);
-            Name = "FormularioEditarPersonagem";
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            Name = "FormularioPersonagem";
+            StartPosition = FormStartPosition.CenterParent;
             Text = "Editar - Personagem";
             Load += CarregarFormularioEditarPersonagem;
             ((System.ComponentModel.ISupportInitialize)tabelaHabilidades).EndInit();

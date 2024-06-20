@@ -1,6 +1,6 @@
 ﻿namespace Cod3rsGrowth.Forms.Forms
 {
-    partial class FormularioEditarHabilidade
+    partial class FormularioHabilidade
     {
         /// <summary>
         /// Required designer variable.
@@ -124,7 +124,7 @@
             labelAtualizadoEm.TabIndex = 14;
             labelAtualizadoEm.Text = "Atualizado em: ...";
             // 
-            // FormularioEditarHabilidade
+            // FormularioHabilidade
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -141,7 +141,7 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             MaximizeBox = false;
             MinimizeBox = false;
-            Name = "FormularioEditarHabilidade";
+            Name = "FormularioHabilidade";
             StartPosition = FormStartPosition.CenterParent;
             Text = "Editar - Habilidade";
             Load += CarregarFormularioEditarHabilidade;
