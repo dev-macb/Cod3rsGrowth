@@ -35,12 +35,12 @@ namespace Cod3rsGrowth.Forms
             DefinirFonteDeDadosDasTabelas();
         }
 
-        private void DefinirFonteDeDadosDasTabelas()
+        private async void DefinirFonteDeDadosDasTabelas()
         {
-            tabelaPersonagens.DataSource = _personagemServico.ObterTodos(_personagemFiltro);
+            tabelaPersonagens.DataSource = await _personagemServico.ObterTodos(_personagemFiltro);
             lblTotalPersonagens.Text = $"Total: {tabelaPersonagens.Rows.Count}";
 
-            tabelaHabilidades.DataSource = _habilidadeServico.ObterTodos(_habilidadeFiltro);
+            tabelaHabilidades.DataSource = await _habilidadeServico.ObterTodos(_habilidadeFiltro);
             lblTotalHabilidades.Text = $"Total: {tabelaHabilidades.Rows.Count}";
         }
 
@@ -168,6 +168,8 @@ namespace Cod3rsGrowth.Forms
 
             try
             {
+                if (tabelaPersonagens.CurrentCell == null) throw new Exception();
+
                 string? conteudoCelula = tabelaPersonagens.Rows[tabelaPersonagens.CurrentCell.RowIndex].Cells[celulaId].Value.ToString();
                 if (conteudoCelula != null)
                 {
@@ -180,10 +182,6 @@ namespace Cod3rsGrowth.Forms
                         await _personagemServico.Deletar(idPersonagem);
                         DefinirFonteDeDadosDasTabelas();
                     }
-                }
-                else
-                {
-                    MessageBox.Show(MSG_TABELA_PERSONAGENS_VAZIA, TITULO_AVISO, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch (Exception)
@@ -198,6 +196,8 @@ namespace Cod3rsGrowth.Forms
 
             try
             {
+                if (tabelaPersonagens.CurrentCell == null) throw new Exception();
+
                 string? conteudoCelula = tabelaHabilidades.Rows[tabelaHabilidades.CurrentCell.RowIndex].Cells[celulaId].Value.ToString();
                 if (conteudoCelula != null)
                 {
@@ -210,10 +210,6 @@ namespace Cod3rsGrowth.Forms
                         await _habilidadeServico.Deletar(idHabilidade);
                         DefinirFonteDeDadosDasTabelas();
                     }
-                }
-                else
-                {
-                    MessageBox.Show(MSG_TABELA_HABILIDADES_VAZIA, TITULO_AVISO, MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
             catch

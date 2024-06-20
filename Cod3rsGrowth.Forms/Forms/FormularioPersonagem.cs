@@ -37,7 +37,7 @@ namespace Cod3rsGrowth.Forms.Forms
             {
                 this.Text = TITULO_CADASTRAR;
                 btnSalvar.Text = BTN_CADASTRAR;
-                tabelaHabilidades.DataSource = _habilidadeServico.ObterTodos(null);
+                tabelaHabilidades.DataSource = await _habilidadeServico.ObterTodos(null);
 
                 foreach (DataGridViewRow linha in tabelaHabilidades.Rows)
                 {
@@ -59,7 +59,7 @@ namespace Cod3rsGrowth.Forms.Forms
                 comboboxForca.SelectedIndex = (int)_personagemExistente.Forca;
                 comboboxInteligencia.SelectedIndex = (int)_personagemExistente.Inteligencia;
 
-                tabelaHabilidades.DataSource = _habilidadeServico.ObterTodos(null);
+                tabelaHabilidades.DataSource = await _habilidadeServico.ObterTodos(null);
                 var habilidadesPersonagem = await _personagensHabilidadesServico.ObterHabilidadesPorPersonagem(_idPersonagem);
                 foreach (DataGridViewRow linha in tabelaHabilidades.Rows)
                 {

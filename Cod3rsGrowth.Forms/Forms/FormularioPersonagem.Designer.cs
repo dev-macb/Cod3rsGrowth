@@ -217,6 +217,7 @@
             // 
             // numupdownVelocidade
             // 
+            numupdownVelocidade.DecimalPlaces = 2;
             numupdownVelocidade.Location = new Point(283, 86);
             numupdownVelocidade.Name = "numupdownVelocidade";
             numupdownVelocidade.Size = new Size(129, 23);
