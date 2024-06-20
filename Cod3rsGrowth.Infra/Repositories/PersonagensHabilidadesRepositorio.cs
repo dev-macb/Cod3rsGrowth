@@ -4,7 +4,7 @@ using LinqToDB;
 
 namespace Cod3rsGrowth.Infra.Repositories
 {
-    public class PersonagensHabilidadesRepositorio : IRepositorio<PersonagensHabilidades>
+    public class PersonagensHabilidadesRepositorio : IPersonagensHabilidadesRepositorio
     {
         private readonly ContextoConexao _bancoDeDados;
 
@@ -21,6 +21,14 @@ namespace Cod3rsGrowth.Infra.Repositories
         public PersonagensHabilidades? ObterPorId(int id)
         {
             return _bancoDeDados.PersonagensHabilidades.FirstOrDefault(personagem => personagem.Id == id);
+        }
+
+        public List<int> ObterHabilidadesPorPersonagem(int idPersonagem)
+        {
+            return _bancoDeDados.PersonagensHabilidades
+                .Where(personagemHabilidade => personagemHabilidade.IdPersonagem == idPersonagem)
+                .Select(personagemHabilidade => personagemHabilidade.IdHabilidade)
+                .ToList();
         }
 
         public int Adicionar(PersonagensHabilidades novoPersonagensHabilidades)
@@ -41,6 +49,15 @@ namespace Cod3rsGrowth.Infra.Repositories
             _bancoDeDados.PersonagensHabilidades
                 .Where(personagensHabilidades => personagensHabilidades.Id == id)
                 .Delete();
+        }
+
+        public void DeletarPorPersonagemEHabilidade(int idPersonagem, int idHabilidade)
+        {
+            var habilidades = ObterTodos(null).Where(personagensHabilidades => 
+                personagensHabilidades.IdPersonagem == idPersonagem && 
+                personagensHabilidades.IdHabilidade == idHabilidade
+            );
+            foreach (var habilidade in habilidades) Deletar(habilidade.Id);
         }
     }
 }

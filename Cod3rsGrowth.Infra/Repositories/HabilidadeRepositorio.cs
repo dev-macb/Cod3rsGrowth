@@ -39,7 +39,9 @@ namespace Cod3rsGrowth.Infra.Repositories
         {
             _bancoDeDados.Habilidades
                 .Where(habilidade => habilidade.Id == id)
-                .Set(habilidade => habilidade, habilidadeAtualizada)
+                .Set(habilidade => habilidade.Nome, habilidadeAtualizada.Nome)
+                .Set(habilidade => habilidade.Descricao, habilidadeAtualizada.Descricao)
+                .Set(habilidade => habilidade.AtualizadoEm, habilidadeAtualizada.AtualizadoEm)
                 .Update();
         }
 

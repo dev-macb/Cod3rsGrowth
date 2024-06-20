@@ -55,6 +55,8 @@ namespace Cod3rsGrowth.Forms
             personagemServicoBindingSource = new BindingSource(components);
             AbasInicio = new TabControl();
             AbaPersonagem = new TabPage();
+            btnEditarPersonagem = new Button();
+            btnRemoverPersonagem = new Button();
             btnBuscar = new Button();
             btnFiltrarPersonagem = new Button();
             lblTotalPersonagens = new Label();
@@ -71,7 +73,7 @@ namespace Cod3rsGrowth.Forms
             txtboxFiltroHabilidadeNome = new TextBox();
             txtboxFiltroHabilidadeId = new TextBox();
             fbCommand1 = new FirebirdSql.Data.FirebirdClient.FbCommand();
-            btnRemoverPersonagem = new Button();
+            btnEditarHabilidade = new Button();
             menuSuperior.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tabelaPersonagens).BeginInit();
             ((System.ComponentModel.ISupportInitialize)personagemBindingSource).BeginInit();
@@ -252,6 +254,7 @@ namespace Cod3rsGrowth.Forms
             // 
             // AbaPersonagem
             // 
+            AbaPersonagem.Controls.Add(btnEditarPersonagem);
             AbaPersonagem.Controls.Add(btnRemoverPersonagem);
             AbaPersonagem.Controls.Add(btnBuscar);
             AbaPersonagem.Controls.Add(btnFiltrarPersonagem);
@@ -266,6 +269,26 @@ namespace Cod3rsGrowth.Forms
             AbaPersonagem.TabIndex = 0;
             AbaPersonagem.Text = "Personagens";
             AbaPersonagem.UseVisualStyleBackColor = true;
+            // 
+            // btnEditarPersonagem
+            // 
+            btnEditarPersonagem.Location = new Point(351, 6);
+            btnEditarPersonagem.Name = "btnEditarPersonagem";
+            btnEditarPersonagem.Size = new Size(75, 23);
+            btnEditarPersonagem.TabIndex = 12;
+            btnEditarPersonagem.Text = "Editar";
+            btnEditarPersonagem.UseVisualStyleBackColor = true;
+            btnEditarPersonagem.Click += AoClicarEmEditarAbreFormularioEditarPersonagem;
+            // 
+            // btnRemoverPersonagem
+            // 
+            btnRemoverPersonagem.Location = new Point(432, 6);
+            btnRemoverPersonagem.Name = "btnRemoverPersonagem";
+            btnRemoverPersonagem.Size = new Size(75, 23);
+            btnRemoverPersonagem.TabIndex = 11;
+            btnRemoverPersonagem.Text = "Remover";
+            btnRemoverPersonagem.UseVisualStyleBackColor = true;
+            btnRemoverPersonagem.Click += AoClicarEmRemoverExcluiPersonagem;
             // 
             // btnBuscar
             // 
@@ -301,6 +324,7 @@ namespace Cod3rsGrowth.Forms
             // 
             // AbaHabilidade
             // 
+            AbaHabilidade.Controls.Add(btnEditarHabilidade);
             AbaHabilidade.Controls.Add(btnRemoverHabilidade);
             AbaHabilidade.Controls.Add(lblTotalHabilidades);
             AbaHabilidade.Controls.Add(tabelaHabilidades);
@@ -318,7 +342,7 @@ namespace Cod3rsGrowth.Forms
             // 
             // btnRemoverHabilidade
             // 
-            btnRemoverHabilidade.Location = new Point(351, 6);
+            btnRemoverHabilidade.Location = new Point(432, 6);
             btnRemoverHabilidade.Name = "btnRemoverHabilidade";
             btnRemoverHabilidade.Size = new Size(75, 23);
             btnRemoverHabilidade.TabIndex = 6;
@@ -430,15 +454,15 @@ namespace Cod3rsGrowth.Forms
             txtboxFiltroHabilidadeId.Size = new Size(50, 23);
             txtboxFiltroHabilidadeId.TabIndex = 0;
             // 
-            // btnRemoverPersonagem
+            // btnEditarHabilidade
             // 
-            btnRemoverPersonagem.Location = new Point(351, 6);
-            btnRemoverPersonagem.Name = "btnRemoverPersonagem";
-            btnRemoverPersonagem.Size = new Size(75, 23);
-            btnRemoverPersonagem.TabIndex = 11;
-            btnRemoverPersonagem.Text = "Remover";
-            btnRemoverPersonagem.UseVisualStyleBackColor = true;
-            btnRemoverPersonagem.Click += AoClicarEmRemoverExcluiPersonagem;
+            btnEditarHabilidade.Location = new Point(351, 6);
+            btnEditarHabilidade.Name = "btnEditarHabilidade";
+            btnEditarHabilidade.Size = new Size(75, 23);
+            btnEditarHabilidade.TabIndex = 7;
+            btnEditarHabilidade.Text = "Editar";
+            btnEditarHabilidade.UseVisualStyleBackColor = true;
+            btnEditarHabilidade.Click += AoClicarEmEditarAbreFormularioEditarHabilidade;
             // 
             // FormularioPrincipal
             // 
@@ -511,5 +535,7 @@ namespace Cod3rsGrowth.Forms
         private DataGridViewTextBoxColumn descricaoDataGridViewTextBoxColumn;
         private Button btnRemoverHabilidade;
         private Button btnRemoverPersonagem;
+        private Button btnEditarPersonagem;
+        private Button btnEditarHabilidade;
     }
 }

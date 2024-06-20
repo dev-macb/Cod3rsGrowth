@@ -7,9 +7,9 @@ namespace Cod3rsGrowth.Service.Services
 {
     public class PersonagensHabilidadesServico
     {
-        private readonly IRepositorio<PersonagensHabilidades> _personagensHabilidadesRepositorio;
+        private readonly IPersonagensHabilidadesRepositorio _personagensHabilidadesRepositorio;
 
-        public PersonagensHabilidadesServico(IRepositorio<PersonagensHabilidades> personagensHabilidadesRepositorio)
+        public PersonagensHabilidadesServico(IPersonagensHabilidadesRepositorio personagensHabilidadesRepositorio)
         {
             _personagensHabilidadesRepositorio = personagensHabilidadesRepositorio;
         }
@@ -22,6 +22,11 @@ namespace Cod3rsGrowth.Service.Services
         public PersonagensHabilidades? ObterPorId(int id)
         {
             return _personagensHabilidadesRepositorio.ObterPorId(id);
+        }
+
+        public List<int> ObterHabilidadesPorPersonagem(int idPersonagem)
+        {
+            return _personagensHabilidadesRepositorio.ObterHabilidadesPorPersonagem(idPersonagem);
         }
 
         public int Adicionar(PersonagensHabilidades personagensHabilidades)
@@ -37,6 +42,11 @@ namespace Cod3rsGrowth.Service.Services
         public void Deletar(int id)
         {
             _personagensHabilidadesRepositorio.Deletar(id);
+        }
+
+        public void DeletarPorPersonagemEHabilidade(int idPersonagem, int idHabilidade)
+        {
+            _personagensHabilidadesRepositorio.DeletarPorPersonagemEHabilidade(idPersonagem, idHabilidade);
         }
     }
 }
