@@ -14,39 +14,39 @@ namespace Cod3rsGrowth.Service.Services
             _personagensHabilidadesRepositorio = personagensHabilidadesRepositorio;
         }
 
-        public IEnumerable<PersonagensHabilidades> ObterTodos(Filtro? filtro)
+        public async Task<IEnumerable<PersonagensHabilidades>> ObterTodos(Filtro? filtro)
         {
-            return _personagensHabilidadesRepositorio.ObterTodos(filtro);
+            return await _personagensHabilidadesRepositorio.ObterTodos(filtro);
         }
 
-        public PersonagensHabilidades? ObterPorId(int id)
+        public async Task<PersonagensHabilidades?> ObterPorId(int id)
         {
-            return _personagensHabilidadesRepositorio.ObterPorId(id);
+            return await _personagensHabilidadesRepositorio.ObterPorId(id);
         }
 
-        public List<int> ObterHabilidadesPorPersonagem(int idPersonagem)
+        public async Task<List<int>> ObterHabilidadesPorPersonagem(int idPersonagem)
         {
-            return _personagensHabilidadesRepositorio.ObterHabilidadesPorPersonagem(idPersonagem);
+            return await _personagensHabilidadesRepositorio.ObterHabilidadesPorPersonagem(idPersonagem);
         }
 
-        public int Adicionar(PersonagensHabilidades personagensHabilidades)
+        public async Task<int> Adicionar(PersonagensHabilidades personagensHabilidades)
         {
-            return _personagensHabilidadesRepositorio.Adicionar(personagensHabilidades);
+            return await _personagensHabilidadesRepositorio.Adicionar(personagensHabilidades);
         }
 
-        public void Atualizar(int id, PersonagensHabilidades personagensHabilidadesAtualizado)
+        public async Task Atualizar(int id, PersonagensHabilidades personagensHabilidadesAtualizado)
         {
-            _personagensHabilidadesRepositorio.Atualizar(id, personagensHabilidadesAtualizado);
+            await _personagensHabilidadesRepositorio.Atualizar(id, personagensHabilidadesAtualizado);
         }
 
-        public void Deletar(int id)
+        public async Task Deletar(int id)
         {
-            _personagensHabilidadesRepositorio.Deletar(id);
+            await _personagensHabilidadesRepositorio.Deletar(id);
         }
 
-        public void DeletarPorPersonagemEHabilidade(int idPersonagem, int idHabilidade)
+        public async Task DeletarPorPersonagemEHabilidade(int idPersonagem, int idHabilidade)
         {
-            _personagensHabilidadesRepositorio.DeletarPorPersonagemEHabilidade(idPersonagem, idHabilidade);
+            await _personagensHabilidadesRepositorio.DeletarPorPersonagemEHabilidade(idPersonagem, idHabilidade);
         }
     }
 }

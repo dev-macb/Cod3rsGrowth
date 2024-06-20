@@ -162,7 +162,7 @@ namespace Cod3rsGrowth.Forms
         }
 
         // Remover
-        private void AoClicarEmRemoverExcluiPersonagem(object sender, EventArgs e)
+        private async void AoClicarEmRemoverExcluiPersonagem(object sender, EventArgs e)
         {
             const int celulaId = 0;
 
@@ -177,7 +177,7 @@ namespace Cod3rsGrowth.Forms
                     DialogResult msgConfirmacao = MessageBox.Show(msgConfirmarExclusaoHabilidade, TITULO_AVISO, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                     if (msgConfirmacao == DialogResult.Yes)
                     {
-                        _personagemServico.Deletar(idPersonagem);
+                        await _personagemServico.Deletar(idPersonagem);
                         DefinirFonteDeDadosDasTabelas();
                     }
                 }
@@ -192,7 +192,7 @@ namespace Cod3rsGrowth.Forms
             }
         }
 
-        private void AoClicarEmRemoverExcluiHabilidade(object sender, EventArgs e)
+        private async void AoClicarEmRemoverExcluiHabilidade(object sender, EventArgs e)
         {
             const int celulaId = 0;
 
@@ -207,7 +207,7 @@ namespace Cod3rsGrowth.Forms
                     DialogResult msgConfirmacao = MessageBox.Show(msgConfirmarExclusaoHabilidade, TITULO_AVISO, MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                     if (msgConfirmacao == DialogResult.Yes)
                     {
-                        _habilidadeServico.Deletar(idHabilidade);
+                        await _habilidadeServico.Deletar(idHabilidade);
                         DefinirFonteDeDadosDasTabelas();
                     }
                 }

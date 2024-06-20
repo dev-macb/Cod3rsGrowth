@@ -13,9 +13,9 @@ namespace Cod3rsGrowth.Infra.Repositories
             _bancoDeDados = bancoDeDados;
         }
 
-        public IEnumerable<Personagem> ObterTodos(Filtro? filtro)
+        public async Task<IEnumerable<Personagem>> ObterTodos(Filtro? filtro)
         {
-            if (filtro == null) return _bancoDeDados.Personagens.ToList();
+            if (filtro == null) return await _bancoDeDados.Personagens.ToListAsync();
 
             var personagens = _bancoDeDados.Personagens.AsQueryable();
             if (!string.IsNullOrEmpty(filtro.Nome)) personagens = personagens.Where(habilidade => habilidade.Nome.Contains(filtro.Nome, StringComparison.OrdinalIgnoreCase));
@@ -23,22 +23,22 @@ namespace Cod3rsGrowth.Infra.Repositories
             if (filtro.DataBase.HasValue) personagens = personagens.Where(habilidade => habilidade.CriadoEm >= filtro.DataBase.Value);
             if (filtro.DataTeto.HasValue) personagens = personagens.Where(habilidade => habilidade.CriadoEm <= filtro.DataTeto.Value);
 
-            return personagens.ToList();
+            return await personagens.ToListAsync();
         }
 
-        public Personagem? ObterPorId(int id)
+        public async Task<Personagem?> ObterPorId(int id)
         {
-            return _bancoDeDados.Personagens.FirstOrDefault(personagem => personagem.Id == id);
+            return await _bancoDeDados.Personagens.FirstOrDefaultAsync(personagem => personagem.Id == id);
         }
 
-        public int Adicionar(Personagem novoPersonagem)
+        public async Task<int> Adicionar(Personagem novoPersonagem)
         {
-            return Convert.ToInt32(_bancoDeDados.InsertWithIdentity(novoPersonagem));
+            return await _bancoDeDados.InsertWithInt32IdentityAsync(novoPersonagem);
         }
 
-        public void Atualizar(int id, Personagem personagemAtualizado)
+        public async Task Atualizar(int id, Personagem personagemAtualizado)
         {
-            _bancoDeDados.Personagens
+            await _bancoDeDados.Personagens
                 .Where(personagem => personagem.Id == id)
                 .Set(personagem => personagem.Nome, personagemAtualizado.Nome)
                 .Set(personagem => personagem.Vida, personagemAtualizado.Vida)
@@ -49,14 +49,14 @@ namespace Cod3rsGrowth.Infra.Repositories
                 .Set(personagem => personagem.EVilao, personagemAtualizado.EVilao)
                 .Set(personagem => personagem.CriadoEm, personagemAtualizado.CriadoEm)
                 .Set(personagem => personagem.AtualizadoEm, personagemAtualizado.AtualizadoEm)
-                .Update();
+                .UpdateAsync();
         }
 
-        public void Deletar(int id)
+        public async Task Deletar(int id)
         {
-            _bancoDeDados.Personagens
+            await _bancoDeDados.Personagens
                 .Where(habilidade => habilidade.Id == id)
-                .Delete();
+                .DeleteAsync();
         }
     }
 }

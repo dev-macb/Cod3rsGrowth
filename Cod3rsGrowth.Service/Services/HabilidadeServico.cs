@@ -17,17 +17,17 @@ namespace Cod3rsGrowth.Service.Services
             _habilidadeRepositorio = repositorio;
         }
 
-        public IEnumerable<Habilidade> ObterTodos(Filtro? filtro)
+        public async Task<IEnumerable<Habilidade>> ObterTodos(Filtro? filtro)
         {
-            return _habilidadeRepositorio.ObterTodos(filtro);
+            return await _habilidadeRepositorio.ObterTodos(filtro);
         }
 
-        public Habilidade? ObterPorId(int id)
+        public async Task<Habilidade?> ObterPorId(int id)
         {
-            return _habilidadeRepositorio.ObterPorId(id);
+            return await _habilidadeRepositorio.ObterPorId(id);
         }
 
-        public void Adicionar(Habilidade habilidade)
+        public async Task Adicionar(Habilidade habilidade)
         {
             const string separador = "\n";
             ValidationResult resultado = _habilidadeValidador.Validate(habilidade);
@@ -37,10 +37,10 @@ namespace Cod3rsGrowth.Service.Services
                 throw new ValidationException(todosErros);
             }
 
-            _habilidadeRepositorio.Adicionar(habilidade);
+            await _habilidadeRepositorio.Adicionar(habilidade);
         }
 
-        public void Atualizar(int id, Habilidade habilidadeAtualizada)
+        public async Task Atualizar(int id, Habilidade habilidadeAtualizada)
         {
             const string separador = "\n";
             ValidationResult resultado = _habilidadeValidador.Validate(habilidadeAtualizada);
@@ -50,12 +50,12 @@ namespace Cod3rsGrowth.Service.Services
                 throw new ValidationException(todosErros);
             }
 
-            _habilidadeRepositorio.Atualizar(id, habilidadeAtualizada);
+            await _habilidadeRepositorio.Atualizar(id, habilidadeAtualizada);
         }
 
-        public void Deletar(int id)
+        public async Task Deletar(int id)
         {
-            _habilidadeRepositorio.Deletar(id);
+            await _habilidadeRepositorio.Deletar(id);
         }
     }
 }

@@ -24,7 +24,7 @@ namespace Cod3rsGrowth.Forms.Forms
             _habilidadeServico = habilidadeServico;
         }
 
-        private void CarregarFormularioEditarHabilidade(object sender, EventArgs e)
+        private async void CarregarFormularioEditarHabilidade(object sender, EventArgs e)
         {
             if (_idHabilidade == ID_VAZIO)
             {
@@ -35,7 +35,7 @@ namespace Cod3rsGrowth.Forms.Forms
 
             this.Text = TITULO_EDITAR;
             btnSalvar.Text = BTN_EDITAR;
-            _habilidadeExistente = _habilidadeServico.ObterPorId(_idHabilidade);
+            _habilidadeExistente = await _habilidadeServico.ObterPorId(_idHabilidade);
             if (_habilidadeExistente != null)
             {
                 labelId.Text = $"Id: {_habilidadeExistente.Id}";
@@ -50,30 +50,8 @@ namespace Cod3rsGrowth.Forms.Forms
         {
             try
             {
-                if (_idHabilidade == ID_VAZIO)
-                {
-                    var novaHabilidade = new Habilidade
-                    {
-                        Nome = txtboxNome.Text,
-                        Descricao = txtboxDescricao.Text,
-                        CriadoEm = DateTime.Now,
-                        AtualizadoEm = DateTime.Now
-                    };
-
-                    _habilidadeServico.Adicionar(novaHabilidade);
-                }
-                else
-                {
-                    var habilidadeAtualizada = new Habilidade
-                    {
-                        Nome = txtboxNome.Text,
-                        Descricao = txtboxDescricao.Text,
-                        CriadoEm = _habilidadeExistente.CriadoEm,
-                        AtualizadoEm = DateTime.Now
-                    };
-
-                    _habilidadeServico.Atualizar(_idHabilidade, habilidadeAtualizada);
-                }
+                if (_idHabilidade == ID_VAZIO) CadastrarHabilidade();
+                else AtualizarHabilidade();
 
                 DialogResult = DialogResult.OK;
                 Close();
@@ -88,6 +66,32 @@ namespace Cod3rsGrowth.Forms.Forms
         {
             DialogResult = DialogResult.Cancel;
             Close();
+        }
+
+        private async void CadastrarHabilidade()
+        {
+            var novaHabilidade = new Habilidade
+            {
+                Nome = txtboxNome.Text,
+                Descricao = txtboxDescricao.Text,
+                CriadoEm = DateTime.Now,
+                AtualizadoEm = DateTime.Now
+            };
+
+            await _habilidadeServico.Adicionar(novaHabilidade);
+        }
+
+        private async void AtualizarHabilidade()
+        {
+            var habilidadeAtualizada = new Habilidade
+            {
+                Nome = txtboxNome.Text,
+                Descricao = txtboxDescricao.Text,
+                CriadoEm = _habilidadeExistente.CriadoEm,
+                AtualizadoEm = DateTime.Now
+            };
+
+            await _habilidadeServico.Atualizar(_idHabilidade, habilidadeAtualizada);
         }
     }
 }

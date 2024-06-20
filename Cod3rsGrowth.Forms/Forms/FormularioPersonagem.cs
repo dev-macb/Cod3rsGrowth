@@ -31,7 +31,7 @@ namespace Cod3rsGrowth.Forms.Forms
             _personagensHabilidadesServico = personagensHabilidadesServico;
         }
 
-        private void CarregarFormularioEditarPersonagem(object sender, EventArgs e)
+        private async void CarregarFormularioEditarPersonagem(object sender, EventArgs e)
         {
             if (_idPersonagem == ID_VAZIO)
             {
@@ -48,7 +48,7 @@ namespace Cod3rsGrowth.Forms.Forms
 
             this.Text = TITULO_EDITAR;
             btnSalvar.Text = BTN_EDITAR;
-            _personagemExistente = _personagemServico.ObterPorId(_idPersonagem);
+            _personagemExistente = await _personagemServico.ObterPorId(_idPersonagem);
             if (_personagemExistente != null)
             {
                 labelId.Text = $"Id: {_personagemExistente.Id}";
@@ -60,7 +60,7 @@ namespace Cod3rsGrowth.Forms.Forms
                 comboboxInteligencia.SelectedIndex = (int)_personagemExistente.Inteligencia;
 
                 tabelaHabilidades.DataSource = _habilidadeServico.ObterTodos(null);
-                var habilidadesPersonagem = _personagensHabilidadesServico.ObterHabilidadesPorPersonagem(_idPersonagem);
+                var habilidadesPersonagem = await _personagensHabilidadesServico.ObterHabilidadesPorPersonagem(_idPersonagem);
                 foreach (DataGridViewRow linha in tabelaHabilidades.Rows)
                 {
                     int idHabilidade = (int)linha.Cells[CELULA_ID].Value;
@@ -74,105 +74,15 @@ namespace Cod3rsGrowth.Forms.Forms
             }
         }
 
-        private void AoClicarEmSalvarAtualizaPersonagem(object sender, EventArgs e)
+        private async void AoClicarEmSalvarAtualizaPersonagem(object sender, EventArgs e)
         {
             try
             {
-                if (_idPersonagem == ID_VAZIO)
-                {
-                    // Cadastrar personagem
-                    var novoPersonagem = new Personagem
-                    {
-                        Nome = txtboxNome.Text,
-                        Vida = (int)numupdownVida.Value,
-                        Energia = (int)numupdownEnergia.Value,
-                        Velocidade = (double)numupdownVelocidade.Value,
-                        Forca = (CategoriasEnum)comboboxForca.SelectedIndex,
-                        Inteligencia = (CategoriasEnum)comboboxInteligencia.SelectedIndex,
-                        EVilao = radioVilao.Checked,
-                        CriadoEm = DateTime.Now,
-                        AtualizadoEm = DateTime.Now
-                    };
-                    int idNovoPersonagem = _personagemServico.Adicionar(novoPersonagem);
+                if (_idPersonagem == ID_VAZIO) CadastrarPersonagem();
+                else AtualizarPersonagem();
 
-                    // Cadastrar habilidades vinculadas
-                    var habilidadesMarcadas = new List<int>();
-                    foreach (DataGridViewRow linha in tabelaHabilidades.Rows)
-                    {
-                        if (Convert.ToBoolean(linha.Cells[CELULA_HABILIDADES_SELECIONADAS].Value))
-                        {
-                            int habilidadeId = Convert.ToInt32(linha.Cells[CELULA_ID].Value);
-                            habilidadesMarcadas.Add(habilidadeId);
-                        }
-                    }
-                    foreach (var habilidadeId in habilidadesMarcadas)
-                    {
-                        var personagemHabilidade = new PersonagensHabilidades
-                        {
-                            IdPersonagem = idNovoPersonagem,
-                            IdHabilidade = habilidadeId,
-                            CriadoEm = DateTime.Now,
-                            AtualizadoEm = DateTime.Now
-                        };
-                        _personagensHabilidadesServico.Adicionar(personagemHabilidade);
-                    }
-
-                    DialogResult = DialogResult.OK;
-                    Close();
-                }
-                else
-                {
-                    // Atualizar tabela personagens
-                    var personagemAtualizado = new Personagem
-                    {
-                        Nome = txtboxNome.Text,
-                        Vida = (int)numupdownVida.Value,
-                        Energia = (int)numupdownEnergia.Value,
-                        Velocidade = (int)numupdownVelocidade.Value,
-                        Forca = (CategoriasEnum)comboboxForca.SelectedIndex,
-                        Inteligencia = (CategoriasEnum)comboboxInteligencia.SelectedIndex,
-                        EVilao = radioVilao.Checked,
-                        CriadoEm = _personagemExistente.CriadoEm,
-                        AtualizadoEm = DateTime.Now
-                    };
-                    _personagemServico.Atualizar(_idPersonagem, personagemAtualizado);
-
-                    // Atualizar tabela personagens_habilidades
-                    var habilidadesMarcadas = new List<int>();
-                    foreach (DataGridViewRow linha in tabelaHabilidades.Rows)
-                    {
-                        if (Convert.ToBoolean(linha.Cells[CELULA_HABILIDADES_SELECIONADAS].Value))
-                        {
-                            int habilidadeId = Convert.ToInt32(linha.Cells[CELULA_ID].Value);
-                            habilidadesMarcadas.Add(habilidadeId);
-                        }
-                    }
-                    var habilidadesExistentes = _personagensHabilidadesServico.ObterHabilidadesPorPersonagem(_idPersonagem);
-                    foreach (var habilidadeId in habilidadesExistentes)
-                    {
-                        if (!habilidadesMarcadas.Contains(habilidadeId))
-                        {
-                            _personagensHabilidadesServico.DeletarPorPersonagemEHabilidade(_idPersonagem, habilidadeId);
-                        }
-                    }
-                    foreach (var habilidadeId in habilidadesMarcadas)
-                    {
-                        if (!habilidadesExistentes.Contains(habilidadeId))
-                        {
-                            var personagemHabilidade = new PersonagensHabilidades
-                            {
-                                IdPersonagem = _idPersonagem,
-                                IdHabilidade = habilidadeId,
-                                CriadoEm = DateTime.Now,
-                                AtualizadoEm = DateTime.Now
-                            };
-                            _personagensHabilidadesServico.Adicionar(personagemHabilidade);
-                        }
-                    }
-
-                    DialogResult = DialogResult.OK;
-                    Close();
-                }
+                DialogResult = DialogResult.OK;
+                Close();
             }
             catch (ValidationException excecao)
             {
@@ -184,6 +94,97 @@ namespace Cod3rsGrowth.Forms.Forms
         {
             DialogResult = DialogResult.Cancel;
             Close();
+        }
+
+        private async void CadastrarPersonagem()
+        {
+            // Cadastrar personagem
+            var novoPersonagem = new Personagem
+            {
+                Nome = txtboxNome.Text,
+                Vida = (int)numupdownVida.Value,
+                Energia = (int)numupdownEnergia.Value,
+                Velocidade = (double)numupdownVelocidade.Value,
+                Forca = (CategoriasEnum)comboboxForca.SelectedIndex,
+                Inteligencia = (CategoriasEnum)comboboxInteligencia.SelectedIndex,
+                EVilao = radioVilao.Checked,
+                CriadoEm = DateTime.Now,
+                AtualizadoEm = DateTime.Now
+            };
+            int idNovoPersonagem = await _personagemServico.Adicionar(novoPersonagem);
+
+            // Cadastrar habilidades vinculadas
+            var habilidadesMarcadas = new List<int>();
+            foreach (DataGridViewRow linha in tabelaHabilidades.Rows)
+            {
+                if (Convert.ToBoolean(linha.Cells[CELULA_HABILIDADES_SELECIONADAS].Value))
+                {
+                    int habilidadeId = Convert.ToInt32(linha.Cells[CELULA_ID].Value);
+                    habilidadesMarcadas.Add(habilidadeId);
+                }
+            }
+            foreach (var habilidadeId in habilidadesMarcadas)
+            {
+                var personagemHabilidade = new PersonagensHabilidades
+                {
+                    IdPersonagem = idNovoPersonagem,
+                    IdHabilidade = habilidadeId,
+                    CriadoEm = DateTime.Now,
+                    AtualizadoEm = DateTime.Now
+                };
+                await _personagensHabilidadesServico.Adicionar(personagemHabilidade);
+            }
+        }
+
+        private async void AtualizarPersonagem()
+        {
+            // Atualizar tabela personagens
+            var personagemAtualizado = new Personagem
+            {
+                Nome = txtboxNome.Text,
+                Vida = (int)numupdownVida.Value,
+                Energia = (int)numupdownEnergia.Value,
+                Velocidade = (int)numupdownVelocidade.Value,
+                Forca = (CategoriasEnum)comboboxForca.SelectedIndex,
+                Inteligencia = (CategoriasEnum)comboboxInteligencia.SelectedIndex,
+                EVilao = radioVilao.Checked,
+                CriadoEm = _personagemExistente.CriadoEm,
+                AtualizadoEm = DateTime.Now
+            };
+            await _personagemServico.Atualizar(_idPersonagem, personagemAtualizado);
+
+            // Atualizar tabela personagens_habilidades
+            var habilidadesMarcadas = new List<int>();
+            foreach (DataGridViewRow linha in tabelaHabilidades.Rows)
+            {
+                if (Convert.ToBoolean(linha.Cells[CELULA_HABILIDADES_SELECIONADAS].Value))
+                {
+                    int habilidadeId = Convert.ToInt32(linha.Cells[CELULA_ID].Value);
+                    habilidadesMarcadas.Add(habilidadeId);
+                }
+            }
+            var habilidadesExistentes = await _personagensHabilidadesServico.ObterHabilidadesPorPersonagem(_idPersonagem);
+            foreach (var habilidadeId in habilidadesExistentes)
+            {
+                if (!habilidadesMarcadas.Contains(habilidadeId))
+                {
+                    await _personagensHabilidadesServico.DeletarPorPersonagemEHabilidade(_idPersonagem, habilidadeId);
+                }
+            }
+            foreach (var habilidadeId in habilidadesMarcadas)
+            {
+                if (!habilidadesExistentes.Contains(habilidadeId))
+                {
+                    var personagemHabilidade = new PersonagensHabilidades
+                    {
+                        IdPersonagem = _idPersonagem,
+                        IdHabilidade = habilidadeId,
+                        CriadoEm = DateTime.Now,
+                        AtualizadoEm = DateTime.Now
+                    };
+                    await _personagensHabilidadesServico.Adicionar(personagemHabilidade);
+                }
+            }
         }
     }
 }
