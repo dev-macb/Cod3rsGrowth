@@ -1,7 +1,7 @@
-using Cod3rsGrowth.Service;
 using Cod3rsGrowth.Domain.Entities;
 using Cod3rsGrowth.Tests.Repositories;
 using Microsoft.Extensions.DependencyInjection;
+using Cod3rsGrowth.Service.Services;
 
 namespace Cod3rsGrowth.Tests.Tests.Habilidades
 {
@@ -20,7 +20,7 @@ namespace Cod3rsGrowth.Tests.Tests.Habilidades
         {
             // Act
             RepositorioMock.ResetarInstancia();
-            var habilidades = _habilidadeService.ObterTodos("");
+            var habilidades = _habilidadeService.ObterTodos;
 
             // Assert
             Assert.IsType<List<Habilidade>>(habilidades);

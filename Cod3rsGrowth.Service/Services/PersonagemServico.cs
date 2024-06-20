@@ -1,9 +1,10 @@
 using FluentValidation.Results;
 using Cod3rsGrowth.Domain.Entities;
 using Cod3rsGrowth.Domain.Interfaces;
-using Cod3rsGrowth.Domain.Validators;
+using Cod3rsGrowth.Service.Validators;
+using FluentValidation;
 
-namespace Cod3rsGrowth.Service
+namespace Cod3rsGrowth.Service.Services
 {
     public class PersonagemServico
     {
@@ -16,7 +17,7 @@ namespace Cod3rsGrowth.Service
             _personagemRepositorio = repositorioMock;
         }
 
-        public IEnumerable<Personagem> ObterTodos(string filtro)
+        public IEnumerable<Personagem> ObterTodos(Filtro? filtro)
         {
             return _personagemRepositorio.ObterTodos(filtro);
         }
@@ -28,12 +29,12 @@ namespace Cod3rsGrowth.Service
 
         public int Adicionar(Personagem personagem)
         {
-            const string separador = " "; 
+            const string separador = "\n";
             ValidationResult resultado = _personagemValidador.Validate(personagem);
-            if (!resultado.IsValid) 
+            if (!resultado.IsValid)
             {
                 string todosErros = string.Join(separador, resultado.Errors.Select(erro => erro.ErrorMessage));
-                throw new Exception(todosErros);
+                throw new ValidationException(todosErros);
             }
 
             return _personagemRepositorio.Adicionar(personagem);
@@ -41,7 +42,7 @@ namespace Cod3rsGrowth.Service
 
         public void Atualizar(int id, Personagem personagemAtualizado)
         {
-            const string separador = " "; 
+            const string separador = "\n";
             ValidationResult resultado = _personagemValidador.Validate(personagemAtualizado);
             if (!resultado.IsValid)
             {

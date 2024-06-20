@@ -1,9 +1,10 @@
+using FluentValidation;
 using FluentValidation.Results;
 using Cod3rsGrowth.Domain.Entities;
 using Cod3rsGrowth.Domain.Interfaces;
-using Cod3rsGrowth.Domain.Validators;
+using Cod3rsGrowth.Service.Validators;
 
-namespace Cod3rsGrowth.Service
+namespace Cod3rsGrowth.Service.Services
 {
     public class HabilidadeServico
     {
@@ -16,7 +17,7 @@ namespace Cod3rsGrowth.Service
             _habilidadeRepositorio = repositorio;
         }
 
-        public IEnumerable<Habilidade> ObterTodos(string filtro)
+        public IEnumerable<Habilidade> ObterTodos(Filtro? filtro)
         {
             return _habilidadeRepositorio.ObterTodos(filtro);
         }
@@ -28,26 +29,25 @@ namespace Cod3rsGrowth.Service
 
         public void Adicionar(Habilidade habilidade)
         {
-            const string separador = " ";
+            const string separador = "\n";
             ValidationResult resultado = _habilidadeValidador.Validate(habilidade);
-            if (!resultado.IsValid) 
+            if (!resultado.IsValid)
             {
                 string todosErros = string.Join(separador, resultado.Errors.Select(erro => erro.ErrorMessage));
-                throw new Exception(todosErros);
+                throw new ValidationException(todosErros);
             }
-            
+
             _habilidadeRepositorio.Adicionar(habilidade);
-            // return _habilidadeRepositorio.Criar(habilidade);
         }
 
         public void Atualizar(int id, Habilidade habilidadeAtualizada)
         {
-            const string separador = " ";
+            const string separador = "\n";
             ValidationResult resultado = _habilidadeValidador.Validate(habilidadeAtualizada);
             if (!resultado.IsValid)
             {
                 string todosErros = string.Join(separador, resultado.Errors.Select(erro => erro.ErrorMessage));
-                throw new Exception(todosErros);
+                throw new ValidationException(todosErros);
             }
 
             _habilidadeRepositorio.Atualizar(id, habilidadeAtualizada);

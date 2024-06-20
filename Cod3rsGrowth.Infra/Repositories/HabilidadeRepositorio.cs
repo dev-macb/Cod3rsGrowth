@@ -13,11 +13,16 @@ namespace Cod3rsGrowth.Infra.Repositories
             _bancoDeDados = bancoDeDados;
         }
 
-        public IEnumerable<Habilidade> ObterTodos(string filtro)
+        public IEnumerable<Habilidade> ObterTodos(Filtro? filtro)
         {
-            if (filtro == null) return _bancoDeDados.Habilidades;
+            if (filtro == null) return _bancoDeDados.Habilidades.ToList();
 
-            return _bancoDeDados.Habilidades.Where(habilidade => habilidade.Nome.Contains(filtro, StringComparison.OrdinalIgnoreCase)).ToList();
+            var habilidades = _bancoDeDados.Habilidades.AsQueryable();
+            if (!string.IsNullOrEmpty(filtro.Nome)) habilidades = habilidades.Where(habilidade => habilidade.Nome.Contains(filtro.Nome, StringComparison.OrdinalIgnoreCase));
+            if (filtro.DataBase.HasValue) habilidades = habilidades.Where(habilidade => habilidade.CriadoEm >= filtro.DataBase.Value);
+            if (filtro.DataTeto.HasValue) habilidades = habilidades.Where(habilidade => habilidade.CriadoEm <= filtro.DataTeto.Value);
+
+            return habilidades.ToList();
         }
 
         public Habilidade? ObterPorId(int id)
@@ -27,14 +32,16 @@ namespace Cod3rsGrowth.Infra.Repositories
 
         public int Adicionar(Habilidade novaHabilidade)
         {
-            return _bancoDeDados.Insert(novaHabilidade);
+            return Convert.ToInt32(_bancoDeDados.InsertWithIdentity(novaHabilidade));
         }
 
         public void Atualizar(int id, Habilidade habilidadeAtualizada)
         {
             _bancoDeDados.Habilidades
                 .Where(habilidade => habilidade.Id == id)
-                .Set(habilidade => habilidade, habilidadeAtualizada)
+                .Set(habilidade => habilidade.Nome, habilidadeAtualizada.Nome)
+                .Set(habilidade => habilidade.Descricao, habilidadeAtualizada.Descricao)
+                .Set(habilidade => habilidade.AtualizadoEm, habilidadeAtualizada.AtualizadoEm)
                 .Update();
         }
 
