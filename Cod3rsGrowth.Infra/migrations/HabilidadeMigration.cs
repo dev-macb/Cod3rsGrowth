@@ -11,8 +11,8 @@ namespace Cod3rsGrowth.Infra.Migrations
                 .WithColumn("id").AsInt32().PrimaryKey().Identity()
                 .WithColumn("nome").AsString(50).NotNullable()
                 .WithColumn("descricao").AsString(200).Nullable()
-                .WithColumn("criado_em").AsDateTime().NotNullable()
-                .WithColumn("atualizado_em").AsDateTime().NotNullable();
+                .WithColumn("criado_em").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime)
+                .WithColumn("atualizado_em").AsDateTime().NotNullable().WithDefault(SystemMethods.CurrentUTCDateTime);
         }
 
         public override void Down()

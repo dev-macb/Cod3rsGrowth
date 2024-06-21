@@ -23,9 +23,9 @@ namespace Cod3rsGrowth.Forms
             InitializeComponent();
 
             _personagemFiltro = new Filtro();
-            _personagemServico = personagemServico;
-
             _habilidadeFiltro = new Filtro();
+
+            _personagemServico = personagemServico;
             _habilidadeServico = habilidadeServico;
             _personagensHabilidadesServico = personagensHabilidadesServico;
         }
@@ -45,14 +45,14 @@ namespace Cod3rsGrowth.Forms
         }
 
         // Menu Superior
-        private void AoClicarEmMenuSuperiorCadastroPersonagemAbreFormularioCadastroPersonagem(object sender, EventArgs e)
+        private void AoClicarEmMenuSuperiorCadastroPersonagemAbreFormularioPersonagem(object sender, EventArgs e)
         {
             var formularioCadastroPersonagem = new FormularioPersonagem(null, _personagemServico, _habilidadeServico, _personagensHabilidadesServico);
             formularioCadastroPersonagem.ShowDialog();
             DefinirFonteDeDadosDasTabelas();
         }
 
-        private void AoClicarEmMenuSuperiorCadastroHabilidadeAbreFormularioCadastroHabilidade(object sender, EventArgs e)
+        private void AoClicarEmMenuSuperiorCadastroHabilidadeAbreFormularioHabilidade(object sender, EventArgs e)
         {
             var formularioCadastroHabilidade = new FormularioHabilidade(null, _habilidadeServico);
             formularioCadastroHabilidade.ShowDialog();
@@ -65,6 +65,20 @@ namespace Cod3rsGrowth.Forms
         }
 
         // Filtros
+        private async void txtboxFiltroPersonagemId_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                if (await _personagemServico.ObterPorId(int.Parse(txtboxFiltroPersonagemId.Text)) != null)
+                {
+                    var formularioEditarPersonagem = new FormularioPersonagem(int.Parse(txtboxFiltroPersonagemId.Text), _personagemServico, _habilidadeServico, _personagensHabilidadesServico);
+                    formularioEditarPersonagem.ShowDialog();
+                    DefinirFonteDeDadosDasTabelas();
+                }
+                txtboxFiltroPersonagemId.Text = "";
+            }
+        }
+
         private void AoDigitarEnterEmFiltroNomeAtualizaFiltroPersonagem(object sender, KeyEventArgs e)
         {
             if (e.KeyCode == Keys.Enter)
@@ -116,7 +130,7 @@ namespace Cod3rsGrowth.Forms
         }
 
         // Editar
-        private void AoClicarEmEditarAbreFormularioEditarPersonagem(object sender, EventArgs e)
+        private void AoClicarEmEditarAbreFormularioPersonagem(object sender, EventArgs e)
         {
             const int celulaId = 0;
 
@@ -141,7 +155,7 @@ namespace Cod3rsGrowth.Forms
             }
         }
 
-        private void AoClicarEmEditarAbreFormularioEditarHabilidade(object sender, EventArgs e)
+        private void AoClicarEmEditarAbreFormularioHabilidade(object sender, EventArgs e)
         {
             const int celulaId = 0;
 

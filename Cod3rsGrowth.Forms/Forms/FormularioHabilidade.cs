@@ -24,26 +24,10 @@ namespace Cod3rsGrowth.Forms.Forms
             _habilidadeServico = habilidadeServico;
         }
 
-        private async void CarregarFormularioEditarHabilidade(object sender, EventArgs e)
+        private void CarregarFormularioHabilidade(object sender, EventArgs e)
         {
-            if (_idHabilidade == ID_VAZIO)
-            {
-                this.Text = TITULO_CADASTRAR;
-                btnSalvar.Text = BTN_CADASTRAR;
-                return;
-            }
-
-            this.Text = TITULO_EDITAR;
-            btnSalvar.Text = BTN_EDITAR;
-            _habilidadeExistente = await _habilidadeServico.ObterPorId(_idHabilidade);
-            if (_habilidadeExistente != null)
-            {
-                labelId.Text = $"Id: {_habilidadeExistente.Id}";
-                txtboxNome.Text = _habilidadeExistente.Nome;
-                txtboxDescricao.Text = _habilidadeExistente.Descricao;
-                labelCriadoEm.Text = $"Criado em: {_habilidadeExistente.CriadoEm}";
-                labelAtualizadoEm.Text = $"Atualizado em: {_habilidadeExistente.AtualizadoEm}";
-            }
+            if (_idHabilidade == ID_VAZIO) DefineFormularioParaCadastro();
+            else DefineFormularioParaEdicao();
         }
 
         private void AoClicarEmSalvarAtualizaHabilidade(object sender, EventArgs e)
@@ -92,6 +76,27 @@ namespace Cod3rsGrowth.Forms.Forms
             };
 
             await _habilidadeServico.Atualizar(_idHabilidade, habilidadeAtualizada);
+        }
+
+        private void DefineFormularioParaCadastro()
+        {
+            this.Text = TITULO_CADASTRAR;
+            btnSalvar.Text = BTN_CADASTRAR;
+        }
+
+        private async void DefineFormularioParaEdicao()
+        {
+            this.Text = TITULO_EDITAR;
+            btnSalvar.Text = BTN_EDITAR;
+            _habilidadeExistente = await _habilidadeServico.ObterPorId(_idHabilidade);
+            if (_habilidadeExistente != null)
+            {
+                labelId.Text = $"Id: {_habilidadeExistente.Id}";
+                txtboxNome.Text = _habilidadeExistente.Nome;
+                txtboxDescricao.Text = _habilidadeExistente.Descricao;
+                labelCriadoEm.Text = $"Criado em: {_habilidadeExistente.CriadoEm}";
+                labelAtualizadoEm.Text = $"Atualizado em: {_habilidadeExistente.AtualizadoEm}";
+            }
         }
     }
 }

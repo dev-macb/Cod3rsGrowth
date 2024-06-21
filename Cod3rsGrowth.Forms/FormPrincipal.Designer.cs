@@ -112,14 +112,14 @@ namespace Cod3rsGrowth.Forms
             // menuSuperiorCadastroPersonagem
             // 
             menuSuperiorCadastroPersonagem.Name = "menuSuperiorCadastroPersonagem";
-            menuSuperiorCadastroPersonagem.Size = new Size(140, 22);
+            menuSuperiorCadastroPersonagem.Size = new Size(180, 22);
             menuSuperiorCadastroPersonagem.Text = "Personagem";
             menuSuperiorCadastroPersonagem.Click += AoClicarEmMenuSuperiorCadastroPersonagemAbreFormularioCadastroPersonagem;
             // 
             // menuSuperiorCadastroHabilidade
             // 
             menuSuperiorCadastroHabilidade.Name = "menuSuperiorCadastroHabilidade";
-            menuSuperiorCadastroHabilidade.Size = new Size(140, 22);
+            menuSuperiorCadastroHabilidade.Size = new Size(180, 22);
             menuSuperiorCadastroHabilidade.Text = "Habilidade";
             menuSuperiorCadastroHabilidade.Click += AoClicarEmMenuSuperiorCadastroHabilidadeAbreFormularioCadastroHabilidade;
             // 
@@ -143,6 +143,7 @@ namespace Cod3rsGrowth.Forms
             txtboxFiltroPersonagemId.PlaceholderText = "Id...";
             txtboxFiltroPersonagemId.Size = new Size(50, 23);
             txtboxFiltroPersonagemId.TabIndex = 7;
+            txtboxFiltroPersonagemId.KeyDown += txtboxFiltroPersonagemId_KeyDown;
             // 
             // tabelaPersonagens
             // 
@@ -279,7 +280,7 @@ namespace Cod3rsGrowth.Forms
             btnEditarPersonagem.TabIndex = 12;
             btnEditarPersonagem.Text = "Editar";
             btnEditarPersonagem.UseVisualStyleBackColor = true;
-            btnEditarPersonagem.Click += AoClicarEmEditarAbreFormularioEditarPersonagem;
+            btnEditarPersonagem.Click += AoClicarEmEditarAbreFormularioPersonagem;
             // 
             // btnRemoverPersonagem
             // 
@@ -349,7 +350,7 @@ namespace Cod3rsGrowth.Forms
             btnEditarHabilidade.TabIndex = 7;
             btnEditarHabilidade.Text = "Editar";
             btnEditarHabilidade.UseVisualStyleBackColor = true;
-            btnEditarHabilidade.Click += AoClicarEmEditarAbreFormularioEditarHabilidade;
+            btnEditarHabilidade.Click += AoClicarEmEditarAbreFormularioHabilidade;
             // 
             // btnRemoverHabilidade
             // 

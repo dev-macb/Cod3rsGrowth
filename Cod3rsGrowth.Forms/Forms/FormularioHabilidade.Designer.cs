@@ -144,7 +144,7 @@
             Name = "FormularioHabilidade";
             StartPosition = FormStartPosition.CenterParent;
             Text = "Editar - Habilidade";
-            Load += CarregarFormularioEditarHabilidade;
+            Load += CarregarFormularioHabilidade;
             ResumeLayout(false);
             PerformLayout();
         }

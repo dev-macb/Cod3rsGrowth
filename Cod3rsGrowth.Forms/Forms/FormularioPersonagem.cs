@@ -31,50 +31,13 @@ namespace Cod3rsGrowth.Forms.Forms
             _personagensHabilidadesServico = personagensHabilidadesServico;
         }
 
-        private async void CarregarFormularioEditarPersonagem(object sender, EventArgs e)
+        private void CarregarFormularioEditarPersonagem(object sender, EventArgs e)
         {
-            if (_idPersonagem == ID_VAZIO)
-            {
-                this.Text = TITULO_CADASTRAR;
-                btnSalvar.Text = BTN_CADASTRAR;
-                tabelaHabilidades.DataSource = await _habilidadeServico.ObterTodos(null);
-
-                foreach (DataGridViewRow linha in tabelaHabilidades.Rows)
-                {
-                    linha.Cells[CELULA_HABILIDADES_SELECIONADAS].Value = false;
-                }
-                return;
-            }
-
-            this.Text = TITULO_EDITAR;
-            btnSalvar.Text = BTN_EDITAR;
-            _personagemExistente = await _personagemServico.ObterPorId(_idPersonagem);
-            if (_personagemExistente != null)
-            {
-                labelId.Text = $"Id: {_personagemExistente.Id}";
-                txtboxNome.Text = _personagemExistente.Nome;
-                numupdownVida.Value = _personagemExistente.Vida;
-                numupdownEnergia.Value = _personagemExistente.Energia;
-                numupdownVelocidade.Value = (decimal)_personagemExistente.Velocidade;
-                comboboxForca.SelectedIndex = (int)_personagemExistente.Forca;
-                comboboxInteligencia.SelectedIndex = (int)_personagemExistente.Inteligencia;
-
-                tabelaHabilidades.DataSource = await _habilidadeServico.ObterTodos(null);
-                var habilidadesPersonagem = await _personagensHabilidadesServico.ObterHabilidadesPorPersonagem(_idPersonagem);
-                foreach (DataGridViewRow linha in tabelaHabilidades.Rows)
-                {
-                    int idHabilidade = (int)linha.Cells[CELULA_ID].Value;
-                    linha.Cells[CELULA_HABILIDADES_SELECIONADAS].Value = habilidadesPersonagem.Contains(idHabilidade);
-                }
-
-                radioHeroi.Checked = _personagemExistente.EVilao == false;
-                radioVilao.Checked = _personagemExistente.EVilao == true;
-                labelCriadoEm.Text = $"Criado em: { _personagemExistente.CriadoEm }";
-                labelAtualizadoEm.Text = $"Atualizado em: { _personagemExistente.AtualizadoEm }";
-            }
+            if (_idPersonagem == ID_VAZIO) DefineFormularioParaCadastro();
+            else DefineFormularioParaEdicao();
         }
 
-        private async void AoClicarEmSalvarAtualizaPersonagem(object sender, EventArgs e)
+        private void AoClicarEmSalvarAtualizaPersonagem(object sender, EventArgs e)
         {
             try
             {
@@ -184,6 +147,49 @@ namespace Cod3rsGrowth.Forms.Forms
                     };
                     await _personagensHabilidadesServico.Adicionar(personagemHabilidade);
                 }
+            }
+        }
+
+
+        private async void DefineFormularioParaCadastro()
+        {
+            this.Text = TITULO_CADASTRAR;
+            btnSalvar.Text = BTN_CADASTRAR;
+            tabelaHabilidades.DataSource = await _habilidadeServico.ObterTodos(null);
+
+            foreach (DataGridViewRow linha in tabelaHabilidades.Rows)
+            {
+                linha.Cells[CELULA_HABILIDADES_SELECIONADAS].Value = false;
+            }
+        }
+
+        private async void DefineFormularioParaEdicao()
+        {
+            this.Text = TITULO_EDITAR;
+            btnSalvar.Text = BTN_EDITAR;
+            _personagemExistente = await _personagemServico.ObterPorId(_idPersonagem);
+            if (_personagemExistente != null)
+            {
+                labelId.Text = $"Id: {_personagemExistente.Id}";
+                txtboxNome.Text = _personagemExistente.Nome;
+                numupdownVida.Value = _personagemExistente.Vida;
+                numupdownEnergia.Value = _personagemExistente.Energia;
+                numupdownVelocidade.Value = (decimal)_personagemExistente.Velocidade;
+                comboboxForca.SelectedIndex = (int)_personagemExistente.Forca;
+                comboboxInteligencia.SelectedIndex = (int)_personagemExistente.Inteligencia;
+
+                tabelaHabilidades.DataSource = await _habilidadeServico.ObterTodos(null);
+                var habilidadesPersonagem = await _personagensHabilidadesServico.ObterHabilidadesPorPersonagem(_idPersonagem);
+                foreach (DataGridViewRow linha in tabelaHabilidades.Rows)
+                {
+                    int idHabilidade = (int)linha.Cells[CELULA_ID].Value;
+                    linha.Cells[CELULA_HABILIDADES_SELECIONADAS].Value = habilidadesPersonagem.Contains(idHabilidade);
+                }
+
+                radioHeroi.Checked = _personagemExistente.EVilao == false;
+                radioVilao.Checked = _personagemExistente.EVilao == true;
+                labelCriadoEm.Text = $"Criado em: {_personagemExistente.CriadoEm}";
+                labelAtualizadoEm.Text = $"Atualizado em: {_personagemExistente.AtualizadoEm}";
             }
         }
     }
