@@ -118,7 +118,7 @@
             btnSalvar.TabIndex = 35;
             btnSalvar.Text = "Salvar";
             btnSalvar.UseVisualStyleBackColor = true;
-            btnSalvar.Click += AoClicarEmSalvarAtualizaPersonagem;
+            btnSalvar.Click += AoClicarEmSalvarPersonagem;
             // 
             // btnCancelar
             // 
@@ -128,7 +128,7 @@
             btnCancelar.TabIndex = 34;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
-            btnCancelar.Click += AoClicarEmCancelarFechaFormularioEditarPersonagem;
+            btnCancelar.Click += AoClicarEmCancelar;
             // 
             // labelHabilidades
             // 

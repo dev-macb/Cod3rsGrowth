@@ -47,7 +47,7 @@
             btnSalvar.TabIndex = 11;
             btnSalvar.Text = "Salvar";
             btnSalvar.UseVisualStyleBackColor = true;
-            btnSalvar.Click += AoClicarEmSalvarAtualizaHabilidade;
+            btnSalvar.Click += AoClicarEmSalvarHabilidade;
             // 
             // btnCancelar
             // 
@@ -57,7 +57,7 @@
             btnCancelar.TabIndex = 10;
             btnCancelar.Text = "Cancelar";
             btnCancelar.UseVisualStyleBackColor = true;
-            btnCancelar.Click += AoClicarEmCancelarFechaFormularioEditarHabilidade;
+            btnCancelar.Click += AoClicarEmCancelar;
             // 
             // txtboxDescricao
             // 

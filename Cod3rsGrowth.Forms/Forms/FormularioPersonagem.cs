@@ -37,7 +37,7 @@ namespace Cod3rsGrowth.Forms.Forms
             else DefineFormularioParaEdicao();
         }
 
-        private void AoClicarEmSalvarAtualizaPersonagem(object sender, EventArgs e)
+        private void AoClicarEmSalvarPersonagem(object sender, EventArgs e)
         {
             try
             {
@@ -53,7 +53,7 @@ namespace Cod3rsGrowth.Forms.Forms
             }
         }
 
-        private void AoClicarEmCancelarFechaFormularioEditarPersonagem(object sender, EventArgs e)
+        private void AoClicarEmCancelar(object sender, EventArgs e)
         {
             DialogResult = DialogResult.Cancel;
             Close();
