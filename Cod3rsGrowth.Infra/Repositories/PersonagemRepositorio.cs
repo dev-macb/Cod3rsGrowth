@@ -13,34 +13,50 @@ namespace Cod3rsGrowth.Infra.Repositories
             _bancoDeDados = bancoDeDados;
         }
 
-        public IEnumerable<Personagem> ObterTodos(string filtro)
+        public async Task<IEnumerable<Personagem>> ObterTodos(Filtro? filtro)
         {
-            if (filtro == null) return _bancoDeDados.Personagens;
+            if (filtro == null) return await _bancoDeDados.Personagens.ToListAsync();
 
-            return _bancoDeDados.Personagens.Where(personagem => personagem.Nome.Contains(filtro, StringComparison.OrdinalIgnoreCase)).ToList();
+            var personagens = _bancoDeDados.Personagens.AsQueryable();
+            if (!string.IsNullOrEmpty(filtro.Nome)) personagens = personagens.Where(habilidade => habilidade.Nome.Contains(filtro.Nome, StringComparison.OrdinalIgnoreCase));
+            if (filtro.EVilao.HasValue) personagens = personagens.Where(habilidade => habilidade.EVilao == filtro.EVilao.Value);
+            if (filtro.DataBase.HasValue) personagens = personagens.Where(habilidade => habilidade.CriadoEm >= filtro.DataBase.Value);
+            if (filtro.DataTeto.HasValue) personagens = personagens.Where(habilidade => habilidade.CriadoEm <= filtro.DataTeto.Value);
+
+            return await personagens.ToListAsync();
         }
 
-        public Personagem? ObterPorId(int id)
+        public async Task<Personagem?> ObterPorId(int id)
         {
-            return _bancoDeDados.Personagens.FirstOrDefault(personagem => personagem.Id == id);
+            return await _bancoDeDados.Personagens.FirstOrDefaultAsync(personagem => personagem.Id == id);
         }
 
-        public int Adicionar(Personagem novoPersonagem)
+        public async Task<int> Adicionar(Personagem novoPersonagem)
         {
-            return _bancoDeDados.Insert(novoPersonagem);
+            return await _bancoDeDados.InsertWithInt32IdentityAsync(novoPersonagem);
         }
 
-        public void Atualizar(int id, Personagem personagemAtualizado)
+        public async Task Atualizar(int id, Personagem personagemAtualizado)
         {
-            _bancoDeDados.Personagens
+            await _bancoDeDados.Personagens
                 .Where(personagem => personagem.Id == id)
-                .Set(personagem => personagem, personagemAtualizado)
-                .Update();
+                .Set(personagem => personagem.Nome, personagemAtualizado.Nome)
+                .Set(personagem => personagem.Vida, personagemAtualizado.Vida)
+                .Set(personagem => personagem.Energia, personagemAtualizado.Energia)
+                .Set(personagem => personagem.Velocidade, personagemAtualizado.Velocidade)
+                .Set(personagem => personagem.Forca, personagemAtualizado.Forca)
+                .Set(personagem => personagem.Inteligencia, personagemAtualizado.Inteligencia)
+                .Set(personagem => personagem.EVilao, personagemAtualizado.EVilao)
+                .Set(personagem => personagem.CriadoEm, personagemAtualizado.CriadoEm)
+                .Set(personagem => personagem.AtualizadoEm, personagemAtualizado.AtualizadoEm)
+                .UpdateAsync();
         }
 
-        public void Deletar(int id)
+        public async Task Deletar(int id)
         {
-            _bancoDeDados.Personagens.Where(habilidade => habilidade.Id == id).Delete();
+            await _bancoDeDados.Personagens
+                .Where(habilidade => habilidade.Id == id)
+                .DeleteAsync();
         }
     }
 }

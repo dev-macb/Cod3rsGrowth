@@ -1,8 +1,8 @@
-using Cod3rsGrowth.Service;
-using Cod3rsGrowth.Domain.Validators;
+using Cod3rsGrowth.Service.Services;
+using Cod3rsGrowth.Service.Validators;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Cod3rsGrowth.Tests
+namespace Cod3rsGrowth.Service
 {
     public class StartupService
     {
@@ -11,6 +11,7 @@ namespace Cod3rsGrowth.Tests
             // Serviços
             servicos.AddScoped<PersonagemServico>();
             servicos.AddScoped<HabilidadeServico>();
+            servicos.AddScoped<PersonagensHabilidadesServico>();
 
             // Validadores
             servicos.AddScoped<PersonagemValidador>();

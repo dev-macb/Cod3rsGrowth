@@ -1,9 +1,11 @@
 using FluentValidation.Results;
 using Cod3rsGrowth.Domain.Entities;
 using Cod3rsGrowth.Domain.Interfaces;
-using Cod3rsGrowth.Domain.Validators;
+using Cod3rsGrowth.Service.Validators;
+using FluentValidation;
+using System.Diagnostics.Metrics;
 
-namespace Cod3rsGrowth.Service
+namespace Cod3rsGrowth.Service.Services
 {
     public class PersonagemServico
     {
@@ -16,46 +18,46 @@ namespace Cod3rsGrowth.Service
             _personagemRepositorio = repositorioMock;
         }
 
-        public IEnumerable<Personagem> ObterTodos(string filtro)
+        public async Task<IEnumerable<Personagem>> ObterTodos(Filtro? filtro)
         {
-            return _personagemRepositorio.ObterTodos(filtro);
+            return await _personagemRepositorio.ObterTodos(filtro);
         }
 
-        public Personagem? ObterPorId(int id)
+        public async Task<Personagem?> ObterPorId(int id)
         {
-            return _personagemRepositorio.ObterPorId(id);
+            return await _personagemRepositorio.ObterPorId(id);
         }
 
-        public int Adicionar(Personagem personagem)
+        public async Task<int> Adicionar(Personagem personagem)
         {
-            const string separador = " "; 
+            const string separador = "\n";
             ValidationResult resultado = _personagemValidador.Validate(personagem);
-            if (!resultado.IsValid) 
+            if (!resultado.IsValid)
             {
                 string todosErros = string.Join(separador, resultado.Errors.Select(erro => erro.ErrorMessage));
-                throw new Exception(todosErros);
+                throw new ValidationException(todosErros);
             }
 
-            return _personagemRepositorio.Adicionar(personagem);
+            return await _personagemRepositorio.Adicionar(personagem);
         }
 
-        public void Atualizar(int id, Personagem personagemAtualizado)
+        public async Task Atualizar(int id, Personagem personagemAtualizado)
         {
-            const string separador = " "; 
+            const string separador = "\n";
             ValidationResult resultado = _personagemValidador.Validate(personagemAtualizado);
             if (!resultado.IsValid)
             {
                 string todosErros = string.Join(separador, resultado.Errors.Select(erro => erro.ErrorMessage));
                 throw new Exception(todosErros);
             }
-            _personagemRepositorio.ObterPorId(id);
 
-            _personagemRepositorio.Atualizar(id, personagemAtualizado);
+            await _personagemRepositorio.ObterPorId(id);
+            await _personagemRepositorio.Atualizar(id, personagemAtualizado);
         }
 
-        public void Deletar(int id)
+        public async Task Deletar(int id)
         {
-            _personagemRepositorio.Deletar(id);
+            await _personagemRepositorio.Deletar(id);
         }
     }
 }

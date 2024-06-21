@@ -13,34 +13,41 @@ namespace Cod3rsGrowth.Infra.Repositories
             _bancoDeDados = bancoDeDados;
         }
 
-        public IEnumerable<Habilidade> ObterTodos(string filtro)
+        public async Task<IEnumerable<Habilidade>> ObterTodos(Filtro? filtro)
         {
-            if (filtro == null) return _bancoDeDados.Habilidades;
+            if (filtro == null) return await _bancoDeDados.Habilidades.ToListAsync();
 
-            return _bancoDeDados.Habilidades.Where(habilidade => habilidade.Nome.Contains(filtro, StringComparison.OrdinalIgnoreCase)).ToList();
+            var habilidades = _bancoDeDados.Habilidades.AsQueryable();
+            if (!string.IsNullOrEmpty(filtro.Nome)) habilidades = habilidades.Where(habilidade => habilidade.Nome.Contains(filtro.Nome, StringComparison.OrdinalIgnoreCase));
+            if (filtro.DataBase.HasValue) habilidades = habilidades.Where(habilidade => habilidade.CriadoEm >= filtro.DataBase.Value);
+            if (filtro.DataTeto.HasValue) habilidades = habilidades.Where(habilidade => habilidade.CriadoEm <= filtro.DataTeto.Value);
+
+            return await habilidades.ToListAsync();
         }
 
-        public Habilidade? ObterPorId(int id)
+        public async Task<Habilidade?> ObterPorId(int id)
         {
-            return _bancoDeDados.Habilidades.FirstOrDefault(habilidade => habilidade.Id == id);
+            return await _bancoDeDados.Habilidades.FirstOrDefaultAsync(habilidade => habilidade.Id == id);
         }
 
-        public int Adicionar(Habilidade novaHabilidade)
+        public async Task<int> Adicionar(Habilidade novaHabilidade)
         {
-            return _bancoDeDados.Insert(novaHabilidade);
+            return await _bancoDeDados.InsertWithInt32IdentityAsync(novaHabilidade);
         }
 
-        public void Atualizar(int id, Habilidade habilidadeAtualizada)
+        public async Task Atualizar(int id, Habilidade habilidadeAtualizada)
         {
-            _bancoDeDados.Habilidades
+            await _bancoDeDados.Habilidades
                 .Where(habilidade => habilidade.Id == id)
-                .Set(habilidade => habilidade, habilidadeAtualizada)
-                .Update();
+                .Set(habilidade => habilidade.Nome, habilidadeAtualizada.Nome)
+                .Set(habilidade => habilidade.Descricao, habilidadeAtualizada.Descricao)
+                .Set(habilidade => habilidade.AtualizadoEm, habilidadeAtualizada.AtualizadoEm)
+                .UpdateAsync();
         }
 
-        public void Deletar(int id)
+        public async Task Deletar(int id)
         {
-            _bancoDeDados.Habilidades.Where(habilidade => habilidade.Id == id).Delete();
+            await _bancoDeDados.Habilidades.Where(habilidade => habilidade.Id == id).DeleteAsync();
         }
     }
 }

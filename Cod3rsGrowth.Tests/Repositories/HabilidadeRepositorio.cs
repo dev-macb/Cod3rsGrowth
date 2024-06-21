@@ -21,7 +21,7 @@ namespace Cod3rsGrowth.Tests.Repositories
         {
             habilidade.Id = _habilidades.Any() ? _habilidades.Max(habilidade => habilidade.Id) + 1 : 1;
             _habilidades.Add(habilidade);
-            return habilidade.Id ?? throw new Exception("Erro ao gerar id da habilidade");
+            return habilidade.Id;
         }
 
         public void Atualizar(int id, Habilidade habilidadeAtualizada)
