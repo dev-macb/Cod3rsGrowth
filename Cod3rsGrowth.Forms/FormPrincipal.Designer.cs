@@ -31,7 +31,7 @@ namespace Cod3rsGrowth.Forms
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             menuSuperior = new MenuStrip();
             menuSuperiorAplicacao = new ToolStripMenuItem();
             menuSuperiorAplicacaoCadastro = new ToolStripMenuItem();
@@ -61,6 +61,7 @@ namespace Cod3rsGrowth.Forms
             btnFiltrarPersonagem = new Button();
             lblTotalPersonagens = new Label();
             AbaHabilidade = new TabPage();
+            btnEditarHabilidade = new Button();
             btnRemoverHabilidade = new Button();
             lblTotalHabilidades = new Label();
             tabelaHabilidades = new DataGridView();
@@ -73,7 +74,6 @@ namespace Cod3rsGrowth.Forms
             txtboxFiltroHabilidadeNome = new TextBox();
             txtboxFiltroHabilidadeId = new TextBox();
             fbCommand1 = new FirebirdSql.Data.FirebirdClient.FbCommand();
-            btnEditarHabilidade = new Button();
             menuSuperior.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tabelaPersonagens).BeginInit();
             ((System.ComponentModel.ISupportInitialize)personagemBindingSource).BeginInit();
@@ -106,7 +106,7 @@ namespace Cod3rsGrowth.Forms
             // 
             menuSuperiorAplicacaoCadastro.DropDownItems.AddRange(new ToolStripItem[] { menuSuperiorCadastroPersonagem, menuSuperiorCadastroHabilidade });
             menuSuperiorAplicacaoCadastro.Name = "menuSuperiorAplicacaoCadastro";
-            menuSuperiorAplicacaoCadastro.Size = new Size(121, 22);
+            menuSuperiorAplicacaoCadastro.Size = new Size(180, 22);
             menuSuperiorAplicacaoCadastro.Text = "Cadastro";
             // 
             // menuSuperiorCadastroPersonagem
@@ -126,13 +126,14 @@ namespace Cod3rsGrowth.Forms
             // toolStripSeparator1
             // 
             toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(118, 6);
+            toolStripSeparator1.Size = new Size(177, 6);
             // 
             // menuSuperiorAplicacaoSair
             // 
             menuSuperiorAplicacaoSair.Name = "menuSuperiorAplicacaoSair";
-            menuSuperiorAplicacaoSair.Size = new Size(121, 22);
+            menuSuperiorAplicacaoSair.Size = new Size(180, 22);
             menuSuperiorAplicacaoSair.Text = "Sair";
+            menuSuperiorAplicacaoSair.Click += AoClicarEmMenuSuperiorSairFechaFormularioPrincipal;
             // 
             // txtboxFiltroPersonagemId
             // 
@@ -340,6 +341,16 @@ namespace Cod3rsGrowth.Forms
             AbaHabilidade.Text = "Habilidades";
             AbaHabilidade.UseVisualStyleBackColor = true;
             // 
+            // btnEditarHabilidade
+            // 
+            btnEditarHabilidade.Location = new Point(351, 6);
+            btnEditarHabilidade.Name = "btnEditarHabilidade";
+            btnEditarHabilidade.Size = new Size(75, 23);
+            btnEditarHabilidade.TabIndex = 7;
+            btnEditarHabilidade.Text = "Editar";
+            btnEditarHabilidade.UseVisualStyleBackColor = true;
+            btnEditarHabilidade.Click += AoClicarEmEditarAbreFormularioEditarHabilidade;
+            // 
             // btnRemoverHabilidade
             // 
             btnRemoverHabilidade.Location = new Point(432, 6);
@@ -368,12 +379,12 @@ namespace Cod3rsGrowth.Forms
             tabelaHabilidades.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabelaHabilidades.AutoGenerateColumns = false;
             tabelaHabilidades.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle2.BackColor = SystemColors.Control;
-            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            tabelaHabilidades.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            tabelaHabilidades.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             tabelaHabilidades.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tabelaHabilidades.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn1, nomeDataGridViewTextBoxColumn1, descricaoDataGridViewTextBoxColumn });
             tabelaHabilidades.DataSource = habilidadeBindingSource;
@@ -453,16 +464,6 @@ namespace Cod3rsGrowth.Forms
             txtboxFiltroHabilidadeId.PlaceholderText = "Id...";
             txtboxFiltroHabilidadeId.Size = new Size(50, 23);
             txtboxFiltroHabilidadeId.TabIndex = 0;
-            // 
-            // btnEditarHabilidade
-            // 
-            btnEditarHabilidade.Location = new Point(351, 6);
-            btnEditarHabilidade.Name = "btnEditarHabilidade";
-            btnEditarHabilidade.Size = new Size(75, 23);
-            btnEditarHabilidade.TabIndex = 7;
-            btnEditarHabilidade.Text = "Editar";
-            btnEditarHabilidade.UseVisualStyleBackColor = true;
-            btnEditarHabilidade.Click += AoClicarEmEditarAbreFormularioEditarHabilidade;
             // 
             // FormularioPrincipal
             // 

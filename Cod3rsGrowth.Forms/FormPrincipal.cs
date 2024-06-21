@@ -59,6 +59,11 @@ namespace Cod3rsGrowth.Forms
             DefinirFonteDeDadosDasTabelas();
         }
 
+        private void AoClicarEmMenuSuperiorSairFechaFormularioPrincipal(object sender, EventArgs e)
+        {
+            Application.Exit();
+        }
+
         // Filtros
         private void AoDigitarEnterEmFiltroNomeAtualizaFiltroPersonagem(object sender, KeyEventArgs e)
         {
