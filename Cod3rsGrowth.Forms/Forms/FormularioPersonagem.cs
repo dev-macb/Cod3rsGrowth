@@ -99,9 +99,14 @@ namespace Cod3rsGrowth.Forms.Forms
             }
         }
 
-        private async void AtualizarPersonagem()
+        private void AtualizarPersonagem()
         {
-            // Atualizar tabela personagens
+            AtualizarTabelaPersonagens();
+            AtualizarTabelaPersonagensHabilidades();
+        }
+
+        private async void AtualizarTabelaPersonagens()
+        {
             var personagemAtualizado = new Personagem
             {
                 Nome = txtboxNome.Text,
@@ -115,8 +120,10 @@ namespace Cod3rsGrowth.Forms.Forms
                 AtualizadoEm = DateTime.Now
             };
             await _personagemServico.Atualizar(_idPersonagem, personagemAtualizado);
+        }
 
-            // Atualizar tabela personagens_habilidades
+        private async void AtualizarTabelaPersonagensHabilidades()
+        {
             var habilidadesMarcadas = new List<int>();
             foreach (DataGridViewRow linha in tabelaHabilidades.Rows)
             {
@@ -149,7 +156,6 @@ namespace Cod3rsGrowth.Forms.Forms
                 }
             }
         }
-
 
         private async void DefineFormularioParaCadastro()
         {
