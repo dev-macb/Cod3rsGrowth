@@ -21,7 +21,7 @@ namespace Cod3rsGrowth.Forms
                 .ConfigureRunner(rb => rb
                     .AddSqlServer()
                     .WithGlobalConnectionString(stringDeConexao)
-                    .ScanIn(typeof(HabilidadeMigration).Assembly).For.Migrations())
+                    .ScanIn(typeof(CriarTabelaHabilidades).Assembly).For.Migrations())
                 .AddLogging(lb => lb.AddFluentMigratorConsole());
         }
 

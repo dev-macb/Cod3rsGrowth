@@ -11,6 +11,7 @@ namespace Cod3rsGrowth.Service.Services
     {
         private readonly PersonagemValidador _personagemValidador;
         private readonly IRepositorio<Personagem> _personagemRepositorio;
+        private readonly IRepositorio<Habilidade> _habilidadeRepositorio;
 
         public PersonagemServico(IRepositorio<Personagem> repositorioMock, PersonagemValidador validador)
         {
@@ -38,6 +39,13 @@ namespace Cod3rsGrowth.Service.Services
                 throw new ValidationException(todosErros);
             }
 
+            if (personagem.Habilidades.Any()) {
+                foreach (var idHabilidade in personagem.Habilidades)
+                {
+                    var habilidadeExistente = await _habilidadeRepositorio.ObterPorId(idHabilidade);
+                    if (habilidadeExistente == null) throw new Exception("O id referenciado não existe");
+                }
+            } 
             return await _personagemRepositorio.Adicionar(personagem);
         }
 

@@ -39,7 +39,7 @@ namespace Cod3rsGrowth.Web
             construtor.Services.AddFluentMigratorCore()
                 .ConfigureRunner(rb => rb.AddSqlServer()
                     .WithGlobalConnectionString(stringDeConexao)
-                    .ScanIn(typeof(HabilidadeMigration).Assembly).For.Migrations())
+                    .ScanIn(typeof(CriarTabelaHabilidades).Assembly).For.Migrations())
                 .AddLogging(lb => lb.AddFluentMigratorConsole());
         }
 

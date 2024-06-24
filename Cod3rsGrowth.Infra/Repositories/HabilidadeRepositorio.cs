@@ -41,7 +41,7 @@ namespace Cod3rsGrowth.Infra.Repositories
                 .Where(habilidade => habilidade.Id == id)
                 .Set(habilidade => habilidade.Nome, habilidadeAtualizada.Nome)
                 .Set(habilidade => habilidade.Descricao, habilidadeAtualizada.Descricao)
-                .Set(habilidade => habilidade.AtualizadoEm, habilidadeAtualizada.AtualizadoEm)
+                .Set(habilidade => habilidade.AtualizadoEm, DateTime.Now)
                 .UpdateAsync();
         }
 

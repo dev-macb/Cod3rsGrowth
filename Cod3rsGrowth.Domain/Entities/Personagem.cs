@@ -1,5 +1,5 @@
-﻿using Cod3rsGrowth.Domain.Enums;
-using LinqToDB.Mapping;
+﻿using LinqToDB.Mapping;
+using Cod3rsGrowth.Domain.Enums;
 
 namespace Cod3rsGrowth.Domain.Entities
 {
@@ -32,10 +32,10 @@ namespace Cod3rsGrowth.Domain.Entities
         [Column("e_vilao")]
         public bool? EVilao { get; set; }
 
-        [Column("criado_em"), NotNull]
-        public DateTime CriadoEm { get; set; }
+        [Column("criado_em", SkipOnInsert = true, SkipOnUpdate = true), NotNull]
+        public DateTime? CriadoEm { get; set; }
 
-        [Column("atualizado_em"), NotNull]
-        public DateTime AtualizadoEm { get; set; }
+        [Column("atualizado_em", SkipOnInsert = true, SkipOnUpdate = true), NotNull]
+        public DateTime? AtualizadoEm { get; set; }
     }
 }

@@ -1,6 +1,4 @@
 ﻿using LinqToDB.Mapping;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
 
 namespace Cod3rsGrowth.Domain.Entities
 {
@@ -16,10 +14,10 @@ namespace Cod3rsGrowth.Domain.Entities
         [Column("descricao")]
         public string? Descricao { get; set; }
 
-        [Column("criado_em"), NotNull]
-        public DateTime CriadoEm { get; set; }
+        [Column("criado_em", SkipOnInsert=true, SkipOnUpdate=true), NotNull]
+        public DateTime? CriadoEm { get; set; }
 
-        [Column("atualizado_em"), NotNull]
-        public DateTime AtualizadoEm { get; set; }
+        [Column("atualizado_em", SkipOnInsert = true, SkipOnUpdate = true), NotNull]
+        public DateTime? AtualizadoEm { get; set; }
     }
 }

@@ -51,7 +51,7 @@ namespace Cod3rsGrowth.Web.Controllers
         {
             try
             {
-                var idHabilidade = await _habilidadeServico.Adicionar(habilidade);
+                int idHabilidade = await _habilidadeServico.Adicionar(habilidade);
 
                 return Created("id", idHabilidade);
             }

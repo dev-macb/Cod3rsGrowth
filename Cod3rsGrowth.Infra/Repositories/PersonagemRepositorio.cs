@@ -33,7 +33,19 @@ namespace Cod3rsGrowth.Infra.Repositories
 
         public async Task<int> Adicionar(Personagem novoPersonagem)
         {
-            return await _bancoDeDados.InsertWithInt32IdentityAsync(novoPersonagem);
+            var idPersonagemCriado = await _bancoDeDados.InsertWithInt32IdentityAsync(novoPersonagem);
+
+            foreach(var idHabilidade in novoPersonagem.Habilidades)
+            {
+                
+                await _bancoDeDados.InsertWithInt32IdentityAsync(new PersonagensHabilidades
+                {
+                    IdPersonagem = idPersonagemCriado,
+                    IdHabilidade = idHabilidade
+                });
+            }
+
+            return idPersonagemCriado;
         }
 
         public async Task Atualizar(int id, Personagem personagemAtualizado)

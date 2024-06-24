@@ -27,7 +27,7 @@ namespace Cod3rsGrowth.Service.Services
             return await _habilidadeRepositorio.ObterPorId(id);
         }
 
-        public async Task Adicionar(Habilidade habilidade)
+        public async Task<int> Adicionar(Habilidade habilidade)
         {
             const string separador = "\n";
             ValidationResult resultado = _habilidadeValidador.Validate(habilidade);
@@ -37,7 +37,7 @@ namespace Cod3rsGrowth.Service.Services
                 throw new ValidationException(todosErros);
             }
 
-            await _habilidadeRepositorio.Adicionar(habilidade);
+            return await _habilidadeRepositorio.Adicionar(habilidade);
         }
 
         public async Task Atualizar(int id, Habilidade habilidadeAtualizada)
