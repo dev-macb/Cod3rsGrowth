@@ -1,5 +1,6 @@
 ﻿using LinqToDB.Mapping;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Cod3rsGrowth.Domain.Entities
 {

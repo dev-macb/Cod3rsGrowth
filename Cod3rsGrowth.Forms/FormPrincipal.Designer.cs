@@ -114,14 +114,14 @@ namespace Cod3rsGrowth.Forms
             menuSuperiorCadastroPersonagem.Name = "menuSuperiorCadastroPersonagem";
             menuSuperiorCadastroPersonagem.Size = new Size(180, 22);
             menuSuperiorCadastroPersonagem.Text = "Personagem";
-            menuSuperiorCadastroPersonagem.Click += AoClicarEmMenuSuperiorCadastroPersonagemAbreFormularioCadastroPersonagem;
+            menuSuperiorCadastroPersonagem.Click += AoClicarEmMenuSuperiorCadastroPersonagemAbreFormularioPersonagem;
             // 
             // menuSuperiorCadastroHabilidade
             // 
             menuSuperiorCadastroHabilidade.Name = "menuSuperiorCadastroHabilidade";
             menuSuperiorCadastroHabilidade.Size = new Size(180, 22);
             menuSuperiorCadastroHabilidade.Text = "Habilidade";
-            menuSuperiorCadastroHabilidade.Click += AoClicarEmMenuSuperiorCadastroHabilidadeAbreFormularioCadastroHabilidade;
+            menuSuperiorCadastroHabilidade.Click += AoClicarEmMenuSuperiorCadastroHabilidadeAbreFormularioHabilidade;
             // 
             // toolStripSeparator1
             // 
