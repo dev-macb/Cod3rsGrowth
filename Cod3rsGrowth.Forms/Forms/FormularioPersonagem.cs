@@ -61,22 +61,6 @@ namespace Cod3rsGrowth.Forms.Forms
 
         private async void CadastrarPersonagem()
         {
-            // Cadastrar personagem
-            var novoPersonagem = new Personagem
-            {
-                Nome = txtboxNome.Text,
-                Vida = (int)numupdownVida.Value,
-                Energia = (int)numupdownEnergia.Value,
-                Velocidade = (double)numupdownVelocidade.Value,
-                Forca = (CategoriasEnum)comboboxForca.SelectedIndex,
-                Inteligencia = (CategoriasEnum)comboboxInteligencia.SelectedIndex,
-                EVilao = radioVilao.Checked,
-                CriadoEm = DateTime.Now,
-                AtualizadoEm = DateTime.Now
-            };
-            int idNovoPersonagem = await _personagemServico.Adicionar(novoPersonagem);
-
-            // Cadastrar habilidades vinculadas
             var habilidadesMarcadas = new List<int>();
             foreach (DataGridViewRow linha in tabelaHabilidades.Rows)
             {
@@ -86,17 +70,20 @@ namespace Cod3rsGrowth.Forms.Forms
                     habilidadesMarcadas.Add(habilidadeId);
                 }
             }
-            foreach (var habilidadeId in habilidadesMarcadas)
+
+            var novoPersonagem = new Personagem
             {
-                var personagemHabilidade = new PersonagensHabilidades
-                {
-                    IdPersonagem = idNovoPersonagem,
-                    IdHabilidade = habilidadeId,
-                    CriadoEm = DateTime.Now,
-                    AtualizadoEm = DateTime.Now
-                };
-                await _personagensHabilidadesServico.Adicionar(personagemHabilidade);
-            }
+                Nome = txtboxNome.Text,
+                Vida = (int)numupdownVida.Value,
+                Energia = (int)numupdownEnergia.Value,
+                Velocidade = (double)numupdownVelocidade.Value,
+                Forca = (CategoriasEnum)comboboxForca.SelectedIndex,
+                Inteligencia = (CategoriasEnum)comboboxInteligencia.SelectedIndex,
+                Habilidades = habilidadesMarcadas,
+                EVilao = radioVilao.Checked
+            };
+
+            await _personagemServico.Adicionar(novoPersonagem);
         }
 
         private void AtualizarPersonagem()

@@ -65,15 +65,19 @@ namespace Cod3rsGrowth.Infra.Repositories
                 .Select(ph => ph.IdHabilidade)
                 .ToListAsync();
 
-            var habilidadesParaAdicionar = personagemAtualizado.Habilidades.Except(habilidadesExistentes).ToList();
-            foreach (var idHabilidade in habilidadesParaAdicionar)
+            if (personagemAtualizado.Habilidades.Count > 0)
             {
-                await _bancoDeDados.InsertWithInt32IdentityAsync(new PersonagensHabilidades
+                var habilidadesParaAdicionar = personagemAtualizado.Habilidades.Except(habilidadesExistentes).ToList();
+                foreach (var idHabilidade in habilidadesParaAdicionar)
                 {
-                    IdPersonagem = id,
-                    IdHabilidade = idHabilidade
-                });
+                    await _bancoDeDados.InsertWithInt32IdentityAsync(new PersonagensHabilidades
+                    {
+                        IdPersonagem = id,
+                        IdHabilidade = idHabilidade
+                    });
+                }
             }
+            
 
             var habilidadesParaRemover = habilidadesExistentes.Except(personagemAtualizado.Habilidades).ToList();
             if (habilidadesParaRemover.Any())
