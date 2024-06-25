@@ -1,12 +1,18 @@
 using Cod3rsGrowth.Web;
+using Cod3rsGrowth.Infra;
+using Cod3rsGrowth.Service;
 
 
 var construtor = WebApplication.CreateBuilder(args);
-StartupWeb.Registrar(construtor);
+
+StartupWeb.Registrar(construtor.Services);
+StartupInfra.Registrar(construtor.Services, true);
+StartupService.Registrar(construtor.Services);
+
 var app = construtor.Build();
 
 
-StartupWeb.InicializarBancoDeDados(app);
+StartupInfra.InicializarBancoDeDados(app.Services);
 
 
 if (app.Environment.IsDevelopment())

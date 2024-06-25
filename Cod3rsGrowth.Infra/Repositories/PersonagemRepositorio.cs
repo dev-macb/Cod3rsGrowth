@@ -37,14 +37,12 @@ namespace Cod3rsGrowth.Infra.Repositories
 
             foreach(var idHabilidade in novoPersonagem.Habilidades)
             {
-                
                 await _bancoDeDados.InsertWithInt32IdentityAsync(new PersonagensHabilidades
                 {
                     IdPersonagem = idPersonagemCriado,
                     IdHabilidade = idHabilidade
                 });
             }
-
             return idPersonagemCriado;
         }
 
