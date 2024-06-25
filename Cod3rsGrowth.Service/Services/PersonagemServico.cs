@@ -1,9 +1,8 @@
+using FluentValidation;
 using FluentValidation.Results;
 using Cod3rsGrowth.Domain.Entities;
 using Cod3rsGrowth.Domain.Interfaces;
 using Cod3rsGrowth.Service.Validators;
-using FluentValidation;
-using System.Diagnostics.Metrics;
 
 namespace Cod3rsGrowth.Service.Services
 {
@@ -13,10 +12,11 @@ namespace Cod3rsGrowth.Service.Services
         private readonly IRepositorio<Personagem> _personagemRepositorio;
         private readonly IRepositorio<Habilidade> _habilidadeRepositorio;
 
-        public PersonagemServico(IRepositorio<Personagem> repositorioMock, PersonagemValidador validador)
+        public PersonagemServico(IRepositorio<Personagem> personagemRepositorio, IRepositorio<Habilidade> habilidadeRepositorio, PersonagemValidador validador)
         {
             _personagemValidador = validador;
-            _personagemRepositorio = repositorioMock;
+            _personagemRepositorio = personagemRepositorio;
+            _habilidadeRepositorio = habilidadeRepositorio;
         }
 
         public async Task<IEnumerable<Personagem>> ObterTodos(Filtro? filtro)
@@ -46,6 +46,7 @@ namespace Cod3rsGrowth.Service.Services
                     if (habilidadeExistente == null) throw new Exception("O id referenciado não existe");
                 }
             } 
+
             return await _personagemRepositorio.Adicionar(personagem);
         }
 

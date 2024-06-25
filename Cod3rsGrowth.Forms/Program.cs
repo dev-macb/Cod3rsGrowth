@@ -13,7 +13,7 @@ namespace Cod3rsGrowth.Forms
         static void Main()
         {
             var colecaoServicos = new ServiceCollection();
-            StartupInfra.Registrar(colecaoServicos, false);
+            StartupInfra.Registrar(colecaoServicos);
             StartupService.Registrar(colecaoServicos);
             _serviceProvider = colecaoServicos.BuildServiceProvider();
 

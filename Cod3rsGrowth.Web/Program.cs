@@ -6,7 +6,7 @@ using Cod3rsGrowth.Service;
 var construtor = WebApplication.CreateBuilder(args);
 
 StartupWeb.Registrar(construtor.Services);
-StartupInfra.Registrar(construtor.Services, true);
+StartupInfra.Registrar(construtor.Services);
 StartupService.Registrar(construtor.Services);
 
 var app = construtor.Build();

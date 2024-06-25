@@ -1,5 +1,4 @@
 using LinqToDB;
-using DotNetEnv;
 using LinqToDB.AspNet;
 using FluentMigrator.Runner;
 using Cod3rsGrowth.Domain.Entities;
@@ -12,9 +11,9 @@ namespace Cod3rsGrowth.Infra
 {
     public class StartupInfra
     {
-        public static void Registrar(IServiceCollection servicos, bool ehWeb)
+        public static void Registrar(IServiceCollection servicos)
         {
-            string stringDeConexao = CarregarVariavelDeAmbiente("BANCO_DADOS_URI", ehWeb);
+            string stringDeConexao = CarregarVariavelDeAmbiente("BANCO_DADOS_URI");
             servicos.AddLinqToDBContext<ContextoConexao>((provider, options) => options.UseSqlServer(stringDeConexao));
 
             servicos.AddScoped<IRepositorio<Personagem>, PersonagemRepositorio>();
@@ -55,12 +54,9 @@ namespace Cod3rsGrowth.Infra
             }
         }
 
-        public static string CarregarVariavelDeAmbiente(string chave, bool ehWeb)
+        public static string CarregarVariavelDeAmbiente(string chave)
         {
-            if (ehWeb) Env.Load("../Cod3rsGrowth.Infra/.env");
-            else Env.Load();
-
-            string? stringDeConexao = Env.GetString(chave);
+            string? stringDeConexao = Environment.GetEnvironmentVariable(chave);
             if (string.IsNullOrEmpty(stringDeConexao))
             {
                 throw new InvalidOperationException("Erro ao carregar string de conexão com o banco de dados.");

@@ -57,9 +57,31 @@ namespace Cod3rsGrowth.Infra.Repositories
                 .Set(personagem => personagem.Forca, personagemAtualizado.Forca)
                 .Set(personagem => personagem.Inteligencia, personagemAtualizado.Inteligencia)
                 .Set(personagem => personagem.EVilao, personagemAtualizado.EVilao)
-                .Set(personagem => personagem.CriadoEm, personagemAtualizado.CriadoEm)
-                .Set(personagem => personagem.AtualizadoEm, personagemAtualizado.AtualizadoEm)
+                .Set(personagem => personagem.AtualizadoEm, DateTime.Now)
                 .UpdateAsync();
+
+            var habilidadesExistentes = await _bancoDeDados.PersonagensHabilidades
+                .Where(ph => ph.IdPersonagem == id)
+                .Select(ph => ph.IdHabilidade)
+                .ToListAsync();
+
+            var habilidadesParaAdicionar = personagemAtualizado.Habilidades.Except(habilidadesExistentes).ToList();
+            foreach (var idHabilidade in habilidadesParaAdicionar)
+            {
+                await _bancoDeDados.InsertWithInt32IdentityAsync(new PersonagensHabilidades
+                {
+                    IdPersonagem = id,
+                    IdHabilidade = idHabilidade
+                });
+            }
+
+            var habilidadesParaRemover = habilidadesExistentes.Except(personagemAtualizado.Habilidades).ToList();
+            if (habilidadesParaRemover.Any())
+            {
+                await _bancoDeDados.PersonagensHabilidades
+                    .Where(ph => ph.IdPersonagem == id && habilidadesParaRemover.Contains(ph.IdHabilidade))
+                    .DeleteAsync();
+            }
         }
 
         public async Task Deletar(int id)
