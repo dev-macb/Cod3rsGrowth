@@ -25,7 +25,11 @@ namespace Cod3rsGrowth.Service.Validators
         private async Task<bool> VerificaUnicidadeDoNome(Habilidade habilidade, string nome, CancellationToken cancellationToken)
         {
             var habilidades = await _habilidadeRepositorio.ObterTodos(null);
-            return !habilidades.Any(h => h.Nome == nome);
+            var habilidadesComMesmoNome = habilidades.FirstOrDefault(habilidade => habilidade.Nome == nome);
+
+            if (habilidadesComMesmoNome == null) return true;
+            
+            return habilidadesComMesmoNome.Id == habilidade.Id;
         }
     }
 }
