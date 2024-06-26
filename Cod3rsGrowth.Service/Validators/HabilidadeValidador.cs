@@ -15,16 +15,17 @@ namespace Cod3rsGrowth.Service.Validators
             RuleFor(habilidade => habilidade.Nome)
                 .Cascade(CascadeMode.StopOnFirstFailure)
                     .NotEmpty().WithMessage("O nome é obrigatório.")
-                    .Must(VerificaUnicidadeDoNome).WithMessage("Já existe uma habilidade com esse nome.")
+                    .MustAsync(VerificaUnicidadeDoNome).WithMessage("Já existe uma habilidade com esse nome.")
                     .Length(3, 50).WithMessage("O nome deve ter no mínimo 3 caracteres e no máximo 50.");
 
             RuleFor(habilidade => habilidade.Descricao)
                 .Length(0, 200).WithMessage("A descrição deve ter no mínimo 0 caracteres e no máximo 200.");
         }
 
-        private bool VerificaUnicidadeDoNome(Habilidade habilidade, string nome)
+        private async Task<bool> VerificaUnicidadeDoNome(Habilidade habilidade, string nome, CancellationToken cancellationToken)
         {
-            return _habilidadeRepositorio.ObterTodos(new Filtro{ Nome = nome }) == null;
+            var habilidades = await _habilidadeRepositorio.ObterTodos(null);
+            return !habilidades.Any(h => h.Nome == nome);
         }
     }
 }
