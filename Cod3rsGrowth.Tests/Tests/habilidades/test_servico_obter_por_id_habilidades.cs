@@ -1,18 +1,18 @@
 using Cod3rsGrowth.Domain.Entities;
 using Cod3rsGrowth.Tests.Repositories;
+using Cod3rsGrowth.Tests.RepositoriesMock;
 using Microsoft.Extensions.DependencyInjection;
-using Cod3rsGrowth.Service.Services;
 
 namespace Cod3rsGrowth.Tests.Tests.Habilidades
 {
     public class TesteServicoObterPorIdHabilidade : TesteBase
     {
-        private readonly HabilidadeServico habilidadeService;
+        private readonly HabilidadeRepositorioMock _habilidadeRepositorioMock;
         private readonly List<Habilidade> _habilidades = RepositorioMock.ObterInstancia.Habilidades;
 
         public TesteServicoObterPorIdHabilidade() : base()
         {
-            habilidadeService = _serviceProvider.GetRequiredService<HabilidadeServico>();
+            _habilidadeRepositorioMock = _serviceProvider.GetRequiredService<HabilidadeRepositorioMock>();
         }
 
         [Fact]
@@ -25,7 +25,7 @@ namespace Cod3rsGrowth.Tests.Tests.Habilidades
             _habilidades.Add(novaHabilidade);
 
             // Act
-            var personagemEncontrado = habilidadeService.ObterPorId(idTeste);
+            var personagemEncontrado = _habilidadeRepositorioMock.ObterPorId(idTeste);
 
             // Assert
             Assert.Equivalent(novaHabilidade, personagemEncontrado);
@@ -40,7 +40,7 @@ namespace Cod3rsGrowth.Tests.Tests.Habilidades
             _habilidades.Add(novaHabilidade);
 
             // Act - Assert
-            var resultado = Assert.Throws<Exception>(() => habilidadeService.ObterPorId(idInvalido));
+            var resultado = Assert.Throws<Exception>(() => _habilidadeRepositorioMock.ObterPorId(idInvalido));
             Assert.Equal("Habilidade não encontrada.", resultado.Message);
         }
     }

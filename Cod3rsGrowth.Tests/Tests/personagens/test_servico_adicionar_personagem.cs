@@ -3,17 +3,18 @@ using Cod3rsGrowth.Domain.Entities;
 using Cod3rsGrowth.Tests.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using Cod3rsGrowth.Service.Services;
+using Cod3rsGrowth.Tests.RepositoriesMock;
 
 namespace Cod3rsGrowth.Tests.Tests.Personagens
 {
     public class TesteServicoAdicionarPersonagem : TesteBase
     {
-        private readonly PersonagemServico _personagemService;
+        private readonly PersonagemRepositorioMock _personagemRepositorioMock;
         private readonly List<Personagem> _personagens = RepositorioMock.ObterInstancia.Personagens;
 
         public TesteServicoAdicionarPersonagem() : base()
         {
-            _personagemService = _serviceProvider.GetRequiredService<PersonagemServico>();
+            _personagemRepositorioMock = _serviceProvider.GetRequiredService<PersonagemRepositorioMock>();
         }
 
         [Fact]
@@ -23,7 +24,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
             RepositorioMock.ResetarInstancia();
             var novoPersonagem = new Personagem
             {
-                Nome = "Teste", 
+                Nome = "Teste",
                 Vida = 100,
                 Energia = 50,
                 Velocidade = 1.0,
@@ -34,7 +35,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
             };
 
             // Act
-            int idnovoPersonagem = _personagemService.Adicionar(novoPersonagem);
+            int idnovoPersonagem = _personagemRepositorioMock.Adicionar(novoPersonagem);
             var personagemCriado = _personagens.Find(personagem => personagem.Id == idnovoPersonagem);
 
             // Assert
@@ -49,7 +50,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
             string nomeCurto = "Te";
             var personagemInvalido = new Personagem
             {
-                Nome = nomeCurto, 
+                Nome = nomeCurto,
                 Vida = 100,
                 Energia = 50,
                 Velocidade = 1.0,
@@ -60,7 +61,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
             };
 
             // Act - Assert
-            var excecao = Assert.Throws<Exception>(() => _personagemService.Adicionar(personagemInvalido));
+            var excecao = Assert.Throws<Exception>(() => _personagemRepositorioMock.Adicionar(personagemInvalido));
             Assert.Equal("O nome deve ter no mínimo 3 caracteres e no máximo 50.", excecao.Message);
         }
 
@@ -71,7 +72,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
             string nomeGrande = "Um nome qualquer que seja grande o suficiente para ser inutil";
             var personagemInvalido = new Personagem
             {
-                Nome = nomeGrande, 
+                Nome = nomeGrande,
                 Vida = 100,
                 Energia = 50,
                 Velocidade = 1.0,
@@ -82,7 +83,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
             };
 
             // Act - Assert
-            var excecao = Assert.Throws<Exception>(() => _personagemService.Adicionar(personagemInvalido));
+            var excecao = Assert.Throws<Exception>(() => _personagemRepositorioMock.Adicionar(personagemInvalido));
             Assert.Equal("O nome deve ter no mínimo 3 caracteres e no máximo 50.", excecao.Message);
         }
 
@@ -93,7 +94,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
             int vidaNegativa = -1;
             var personagemInvalido = new Personagem
             {
-                Nome = "Teste", 
+                Nome = "Teste",
                 Vida = vidaNegativa,
                 Energia = 50,
                 Velocidade = 1.0,
@@ -104,7 +105,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
             };
 
             // Act - Assert
-            var excecao = Assert.Throws<Exception>(() => _personagemService.Adicionar(personagemInvalido));
+            var excecao = Assert.Throws<Exception>(() => _personagemRepositorioMock.Adicionar(personagemInvalido));
             Assert.Equal("A vida deve estar entre 0 e 100.", excecao.Message);
         }
 
@@ -115,7 +116,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
             int vidaMaiorQueCem = 101;
             var personagemInvalido = new Personagem
             {
-                Nome = "Teste", 
+                Nome = "Teste",
                 Vida = vidaMaiorQueCem,
                 Energia = 50,
                 Velocidade = 1.0,
@@ -126,7 +127,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
             };
 
             // Act - Assert
-            var excecao = Assert.Throws<Exception>(() => _personagemService.Adicionar(personagemInvalido));
+            var excecao = Assert.Throws<Exception>(() => _personagemRepositorioMock.Adicionar(personagemInvalido));
             Assert.Equal("A vida deve estar entre 0 e 100.", excecao.Message);
         }
 
@@ -137,7 +138,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
             int EnergiaMenorQueZero = -1;
             var personagemInvalido = new Personagem
             {
-                Nome = "Teste", 
+                Nome = "Teste",
                 Vida = 100,
                 Energia = EnergiaMenorQueZero,
                 Velocidade = 1.0,
@@ -148,7 +149,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
             };
 
             // Act - Assert
-            var excecao = Assert.Throws<Exception>(() => _personagemService.Adicionar(personagemInvalido));
+            var excecao = Assert.Throws<Exception>(() => _personagemRepositorioMock.Adicionar(personagemInvalido));
             Assert.Equal("A energia deve estar entre 0 e 50.", excecao.Message);
         }
 
@@ -159,7 +160,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
             int energiaMaiorQueCinquenta = 51;
             var personagemInvalido = new Personagem
             {
-                Nome = "Teste", 
+                Nome = "Teste",
                 Vida = 100,
                 Energia = energiaMaiorQueCinquenta,
                 Velocidade = 1.0,
@@ -170,7 +171,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
             };
 
             // Act - Assert
-            var excecao = Assert.Throws<Exception>(() => _personagemService.Adicionar(personagemInvalido));
+            var excecao = Assert.Throws<Exception>(() => _personagemRepositorioMock.Adicionar(personagemInvalido));
             Assert.Equal("A energia deve estar entre 0 e 50.", excecao.Message);
         }
 
@@ -181,7 +182,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
             int velocidadeMenorQueZero = -1;
             var personagemInvalido = new Personagem
             {
-                Nome = "Teste", 
+                Nome = "Teste",
                 Vida = 100,
                 Energia = 50,
                 Velocidade = velocidadeMenorQueZero,
@@ -192,7 +193,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
             };
 
             // Act - Assert
-            var excecao = Assert.Throws<Exception>(() => _personagemService.Adicionar(personagemInvalido));
+            var excecao = Assert.Throws<Exception>(() => _personagemRepositorioMock.Adicionar(personagemInvalido));
             Assert.Equal("A velocidade deve estar entre 0 e 2.", excecao.Message);
         }
 
@@ -203,7 +204,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
             double velocidadeMaiorQueDois = 2.1;
             var personagemInvalido = new Personagem
             {
-                Nome = "Teste", 
+                Nome = "Teste",
                 Vida = 100,
                 Energia = 50,
                 Velocidade = velocidadeMaiorQueDois,
@@ -214,7 +215,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
             };
 
             // Act - Assert
-            var excecao = Assert.Throws<Exception>(() => _personagemService.Adicionar(personagemInvalido));
+            var excecao = Assert.Throws<Exception>(() => _personagemRepositorioMock.Adicionar(personagemInvalido));
             Assert.Equal("A velocidade deve estar entre 0 e 2.", excecao.Message);
         }
 
@@ -225,7 +226,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
             int forcaInvalida = 99999;
             var personagemInvalido = new Personagem
             {
-                Nome = "Teste", 
+                Nome = "Teste",
                 Vida = 100,
                 Energia = 50,
                 Velocidade = 1.0,
@@ -236,7 +237,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
             };
 
             // Act - Assert
-            var excecao = Assert.Throws<Exception>(() => _personagemService.Adicionar(personagemInvalido));
+            var excecao = Assert.Throws<Exception>(() => _personagemRepositorioMock.Adicionar(personagemInvalido));
             Assert.Equal("A força deve ser um valor válido de CategoriasEnum.", excecao.Message);
         }
 
@@ -247,7 +248,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
             int inteligenciaInvalida = 99999;
             var personagemInvalido = new Personagem
             {
-                Nome = "Teste", 
+                Nome = "Teste",
                 Vida = 100,
                 Energia = 50,
                 Velocidade = 1.0,
@@ -257,7 +258,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
                 EVilao = false
             };
             // Act - Assert
-            var excecao = Assert.Throws<Exception>(() => _personagemService.Adicionar(personagemInvalido));
+            var excecao = Assert.Throws<Exception>(() => _personagemRepositorioMock.Adicionar(personagemInvalido));
             Assert.Equal("A inteligência deve ser um valor válido de CategoriasEnum.", excecao.Message);
         }
 
@@ -273,7 +274,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
             int inteligenciaInvalida = 99999;
             var personagemInvalido = new Personagem
             {
-                Nome = nomePequeno, 
+                Nome = nomePequeno,
                 Vida = vidaNegativa,
                 Energia = energiaNegativa,
                 Velocidade = velocidadeNegativa,
@@ -289,7 +290,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
 
 
             // Act - Assert
-            var excecao = Assert.Throws<Exception>(() => _personagemService.Adicionar(personagemInvalido));
+            var excecao = Assert.Throws<Exception>(() => _personagemRepositorioMock.Adicionar(personagemInvalido));
             Assert.Equal(mensagemEsperada, excecao.Message);
         }
     }

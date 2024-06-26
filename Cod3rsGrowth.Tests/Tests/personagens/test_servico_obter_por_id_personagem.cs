@@ -3,17 +3,18 @@ using Cod3rsGrowth.Domain.Entities;
 using Cod3rsGrowth.Tests.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using Cod3rsGrowth.Service.Services;
+using Cod3rsGrowth.Tests.RepositoriesMock;
 
 namespace Cod3rsGrowth.Tests.Tests.Personagens
 {
     public class TesteServicoObterPorIdPersonagem : TesteBase
     {
-        private readonly PersonagemServico _personagemService;
+        private readonly PersonagemRepositorioMock _personagemRepositorioMock;
         private readonly List<Personagem> _personagens = RepositorioMock.ObterInstancia.Personagens;
 
         public TesteServicoObterPorIdPersonagem() : base()
         {
-            _personagemService = _serviceProvider.GetRequiredService<PersonagemServico>();
+            _personagemRepositorioMock = _serviceProvider.GetRequiredService<PersonagemRepositorioMock>();
             RepositorioMock.ResetarInstancia();
         }
 
@@ -25,7 +26,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
             var novoPersonagem = new Personagem
             {
                 Id = idTeste,
-                Nome = "Teste", 
+                Nome = "Teste",
                 Vida = 100,
                 Energia = 50,
                 Velocidade = 1.0,
@@ -51,7 +52,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
             var novoPersonagem = new Personagem
             {
                 Id = idTeste,
-                Nome = "Teste", 
+                Nome = "Teste",
                 Vida = 100,
                 Energia = 50,
                 Velocidade = 1.0,
@@ -63,7 +64,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
             _personagens.Add(novoPersonagem);
 
             // Act - Assert
-            var resultado = Assert.Throws<Exception>(() => _personagemService.ObterPorId(idInvalido));
+            var resultado = Assert.Throws<Exception>(() => _personagemRepositorioMock.ObterPorId(idInvalido));
             Assert.Equal("Personagem não encontrado.", resultado.Message);
         }
     }

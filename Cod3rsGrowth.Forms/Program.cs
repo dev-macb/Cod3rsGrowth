@@ -14,17 +14,15 @@ namespace Cod3rsGrowth.Forms
         {
             var colecaoServicos = new ServiceCollection();
             StartupInfra.Registrar(colecaoServicos);
-            StartupForms.Registrar(colecaoServicos);
             StartupService.Registrar(colecaoServicos);
             _serviceProvider = colecaoServicos.BuildServiceProvider();
 
-            StartupForms.InicializarBancoDeDados(_serviceProvider);
+            StartupInfra.InicializarBancoDeDados(_serviceProvider);
 
             ApplicationConfiguration.Initialize();
             Application.Run(new FormularioPrincipal(
-                _serviceProvider.GetRequiredService<PersonagemServico>(), 
-                _serviceProvider.GetRequiredService<HabilidadeServico>(),
-                _serviceProvider.GetRequiredService<PersonagensHabilidadesServico>()
+                _serviceProvider.GetRequiredService<PersonagemServico>(),
+                _serviceProvider.GetRequiredService<HabilidadeServico>()
             ));
         }
     }

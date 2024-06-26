@@ -27,15 +27,15 @@
         {
             datetimeFiltroDataBase = new DateTimePicker();
             datetimeFiltroDataTeto = new DateTimePicker();
-            lblDataCriacaoDe = new Label();
-            lblDataCriacaoAte = new Label();
+            labelDataBase = new Label();
+            labelDataTeto = new Label();
             radioVilao = new RadioButton();
             grupoDataCriacao = new GroupBox();
             grupoOutros = new GroupBox();
             radioHeroi = new RadioButton();
             btnAplicar = new Button();
             backgroundWorker1 = new System.ComponentModel.BackgroundWorker();
-            button1 = new Button();
+            btnResetar = new Button();
             grupoDataCriacao.SuspendLayout();
             grupoOutros.SuspendLayout();
             SuspendLayout();
@@ -54,23 +54,23 @@
             datetimeFiltroDataTeto.Size = new Size(250, 23);
             datetimeFiltroDataTeto.TabIndex = 1;
             // 
-            // lblDataCriacaoDe
+            // labelDataBase
             // 
-            lblDataCriacaoDe.AutoSize = true;
-            lblDataCriacaoDe.Location = new Point(8, 21);
-            lblDataCriacaoDe.Name = "lblDataCriacaoDe";
-            lblDataCriacaoDe.Size = new Size(24, 15);
-            lblDataCriacaoDe.TabIndex = 2;
-            lblDataCriacaoDe.Text = "De:";
+            labelDataBase.AutoSize = true;
+            labelDataBase.Location = new Point(8, 21);
+            labelDataBase.Name = "labelDataBase";
+            labelDataBase.Size = new Size(24, 15);
+            labelDataBase.TabIndex = 2;
+            labelDataBase.Text = "De:";
             // 
-            // lblDataCriacaoAte
+            // labelDataTeto
             // 
-            lblDataCriacaoAte.AutoSize = true;
-            lblDataCriacaoAte.Location = new Point(8, 63);
-            lblDataCriacaoAte.Name = "lblDataCriacaoAte";
-            lblDataCriacaoAte.Size = new Size(28, 15);
-            lblDataCriacaoAte.TabIndex = 3;
-            lblDataCriacaoAte.Text = "Até:";
+            labelDataTeto.AutoSize = true;
+            labelDataTeto.Location = new Point(8, 63);
+            labelDataTeto.Name = "labelDataTeto";
+            labelDataTeto.Size = new Size(28, 15);
+            labelDataTeto.TabIndex = 3;
+            labelDataTeto.Text = "Até:";
             // 
             // radioVilao
             // 
@@ -86,9 +86,9 @@
             // grupoDataCriacao
             // 
             grupoDataCriacao.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            grupoDataCriacao.Controls.Add(lblDataCriacaoDe);
+            grupoDataCriacao.Controls.Add(labelDataBase);
             grupoDataCriacao.Controls.Add(datetimeFiltroDataBase);
-            grupoDataCriacao.Controls.Add(lblDataCriacaoAte);
+            grupoDataCriacao.Controls.Add(labelDataTeto);
             grupoDataCriacao.Controls.Add(datetimeFiltroDataTeto);
             grupoDataCriacao.Location = new Point(12, 12);
             grupoDataCriacao.Name = "grupoDataCriacao";
@@ -130,22 +130,22 @@
             btnAplicar.UseVisualStyleBackColor = true;
             btnAplicar.Click += AoClicarNoButaoAplcarFechaOsFiltros;
             // 
-            // button1
+            // btnResetar
             // 
-            button1.Location = new Point(126, 189);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 10;
-            button1.Text = "Resetar";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += AoClicarNoButaoResetarLimpaOsFiltros;
+            btnResetar.Location = new Point(126, 189);
+            btnResetar.Name = "btnResetar";
+            btnResetar.Size = new Size(75, 23);
+            btnResetar.TabIndex = 10;
+            btnResetar.Text = "Resetar";
+            btnResetar.UseVisualStyleBackColor = true;
+            btnResetar.Click += AoClicarNoButaoResetarLimpaOsFiltros;
             // 
             // FormularioFiltros
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(294, 224);
-            Controls.Add(button1);
+            Controls.Add(btnResetar);
             Controls.Add(btnAplicar);
             Controls.Add(grupoOutros);
             Controls.Add(grupoDataCriacao);
@@ -165,14 +165,14 @@
 
         private DateTimePicker datetimeFiltroDataBase;
         private DateTimePicker datetimeFiltroDataTeto;
-        private Label lblDataCriacaoDe;
-        private Label lblDataCriacaoAte;
+        private Label labelDataBase;
+        private Label labelDataTeto;
         private RadioButton radioVilao;
         private GroupBox grupoDataCriacao;
         private GroupBox grupoOutros;
         private Button btnAplicar;
         private RadioButton radioHeroi;
         private System.ComponentModel.BackgroundWorker backgroundWorker1;
-        private Button button1;
+        private Button btnResetar;
     }
 }

@@ -1,9 +1,8 @@
+using FluentValidation;
 using FluentValidation.Results;
 using Cod3rsGrowth.Domain.Entities;
 using Cod3rsGrowth.Domain.Interfaces;
 using Cod3rsGrowth.Service.Validators;
-using FluentValidation;
-using System.Diagnostics.Metrics;
 
 namespace Cod3rsGrowth.Service.Services
 {
@@ -48,7 +47,7 @@ namespace Cod3rsGrowth.Service.Services
             if (!resultado.IsValid)
             {
                 string todosErros = string.Join(separador, resultado.Errors.Select(erro => erro.ErrorMessage));
-                throw new Exception(todosErros);
+                throw new ValidationException(todosErros);
             }
 
             await _personagemRepositorio.ObterPorId(id);

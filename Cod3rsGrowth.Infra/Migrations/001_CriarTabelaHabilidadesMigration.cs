@@ -3,7 +3,7 @@ using FluentMigrator;
 namespace Cod3rsGrowth.Infra.Migrations
 {
     [Migration(001)]
-    public class HabilidadeMigration : Migration
+    public class CriarTabelaHabilidadesMigration : Migration
     {
         public override void Up()
         {

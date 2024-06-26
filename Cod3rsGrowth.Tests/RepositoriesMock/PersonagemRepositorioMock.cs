@@ -1,11 +1,11 @@
-using Cod3rsGrowth.Domain.Entities;
-using Cod3rsGrowth.Domain.Interfaces;
+﻿using Cod3rsGrowth.Domain.Entities;
+using Cod3rsGrowth.Tests.RepositoriesMock;
 
 namespace Cod3rsGrowth.Tests.Repositories
 {
-    public class PersonagemRepositorio : IRepositorio<Personagem>
+    public class PersonagemRepositorioMock
     {
-        private readonly List<Personagem> _personagens = RepositorioMock.ObterInstancia.Personagens; 
+        private readonly List<Personagem> _personagens = RepositorioMock.ObterInstancia.Personagens;
 
         public IEnumerable<Personagem> ObterTodos(string filtro)
         {
@@ -41,7 +41,7 @@ namespace Cod3rsGrowth.Tests.Repositories
         public void Deletar(int id)
         {
             var personagemExistente = _personagens.Find(personagem => personagem.Id == id) ?? throw new Exception("Personagem não encontrado.");
-            
+
             _personagens.Remove(personagemExistente);
         }
     }

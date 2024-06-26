@@ -3,16 +3,17 @@ using Cod3rsGrowth.Domain.Entities;
 using Cod3rsGrowth.Tests.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using Cod3rsGrowth.Service.Services;
+using Cod3rsGrowth.Tests.RepositoriesMock;
 
 namespace Cod3rsGrowth.Tests.Tests.Personagens
 {
     public class TesteServicoObterTodosPersonagem : TesteBase
     {
-        private readonly PersonagemServico _personagemService;
+        private readonly PersonagemRepositorioMock _personagemRepositorioMock;
 
         public TesteServicoObterTodosPersonagem() : base()
         {
-            _personagemService = _serviceProvider.GetRequiredService<PersonagemServico>();
+            _personagemRepositorioMock = _serviceProvider.GetRequiredService<PersonagemRepositorioMock>();
             RepositorioMock.ResetarInstancia();
         }
 
@@ -20,7 +21,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
         public void ObterTodosPersonagensRetornaLista()
         {
             // Act
-            var personagens = _personagemService.ObterTodos("");
+            var personagens = _personagemRepositorioMock.ObterTodos("");
 
             // Assert
             Assert.IsType<List<Personagem>>(personagens);
