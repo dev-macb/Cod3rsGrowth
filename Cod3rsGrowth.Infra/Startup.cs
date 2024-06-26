@@ -13,9 +13,8 @@ namespace Cod3rsGrowth.Infra
 {
     public class StartupInfra
     {
-        public static void Registrar(IServiceCollection servicos)
+        public static void Registrar(IServiceCollection servicos, string stringDeConexao)
         {
-            string? stringDeConexao = ConfigurationManager.ConnectionStrings["ConexaoPadrao"].ConnectionString;
             servicos.AddLinqToDBContext<ContextoConexao>((provider, options) => options
                 .UseSqlServer(stringDeConexao)
                 .UseDefaultLogging(provider)

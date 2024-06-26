@@ -3,10 +3,16 @@ using Cod3rsGrowth.Infra;
 using Cod3rsGrowth.Service;
 
 
+
+
+
 var construtor = WebApplication.CreateBuilder(args);
 
+string? stringDeConexao = construtor.Configuration.GetConnectionString("ConexaoPadrao");
+if (string.IsNullOrEmpty(stringDeConexao)) throw new Exception("Sem URI do banco");
+
 StartupWeb.Registrar(construtor.Services);
-StartupInfra.Registrar(construtor.Services);
+StartupInfra.Registrar(construtor.Services, stringDeConexao);
 StartupService.Registrar(construtor.Services);
 
 var app = construtor.Build();
