@@ -14,7 +14,7 @@ namespace Cod3rsGrowth.Domain.Entities
         [Column("descricao")]
         public string? Descricao { get; set; }
 
-        [Column("criado_em", SkipOnInsert=true, SkipOnUpdate=true), NotNull]
+        [Column("criado_em", SkipOnInsert = true, SkipOnUpdate = true), NotNull]
         public DateTime? CriadoEm { get; set; }
 
         [Column("atualizado_em", SkipOnInsert = true, SkipOnUpdate = true), NotNull]

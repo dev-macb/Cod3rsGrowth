@@ -7,9 +7,9 @@ namespace Cod3rsGrowth.Service.Services
 {
     public class PersonagensHabilidadesServico
     {
-        private readonly IPersonagensHabilidadesRepositorio _personagensHabilidadesRepositorio;
+        private readonly IRepositorio<PersonagensHabilidades> _personagensHabilidadesRepositorio;
 
-        public PersonagensHabilidadesServico(IPersonagensHabilidadesRepositorio personagensHabilidadesRepositorio)
+        public PersonagensHabilidadesServico(IRepositorio<PersonagensHabilidades> personagensHabilidadesRepositorio)
         {
             _personagensHabilidadesRepositorio = personagensHabilidadesRepositorio;
         }
@@ -22,11 +22,6 @@ namespace Cod3rsGrowth.Service.Services
         public async Task<PersonagensHabilidades?> ObterPorId(int id)
         {
             return await _personagensHabilidadesRepositorio.ObterPorId(id);
-        }
-
-        public async Task<List<int>> ObterHabilidadesPorPersonagem(int idPersonagem)
-        {
-            return await _personagensHabilidadesRepositorio.ObterHabilidadesPorPersonagem(idPersonagem);
         }
 
         public async Task<int> Adicionar(PersonagensHabilidades personagensHabilidades)
@@ -42,11 +37,6 @@ namespace Cod3rsGrowth.Service.Services
         public async Task Deletar(int id)
         {
             await _personagensHabilidadesRepositorio.Deletar(id);
-        }
-
-        public async Task DeletarPorPersonagemEHabilidade(int idPersonagem, int idHabilidade)
-        {
-            await _personagensHabilidadesRepositorio.DeletarPorPersonagemEHabilidade(idPersonagem, idHabilidade);
         }
     }
 }

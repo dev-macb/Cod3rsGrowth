@@ -10,7 +10,7 @@ namespace Cod3rsGrowth.Domain.Entities
 
         [Column("id_personagem"), NotNull]
         public required int IdPersonagem { get; set; }
-        
+
         [Column("id_habilidade")]
         public required int IdHabilidade { get; set; }
 

@@ -12,7 +12,7 @@ namespace Cod3rsGrowth.Tests
         {
             var colecaoServicos = new ServiceCollection();
             
-            StartupInfra.Registrar(colecaoServicos);
+
             StartupService.Registrar(colecaoServicos);
 
             _serviceProvider = colecaoServicos.BuildServiceProvider();

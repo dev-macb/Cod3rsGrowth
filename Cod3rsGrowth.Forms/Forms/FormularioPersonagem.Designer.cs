@@ -66,6 +66,8 @@
             // 
             tabelaHabilidades.AllowUserToAddRows = false;
             tabelaHabilidades.AllowUserToDeleteRows = false;
+            tabelaHabilidades.AllowUserToResizeColumns = false;
+            tabelaHabilidades.AllowUserToResizeRows = false;
             tabelaHabilidades.AutoGenerateColumns = false;
             tabelaHabilidades.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             tabelaHabilidades.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;

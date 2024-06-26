@@ -30,7 +30,7 @@ namespace Cod3rsGrowth.Service.Services
         public async Task<int> Adicionar(Habilidade habilidade)
         {
             const string separador = "\n";
-            ValidationResult resultado = _habilidadeValidador.Validate(habilidade);
+            ValidationResult resultado = await _habilidadeValidador.ValidateAsync(habilidade);
             if (!resultado.IsValid)
             {
                 string todosErros = string.Join(separador, resultado.Errors.Select(erro => erro.ErrorMessage));
@@ -43,7 +43,7 @@ namespace Cod3rsGrowth.Service.Services
         public async Task Atualizar(int id, Habilidade habilidadeAtualizada)
         {
             const string separador = "\n";
-            ValidationResult resultado = _habilidadeValidador.Validate(habilidadeAtualizada);
+            ValidationResult resultado = await _habilidadeValidador.ValidateAsync(habilidadeAtualizada);
             if (!resultado.IsValid)
             {
                 string todosErros = string.Join(separador, resultado.Errors.Select(erro => erro.ErrorMessage));

@@ -1,18 +1,18 @@
 using Cod3rsGrowth.Domain.Entities;
 using Cod3rsGrowth.Tests.Repositories;
+using Cod3rsGrowth.Tests.RepositoriesMock;
 using Microsoft.Extensions.DependencyInjection;
-using Cod3rsGrowth.Service.Services;
 
 namespace Cod3rsGrowth.Tests.Tests.Habilidades
 {
     public class TesteServicoAtualizarHabilidade : TesteBase
     {
-        private readonly HabilidadeServico _habilidadeService;
-        private readonly List<Habilidade> _habilidades = RepositorioMock.ObterInstancia.Habilidades;    
+        private readonly HabilidadeRepositorioMock _habilidadeRepositorioMock;
+        private readonly List<Habilidade> _habilidades = RepositorioMock.ObterInstancia.Habilidades;
 
         public TesteServicoAtualizarHabilidade() : base()
         {
-            _habilidadeService = _serviceProvider.GetRequiredService<HabilidadeServico>();
+            _habilidadeRepositorioMock = _serviceProvider.GetRequiredService<HabilidadeRepositorioMock>();
         }
 
         [Fact]
@@ -28,7 +28,7 @@ namespace Cod3rsGrowth.Tests.Tests.Habilidades
             // Act
             novaHabilidade.Nome = "Testudo";
             novaHabilidade.Descricao = "Uma outra descrição da habilidade";
-            _habilidadeService.Atualizar(idTeste, novaHabilidade);
+            _habilidadeRepositorioMock.Atualizar(idTeste, novaHabilidade);
 
             // Assert
             var personagemAtualizado = _habilidades.Find(habilidade => habilidade.Id == idTeste);
@@ -46,7 +46,7 @@ namespace Cod3rsGrowth.Tests.Tests.Habilidades
 
             // Act - Assert
             novaHabilidade.Nome = "Testudo";
-            var resultado = Assert.Throws<Exception>(() => _habilidadeService.Atualizar(idInvalido, novaHabilidade));
+            var resultado = Assert.Throws<Exception>(() => _habilidadeRepositorioMock.Atualizar(idInvalido, novaHabilidade));
             Assert.Equal("Habilidade não encontrada.", resultado.Message);
         }
 
@@ -61,7 +61,7 @@ namespace Cod3rsGrowth.Tests.Tests.Habilidades
 
             // Act - Assert
             novaHabilidade.Nome = "T";
-            var resultado = Assert.Throws<Exception>(() => _habilidadeService.Atualizar(idTeste, novaHabilidade));
+            var resultado = Assert.Throws<Exception>(() => _habilidadeRepositorioMock.Atualizar(idTeste, novaHabilidade));
             Assert.Equal("O nome deve ter no mínimo 3 caracteres e no máximo 50.", resultado.Message);
         }
 
@@ -76,7 +76,7 @@ namespace Cod3rsGrowth.Tests.Tests.Habilidades
 
             // Act - Assert
             novaHabilidade.Nome = "Teste Teste Teste Teste Teste Teste Teste Teste Tes";
-            var resultado = Assert.Throws<Exception>(() => _habilidadeService.Atualizar(idTeste, novaHabilidade));
+            var resultado = Assert.Throws<Exception>(() => _habilidadeRepositorioMock.Atualizar(idTeste, novaHabilidade));
             Assert.Equal("O nome deve ter no mínimo 3 caracteres e no máximo 50.", resultado.Message);
         }
 
@@ -91,10 +91,10 @@ namespace Cod3rsGrowth.Tests.Tests.Habilidades
 
             // Act - Assert
             novaHabilidade.Descricao = "Teste Teste Teste Teste Teste Teste Teste Teste Teste " +
-                "Teste Teste Teste Teste Teste Teste Teste Teste Teste Teste Teste " + 
+                "Teste Teste Teste Teste Teste Teste Teste Teste Teste Teste Teste " +
                 "Teste Teste Teste Teste Teste Teste Teste Teste Teste Teste Teste " +
                 "Teste Teste Tes";
-            var resultado = Assert.Throws<Exception>(() => _habilidadeService.Atualizar(idTeste, novaHabilidade));
+            var resultado = Assert.Throws<Exception>(() => _habilidadeRepositorioMock.Atualizar(idTeste, novaHabilidade));
             Assert.Equal("A descrição deve ter no mínimo 0 caracteres e no máximo 200.", resultado.Message);
         }
     }

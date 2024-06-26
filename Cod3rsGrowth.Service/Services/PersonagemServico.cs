@@ -57,7 +57,7 @@ namespace Cod3rsGrowth.Service.Services
             if (!resultado.IsValid)
             {
                 string todosErros = string.Join(separador, resultado.Errors.Select(erro => erro.ErrorMessage));
-                throw new Exception(todosErros);
+                throw new ValidationException(todosErros);
             }
 
             await _personagemRepositorio.ObterPorId(id);

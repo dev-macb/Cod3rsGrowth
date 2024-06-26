@@ -1,6 +1,6 @@
 using Cod3rsGrowth.Domain.Entities;
 
-namespace Cod3rsGrowth.Tests.Repositories
+namespace Cod3rsGrowth.Tests.RepositoriesMock
 {
     public sealed class RepositorioMock
     {
@@ -8,9 +8,9 @@ namespace Cod3rsGrowth.Tests.Repositories
         public List<Personagem> Personagens { get; set; }
         public List<Habilidade> Habilidades { get; set; }
 
-        private RepositorioMock() 
+        private RepositorioMock()
         {
-            Personagens = new List<Personagem>(); 
+            Personagens = new List<Personagem>();
             Habilidades = new List<Habilidade>();
         }
 

@@ -1,18 +1,18 @@
 using Cod3rsGrowth.Domain.Entities;
 using Cod3rsGrowth.Tests.Repositories;
+using Cod3rsGrowth.Tests.RepositoriesMock;
 using Microsoft.Extensions.DependencyInjection;
-using Cod3rsGrowth.Service.Services;
 
 namespace Cod3rsGrowth.Tests.Tests.Habilidades
 {
     public class TesteServicoObterTodosHabilidade : TesteBase
     {
-        private readonly HabilidadeServico _habilidadeService;
+        private readonly HabilidadeRepositorioMock _habilidadeRepositorioMock;
         private readonly List<Habilidade> _habilidades = RepositorioMock.ObterInstancia.Habilidades;
 
         public TesteServicoObterTodosHabilidade() : base()
         {
-            _habilidadeService = _serviceProvider.GetRequiredService<HabilidadeServico>();
+            _habilidadeRepositorioMock = _serviceProvider.GetRequiredService<HabilidadeRepositorioMock>();
         }
 
         [Fact]
@@ -20,7 +20,7 @@ namespace Cod3rsGrowth.Tests.Tests.Habilidades
         {
             // Act
             RepositorioMock.ResetarInstancia();
-            var habilidades = _habilidadeService.ObterTodos;
+            var habilidades = _habilidadeRepositorioMock.ObterTodos;
 
             // Assert
             Assert.IsType<List<Habilidade>>(habilidades);

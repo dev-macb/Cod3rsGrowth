@@ -10,7 +10,6 @@ namespace Cod3rsGrowth.Forms
         private Filtro _habilidadeFiltro;
         private readonly PersonagemServico _personagemServico;
         private readonly HabilidadeServico _habilidadeServico;
-        private readonly PersonagensHabilidadesServico _personagensHabilidadesServico;
 
         private const string TITULO_AVISO = "Aviso";
         private const string MSG_TABELA_PERSONAGENS_VAZIA = "A tabela personagens está vazia.";
@@ -18,7 +17,7 @@ namespace Cod3rsGrowth.Forms
         private const string MSG_TABELA_HABILIDADES_VAZIA = "A tabela habilidades está vazia.";
         private const string MSG_HABILIDADE_NAO_SELECIONADA = "Nenhuma habilidade foi selecionada!";
 
-        public FormularioPrincipal(PersonagemServico personagemServico, HabilidadeServico habilidadeServico, PersonagensHabilidadesServico personagensHabilidadesServico)
+        public FormularioPrincipal(PersonagemServico personagemServico, HabilidadeServico habilidadeServico)
         {
             InitializeComponent();
 
@@ -27,15 +26,14 @@ namespace Cod3rsGrowth.Forms
 
             _personagemServico = personagemServico;
             _habilidadeServico = habilidadeServico;
-            _personagensHabilidadesServico = personagensHabilidadesServico;
         }
 
-        private void CarregarFormularioPrincipal(object sender, EventArgs e)
+        private async void CarregarFormularioPrincipal(object sender, EventArgs e)
         {
-            DefinirFonteDeDadosDasTabelas();
+            await DefinirFonteDeDadosDasTabelas();
         }
 
-        private async void DefinirFonteDeDadosDasTabelas()
+        private async Task DefinirFonteDeDadosDasTabelas()
         {
             tabelaPersonagens.DataSource = await _personagemServico.ObterTodos(_personagemFiltro);
             lblTotalPersonagens.Text = $"Total: {tabelaPersonagens.Rows.Count}";
@@ -44,93 +42,27 @@ namespace Cod3rsGrowth.Forms
             lblTotalHabilidades.Text = $"Total: {tabelaHabilidades.Rows.Count}";
         }
 
-        // Menu Superior
-        private void AoClicarEmMenuSuperiorCadastroPersonagemAbreFormularioPersonagem(object sender, EventArgs e)
+        // Adicionar
+        private async void AoClicarEmAdicionarPersonagem(object sender, EventArgs e)
         {
-            var formularioCadastroPersonagem = new FormularioPersonagem(null, _personagemServico, _habilidadeServico, _personagensHabilidadesServico);
-            formularioCadastroPersonagem.ShowDialog();
-            DefinirFonteDeDadosDasTabelas();
+            var formularioCadastroPersonagem = new FormularioPersonagem(null, _personagemServico, _habilidadeServico);
+            if (formularioCadastroPersonagem.ShowDialog() == DialogResult.OK)
+            {
+                await DefinirFonteDeDadosDasTabelas();
+            }
         }
 
-        private void AoClicarEmMenuSuperiorCadastroHabilidadeAbreFormularioHabilidade(object sender, EventArgs e)
+        private async void AoClicarEmAdicionarHabilidade(object sender, EventArgs e)
         {
             var formularioCadastroHabilidade = new FormularioHabilidade(null, _habilidadeServico);
-            formularioCadastroHabilidade.ShowDialog();
-            DefinirFonteDeDadosDasTabelas();
-        }
-
-        private void AoClicarEmMenuSuperiorSairFechaFormularioPrincipal(object sender, EventArgs e)
-        {
-            Application.Exit();
-        }
-
-        // Filtros
-        private async void txtboxFiltroPersonagemId_KeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
+            if (formularioCadastroHabilidade.ShowDialog() == DialogResult.OK)
             {
-                if (await _personagemServico.ObterPorId(int.Parse(txtboxFiltroPersonagemId.Text)) != null)
-                {
-                    var formularioEditarPersonagem = new FormularioPersonagem(int.Parse(txtboxFiltroPersonagemId.Text), _personagemServico, _habilidadeServico, _personagensHabilidadesServico);
-                    formularioEditarPersonagem.ShowDialog();
-                    DefinirFonteDeDadosDasTabelas();
-                }
-                txtboxFiltroPersonagemId.Text = "";
+                await DefinirFonteDeDadosDasTabelas();
             }
-        }
-
-        private void AoDigitarEnterEmFiltroNomeAtualizaFiltroPersonagem(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                _personagemFiltro.Nome = txtboxFiltroPersonagemNome.Text;
-                DefinirFonteDeDadosDasTabelas();
-            }
-        }
-
-        private void AoDigitarEnterEmFiltroNomeAtualizaFiltroHabilidade(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Enter)
-            {
-                _habilidadeFiltro.Nome = txtboxFiltroHabilidadeNome.Text;
-                DefinirFonteDeDadosDasTabelas();
-            }
-        }
-
-        private void AoClicarEmFiltrarPersonagemAbreFormularioFiltros(object sender, EventArgs e)
-        {
-            var formularioFiltros = new FormularioFiltros(_personagemFiltro);
-            if (formularioFiltros.ShowDialog() == DialogResult.OK)
-            {
-                _personagemFiltro = formularioFiltros.ObterFiltros();
-                DefinirFonteDeDadosDasTabelas();
-            }
-        }
-
-        private void AoClicarEmFiltrarHabilidadeAbreFormularioFiltros(object sender, EventArgs e)
-        {
-            var formularioFiltros = new FormularioFiltros(_habilidadeFiltro);
-            if (formularioFiltros.ShowDialog() == DialogResult.OK)
-            {
-                _habilidadeFiltro = formularioFiltros.ObterFiltros();
-                DefinirFonteDeDadosDasTabelas();
-            }
-        }
-
-        private void AoClicarEmBuscaPersonagemAtualizaFiltroNome(object sender, EventArgs e)
-        {
-            _personagemFiltro.Nome = txtboxFiltroPersonagemNome.Text;
-            DefinirFonteDeDadosDasTabelas();
-        }
-
-        private void AoClicarEmBuscarHabilidadeAtualizaFiltroNome(object sender, EventArgs e)
-        {
-            _habilidadeFiltro.Nome = txtboxFiltroHabilidadeNome.Text;
-            DefinirFonteDeDadosDasTabelas();
         }
 
         // Editar
-        private void AoClicarEmEditarAbreFormularioPersonagem(object sender, EventArgs e)
+        private async void AoClicarEmEditarAbreFormularioPersonagem(object sender, EventArgs e)
         {
             const int celulaId = 0;
 
@@ -140,9 +72,9 @@ namespace Cod3rsGrowth.Forms
                 if (conteudoCelula != null)
                 {
                     int idPersonagem = int.Parse(conteudoCelula);
-                    var formularioEditarPersonagem = new FormularioPersonagem(idPersonagem, _personagemServico, _habilidadeServico, _personagensHabilidadesServico);
+                    var formularioEditarPersonagem = new FormularioPersonagem(idPersonagem, _personagemServico, _habilidadeServico);
                     formularioEditarPersonagem.ShowDialog();
-                    DefinirFonteDeDadosDasTabelas();
+                    await DefinirFonteDeDadosDasTabelas();
                 }
                 else
                 {
@@ -155,7 +87,7 @@ namespace Cod3rsGrowth.Forms
             }
         }
 
-        private void AoClicarEmEditarAbreFormularioHabilidade(object sender, EventArgs e)
+        private async void AoClicarEmEditarAbreFormularioHabilidade(object sender, EventArgs e)
         {
             const int celulaId = 0;
 
@@ -167,7 +99,7 @@ namespace Cod3rsGrowth.Forms
                     int idHabilidade = int.Parse(conteudoCelula);
                     var formularioEditarHabilidade = new FormularioHabilidade(idHabilidade, _habilidadeServico);
                     formularioEditarHabilidade.ShowDialog();
-                    DefinirFonteDeDadosDasTabelas();
+                    await DefinirFonteDeDadosDasTabelas();
                 }
                 else
                 {
@@ -187,7 +119,7 @@ namespace Cod3rsGrowth.Forms
 
             try
             {
-                if (tabelaPersonagens.CurrentCell == null) throw new Exception();
+                if (tabelaPersonagens.CurrentCell == null) throw new Exception("Nenhum personagem selecionado.");
 
                 string? conteudoCelula = tabelaPersonagens.Rows[tabelaPersonagens.CurrentCell.RowIndex].Cells[celulaId].Value.ToString();
                 if (conteudoCelula != null)
@@ -199,7 +131,7 @@ namespace Cod3rsGrowth.Forms
                     if (msgConfirmacao == DialogResult.Yes)
                     {
                         await _personagemServico.Deletar(idPersonagem);
-                        DefinirFonteDeDadosDasTabelas();
+                        await DefinirFonteDeDadosDasTabelas();
                     }
                 }
             }
@@ -215,7 +147,7 @@ namespace Cod3rsGrowth.Forms
 
             try
             {
-                if (tabelaPersonagens.CurrentCell == null) throw new Exception();
+                if (tabelaPersonagens.CurrentCell == null) throw new Exception("Nenhuma habilidade selecionada.");
 
                 string? conteudoCelula = tabelaHabilidades.Rows[tabelaHabilidades.CurrentCell.RowIndex].Cells[celulaId].Value.ToString();
                 if (conteudoCelula != null)
@@ -227,7 +159,7 @@ namespace Cod3rsGrowth.Forms
                     if (msgConfirmacao == DialogResult.Yes)
                     {
                         await _habilidadeServico.Deletar(idHabilidade);
-                        DefinirFonteDeDadosDasTabelas();
+                        await DefinirFonteDeDadosDasTabelas();
                     }
                 }
             }
@@ -235,6 +167,57 @@ namespace Cod3rsGrowth.Forms
             {
                 MessageBox.Show(MSG_HABILIDADE_NAO_SELECIONADA, TITULO_AVISO, MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+        }
+
+        // Filtros
+        private async void AoDigitarEnterEmFiltroNomeAtualizaFiltroPersonagem(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                _personagemFiltro.Nome = txtboxFiltroPersonagemNome.Text;
+                await DefinirFonteDeDadosDasTabelas();
+            }
+        }
+
+        private async void AoDigitarEnterEmFiltroNomeAtualizaFiltroHabilidade(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter)
+            {
+                _habilidadeFiltro.Nome = txtboxFiltroHabilidadeNome.Text;
+                await DefinirFonteDeDadosDasTabelas();
+            }
+        }
+
+        private async void AoClicarEmFiltrarPersonagemAbreFormularioFiltros(object sender, EventArgs e)
+        {
+            var formularioFiltros = new FormularioFiltros(_personagemFiltro);
+            if (formularioFiltros.ShowDialog() == DialogResult.OK)
+            {
+                _personagemFiltro = formularioFiltros.ObterFiltros();
+                await DefinirFonteDeDadosDasTabelas();
+            }
+        }
+
+        private async void AoClicarEmFiltrarHabilidadeAbreFormularioFiltros(object sender, EventArgs e)
+        {
+            var formularioFiltros = new FormularioFiltros(_habilidadeFiltro);
+            if (formularioFiltros.ShowDialog() == DialogResult.OK)
+            {
+                _habilidadeFiltro = formularioFiltros.ObterFiltros();
+                await DefinirFonteDeDadosDasTabelas();
+            }
+        }
+
+        private async void AoClicarEmBuscaPersonagemAtualizaFiltroNome(object sender, EventArgs e)
+        {
+            _personagemFiltro.Nome = txtboxFiltroPersonagemNome.Text;
+            await DefinirFonteDeDadosDasTabelas();
+        }
+
+        private async void AoClicarEmBuscarHabilidadeAtualizaFiltroNome(object sender, EventArgs e)
+        {
+            _habilidadeFiltro.Nome = txtboxFiltroHabilidadeNome.Text;
+            await DefinirFonteDeDadosDasTabelas();
         }
     }
 }

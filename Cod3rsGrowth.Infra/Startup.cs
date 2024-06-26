@@ -6,6 +6,8 @@ using Cod3rsGrowth.Infra.Migrations;
 using Cod3rsGrowth.Domain.Interfaces;
 using Cod3rsGrowth.Infra.Repositories;
 using Microsoft.Extensions.DependencyInjection;
+using LinqToDB.AspNet.Logging;
+using System.Configuration;
 
 namespace Cod3rsGrowth.Infra
 {
@@ -13,15 +15,18 @@ namespace Cod3rsGrowth.Infra
     {
         public static void Registrar(IServiceCollection servicos)
         {
-            string stringDeConexao = CarregarVariavelDeAmbiente("BANCO_DADOS_URI");
-            servicos.AddLinqToDBContext<ContextoConexao>((provider, options) => options.UseSqlServer(stringDeConexao));
+            string? stringDeConexao = ConfigurationManager.ConnectionStrings["ConexaoPadrao"].ConnectionString;
+            servicos.AddLinqToDBContext<ContextoConexao>((provider, options) => options
+                .UseSqlServer(stringDeConexao)
+                .UseDefaultLogging(provider)
+            );
 
             servicos.AddScoped<IRepositorio<Personagem>, PersonagemRepositorio>();
             servicos.AddScoped<IRepositorio<Habilidade>, HabilidadeRepositorio>();
-            servicos.AddScoped<IPersonagensHabilidadesRepositorio, PersonagensHabilidadesRepositorio>();
+            servicos.AddScoped<IRepositorio<PersonagensHabilidades>, PersonagensHabilidadesRepositorio>();
 
             servicos.AddFluentMigratorCore()
-                .ConfigureRunner(rb => rb.AddSqlServer().WithGlobalConnectionString(stringDeConexao).ScanIn(typeof(CriarTabelaHabilidades).Assembly).For.Migrations())
+                .ConfigureRunner(rb => rb.AddSqlServer().WithGlobalConnectionString(stringDeConexao).ScanIn(typeof(CriarTabelaHabilidadesMigration).Assembly).For.Migrations())
                 .AddLogging(lb => lb.AddFluentMigratorConsole());
         }
 
@@ -52,17 +57,6 @@ namespace Cod3rsGrowth.Infra
                 if (runner.HasMigrationsToApplyDown(002)) runner.MigrateDown(001);
                 if (runner.HasMigrationsToApplyDown(001)) runner.MigrateDown(0);
             }
-        }
-
-        public static string CarregarVariavelDeAmbiente(string chave)
-        {
-            string? stringDeConexao = Environment.GetEnvironmentVariable(chave);
-            if (string.IsNullOrEmpty(stringDeConexao))
-            {
-                throw new InvalidOperationException("Erro ao carregar string de conexão com o banco de dados.");
-            }
-
-            return stringDeConexao;
         }
     }
 }
