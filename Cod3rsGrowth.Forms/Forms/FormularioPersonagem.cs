@@ -105,6 +105,7 @@ namespace Cod3rsGrowth.Forms.Forms
         {
             Text = TITULO_CADASTRAR;
             btnSalvar.Text = BTN_CADASTRAR;
+            radioHeroi.Checked = true;
             tabelaHabilidades.DataSource = await _habilidadeServico.ObterTodos(null);
 
             foreach (DataGridViewRow linha in tabelaHabilidades.Rows)

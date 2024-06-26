@@ -31,7 +31,7 @@ namespace Cod3rsGrowth.Forms
         private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             tabelaPersonagens = new DataGridView();
             idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             nomeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
@@ -47,12 +47,14 @@ namespace Cod3rsGrowth.Forms
             personagemServicoBindingSource = new BindingSource(components);
             AbasListagem = new TabControl();
             AbaPersonagem = new TabPage();
+            button2 = new Button();
             btnEditarPersonagem = new Button();
             btnRemoverPersonagem = new Button();
             btnBuscar = new Button();
             btnFiltrarPersonagem = new Button();
             lblTotalPersonagens = new Label();
             AbaHabilidade = new TabPage();
+            button1 = new Button();
             btnEditarHabilidade = new Button();
             btnRemoverHabilidade = new Button();
             lblTotalHabilidades = new Label();
@@ -65,8 +67,6 @@ namespace Cod3rsGrowth.Forms
             btnBuscarHabilidade = new Button();
             txtboxFiltroHabilidadeNome = new TextBox();
             fbCommand1 = new FirebirdSql.Data.FirebirdClient.FbCommand();
-            button1 = new Button();
-            button2 = new Button();
             ((System.ComponentModel.ISupportInitialize)tabelaPersonagens).BeginInit();
             ((System.ComponentModel.ISupportInitialize)personagemBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)personagemServicoBindingSource1).BeginInit();
@@ -170,6 +170,7 @@ namespace Cod3rsGrowth.Forms
             // 
             // txtboxFiltroPersonagemNome
             // 
+            txtboxFiltroPersonagemNome.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             txtboxFiltroPersonagemNome.ForeColor = SystemColors.WindowFrame;
             txtboxFiltroPersonagemNome.Location = new Point(408, 6);
             txtboxFiltroPersonagemNome.Name = "txtboxFiltroPersonagemNome";
@@ -207,6 +208,16 @@ namespace Cod3rsGrowth.Forms
             AbaPersonagem.Text = "Personagens";
             AbaPersonagem.UseVisualStyleBackColor = true;
             // 
+            // button2
+            // 
+            button2.Location = new Point(8, 6);
+            button2.Name = "button2";
+            button2.Size = new Size(75, 23);
+            button2.TabIndex = 13;
+            button2.Text = "Adicionar";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += AoClicarEmAdicionarPersonagem;
+            // 
             // btnEditarPersonagem
             // 
             btnEditarPersonagem.Location = new Point(89, 6);
@@ -229,6 +240,7 @@ namespace Cod3rsGrowth.Forms
             // 
             // btnBuscar
             // 
+            btnBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnBuscar.Location = new Point(614, 6);
             btnBuscar.Name = "btnBuscar";
             btnBuscar.Size = new Size(75, 23);
@@ -277,6 +289,16 @@ namespace Cod3rsGrowth.Forms
             AbaHabilidade.Text = "Habilidades";
             AbaHabilidade.UseVisualStyleBackColor = true;
             // 
+            // button1
+            // 
+            button1.Location = new Point(8, 6);
+            button1.Name = "button1";
+            button1.Size = new Size(75, 23);
+            button1.TabIndex = 8;
+            button1.Text = "Adicionar";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += AoClicarEmAdicionarHabilidade;
+            // 
             // btnEditarHabilidade
             // 
             btnEditarHabilidade.Location = new Point(89, 6);
@@ -315,12 +337,12 @@ namespace Cod3rsGrowth.Forms
             tabelaHabilidades.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabelaHabilidades.AutoGenerateColumns = false;
             tabelaHabilidades.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCellStyle3.BackColor = SystemColors.Control;
-            dataGridViewCellStyle3.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
-            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            tabelaHabilidades.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.BackColor = SystemColors.Control;
+            dataGridViewCellStyle1.Font = new Font("Segoe UI", 9F, FontStyle.Regular, GraphicsUnit.Point);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            tabelaHabilidades.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             tabelaHabilidades.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tabelaHabilidades.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn1, nomeDataGridViewTextBoxColumn1, descricaoDataGridViewTextBoxColumn });
             tabelaHabilidades.DataSource = habilidadeBindingSource;
@@ -374,6 +396,7 @@ namespace Cod3rsGrowth.Forms
             // 
             // btnBuscarHabilidade
             // 
+            btnBuscarHabilidade.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnBuscarHabilidade.Location = new Point(614, 6);
             btnBuscarHabilidade.Name = "btnBuscarHabilidade";
             btnBuscarHabilidade.Size = new Size(75, 23);
@@ -384,6 +407,7 @@ namespace Cod3rsGrowth.Forms
             // 
             // txtboxFiltroHabilidadeNome
             // 
+            txtboxFiltroHabilidadeNome.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             txtboxFiltroHabilidadeNome.ForeColor = SystemColors.WindowFrame;
             txtboxFiltroHabilidadeNome.Location = new Point(408, 6);
             txtboxFiltroHabilidadeNome.Name = "txtboxFiltroHabilidadeNome";
@@ -391,26 +415,6 @@ namespace Cod3rsGrowth.Forms
             txtboxFiltroHabilidadeNome.Size = new Size(200, 23);
             txtboxFiltroHabilidadeNome.TabIndex = 1;
             txtboxFiltroHabilidadeNome.KeyDown += AoDigitarEnterEmFiltroNomeAtualizaFiltroHabilidade;
-            // 
-            // button1
-            // 
-            button1.Location = new Point(8, 6);
-            button1.Name = "button1";
-            button1.Size = new Size(75, 23);
-            button1.TabIndex = 8;
-            button1.Text = "Adicionar";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += AoClicarEmAdicionarHabilidade;
-            // 
-            // button2
-            // 
-            button2.Location = new Point(8, 6);
-            button2.Name = "button2";
-            button2.Size = new Size(75, 23);
-            button2.TabIndex = 13;
-            button2.Text = "Adicionar";
-            button2.UseVisualStyleBackColor = true;
-            button2.Click += AoClicarEmAdicionarPersonagem;
             // 
             // FormularioPrincipal
             // 

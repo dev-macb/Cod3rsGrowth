@@ -37,6 +37,8 @@ namespace Cod3rsGrowth.Service.Services
                 throw new ValidationException(todosErros);
             }
 
+            // se nome já existe -> excecao
+
             await _habilidadeRepositorio.Adicionar(habilidade);
         }
 
