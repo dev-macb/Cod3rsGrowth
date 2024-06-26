@@ -17,11 +17,11 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ObterTodos()
+        public async Task<IActionResult> ObterTodos([FromQuery]Filtro? filtro)
         {
             try
             {
-                var todasHabilidades = await _habilidadeServico.ObterTodos(null);
+                var todasHabilidades = await _habilidadeServico.ObterTodos(filtro);
                 return Ok(todasHabilidades);
             }
             catch (Exception excecao) 
