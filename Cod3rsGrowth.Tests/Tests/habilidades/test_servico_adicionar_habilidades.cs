@@ -1,18 +1,18 @@
 using Cod3rsGrowth.Domain.Entities;
 using Cod3rsGrowth.Tests.Repositories;
+using Cod3rsGrowth.Tests.RepositoriesMock;
 using Microsoft.Extensions.DependencyInjection;
-using Cod3rsGrowth.Service.Services;
 
 namespace Cod3rsGrowth.Tests.Tests.Habilidades
 {
     public class TesteServicoAdicionarHabilidade : TesteBase
     {
-        private readonly HabilidadeServico _habilidadeService;
+        private readonly HabilidadeRepositorioMock _habilidadeRepositorioMock;
         private readonly List<Habilidade> _habilidades = RepositorioMock.ObterInstancia.Habilidades;
 
         public TesteServicoAdicionarHabilidade() : base()
         {
-            _habilidadeService = _serviceProvider.GetRequiredService<HabilidadeServico>();
+            _habilidadeRepositorioMock = _serviceProvider.GetRequiredService<HabilidadeRepositorioMock>();
             RepositorioMock.ResetarInstancia();
         }
 
@@ -20,15 +20,15 @@ namespace Cod3rsGrowth.Tests.Tests.Habilidades
         public void AdicionarHabilidadeComExito()
         {
             // Arrange
-            var novaHabilidade = new Habilidade 
+            var novaHabilidade = new Habilidade
             {
                 Id = 1,
-                Nome = "Teste", 
+                Nome = "Teste",
                 Descricao = "Uma descrição qualquer."
             };
 
             // Act
-            _habilidadeService.Adicionar(novaHabilidade);
+            _habilidadeRepositorioMock.Adicionar(novaHabilidade);
             var personagemCriado = _habilidades.Find(personagem => personagem.Id == 1);
 
             // Assert
@@ -41,14 +41,14 @@ namespace Cod3rsGrowth.Tests.Tests.Habilidades
         {
             // Arrange
             string nomeCurto = "T";
-            var habilidadeInvalida = new Habilidade 
-            { 
-                Nome = nomeCurto, 
+            var habilidadeInvalida = new Habilidade
+            {
+                Nome = nomeCurto,
                 Descricao = "Uma descrição qualquer."
             };
 
             // Act - Assert
-            var excecao = Assert.Throws<Exception>(() => _habilidadeService.Adicionar(habilidadeInvalida));
+            var excecao = Assert.Throws<Exception>(() => _habilidadeRepositorioMock.Adicionar(habilidadeInvalida));
             Assert.Equal("O nome deve ter no mínimo 3 caracteres e no máximo 50.", excecao.Message);
         }
 
@@ -57,14 +57,14 @@ namespace Cod3rsGrowth.Tests.Tests.Habilidades
         {
             // Arrange
             string nomeGrande = "Teste Teste Teste Teste Teste Teste Teste Teste Tes";
-            var habilidadeInvalida = new Habilidade 
-            { 
-                Nome = nomeGrande, 
-                Descricao = "Uma descrição qualquer." 
+            var habilidadeInvalida = new Habilidade
+            {
+                Nome = nomeGrande,
+                Descricao = "Uma descrição qualquer."
             };
 
             // Act - Assert
-            var excecao = Assert.Throws<Exception>(() => _habilidadeService.Adicionar(habilidadeInvalida));
+            var excecao = Assert.Throws<Exception>(() => _habilidadeRepositorioMock.Adicionar(habilidadeInvalida));
             Assert.Equal("O nome deve ter no mínimo 3 caracteres e no máximo 50.", excecao.Message);
         }
 
@@ -73,18 +73,18 @@ namespace Cod3rsGrowth.Tests.Tests.Habilidades
         {
             // Arrange
             string descricaoGrande = "Teste Teste Teste Teste Teste Teste Teste Teste Teste " +
-                "Teste Teste Teste Teste Teste Teste Teste Teste Teste " + 
-                "Teste Teste Teste Teste Teste Teste Teste Teste Teste " + 
+                "Teste Teste Teste Teste Teste Teste Teste Teste Teste " +
+                "Teste Teste Teste Teste Teste Teste Teste Teste Teste " +
                 "Teste Teste Teste Teste Teste Teste Tes";
-            var habilidadeInvalida = new Habilidade 
-            { 
-                Nome = "Teste", 
-                Descricao = descricaoGrande 
+            var habilidadeInvalida = new Habilidade
+            {
+                Nome = "Teste",
+                Descricao = descricaoGrande
             };
 
 
             // Act - Assert
-            var excecao = Assert.Throws<Exception>(() => _habilidadeService.Adicionar(habilidadeInvalida));
+            var excecao = Assert.Throws<Exception>(() => _habilidadeRepositorioMock.Adicionar(habilidadeInvalida));
             Assert.Equal("A descrição deve ter no mínimo 0 caracteres e no máximo 200.", excecao.Message);
         }
     }

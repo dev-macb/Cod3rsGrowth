@@ -1,21 +1,12 @@
 ﻿using Cod3rsGrowth.Domain.Entities;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace Cod3rsGrowth.Forms.Forms
 {
     public partial class FormularioFiltros : Form
     {
         private Filtro? _filtroAtual;
-        private readonly DateTime _dataBasePadrao = DateTime.Today.AddDays(-1);
-        private readonly DateTime _dataTetoPadrao = DateTime.Today.AddDays(1);
+        private readonly DateTime _dataBasePadrao = DateTime.Today;
+        private readonly DateTime _dataTetoPadrao = DateTime.Today;
 
         public FormularioFiltros(Filtro filtro)
         {
@@ -28,8 +19,8 @@ namespace Cod3rsGrowth.Forms.Forms
             if (_filtroAtual == null) return new Filtro();
 
             _filtroAtual.EVilao = radioVilao.Checked;
-            _filtroAtual.DataBase = datetimeFiltroDataBase.Value;
-            _filtroAtual.DataTeto = datetimeFiltroDataTeto.Value;
+            _filtroAtual.DataBase = datetimeFiltroDataBase.Value.AddDays(-1);
+            _filtroAtual.DataTeto = datetimeFiltroDataTeto.Value.AddDays(1);
 
             return _filtroAtual;
         }

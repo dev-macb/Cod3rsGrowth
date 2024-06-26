@@ -1,9 +1,9 @@
-using Cod3rsGrowth.Domain.Entities;
-using Cod3rsGrowth.Domain.Interfaces;
+﻿using Cod3rsGrowth.Domain.Entities;
+using Cod3rsGrowth.Tests.RepositoriesMock;
 
 namespace Cod3rsGrowth.Tests.Repositories
 {
-    public class HabilidadeRepositorio : IRepositorio<Habilidade>
+    public class HabilidadeRepositorioMock
     {
         private readonly List<Habilidade> _habilidades = RepositorioMock.ObterInstancia.Habilidades;
 
@@ -35,7 +35,7 @@ namespace Cod3rsGrowth.Tests.Repositories
         public void Deletar(int id)
         {
             var habilidadeExistente = _habilidades.Find(habilidade => habilidade.Id == id) ?? throw new Exception("Habilidade não encontrada.");
-            
+
             _habilidades.Remove(habilidadeExistente);
         }
     }

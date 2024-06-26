@@ -32,14 +32,6 @@ namespace Cod3rsGrowth.Forms
         {
             components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            menuSuperior = new MenuStrip();
-            menuSuperiorAplicacao = new ToolStripMenuItem();
-            menuSuperiorAplicacaoCadastro = new ToolStripMenuItem();
-            menuSuperiorCadastroPersonagem = new ToolStripMenuItem();
-            menuSuperiorCadastroHabilidade = new ToolStripMenuItem();
-            toolStripSeparator1 = new ToolStripSeparator();
-            menuSuperiorAplicacaoSair = new ToolStripMenuItem();
-            txtboxFiltroPersonagemId = new TextBox();
             tabelaPersonagens = new DataGridView();
             idDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
             nomeDataGridViewTextBoxColumn = new DataGridViewTextBoxColumn();
@@ -53,14 +45,16 @@ namespace Cod3rsGrowth.Forms
             txtboxFiltroPersonagemNome = new TextBox();
             personagemServicoBindingSource1 = new BindingSource(components);
             personagemServicoBindingSource = new BindingSource(components);
-            AbasInicio = new TabControl();
+            AbasListagem = new TabControl();
             AbaPersonagem = new TabPage();
+            button2 = new Button();
             btnEditarPersonagem = new Button();
             btnRemoverPersonagem = new Button();
             btnBuscar = new Button();
             btnFiltrarPersonagem = new Button();
             lblTotalPersonagens = new Label();
             AbaHabilidade = new TabPage();
+            button1 = new Button();
             btnEditarHabilidade = new Button();
             btnRemoverHabilidade = new Button();
             lblTotalHabilidades = new Label();
@@ -72,96 +66,37 @@ namespace Cod3rsGrowth.Forms
             btnFiltrarHabilidade = new Button();
             btnBuscarHabilidade = new Button();
             txtboxFiltroHabilidadeNome = new TextBox();
-            txtboxFiltroHabilidadeId = new TextBox();
             fbCommand1 = new FirebirdSql.Data.FirebirdClient.FbCommand();
-            menuSuperior.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tabelaPersonagens).BeginInit();
             ((System.ComponentModel.ISupportInitialize)personagemBindingSource).BeginInit();
             ((System.ComponentModel.ISupportInitialize)personagemServicoBindingSource1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)personagemServicoBindingSource).BeginInit();
-            AbasInicio.SuspendLayout();
+            AbasListagem.SuspendLayout();
             AbaPersonagem.SuspendLayout();
             AbaHabilidade.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)tabelaHabilidades).BeginInit();
             ((System.ComponentModel.ISupportInitialize)habilidadeBindingSource).BeginInit();
             SuspendLayout();
             // 
-            // menuSuperior
-            // 
-            menuSuperior.Items.AddRange(new ToolStripItem[] { menuSuperiorAplicacao });
-            menuSuperior.Location = new Point(0, 0);
-            menuSuperior.Name = "menuSuperior";
-            menuSuperior.Size = new Size(784, 24);
-            menuSuperior.TabIndex = 0;
-            menuSuperior.Text = "menuStrip1";
-            // 
-            // menuSuperiorAplicacao
-            // 
-            menuSuperiorAplicacao.DropDownItems.AddRange(new ToolStripItem[] { menuSuperiorAplicacaoCadastro, toolStripSeparator1, menuSuperiorAplicacaoSair });
-            menuSuperiorAplicacao.Name = "menuSuperiorAplicacao";
-            menuSuperiorAplicacao.Size = new Size(71, 20);
-            menuSuperiorAplicacao.Text = "Aplicação";
-            // 
-            // menuSuperiorAplicacaoCadastro
-            // 
-            menuSuperiorAplicacaoCadastro.DropDownItems.AddRange(new ToolStripItem[] { menuSuperiorCadastroPersonagem, menuSuperiorCadastroHabilidade });
-            menuSuperiorAplicacaoCadastro.Name = "menuSuperiorAplicacaoCadastro";
-            menuSuperiorAplicacaoCadastro.Size = new Size(180, 22);
-            menuSuperiorAplicacaoCadastro.Text = "Cadastro";
-            // 
-            // menuSuperiorCadastroPersonagem
-            // 
-            menuSuperiorCadastroPersonagem.Name = "menuSuperiorCadastroPersonagem";
-            menuSuperiorCadastroPersonagem.Size = new Size(180, 22);
-            menuSuperiorCadastroPersonagem.Text = "Personagem";
-            menuSuperiorCadastroPersonagem.Click += AoClicarEmMenuSuperiorCadastroPersonagemAbreFormularioCadastroPersonagem;
-            // 
-            // menuSuperiorCadastroHabilidade
-            // 
-            menuSuperiorCadastroHabilidade.Name = "menuSuperiorCadastroHabilidade";
-            menuSuperiorCadastroHabilidade.Size = new Size(180, 22);
-            menuSuperiorCadastroHabilidade.Text = "Habilidade";
-            menuSuperiorCadastroHabilidade.Click += AoClicarEmMenuSuperiorCadastroHabilidadeAbreFormularioCadastroHabilidade;
-            // 
-            // toolStripSeparator1
-            // 
-            toolStripSeparator1.Name = "toolStripSeparator1";
-            toolStripSeparator1.Size = new Size(177, 6);
-            // 
-            // menuSuperiorAplicacaoSair
-            // 
-            menuSuperiorAplicacaoSair.Name = "menuSuperiorAplicacaoSair";
-            menuSuperiorAplicacaoSair.Size = new Size(180, 22);
-            menuSuperiorAplicacaoSair.Text = "Sair";
-            menuSuperiorAplicacaoSair.Click += AoClicarEmMenuSuperiorSairFechaFormularioPrincipal;
-            // 
-            // txtboxFiltroPersonagemId
-            // 
-            txtboxFiltroPersonagemId.ForeColor = SystemColors.WindowFrame;
-            txtboxFiltroPersonagemId.Location = new Point(8, 6);
-            txtboxFiltroPersonagemId.Name = "txtboxFiltroPersonagemId";
-            txtboxFiltroPersonagemId.PlaceholderText = "Id...";
-            txtboxFiltroPersonagemId.Size = new Size(50, 23);
-            txtboxFiltroPersonagemId.TabIndex = 7;
-            txtboxFiltroPersonagemId.KeyDown += txtboxFiltroPersonagemId_KeyDown;
-            // 
             // tabelaPersonagens
             // 
             tabelaPersonagens.AllowUserToAddRows = false;
             tabelaPersonagens.AllowUserToDeleteRows = false;
+            tabelaPersonagens.AllowUserToResizeColumns = false;
+            tabelaPersonagens.AllowUserToResizeRows = false;
             tabelaPersonagens.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabelaPersonagens.AutoGenerateColumns = false;
             tabelaPersonagens.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             tabelaPersonagens.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tabelaPersonagens.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn, nomeDataGridViewTextBoxColumn, vidaDataGridViewTextBoxColumn, energiaDataGridViewTextBoxColumn, velocidadeDataGridViewTextBoxColumn, forcaDataGridViewTextBoxColumn, inteligenciaDataGridViewTextBoxColumn, eVilaoDataGridViewTextBoxColumn });
             tabelaPersonagens.DataSource = personagemBindingSource;
-            tabelaPersonagens.Location = new Point(8, 36);
+            tabelaPersonagens.Location = new Point(8, 35);
             tabelaPersonagens.Name = "tabelaPersonagens";
             tabelaPersonagens.ReadOnly = true;
             tabelaPersonagens.RowHeadersVisible = false;
             tabelaPersonagens.RowTemplate.Height = 25;
             tabelaPersonagens.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tabelaPersonagens.Size = new Size(762, 347);
+            tabelaPersonagens.Size = new Size(760, 374);
             tabelaPersonagens.TabIndex = 6;
             // 
             // idDataGridViewTextBoxColumn
@@ -235,46 +170,57 @@ namespace Cod3rsGrowth.Forms
             // 
             // txtboxFiltroPersonagemNome
             // 
+            txtboxFiltroPersonagemNome.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             txtboxFiltroPersonagemNome.ForeColor = SystemColors.WindowFrame;
-            txtboxFiltroPersonagemNome.Location = new Point(64, 6);
+            txtboxFiltroPersonagemNome.Location = new Point(408, 6);
             txtboxFiltroPersonagemNome.Name = "txtboxFiltroPersonagemNome";
             txtboxFiltroPersonagemNome.PlaceholderText = "Pesquise pelo nome...";
             txtboxFiltroPersonagemNome.Size = new Size(200, 23);
             txtboxFiltroPersonagemNome.TabIndex = 5;
             txtboxFiltroPersonagemNome.KeyDown += AoDigitarEnterEmFiltroNomeAtualizaFiltroPersonagem;
             // 
-            // AbasInicio
+            // AbasListagem
             // 
-            AbasInicio.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            AbasInicio.Controls.Add(AbaPersonagem);
-            AbasInicio.Controls.Add(AbaHabilidade);
-            AbasInicio.Location = new Point(0, 27);
-            AbasInicio.Name = "AbasInicio";
-            AbasInicio.SelectedIndex = 0;
-            AbasInicio.Size = new Size(784, 434);
-            AbasInicio.TabIndex = 8;
+            AbasListagem.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            AbasListagem.Controls.Add(AbaPersonagem);
+            AbasListagem.Controls.Add(AbaHabilidade);
+            AbasListagem.Location = new Point(0, 0);
+            AbasListagem.Name = "AbasListagem";
+            AbasListagem.SelectedIndex = 0;
+            AbasListagem.Size = new Size(785, 460);
+            AbasListagem.TabIndex = 8;
             // 
             // AbaPersonagem
             // 
+            AbaPersonagem.Controls.Add(button2);
             AbaPersonagem.Controls.Add(btnEditarPersonagem);
             AbaPersonagem.Controls.Add(btnRemoverPersonagem);
             AbaPersonagem.Controls.Add(btnBuscar);
             AbaPersonagem.Controls.Add(btnFiltrarPersonagem);
             AbaPersonagem.Controls.Add(lblTotalPersonagens);
             AbaPersonagem.Controls.Add(txtboxFiltroPersonagemNome);
-            AbaPersonagem.Controls.Add(txtboxFiltroPersonagemId);
             AbaPersonagem.Controls.Add(tabelaPersonagens);
             AbaPersonagem.Location = new Point(4, 24);
             AbaPersonagem.Name = "AbaPersonagem";
             AbaPersonagem.Padding = new Padding(3);
-            AbaPersonagem.Size = new Size(776, 406);
+            AbaPersonagem.Size = new Size(777, 432);
             AbaPersonagem.TabIndex = 0;
             AbaPersonagem.Text = "Personagens";
             AbaPersonagem.UseVisualStyleBackColor = true;
             // 
+            // button2
+            // 
+            button2.Location = new Point(8, 6);
+            button2.Name = "button2";
+            button2.Size = new Size(75, 23);
+            button2.TabIndex = 13;
+            button2.Text = "Adicionar";
+            button2.UseVisualStyleBackColor = true;
+            button2.Click += AoClicarEmAdicionarPersonagem;
+            // 
             // btnEditarPersonagem
             // 
-            btnEditarPersonagem.Location = new Point(351, 6);
+            btnEditarPersonagem.Location = new Point(89, 6);
             btnEditarPersonagem.Name = "btnEditarPersonagem";
             btnEditarPersonagem.Size = new Size(75, 23);
             btnEditarPersonagem.TabIndex = 12;
@@ -284,7 +230,7 @@ namespace Cod3rsGrowth.Forms
             // 
             // btnRemoverPersonagem
             // 
-            btnRemoverPersonagem.Location = new Point(432, 6);
+            btnRemoverPersonagem.Location = new Point(170, 6);
             btnRemoverPersonagem.Name = "btnRemoverPersonagem";
             btnRemoverPersonagem.Size = new Size(75, 23);
             btnRemoverPersonagem.TabIndex = 11;
@@ -294,7 +240,8 @@ namespace Cod3rsGrowth.Forms
             // 
             // btnBuscar
             // 
-            btnBuscar.Location = new Point(270, 6);
+            btnBuscar.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnBuscar.Location = new Point(614, 6);
             btnBuscar.Name = "btnBuscar";
             btnBuscar.Size = new Size(75, 23);
             btnBuscar.TabIndex = 10;
@@ -305,7 +252,7 @@ namespace Cod3rsGrowth.Forms
             // btnFiltrarPersonagem
             // 
             btnFiltrarPersonagem.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnFiltrarPersonagem.Location = new Point(695, 6);
+            btnFiltrarPersonagem.Location = new Point(693, 6);
             btnFiltrarPersonagem.Name = "btnFiltrarPersonagem";
             btnFiltrarPersonagem.Size = new Size(75, 23);
             btnFiltrarPersonagem.TabIndex = 9;
@@ -318,7 +265,7 @@ namespace Cod3rsGrowth.Forms
             lblTotalPersonagens.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             lblTotalPersonagens.AutoSize = true;
             lblTotalPersonagens.ForeColor = SystemColors.ControlDarkDark;
-            lblTotalPersonagens.Location = new Point(6, 386);
+            lblTotalPersonagens.Location = new Point(6, 413);
             lblTotalPersonagens.Name = "lblTotalPersonagens";
             lblTotalPersonagens.Size = new Size(47, 15);
             lblTotalPersonagens.TabIndex = 8;
@@ -326,6 +273,7 @@ namespace Cod3rsGrowth.Forms
             // 
             // AbaHabilidade
             // 
+            AbaHabilidade.Controls.Add(button1);
             AbaHabilidade.Controls.Add(btnEditarHabilidade);
             AbaHabilidade.Controls.Add(btnRemoverHabilidade);
             AbaHabilidade.Controls.Add(lblTotalHabilidades);
@@ -333,18 +281,27 @@ namespace Cod3rsGrowth.Forms
             AbaHabilidade.Controls.Add(btnFiltrarHabilidade);
             AbaHabilidade.Controls.Add(btnBuscarHabilidade);
             AbaHabilidade.Controls.Add(txtboxFiltroHabilidadeNome);
-            AbaHabilidade.Controls.Add(txtboxFiltroHabilidadeId);
             AbaHabilidade.Location = new Point(4, 24);
             AbaHabilidade.Name = "AbaHabilidade";
             AbaHabilidade.Padding = new Padding(3);
-            AbaHabilidade.Size = new Size(776, 406);
+            AbaHabilidade.Size = new Size(777, 432);
             AbaHabilidade.TabIndex = 1;
             AbaHabilidade.Text = "Habilidades";
             AbaHabilidade.UseVisualStyleBackColor = true;
             // 
+            // button1
+            // 
+            button1.Location = new Point(8, 6);
+            button1.Name = "button1";
+            button1.Size = new Size(75, 23);
+            button1.TabIndex = 8;
+            button1.Text = "Adicionar";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += AoClicarEmAdicionarHabilidade;
+            // 
             // btnEditarHabilidade
             // 
-            btnEditarHabilidade.Location = new Point(351, 6);
+            btnEditarHabilidade.Location = new Point(89, 6);
             btnEditarHabilidade.Name = "btnEditarHabilidade";
             btnEditarHabilidade.Size = new Size(75, 23);
             btnEditarHabilidade.TabIndex = 7;
@@ -354,7 +311,7 @@ namespace Cod3rsGrowth.Forms
             // 
             // btnRemoverHabilidade
             // 
-            btnRemoverHabilidade.Location = new Point(432, 6);
+            btnRemoverHabilidade.Location = new Point(170, 6);
             btnRemoverHabilidade.Name = "btnRemoverHabilidade";
             btnRemoverHabilidade.Size = new Size(75, 23);
             btnRemoverHabilidade.TabIndex = 6;
@@ -367,7 +324,7 @@ namespace Cod3rsGrowth.Forms
             lblTotalHabilidades.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             lblTotalHabilidades.AutoSize = true;
             lblTotalHabilidades.ForeColor = SystemColors.ControlDarkDark;
-            lblTotalHabilidades.Location = new Point(6, 386);
+            lblTotalHabilidades.Location = new Point(8, 413);
             lblTotalHabilidades.Name = "lblTotalHabilidades";
             lblTotalHabilidades.Size = new Size(47, 15);
             lblTotalHabilidades.TabIndex = 5;
@@ -389,13 +346,13 @@ namespace Cod3rsGrowth.Forms
             tabelaHabilidades.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             tabelaHabilidades.Columns.AddRange(new DataGridViewColumn[] { idDataGridViewTextBoxColumn1, nomeDataGridViewTextBoxColumn1, descricaoDataGridViewTextBoxColumn });
             tabelaHabilidades.DataSource = habilidadeBindingSource;
-            tabelaHabilidades.Location = new Point(8, 36);
+            tabelaHabilidades.Location = new Point(8, 35);
             tabelaHabilidades.Name = "tabelaHabilidades";
             tabelaHabilidades.ReadOnly = true;
             tabelaHabilidades.RowHeadersVisible = false;
             tabelaHabilidades.RowTemplate.Height = 25;
             tabelaHabilidades.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            tabelaHabilidades.Size = new Size(762, 347);
+            tabelaHabilidades.Size = new Size(760, 374);
             tabelaHabilidades.TabIndex = 4;
             // 
             // idDataGridViewTextBoxColumn1
@@ -429,7 +386,7 @@ namespace Cod3rsGrowth.Forms
             // btnFiltrarHabilidade
             // 
             btnFiltrarHabilidade.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnFiltrarHabilidade.Location = new Point(695, 6);
+            btnFiltrarHabilidade.Location = new Point(693, 6);
             btnFiltrarHabilidade.Name = "btnFiltrarHabilidade";
             btnFiltrarHabilidade.Size = new Size(75, 23);
             btnFiltrarHabilidade.TabIndex = 3;
@@ -439,7 +396,8 @@ namespace Cod3rsGrowth.Forms
             // 
             // btnBuscarHabilidade
             // 
-            btnBuscarHabilidade.Location = new Point(270, 6);
+            btnBuscarHabilidade.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            btnBuscarHabilidade.Location = new Point(614, 6);
             btnBuscarHabilidade.Name = "btnBuscarHabilidade";
             btnBuscarHabilidade.Size = new Size(75, 23);
             btnBuscarHabilidade.TabIndex = 2;
@@ -449,42 +407,30 @@ namespace Cod3rsGrowth.Forms
             // 
             // txtboxFiltroHabilidadeNome
             // 
+            txtboxFiltroHabilidadeNome.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             txtboxFiltroHabilidadeNome.ForeColor = SystemColors.WindowFrame;
-            txtboxFiltroHabilidadeNome.Location = new Point(64, 6);
+            txtboxFiltroHabilidadeNome.Location = new Point(408, 6);
             txtboxFiltroHabilidadeNome.Name = "txtboxFiltroHabilidadeNome";
             txtboxFiltroHabilidadeNome.PlaceholderText = "Pesquise pelo nome...";
             txtboxFiltroHabilidadeNome.Size = new Size(200, 23);
             txtboxFiltroHabilidadeNome.TabIndex = 1;
             txtboxFiltroHabilidadeNome.KeyDown += AoDigitarEnterEmFiltroNomeAtualizaFiltroHabilidade;
             // 
-            // txtboxFiltroHabilidadeId
-            // 
-            txtboxFiltroHabilidadeId.ForeColor = SystemColors.WindowFrame;
-            txtboxFiltroHabilidadeId.Location = new Point(8, 6);
-            txtboxFiltroHabilidadeId.Name = "txtboxFiltroHabilidadeId";
-            txtboxFiltroHabilidadeId.PlaceholderText = "Id...";
-            txtboxFiltroHabilidadeId.Size = new Size(50, 23);
-            txtboxFiltroHabilidadeId.TabIndex = 0;
-            // 
             // FormularioPrincipal
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(784, 461);
-            Controls.Add(AbasInicio);
-            Controls.Add(menuSuperior);
-            MainMenuStrip = menuSuperior;
+            Controls.Add(AbasListagem);
             Name = "FormularioPrincipal";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Coder's Growth";
             Load += CarregarFormularioPrincipal;
-            menuSuperior.ResumeLayout(false);
-            menuSuperior.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)tabelaPersonagens).EndInit();
             ((System.ComponentModel.ISupportInitialize)personagemBindingSource).EndInit();
             ((System.ComponentModel.ISupportInitialize)personagemServicoBindingSource1).EndInit();
             ((System.ComponentModel.ISupportInitialize)personagemServicoBindingSource).EndInit();
-            AbasInicio.ResumeLayout(false);
+            AbasListagem.ResumeLayout(false);
             AbaPersonagem.ResumeLayout(false);
             AbaPersonagem.PerformLayout();
             AbaHabilidade.ResumeLayout(false);
@@ -492,32 +438,21 @@ namespace Cod3rsGrowth.Forms
             ((System.ComponentModel.ISupportInitialize)tabelaHabilidades).EndInit();
             ((System.ComponentModel.ISupportInitialize)habilidadeBindingSource).EndInit();
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
-
-        private MenuStrip menuSuperior;
-        private ToolStripMenuItem menuSuperiorAplicacao;
         private TextBox txtboxFiltroPersonagemNome;
         private DataGridView tabelaPersonagens;
         private BindingSource personagemServicoBindingSource;
         private BindingSource personagemServicoBindingSource1;
         private BindingSource personagemBindingSource;
-        private ToolStripMenuItem menuSuperiorAplicacaoCadastro;
-        private ToolStripSeparator toolStripSeparator1;
-        private ToolStripMenuItem menuSuperiorAplicacaoSair;
-        private TextBox txtboxFiltroPersonagemId;
-        private TabControl AbasInicio;
+        private TabControl AbasListagem;
         private TabPage AbaPersonagem;
         private TabPage AbaHabilidade;
-        private ToolStripMenuItem menuSuperiorCadastroPersonagem;
-        private ToolStripMenuItem menuSuperiorCadastroHabilidade;
         private Label lblTotalPersonagens;
         private Button btnFiltrarHabilidade;
         private Button btnBuscarHabilidade;
         private TextBox txtboxFiltroHabilidadeNome;
-        private TextBox txtboxFiltroHabilidadeId;
         private Button btnFiltrarPersonagem;
         private Label lblTotalHabilidades;
         private DataGridView tabelaHabilidades;
@@ -539,5 +474,7 @@ namespace Cod3rsGrowth.Forms
         private Button btnRemoverPersonagem;
         private Button btnEditarPersonagem;
         private Button btnEditarHabilidade;
+        private Button button2;
+        private Button button1;
     }
 }

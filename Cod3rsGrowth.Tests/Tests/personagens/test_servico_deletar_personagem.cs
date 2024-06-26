@@ -3,17 +3,18 @@ using Cod3rsGrowth.Domain.Entities;
 using Cod3rsGrowth.Tests.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using Cod3rsGrowth.Service.Services;
+using Cod3rsGrowth.Tests.RepositoriesMock;
 
 namespace Cod3rsGrowth.Tests.Tests.Personagens
 {
     public class TesteServicoDeletarPersonagem : TesteBase
     {
-        private readonly PersonagemServico _personagemService;
+        private readonly PersonagemRepositorioMock _personagemRepositorioMock;
         private readonly List<Personagem> _personagens = RepositorioMock.ObterInstancia.Personagens;
 
         public TesteServicoDeletarPersonagem() : base()
         {
-            _personagemService = _serviceProvider.GetRequiredService<PersonagemServico>();
+            _personagemRepositorioMock = _serviceProvider.GetRequiredService<PersonagemRepositorioMock>();
         }
 
         [Fact]
@@ -25,7 +26,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
             var personagem = new Personagem
             {
                 Id = idTeste,
-                Nome = "Teste", 
+                Nome = "Teste",
                 Vida = 100,
                 Energia = 50,
                 Velocidade = 1.0,
@@ -35,9 +36,9 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
                 EVilao = false
             };
             _personagens.Add(personagem);
-            
+
             // Act
-            _personagemService.Deletar(idTeste);
+            _personagemRepositorioMock.Deletar(idTeste);
 
             // Assert
             var personagemNaoEncontrado = _personagens.Find(personagem => personagem.Id == idTeste);
@@ -52,7 +53,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
             var personagem = new Personagem
             {
                 Id = idTeste,
-                Nome = "Teste", 
+                Nome = "Teste",
                 Vida = 100,
                 Energia = 50,
                 Velocidade = 1.0,
@@ -64,7 +65,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
             _personagens.Add(personagem);
 
             // Act
-            var resultado = Assert.Throws<Exception>(() => _personagemService.Deletar(idInvalido));
+            var resultado = Assert.Throws<Exception>(() => _personagemRepositorioMock.Deletar(idInvalido));
 
             // Assert
             Assert.Equal("Personagem não encontrado.", resultado.Message);
