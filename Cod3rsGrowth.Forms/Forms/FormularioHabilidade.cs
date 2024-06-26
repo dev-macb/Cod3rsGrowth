@@ -65,6 +65,7 @@ namespace Cod3rsGrowth.Forms.Forms
         {
             var habilidadeAtualizada = new Habilidade
             {
+                Id = _idHabilidade,
                 Nome = txtboxNome.Text,
                 Descricao = txtboxDescricao.Text,
                 AtualizadoEm = DateTime.Now
