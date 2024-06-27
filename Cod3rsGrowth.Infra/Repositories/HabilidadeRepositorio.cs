@@ -47,7 +47,9 @@ namespace Cod3rsGrowth.Infra.Repositories
 
         public async Task Deletar(int id)
         {
-            await _bancoDeDados.Habilidades.Where(habilidade => habilidade.Id == id).DeleteAsync();
+            await _bancoDeDados.Habilidades
+                .Where(habilidade => habilidade.Id == id)
+                .DeleteAsync();
         }
     }
 }

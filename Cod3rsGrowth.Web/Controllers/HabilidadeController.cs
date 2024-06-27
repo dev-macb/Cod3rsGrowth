@@ -32,7 +32,7 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public async Task<IActionResult> ObterPorId(int id)
+        public async Task<IActionResult> ObterPorId([FromRoute] int id)
         {
             try
             {
@@ -41,6 +41,10 @@ namespace Cod3rsGrowth.Web.Controllers
 
                 return Ok(habilidade);
             }
+            catch (ValidationException excecao)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, excecao.Message);
+            }
             catch (Exception excecao)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, excecao.Message);
@@ -48,13 +52,17 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Adicionar(Habilidade habilidade)
+        public async Task<IActionResult> Adicionar([FromBody] Habilidade habilidade)
         {
             try
             {
                 int idHabilidade = await _habilidadeServico.Adicionar(habilidade);
 
                 return Created("id", idHabilidade);
+            }
+            catch (ValidationException excecao)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, excecao.Message);
             }
             catch (Exception excecao)
             {
@@ -63,7 +71,7 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public async Task<IActionResult> Atualizar(int id, Habilidade habilidade)
+        public async Task<IActionResult> Atualizar([FromRoute] int id, [FromBody] Habilidade habilidade)
         {
             try
             {
@@ -81,12 +89,16 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpDelete("{id:int}")]
-        public async Task<IActionResult> Deletar(int id)
+        public async Task<IActionResult> Deletar([FromRoute] int id)
         {
             try
             {
                 await _habilidadeServico.Deletar(id);
                 return NoContent();
+            }
+            catch (ValidationException excecao)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, excecao.Message);
             }
             catch (Exception excecao)
             {

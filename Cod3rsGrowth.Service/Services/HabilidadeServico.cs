@@ -57,6 +57,9 @@ namespace Cod3rsGrowth.Service.Services
 
         public async Task Deletar(int id)
         {
+            var habilidadeExistente = _habilidadeRepositorio.ObterPorId(id);
+            if (habilidadeExistente.Result == null) throw new ValidationException("Habilidade inexistente");
+
             await _habilidadeRepositorio.Deletar(id);
         }
     }

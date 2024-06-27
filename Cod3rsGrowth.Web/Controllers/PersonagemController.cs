@@ -32,7 +32,7 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpGet("{id:int}")]
-        public async Task<IActionResult> ObterPorId(int id)
+        public async Task<IActionResult> ObterPorId([FromRoute] int id)
         {
             try
             {
@@ -48,7 +48,7 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Adicionar(Personagem personagem)
+        public async Task<IActionResult> Adicionar([FromBody] Personagem personagem)
         {
             try
             {
@@ -63,7 +63,7 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpPut("{id:int}")]
-        public async Task<IActionResult> Atualizar(int id, Personagem personagem)
+        public async Task<IActionResult> Atualizar([FromRoute] int id, [FromBody] Personagem personagem)
         {
             try
             {
@@ -81,7 +81,7 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpDelete("{id:int}")]
-        public async Task<IActionResult> Deletar(int id)
+        public async Task<IActionResult> Deletar([FromRoute] int id)
         {
             try
             {
