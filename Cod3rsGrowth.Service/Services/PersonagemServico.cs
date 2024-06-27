@@ -10,11 +10,13 @@ namespace Cod3rsGrowth.Service.Services
     {
         private readonly PersonagemValidador _personagemValidador;
         private readonly IRepositorio<Personagem> _personagemRepositorio;
+        private readonly IRepositorio<Habilidade> _habilidadeRepositorio;
 
-        public PersonagemServico(IRepositorio<Personagem> repositorioMock, PersonagemValidador validador)
+        public PersonagemServico(IRepositorio<Personagem> personagemRepositorio, IRepositorio<Habilidade> habilidadeRepositorio, PersonagemValidador validador)
         {
             _personagemValidador = validador;
-            _personagemRepositorio = repositorioMock;
+            _personagemRepositorio = personagemRepositorio;
+            _habilidadeRepositorio = habilidadeRepositorio;
         }
 
         public async Task<IEnumerable<Personagem>> ObterTodos(Filtro? filtro)
@@ -37,6 +39,14 @@ namespace Cod3rsGrowth.Service.Services
                 throw new ValidationException(todosErros);
             }
 
+            if (personagem.Habilidades.Any()) {
+                foreach (var idHabilidade in personagem.Habilidades)
+                {
+                    var habilidadeExistente = await _habilidadeRepositorio.ObterPorId(idHabilidade);
+                    if (habilidadeExistente == null) throw new Exception("O id referenciado não existe");
+                }
+            } 
+
             return await _personagemRepositorio.Adicionar(personagem);
         }
 
@@ -56,6 +66,9 @@ namespace Cod3rsGrowth.Service.Services
 
         public async Task Deletar(int id)
         {
+            var personagemExistente = _habilidadeRepositorio.ObterPorId(id);
+            if (personagemExistente.Result == null) throw new ValidationException("Personagem inexistente");
+
             await _personagemRepositorio.Deletar(id);
         }
     }

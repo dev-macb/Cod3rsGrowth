@@ -1,0 +1,109 @@
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Http;
+using Cod3rsGrowth.Domain.Entities;
+using Cod3rsGrowth.Service.Services;
+using FluentValidation;
+
+namespace Cod3rsGrowth.Web.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class HabilidadeController : ControllerBase
+    {
+        private readonly HabilidadeServico _habilidadeServico;
+
+        public HabilidadeController(HabilidadeServico habilidadeServico)
+        {
+            _habilidadeServico = habilidadeServico;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> ObterTodos([FromQuery]Filtro? filtro)
+        {
+            try
+            {
+                var todasHabilidades = await _habilidadeServico.ObterTodos(filtro);
+                return Ok(todasHabilidades);
+            }
+            catch (Exception excecao) 
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, excecao.Message);
+            }
+        }
+
+        [HttpGet("{id:int}")]
+        public async Task<IActionResult> ObterPorId([FromRoute] int id)
+        {
+            try
+            {
+                var habilidade = await _habilidadeServico.ObterPorId(id);
+                if (habilidade == null) return NotFound(id);
+
+                return Ok(habilidade);
+            }
+            catch (ValidationException excecao)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, excecao.Message);
+            }
+            catch (Exception excecao)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, excecao.Message);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Adicionar([FromBody] Habilidade habilidade)
+        {
+            try
+            {
+                int idHabilidade = await _habilidadeServico.Adicionar(habilidade);
+
+                return Created("id", idHabilidade);
+            }
+            catch (ValidationException excecao)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, excecao.Message);
+            }
+            catch (Exception excecao)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, excecao.Message);
+            }
+        }
+
+        [HttpPut("{id:int}")]
+        public async Task<IActionResult> Atualizar([FromRoute] int id, [FromBody] Habilidade habilidade)
+        {
+            try
+            {
+                await _habilidadeServico.Atualizar(id, habilidade);
+                return NoContent();
+            }
+            catch (ValidationException excecao)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, excecao.Message);
+            }
+            catch (Exception excecao)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, excecao.Message);
+            }
+        }
+
+        [HttpDelete("{id:int}")]
+        public async Task<IActionResult> Deletar([FromRoute] int id)
+        {
+            try
+            {
+                await _habilidadeServico.Deletar(id);
+                return NoContent();
+            }
+            catch (ValidationException excecao)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, excecao.Message);
+            }
+            catch (Exception excecao)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, excecao.Message);
+            }
+        }
+    }
+}

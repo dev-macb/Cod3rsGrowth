@@ -27,7 +27,7 @@ namespace Cod3rsGrowth.Service.Services
             return await _habilidadeRepositorio.ObterPorId(id);
         }
 
-        public async Task Adicionar(Habilidade habilidade)
+        public async Task<int> Adicionar(Habilidade habilidade)
         {
             const string separador = "\n";
             ValidationResult resultado = await _habilidadeValidador.ValidateAsync(habilidade);
@@ -37,11 +37,13 @@ namespace Cod3rsGrowth.Service.Services
                 throw new ValidationException(todosErros);
             }
 
-            await _habilidadeRepositorio.Adicionar(habilidade);
+            return await _habilidadeRepositorio.Adicionar(habilidade);
         }
 
         public async Task Atualizar(int id, Habilidade habilidadeAtualizada)
         {
+            habilidadeAtualizada.Id = id;
+
             const string separador = "\n";
             ValidationResult resultado = await _habilidadeValidador.ValidateAsync(habilidadeAtualizada);
             if (!resultado.IsValid)
@@ -55,6 +57,9 @@ namespace Cod3rsGrowth.Service.Services
 
         public async Task Deletar(int id)
         {
+            var habilidadeExistente = _habilidadeRepositorio.ObterPorId(id);
+            if (habilidadeExistente.Result == null) throw new ValidationException("Habilidade inexistente");
+
             await _habilidadeRepositorio.Deletar(id);
         }
     }
