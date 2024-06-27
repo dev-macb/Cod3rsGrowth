@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Cod3rsGrowth.Domain.Entities;
 using Cod3rsGrowth.Service.Services;
+using FluentValidation;
 
 namespace Cod3rsGrowth.Web.Controllers
 {
@@ -17,11 +18,11 @@ namespace Cod3rsGrowth.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> ObterTodos()
+        public async Task<IActionResult> ObterTodos([FromQuery] Filtro? filtro)
         {
             try
             {
-                var todosPersonagens = await _personagemServico.ObterTodos(null);
+                var todosPersonagens = await _personagemServico.ObterTodos(filtro);
                 return Ok(todosPersonagens);
             }
             catch (Exception excecao) 
@@ -68,6 +69,10 @@ namespace Cod3rsGrowth.Web.Controllers
             {
                 await _personagemServico.Atualizar(id, personagem);
                 return NoContent();
+            }
+            catch (ValidationException excecao)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, excecao.Message);
             }
             catch (Exception excecao)
             {

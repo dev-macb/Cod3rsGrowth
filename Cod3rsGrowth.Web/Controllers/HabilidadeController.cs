@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Cod3rsGrowth.Domain.Entities;
 using Cod3rsGrowth.Service.Services;
+using FluentValidation;
 
 namespace Cod3rsGrowth.Web.Controllers
 {
@@ -68,6 +69,10 @@ namespace Cod3rsGrowth.Web.Controllers
             {
                 await _habilidadeServico.Atualizar(id, habilidade);
                 return NoContent();
+            }
+            catch (ValidationException excecao)
+            {
+                return StatusCode(StatusCodes.Status400BadRequest, excecao.Message);
             }
             catch (Exception excecao)
             {
