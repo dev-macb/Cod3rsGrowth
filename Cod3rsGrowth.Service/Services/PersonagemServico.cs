@@ -31,12 +31,12 @@ namespace Cod3rsGrowth.Service.Services
 
         public async Task<int> Adicionar(Personagem personagem)
         {
-            const string separador = "\n";
+            //const string separador = "\n";
             ValidationResult resultado = _personagemValidador.Validate(personagem);
             if (!resultado.IsValid)
             {
-                string todosErros = string.Join(separador, resultado.Errors.Select(erro => erro.ErrorMessage));
-                throw new ValidationException(todosErros);
+                //string todosErros = string.Join(separador, resultado.Errors.Select(erro => erro.ErrorMessage));
+                throw new ValidationException(resultado.Errors);
             }
 
             if (personagem.Habilidades.Any()) {

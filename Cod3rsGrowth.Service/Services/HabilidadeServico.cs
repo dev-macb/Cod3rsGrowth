@@ -29,12 +29,12 @@ namespace Cod3rsGrowth.Service.Services
 
         public async Task<int> Adicionar(Habilidade habilidade)
         {
-            const string separador = "\n";
+            //const string separador = "\n";
             ValidationResult resultado = await _habilidadeValidador.ValidateAsync(habilidade);
             if (!resultado.IsValid)
             {
-                string todosErros = string.Join(separador, resultado.Errors.Select(erro => erro.ErrorMessage));
-                throw new ValidationException(todosErros);
+                //string todosErros = string.Join(separador, resultado.Errors.Select(erro => erro.ErrorMessage));
+                throw new ValidationException(resultado.Errors);
             }
 
             return await _habilidadeRepositorio.Adicionar(habilidade);
@@ -44,12 +44,12 @@ namespace Cod3rsGrowth.Service.Services
         {
             habilidadeAtualizada.Id = id;
 
-            const string separador = "\n";
+            //const string separador = "\n";
             ValidationResult resultado = await _habilidadeValidador.ValidateAsync(habilidadeAtualizada);
             if (!resultado.IsValid)
             {
-                string todosErros = string.Join(separador, resultado.Errors.Select(erro => erro.ErrorMessage));
-                throw new ValidationException(todosErros);
+                //string todosErros = string.Join(separador, resultado.Errors.Select(erro => erro.ErrorMessage));
+                throw new ValidationException(resultado.Errors);
             }
 
             await _habilidadeRepositorio.Atualizar(id, habilidadeAtualizada);

@@ -3,9 +3,6 @@ using Cod3rsGrowth.Infra;
 using Cod3rsGrowth.Service;
 
 
-
-
-
 var construtor = WebApplication.CreateBuilder(args);
 
 string? stringDeConexao = construtor.Configuration.GetConnectionString("ConexaoPadrao");
@@ -27,7 +24,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-
+app.UseProblemDetailsExceptionHandler(app.Services.GetRequiredService<ILoggerFactory>());
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
