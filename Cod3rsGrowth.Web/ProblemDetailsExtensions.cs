@@ -69,7 +69,9 @@ namespace Cod3rsGrowth.Web
                     detalhesDoProblema.Detail = Constantes.VALIDACAO_DETALHE;
                     detalhesDoProblema.Type = Constantes.VALIDACAO_TIPO;
                     detalhesDoProblema.Status = StatusCodes.Status400BadRequest;
-                    detalhesDoProblema.Extensions[Constantes.VALIDACAO_EXTENCOES] = excecaoDeValidacao.Errors;
+                    detalhesDoProblema.Extensions[Constantes.VALIDACAO_EXTENCOES] = excecaoDeValidacao.Errors
+                        .GroupBy(e => e.PropertyName)
+                        .ToDictionary(g => g.Key, g => g.First().ErrorMessage); ;
                     break;
 
                 case Exception excecaoDeSql:
@@ -77,14 +79,14 @@ namespace Cod3rsGrowth.Web
                     detalhesDoProblema.Detail = Constantes.SQL_DETALHE;
                     detalhesDoProblema.Type = Constantes.SQL_TIPO;
                     detalhesDoProblema.Status = StatusCodes.Status400BadRequest;
-                    //detalhesDoProblema.Extensions[Constantes.SQL_EXTENCOES] = excecaoDeSql.Message;
+                    detalhesDoProblema.Extensions[Constantes.SQL_EXTENCOES] = excecaoDeSql.Message;
                     break;
 
                 default:
                     detalhesDoProblema.Title = Constantes.ERRO_INESPERADO_EXTENCOES;
                     detalhesDoProblema.Detail = excecao.Demystify().ToString();
                     detalhesDoProblema.Status = StatusCodes.Status500InternalServerError;
-                    //detalhesDoProblema.Extensions[Constantes.ERRO_INESPERADO_EXTENCOES] = excecao.StackTrace;
+                    detalhesDoProblema.Extensions[Constantes.ERRO_INESPERADO_EXTENCOES] = excecao.StackTrace;
                     break;
             }
             return detalhesDoProblema;

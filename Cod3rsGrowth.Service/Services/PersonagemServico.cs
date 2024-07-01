@@ -43,7 +43,7 @@ namespace Cod3rsGrowth.Service.Services
                 foreach (var idHabilidade in personagem.Habilidades)
                 {
                     var habilidadeExistente = await _habilidadeRepositorio.ObterPorId(idHabilidade);
-                    if (habilidadeExistente == null) throw new Exception("O id referenciado não existe");
+                    if (habilidadeExistente == null) throw new Exception("O id referenciado nas habilidades não existe");
                 }
             } 
 
