@@ -19,6 +19,7 @@ namespace Cod3rsGrowth.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> ObterTodos([FromQuery]Filtro? filtro)
         {
+            // obter todos com filtro
             var todasHabilidades = await _habilidadeServico.ObterTodos(filtro);
             return Ok(todasHabilidades);
         }
