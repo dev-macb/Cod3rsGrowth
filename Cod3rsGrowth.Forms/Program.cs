@@ -2,6 +2,7 @@ using Cod3rsGrowth.Infra;
 using Cod3rsGrowth.Service;
 using Cod3rsGrowth.Service.Services;
 using Microsoft.Extensions.DependencyInjection;
+using System.Configuration;
 
 namespace Cod3rsGrowth.Forms
 {
@@ -12,8 +13,11 @@ namespace Cod3rsGrowth.Forms
         [STAThread]
         static void Main()
         {
+            string? stringDeConexao = ConfigurationManager.ConnectionStrings["ConexaoPadrao"].ConnectionString;
+            if (string.IsNullOrEmpty(stringDeConexao)) throw new Exception("Sem URI do banco");
+
             var colecaoServicos = new ServiceCollection();
-            StartupInfra.Registrar(colecaoServicos);
+            StartupInfra.Registrar(colecaoServicos, stringDeConexao);
             StartupService.Registrar(colecaoServicos);
             _serviceProvider = colecaoServicos.BuildServiceProvider();
 

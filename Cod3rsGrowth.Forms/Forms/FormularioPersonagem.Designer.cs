@@ -359,7 +359,6 @@
         private Label labelCriadoEm;
         private Label labelAtualizadoEm;
         private DataGridViewCheckBoxColumn HabilidadesSelecionadas;
-        private DataGridViewTextBoxColumn idDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn nomeDataGridViewTextBoxColumn;
         private DataGridViewTextBoxColumn descricaoDataGridViewTextBoxColumn;
         private BindingSource habilidadeBindingSource;

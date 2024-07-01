@@ -1,25 +1,31 @@
-var builder = WebApplication.CreateBuilder(args);
+using Cod3rsGrowth.Web;
+using Cod3rsGrowth.Infra;
+using Cod3rsGrowth.Service;
 
-// Add services to the container.
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+var construtor = WebApplication.CreateBuilder(args);
 
-var app = builder.Build();
+string? stringDeConexao = construtor.Configuration.GetConnectionString("ConexaoPadrao");
+if (string.IsNullOrEmpty(stringDeConexao)) throw new Exception("Sem URI do banco");
 
-// Configure the HTTP request pipeline.
+StartupWeb.Registrar(construtor.Services);
+StartupInfra.Registrar(construtor.Services, stringDeConexao);
+StartupService.Registrar(construtor.Services);
+
+var app = construtor.Build();
+
+
+StartupInfra.InicializarBancoDeDados(app.Services);
+
+
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
 
+app.UseProblemDetailsExceptionHandler(app.Services.GetRequiredService<ILoggerFactory>());
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
 app.Run();
