@@ -44,6 +44,7 @@ namespace Cod3rsGrowth.Web.Controllers
         [HttpPut(Constantes.URL_PARAMETRO_ID)]
         public async Task<IActionResult> Atualizar([FromRoute] int id, [FromBody] Personagem personagem)
         {
+            // Atualizar
             await _personagemServico.Atualizar(id, personagem);
             return NoContent();
         }
