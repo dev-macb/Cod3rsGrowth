@@ -36,6 +36,7 @@ namespace Cod3rsGrowth.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Adicionar([FromBody] Personagem personagem)
         {
+            // Criar
             var idPersonagem = await _personagemServico.Adicionar(personagem);
             return Created("id", idPersonagem);
         }
