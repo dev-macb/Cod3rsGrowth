@@ -27,6 +27,7 @@ namespace Cod3rsGrowth.Web.Controllers
         [HttpGet(Constantes.URL_PARAMETRO_ID)]
         public async Task<IActionResult> ObterPorId([FromRoute] int id)
         {
+            // Obter por id
             var habilidade = await _habilidadeServico.ObterPorId(id);
             if (habilidade == null) return NotFound(id);
 
