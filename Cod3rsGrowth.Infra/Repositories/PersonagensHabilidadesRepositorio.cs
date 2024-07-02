@@ -1,6 +1,7 @@
 using LinqToDB;
 using Cod3rsGrowth.Domain.Entities;
 using Cod3rsGrowth.Domain.Interfaces;
+using LinqToDB.SqlQuery;
 
 namespace Cod3rsGrowth.Infra.Repositories
 {

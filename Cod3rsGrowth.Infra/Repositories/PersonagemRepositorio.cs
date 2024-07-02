@@ -1,6 +1,7 @@
 using LinqToDB;
 using Cod3rsGrowth.Domain.Entities;
 using Cod3rsGrowth.Domain.Interfaces;
+using Microsoft.Data.SqlClient;
 
 namespace Cod3rsGrowth.Infra.Repositories
 {
@@ -15,32 +16,13 @@ namespace Cod3rsGrowth.Infra.Repositories
 
         public async Task<IEnumerable<Personagem>> ObterTodos(Filtro? filtro)
         {
-            if (filtro == null)
-            {
-                return await _bancoDeDados.Personagens.ToListAsync();
-            }
+            if (filtro == null) return await _bancoDeDados.Personagens.ToListAsync();
 
             var personagens = _bancoDeDados.Personagens.AsQueryable();
-
-            if (!string.IsNullOrEmpty(filtro.Nome))
-            {
-                personagens = personagens.Where(habilidade => habilidade.Nome.Contains(filtro.Nome, StringComparison.OrdinalIgnoreCase));
-            }
-
-            if (filtro.EVilao.HasValue)
-            {
-                personagens = personagens.Where(habilidade => habilidade.EVilao == filtro.EVilao.Value);
-            }
-
-            if (filtro.DataBase.HasValue)
-            {
-                personagens = personagens.Where(habilidade => habilidade.CriadoEm >= filtro.DataBase.Value);
-            }
-
-            if (filtro.DataTeto.HasValue)
-            {
-                personagens = personagens.Where(habilidade => habilidade.CriadoEm <= filtro.DataTeto.Value);
-            }
+            if (!string.IsNullOrEmpty(filtro.Nome)) personagens = personagens.Where(habilidade => habilidade.Nome.Contains(filtro.Nome, StringComparison.OrdinalIgnoreCase));
+            if (filtro.EVilao.HasValue) personagens = personagens.Where(habilidade => habilidade.EVilao == filtro.EVilao.Value);
+            if (filtro.DataBase.HasValue) personagens = personagens.Where(habilidade => habilidade.CriadoEm >= filtro.DataBase.Value);
+            if (filtro.DataTeto.HasValue) personagens = personagens.Where(habilidade => habilidade.CriadoEm <= filtro.DataTeto.Value);
 
             return await personagens.ToListAsync();
         }

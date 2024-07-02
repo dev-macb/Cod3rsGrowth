@@ -3,6 +3,7 @@ using FluentValidation.Results;
 using Cod3rsGrowth.Domain.Entities;
 using Cod3rsGrowth.Domain.Interfaces;
 using Cod3rsGrowth.Service.Validators;
+using LinqToDB.SqlQuery;
 
 namespace Cod3rsGrowth.Service.Services
 {
@@ -10,11 +11,13 @@ namespace Cod3rsGrowth.Service.Services
     {
         private readonly PersonagemValidador _personagemValidador;
         private readonly IRepositorio<Personagem> _personagemRepositorio;
+        private readonly IRepositorio<Habilidade> _habilidadeRepositorio;
 
-        public PersonagemServico(IRepositorio<Personagem> repositorioMock, PersonagemValidador validador)
+        public PersonagemServico(IRepositorio<Personagem> personagemRepositorio, IRepositorio<Habilidade> habilidadeRepositorio, PersonagemValidador validador)
         {
             _personagemValidador = validador;
-            _personagemRepositorio = repositorioMock;
+            _personagemRepositorio = personagemRepositorio;
+            _habilidadeRepositorio = habilidadeRepositorio;
         }
 
         public async Task<IEnumerable<Personagem>> ObterTodos(Filtro? filtro)
@@ -29,12 +32,12 @@ namespace Cod3rsGrowth.Service.Services
 
         public async Task<int> Adicionar(Personagem personagem)
         {
-            const string separador = "\n";
+            //const string separador = "\n";
             ValidationResult resultado = _personagemValidador.Validate(personagem);
             if (!resultado.IsValid)
             {
-                string todosErros = string.Join(separador, resultado.Errors.Select(erro => erro.ErrorMessage));
-                throw new ValidationException(todosErros);
+                //string todosErros = string.Join(separador, resultado.Errors.Select(erro => erro.ErrorMessage));
+                throw new ValidationException(resultado.Errors);
             }
 
             return await _personagemRepositorio.Adicionar(personagem);
@@ -56,6 +59,9 @@ namespace Cod3rsGrowth.Service.Services
 
         public async Task Deletar(int id)
         {
+            var personagemExistente = _habilidadeRepositorio.ObterPorId(id);
+            if (personagemExistente.Result == null) throw new ValidationException("Personagem inexistente");
+
             await _personagemRepositorio.Deletar(id);
         }
     }
