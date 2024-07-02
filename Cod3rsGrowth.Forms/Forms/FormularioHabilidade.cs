@@ -1,6 +1,7 @@
 ﻿using Cod3rsGrowth.Domain.Entities;
 using Cod3rsGrowth.Service.Services;
 using FluentValidation;
+using System.Windows.Forms;
 
 namespace Cod3rsGrowth.Forms.Forms
 {
@@ -57,7 +58,8 @@ namespace Cod3rsGrowth.Forms.Forms
             }
             catch (ValidationException excecao)
             {
-                MessageBox.Show(excecao.Message, TITULO_DIALOGO_ERRO, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var mensagem = string.Join('\n', excecao.Errors.Select(i => i.ErrorMessage));
+                MessageBox.Show(mensagem, TITULO_DIALOGO_ERRO, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -79,7 +81,8 @@ namespace Cod3rsGrowth.Forms.Forms
             }
             catch (ValidationException excecao)
             {
-                MessageBox.Show(excecao.Message, TITULO_DIALOGO_ERRO, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var mensagem = string.Join('\n', excecao.Errors.Select(i => i.ErrorMessage));
+                MessageBox.Show(mensagem, TITULO_DIALOGO_ERRO, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 

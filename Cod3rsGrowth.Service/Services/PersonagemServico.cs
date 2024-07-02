@@ -3,6 +3,7 @@ using FluentValidation.Results;
 using Cod3rsGrowth.Domain.Entities;
 using Cod3rsGrowth.Domain.Interfaces;
 using Cod3rsGrowth.Service.Validators;
+using LinqToDB.SqlQuery;
 
 namespace Cod3rsGrowth.Service.Services
 {
@@ -38,14 +39,6 @@ namespace Cod3rsGrowth.Service.Services
                 //string todosErros = string.Join(separador, resultado.Errors.Select(erro => erro.ErrorMessage));
                 throw new ValidationException(resultado.Errors);
             }
-
-            if (personagem.Habilidades.Any()) {
-                foreach (var idHabilidade in personagem.Habilidades)
-                {
-                    var habilidadeExistente = await _habilidadeRepositorio.ObterPorId(idHabilidade);
-                    if (habilidadeExistente == null) throw new Exception("O id referenciado nas habilidades não existe");
-                }
-            } 
 
             return await _personagemRepositorio.Adicionar(personagem);
         }
