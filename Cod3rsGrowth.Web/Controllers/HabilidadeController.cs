@@ -53,6 +53,7 @@ namespace Cod3rsGrowth.Web.Controllers
         [HttpDelete(Constantes.URL_PARAMETRO_ID)]
         public async Task<IActionResult> Deletar([FromRoute] int id)
         {
+            // Remover
             await _habilidadeServico.Deletar(id);
             return NoContent();
         }
