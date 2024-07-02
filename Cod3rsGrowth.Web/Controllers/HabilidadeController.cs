@@ -37,6 +37,7 @@ namespace Cod3rsGrowth.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Adicionar([FromBody] Habilidade habilidade)
         {
+            // Adicionar
             int idHabilidade = await _habilidadeServico.Adicionar(habilidade);
             return Created("id", idHabilidade);
         }
