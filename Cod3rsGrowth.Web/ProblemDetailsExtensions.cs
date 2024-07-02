@@ -43,8 +43,8 @@ namespace Cod3rsGrowth.Web
                 {
                     var detalhesDoProblema = new ValidationProblemDetails(contexto.ModelState)
                     {
-                        Title = "Um ou mais erros de validação ocorreram.",
-                        Detail = "O corpo da requisição não está de acordo com o modelo esperado",
+                        Title = Constantes.MODELO_TITULO,
+                        Detail = Constantes.MODELO_DETALHE,
                         Instance = contexto.HttpContext.Request.Path,
                         Status = StatusCodes.Status400BadRequest
                     };
