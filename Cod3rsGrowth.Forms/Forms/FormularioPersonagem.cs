@@ -70,7 +70,8 @@ namespace Cod3rsGrowth.Forms.Forms
             } 
             catch (ValidationException excecao)
             {
-                MessageBox.Show(excecao.Message, TITULO_DIALOGO_ERRO, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var mensagem = string.Join('\n', excecao.Errors.Select(i => i.ErrorMessage));
+                MessageBox.Show(mensagem, TITULO_DIALOGO_ERRO, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
@@ -97,7 +98,8 @@ namespace Cod3rsGrowth.Forms.Forms
             }
             catch (ValidationException excecao)
             {
-                MessageBox.Show(excecao.Message, TITULO_DIALOGO_ERRO, MessageBoxButtons.OK, MessageBoxIcon.Error);
+                var mensagem = string.Join('\n', excecao.Errors.Select(i => i.ErrorMessage));
+                MessageBox.Show(mensagem, TITULO_DIALOGO_ERRO, MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
 
