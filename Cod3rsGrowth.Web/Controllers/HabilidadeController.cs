@@ -19,7 +19,6 @@ namespace Cod3rsGrowth.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> ObterTodos([FromQuery]Filtro? filtro)
         {
-            // obter todos com filtro
             var todasHabilidades = await _habilidadeServico.ObterTodos(filtro);
             return Ok(todasHabilidades);
         }
@@ -27,7 +26,6 @@ namespace Cod3rsGrowth.Web.Controllers
         [HttpGet(Constantes.URL_PARAMETRO_ID)]
         public async Task<IActionResult> ObterPorId([FromRoute] int id)
         {
-            // Obter por id
             var habilidade = await _habilidadeServico.ObterPorId(id);
             if (habilidade == null) return NotFound(id);
 
@@ -37,7 +35,6 @@ namespace Cod3rsGrowth.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Adicionar([FromBody] Habilidade habilidade)
         {
-            // Adicionar
             int idHabilidade = await _habilidadeServico.Adicionar(habilidade);
             return Created("id", idHabilidade);
         }
@@ -45,7 +42,6 @@ namespace Cod3rsGrowth.Web.Controllers
         [HttpPut(Constantes.URL_PARAMETRO_ID)]
         public async Task<IActionResult> Atualizar([FromRoute] int id, [FromBody] Habilidade habilidade)
         {
-            // Atualizar
             await _habilidadeServico.Atualizar(id, habilidade);
             return NoContent();
         }
@@ -53,7 +49,6 @@ namespace Cod3rsGrowth.Web.Controllers
         [HttpDelete(Constantes.URL_PARAMETRO_ID)]
         public async Task<IActionResult> Deletar([FromRoute] int id)
         {
-            // Remover
             await _habilidadeServico.Deletar(id);
             return NoContent();
         }

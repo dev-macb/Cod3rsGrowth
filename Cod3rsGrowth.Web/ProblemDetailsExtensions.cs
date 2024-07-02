@@ -1,8 +1,8 @@
 ﻿using Newtonsoft.Json;
 using FluentValidation;
 using System.Diagnostics;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Diagnostics;
 
 namespace Cod3rsGrowth.Web
@@ -43,9 +43,10 @@ namespace Cod3rsGrowth.Web
                 {
                     var detalhesDoProblema = new ValidationProblemDetails(contexto.ModelState)
                     {
+                        Title = "Um ou mais erros de validação ocorreram.",
+                        Detail = "O corpo da requisição não está de acordo com o modelo esperado",
                         Instance = contexto.HttpContext.Request.Path,
-                        Status = StatusCodes.Status400BadRequest,
-                        Detail = "Please refer to the errors property for additional details"
+                        Status = StatusCodes.Status400BadRequest
                     };
 
                     return new BadRequestObjectResult(detalhesDoProblema)
@@ -66,7 +67,7 @@ namespace Cod3rsGrowth.Web
             {
                 case ValidationException excecaoDeValidacao:
                     detalhesDoProblema.Title = Constantes.VALIDACAO_TITULO;
-                    detalhesDoProblema.Detail = Constantes.VALIDACAO_DETALHE;
+                    detalhesDoProblema.Detail = excecaoDeValidacao.StackTrace;
                     detalhesDoProblema.Type = Constantes.VALIDACAO_TIPO;
                     detalhesDoProblema.Status = StatusCodes.Status400BadRequest;
                     detalhesDoProblema.Extensions[Constantes.VALIDACAO_EXTENCOES] = excecaoDeValidacao.Errors
@@ -74,9 +75,9 @@ namespace Cod3rsGrowth.Web
                         .ToDictionary(g => g.Key, g => g.First().ErrorMessage); ;
                     break;
 
-                case Exception excecaoDeSql:
+                case SqlException excecaoDeSql:
                     detalhesDoProblema.Title = Constantes.SQL_TITULO;
-                    detalhesDoProblema.Detail = Constantes.SQL_DETALHE;
+                    detalhesDoProblema.Detail = excecaoDeSql.StackTrace;
                     detalhesDoProblema.Type = Constantes.SQL_TIPO;
                     detalhesDoProblema.Status = StatusCodes.Status400BadRequest;
                     detalhesDoProblema.Extensions[Constantes.SQL_EXTENCOES] = excecaoDeSql.Message;
