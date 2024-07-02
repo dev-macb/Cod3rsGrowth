@@ -45,6 +45,7 @@ namespace Cod3rsGrowth.Web.Controllers
         [HttpPut(Constantes.URL_PARAMETRO_ID)]
         public async Task<IActionResult> Atualizar([FromRoute] int id, [FromBody] Habilidade habilidade)
         {
+            // Atualizar
             await _habilidadeServico.Atualizar(id, habilidade);
             return NoContent();
         }
