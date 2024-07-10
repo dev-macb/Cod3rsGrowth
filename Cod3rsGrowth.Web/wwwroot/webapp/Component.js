@@ -1,12 +1,16 @@
 sap.ui.define([
     "sap/ui/core/UIComponent"
-], (UIComponent) => {
+], function(UIComponent) {
     "use strict";
-    
+
     return UIComponent.extend("coders-growth.Component", {
-        metadata : {
-            "interfaces": ["sap.ui.core.IAsyncContentCreation"],
-            "rootView": { "id": "app", "type": "XML", "viewName": "coders-growth.view.App" }
+        metadata: {
+            manifest: "json"
+        },
+        
+        init: function() {
+            UIComponent.prototype.init.apply(this, arguments);
+            this.getRouter().initialize();
         }
     });
 });
