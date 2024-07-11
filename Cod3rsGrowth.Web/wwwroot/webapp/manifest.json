@@ -35,22 +35,27 @@
 				},
 				"async": true
 			},
-			"routes": [{
-				"pattern": "",
-				"name": "appHome",
-				"target": "home"
-			}],
+			"routes": [
+				{
+					"pattern": "",
+					"name": "home",
+					"target": "home"
+				},
+				{
+					"pattern": "notFound",
+					"name": "notFound",
+					"target": "notFound"
+				}
+			],
 			"targets": {
 				"home": {
-					"id": "home",
-					"name": "Home",
-					"level" : 1
-				},
-				"notFound": {
-					"id": "notFound",
-					"name": "NotFound",
-					"transition": "show"
-				}
+                    "viewName": "Home",
+                    "viewLevel": 1
+                },
+                "notFound": {
+                    "viewName": "NotFound",
+                    "viewLevel": 2
+                }
 			}
 		}
 	}

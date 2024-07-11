@@ -8,15 +8,15 @@ sap.ui.define([
     return Controller.extend("coders-growth.controller.NotFound", {
         onInit() {},
 
-        onNavBack() {
-            var oHistorico = History.getInstance();
-            var sHashAnterior = oHistorico.getPreviousHash();
+        voltarNavegacao() {
+            var historico = History.getInstance();
+            var hashAnterior = historico.getPreviousHash();            
 
-            if (sHashAnterior !== undefined) {
-                window.history.go(-1);
+            if (hashAnterior === undefined || hashAnterior === "notFound") {
+                var rotiador = UIComponent.getRouterFor(this);
+                rotiador.navTo("home", {}, true);
             } else {
-                var oRotiador = UIComponent.getRouterFor(this);
-                oRotiador.navTo("main", {}, true);
+                window.history.go(-1);
             }
         }
     });

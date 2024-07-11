@@ -9,8 +9,8 @@ sap.ui.define([
             const i18nModelo = new ResourceModel({ bundleName: "coders-growth.i18n.i18n" });
             this.getView().setModel(i18nModelo, "i18n");
 
-            const oRotiador = sap.ui.core.UIComponent.getRouterFor(this);
-            oRotiador.initialize();
+            const rotiador = sap.ui.core.UIComponent.getRouterFor(this);
+            rotiador.initialize();
         }
     });
 });
