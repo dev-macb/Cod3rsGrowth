@@ -4,30 +4,59 @@
         "id": "coders-growth",
         "type": "application",
         "i18n": "i18n/i18n.properties",
-        "applicationVersion": {
-            "version": "1.0.0"
-        }
+        "applicationVersion": { "version": "1.0.0" }
     },
-    "sap.ui5": {
-        "rootView": {
+	"sap.ui": {
+		"technology": "UI5",
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		}
+  	},
+	"sap.ui5": {
+		"rootView": {
             "id": "app",
             "type": "XML",
-            "viewName": "coders-growth.view.App"
-        },
-        "models": {
-            "i18n": {
-                "type": "sap.ui.model.resource.ResourceModel",
-                "settings": {
-                    "bundleName": "coders-growth.i18n.i18n"
+            "async": true,
+			"viewName": "coders-growth.view.App"
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"type": "View",
+				"viewType": "XML",
+				"path": "coders-growth.view",
+				"controlId": "app",
+				"controlAggregation": "pages",
+				"transition": "slide",
+				"bypassed": {
+					"target": "notFound"
+				},
+				"async": true
+			},
+			"routes": [
+				{
+					"pattern": "",
+					"name": "home",
+					"target": "home"
+				},
+				{
+					"pattern": "notFound",
+					"name": "notFound",
+					"target": "notFound"
+				}
+			],
+			"targets": {
+				"home": {
+                    "viewName": "Home",
+                    "viewLevel": 1
+                },
+                "notFound": {
+                    "viewName": "NotFound",
+                    "viewLevel": 2
                 }
-            }
-        },
-        "resources": {
-            "css": [
-                {
-                    "uri": "css/style.css"
-                }
-            ]
-        }
-    }
+			}
+		}
+	}
 }

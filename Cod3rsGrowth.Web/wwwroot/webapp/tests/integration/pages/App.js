@@ -4,7 +4,7 @@ sap.ui.define([
 ], (Opa5, Properties) => {
     "use strict";
 
-    const sNameView = "coders-growth.view.App";
+    const sNameView = "coders-growth.view.Home";
 
     Opa5.createPageObjects({
         onTheAppPage: {
