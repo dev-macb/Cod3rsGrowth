@@ -2,8 +2,16 @@
     "_version": "1.58.0",
     "sap.app": {
         "id": "coders-growth",
+		"title": "coders-growth",
+		"description": "Projeto de Treinamento",
         "type": "application",
-        "i18n": "i18n/i18n.properties",
+        "i18n": {
+			"bundleUrl": "i18n/i18n_pt_BR.properties",
+			"supportedLocales": [
+				""
+			],
+			"fallbackLocale": ""
+		},
         "applicationVersion": { "version": "1.0.0" }
     },
 	"sap.ui": {
@@ -15,6 +23,22 @@
 		}
   	},
 	"sap.ui5": {
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "coders-growth.i18n.i18n",
+					"supportedLocales": [
+						"pt_BR", "en"
+					],
+					"fallbackLocale": "pt_BR"
+				}
+			},
+			"personagens" : {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri" : "https://localhost:5051/api/Personagens"
+			}
+		},
 		"rootView": {
             "id": "app",
             "type": "XML",
@@ -45,6 +69,11 @@
 					"pattern": "notFound",
 					"name": "notFound",
 					"target": "notFound"
+				},
+				{
+					"pattern": "personagens",
+					"name": "personagens",
+					"target": "personagens"
 				}
 			],
 			"targets": {
@@ -55,7 +84,11 @@
                 "notFound": {
                     "viewName": "NotFound",
                     "viewLevel": 2
-                }
+                },
+				"personagens": {
+					"viewName": "ListaPersonagem",
+                    "viewLevel": 2
+				}
 			}
 		}
 	}

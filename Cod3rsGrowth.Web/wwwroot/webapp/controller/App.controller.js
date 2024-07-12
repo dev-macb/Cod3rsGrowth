@@ -1,10 +1,10 @@
 sap.ui.define([
-    "sap/ui/core/mvc/Controller",
+    "coders-growth/controller/BaseController",
     "sap/ui/model/resource/ResourceModel"
-], (Controller, ResourceModel) => {
+], (BaseController, ResourceModel) => {
     "use strict";
 
-    return Controller.extend("coders-growth.controller.App", {
+    return BaseController.extend("coders-growth.controller.App", {
         onInit() {
             const i18nModelo = new ResourceModel({ bundleName: "coders-growth.i18n.i18n" });
             this.getView().setModel(i18nModelo, "i18n");
