@@ -11,6 +11,7 @@
 		class="sapUiResponsiveContentPadding"
     >
 		<content>
+			<Button icon="sap-icon://add" text="Adicionar" />
 			<List id="listaPersonagem" items="{ path: '/' }">
 				<headerToolbar>
 					<Toolbar>
@@ -20,17 +21,25 @@
 							width="30%"
 							liveChange="aoFiltrarPersonagemPorNome"
 						/>
+						<Button icon="sap-icon://filter" press="aoAbrirFiltros" />
 					</Toolbar>
 				</headerToolbar>
 				<items>
-					<StandardListItem
-						title="{nome} {LastName}"
+					<StandardListItem 
+						title="{nome}"
 						iconDensityAware="false"
 						iconInset="false"
 						type="Navigation"
 						press=".onListItemPressed"/>
 				</items>
 			</List>
+			<Bar design="SubHeader">
+				<contentMiddle>
+					<Button id="prevButton" icon="sap-icon://navigation-left-arrow" press="onPrevPage" />
+					<Text text="{/currentPage}" />
+					<Button id="nextButton" icon="sap-icon://navigation-right-arrow" press="onNextPage" />
+				</contentMiddle>
+			</Bar>
 		</content>
 	</Page>
 </mvc:View>
