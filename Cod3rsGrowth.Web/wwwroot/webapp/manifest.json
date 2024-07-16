@@ -34,9 +34,13 @@
 					"fallbackLocale": "pt_BR"
 				}
 			},
-			"personagens" : {
+			"personagens": {
 				"type": "sap.ui.model.json.JSONModel",
 				"uri" : "https://localhost:5051/api/Personagens"
+			},
+			"habilidades": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri" : "https://localhost:5051/api/Habilidade"
 			}
 		},
 		"rootView": {
@@ -74,6 +78,11 @@
 					"pattern": "personagens",
 					"name": "personagens",
 					"target": "personagens"
+				},
+				{
+					"pattern": "habilidades",
+					"name": "habilidades",
+					"target": "habilidades"
 				}
 			],
 			"targets": {
@@ -87,6 +96,10 @@
                 },
 				"personagens": {
 					"viewName": "ListaPersonagem",
+                    "viewLevel": 2
+				},
+				"habilidades": {
+					"viewName": "ListaHabilidade",
                     "viewLevel": 2
 				}
 			}

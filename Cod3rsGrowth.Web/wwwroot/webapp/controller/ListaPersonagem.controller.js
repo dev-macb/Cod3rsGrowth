@@ -3,7 +3,7 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator"
-], (BaseController, JSONModel, Filter, FilterOperator) => {
+], function(BaseController, JSONModel, Filter, FilterOperator) {
 	"use strict";
 
 	return BaseController.extend("coders-growth.controller.ListaPersonagem", {
@@ -12,6 +12,7 @@ sap.ui.define([
             this._carregarPersonagens();
         },
 
+
 		_carregarPersonagens: async function() {
 			const urlObterTodosPersonagens = new URL("https://localhost:5051/api/Personagem");
 
@@ -19,43 +20,46 @@ sap.ui.define([
                 urlObterTodosPersonagens.searchParams.append(chave, this._filtros[chave]);
             });
 
-			console.log(urlObterTodosPersonagens.href);
-			await fetch(urlObterTodosPersonagens, {
-				method: "GET",
-				headers: { "Content-Type": "application/json" },
-			})
-			.then(resposta => {
-				if (resposta.ok) { return resposta.json(); } 
-				else { throw new Error('Erro na resposta da API'); }
-			})
-			.then(personagens => {
+			try {
+				const resposta = await fetch(urlObterTodosPersonagens, {
+					method: "GET",
+					headers: { "Content-Type": "application/json" },
+				});
+
+				if (!resposta.ok) throw new Error('Erro na resposta da API');
+
+				const personagens = await resposta.json();
 				const modeloPersonagem = new JSONModel(personagens);
             	this.getView().setModel(modeloPersonagem);
-			})
-			.catch(erro => {
+			}
+			catch (erro) {
 				console.error(erro);
-			});
+			}
 		},
+
 
 		aoFiltrarPersonagemPorNome(evento) {
-			const filtro = [];
+			const filtros = [];
 			const query = evento.getSource().getValue();
+			
 			if (query && query.length > 0) {
-				filtro.push(new Filter("nome", FilterOperator.Contains, query));
+				filtros.push(new Filter("nome", FilterOperator.Contains, query));
 			}
 
-			const listaPersonagem = this.byId("listaPersonagem");
-			const oBinding = listaPersonagem.getBinding("items");
-			oBinding.filter(filtro);
+			const listaPersonagens = this.byId("listaPersonagem");
+			const bindingPersonagens = listaPersonagens.getBinding("items");
+			bindingPersonagens.filter(filtros);
 		},
 
-		async aoAbrirFiltros() {
-            this.dialogoFiltros ??= await this.loadFragment({
-                name: "coders-growth.view.ListaPersonagem",
+
+		aoAbrirFiltros: async function() {
+			this.dialogoFiltros ??= await this.loadFragment({
+				name: "coders-growth.view.ListaPersonagem",
 				controller: this
-            });
-            this.dialogoFiltros.open();
-        },	
+			});
+			this.dialogoFiltros.open();
+		},
+
 
 		aoAplicarFiltros: async function(evento) {
 			const itensDoFiltro = evento.getParameter("filterItems");
@@ -77,6 +81,7 @@ sap.ui.define([
 			this._carregarPersonagens();
 		},
 
+		
 		aoResetarFiltros: function() {
 			this._filtros = {};
 			this._carregarPersonagens();
