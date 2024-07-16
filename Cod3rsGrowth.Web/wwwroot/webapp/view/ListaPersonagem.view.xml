@@ -12,7 +12,7 @@
     >
 		<content>
 			<Button icon="sap-icon://add" text="Adicionar" />
-			<List id="listaPersonagem" items="{ path: '/' }">
+			<List id="listaPersonagem" items="{ path: '/' }" growing="true" growingThreshold="10">
 				<headerToolbar>
 					<Toolbar>
 						<Title text="Personagens" />
