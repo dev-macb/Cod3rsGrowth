@@ -7,68 +7,79 @@ sap.ui.define([
 	"use strict";
 
 	return BaseController.extend("coders-growth.controller.ListaPersonagem", {
-		onInit() {
-			this._personagemModelo = new JSONModel({
-				itens: [],
-				paginaAtual: 1,
-				itensPorPagina: 10,
-				totalPaginas: 0
+		onInit: function() {
+			this._filtros = {};
+            this._carregarPersonagens();
+        },
+
+		_carregarPersonagens: async function() {
+			const urlObterTodosPersonagens = new URL("https://localhost:5051/api/Personagem");
+
+			Object.keys(this._filtros).forEach(chave => {
+                urlObterTodosPersonagens.searchParams.append(chave, this._filtros[chave]);
+            });
+
+			console.log(urlObterTodosPersonagens.href);
+			await fetch(urlObterTodosPersonagens, {
+				method: "GET",
+				headers: { "Content-Type": "application/json" },
+			})
+			.then(resposta => {
+				if (resposta.ok) { return resposta.json(); } 
+				else { throw new Error('Erro na resposta da API'); }
+			})
+			.then(personagens => {
+				const modeloPersonagem = new JSONModel(personagens);
+            	this.getView().setModel(modeloPersonagem);
+			})
+			.catch(erro => {
+				console.error(erro);
 			});
-			this.getView().setModel(this._personagemModelo, "paginacao");
-			this._carregarDados();
-        },
-
-		_carregarDados() {
-			try {
-                const urlObterTodosPersonagens = "https://localhost:5051/api/Personagem";
-
-                const resposta = await fetch(urlObterTodosPersonagens, {
-                    method: "GET",
-                    headers: { "Content-Type": "application/json" },
-                });
-
-                if (!resposta.ok) {
-                    throw new Error('Erro na resposta da API');
-                }
-
-                const personagens = await resposta.json();
-                this._oModel.setProperty("/items", personagens);
-                this._updatePaginator();
-                this._updateList();
-            } catch (error) {
-                console.error("Erro ao carregar dados:", error);
-            }
 		},
-
-		_atualizarPaginacao() {
-            const totalItems = this._personagemModelo.getProperty("/itens").length;
-            const itemsPerPage = this._personagemModelo.getProperty("/itensPorPagina");
-            const pageCount = Math.ceil(totalItems / itemsPerPage);
-
-            this._personagemModelo.setProperty("/totalPaginas", pageCount);
-        },
 
 		aoFiltrarPersonagemPorNome(evento) {
 			const filtro = [];
-			const sQuery = evento.getSource().getValue();
-			if (sQuery && sQuery.length > 0) {
-				filtro.push(new Filter("nome", FilterOperator.Contains, sQuery));
+			const query = evento.getSource().getValue();
+			if (query && query.length > 0) {
+				filtro.push(new Filter("nome", FilterOperator.Contains, query));
 			}
 
-			const oList = this.byId("listaPersonagem");
-			const oBinding = oList.getBinding("items");
+			const listaPersonagem = this.byId("listaPersonagem");
+			const oBinding = listaPersonagem.getBinding("items");
 			oBinding.filter(filtro);
 		},
 
-        async aoAbrirFiltros() {
+		async aoAbrirFiltros() {
             this.dialogoFiltros ??= await this.loadFragment({
-                name: "coders-growth.view.ListaPersonagem"
+                name: "coders-growth.view.ListaPersonagem",
+				controller: this
             });
             this.dialogoFiltros.open();
-        },
+        },	
 
-		aoAplicarFiltros() {
-			this.byId("helloDialog").close();
+		aoAplicarFiltros: async function(evento) {
+			const itensDoFiltro = evento.getParameter("filterItems");
+			
+			itensDoFiltro.forEach((item) => {
+				switch(item.getKey()) {
+					case "heroi":
+						this._filtros.evilao = false;
+						break;
+
+					case "vilao":
+						this._filtros.evilao = true;
+						break;
+
+					default:
+						break;
+				}
+			});
+			this._carregarPersonagens();
+		},
+
+		aoResetarFiltros: function() {
+			this._filtros = {};
+			this._carregarPersonagens();
 		}
 	});
 });

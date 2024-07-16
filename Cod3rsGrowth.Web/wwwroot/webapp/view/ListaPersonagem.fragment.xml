@@ -2,9 +2,14 @@
    xmlns="sap.m"
    xmlns:core="sap.ui.core"
 >
-   <Dialog id="helloDialog" title="Filtros">
-      <beginButton>
-         <Button text="Aplicar" type="Emphasized" press=".aoAplicarFiltros"/>
-      </beginButton>
-   </Dialog>
+    <ViewSettingsDialog id="dialogoFiltros" confirm="aoAplicarFiltros" resetFilters="aoResetarFiltros">
+        <filterItems>
+            <ViewSettingsFilterItem id="itensFiltros" text="Propósito" key="Personagem" multiSelect="false">
+                <items>
+                    <ViewSettingsItem id="personagemHeroi" text="Herói" key="heroi"/>
+                    <ViewSettingsItem id="personagemVilao" text="Vilão" key="vilao"/>
+                </items>
+            </ViewSettingsFilterItem>
+        </filterItems>
+    </ViewSettingsDialog>
 </core:FragmentDefinition>
