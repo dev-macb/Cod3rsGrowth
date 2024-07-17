@@ -8,12 +8,17 @@ sap.ui.define([
 
 	return BaseController.extend("coders-growth.controller.ListaHabilidade", {
         onInit: function() {
+			this._filtros = {};
             this._carregarHabilidades();
         },
 
 
         _carregarHabilidades: async function() {
             const urlObterTodasHabilidades = new URL("https://localhost:5051/api/Habilidade");
+
+			Object.keys(this._filtros).forEach(chave => {
+                urlObterTodasHabilidades.searchParams.append(chave, this._filtros[chave]);
+            });
 
 			try {
 				const resposta = await fetch(urlObterTodasHabilidades, {
@@ -26,6 +31,7 @@ sap.ui.define([
 				const habilidades = await resposta.json();
 				const modeloHabilidade = new JSONModel(habilidades);
 				this.getView().setModel(modeloHabilidade);
+				this.obterRotiador().navTo("habilidades", { "?query": this._filtros });
 			} 
 			catch (erro) {
 				console.error(erro);
@@ -34,16 +40,12 @@ sap.ui.define([
 
 		
         aoFiltrarHabilidadePorNome: function(evento) {
-			const filtros = [];
-			const query = evento.getSource().getValue();
+			const filtroNome = evento.getSource().getValue();
 			
 			if (query && query.length > 0) {
-				filtros.push(new Filter("nome", FilterOperator.Contains, query));
+				this._filtros.nome = filtroNome;
+				this._carregarHabilidades();
 			}
-
-			const listaHabilidades = this.byId("listaHabilidade");
-			const bindingHabilidades = listaHabilidades.getBinding("items");
-			bindingHabilidades.filter(filtros);
 		},
     });
 });

@@ -32,6 +32,7 @@ sap.ui.define([
 				const personagens = await resposta.json();
 				const modeloPersonagem = new JSONModel(personagens);
             	this.getView().setModel(modeloPersonagem);
+				this.obterRotiador().navTo("personagens", { "?query": this._filtros })
 			}
 			catch (erro) {
 				console.error(erro);
@@ -40,16 +41,12 @@ sap.ui.define([
 
 
 		aoFiltrarPersonagemPorNome(evento) {
-			const filtros = [];
-			const query = evento.getSource().getValue();
+			const filtroNome = evento.getSource().getValue();
 			
 			if (query && query.length > 0) {
-				filtros.push(new Filter("nome", FilterOperator.Contains, query));
+				this._filtro.nome = filtroNome;
+				this._carregarPersonagens();
 			}
-
-			const listaPersonagens = this.byId("listaPersonagem");
-			const bindingPersonagens = listaPersonagens.getBinding("items");
-			bindingPersonagens.filter(filtros);
 		},
 
 

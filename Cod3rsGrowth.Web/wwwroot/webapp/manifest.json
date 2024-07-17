@@ -75,12 +75,12 @@
 					"target": "notFound"
 				},
 				{
-					"pattern": "personagens",
+					"pattern": "personagens:?query:",
 					"name": "personagens",
 					"target": "personagens"
 				},
 				{
-					"pattern": "habilidades",
+					"pattern": "habilidades:?query:",
 					"name": "habilidades",
 					"target": "habilidades"
 				}

@@ -15,8 +15,7 @@ sap.ui.define([
             var hashAnterior = historico.getPreviousHash();            
 
             if (hashAnterior === undefined || hashAnterior === "notFound") {
-                var rotiador = UIComponent.getRouterFor(this);
-                rotiador.navTo("home");
+                this.obterRotiador().navTo("home");
             } 
             else {
                 window.history.go(-1);
