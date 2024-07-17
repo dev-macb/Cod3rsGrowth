@@ -23,8 +23,7 @@
 				<items>
 					<StandardListItem
 						title="{nome}"
-						iconDensityAware="true"
-						iconInset="true"
+						description="{descricao}"
 						type="Navigation"
 						press=".onListItemPressed"/>
 				</items>

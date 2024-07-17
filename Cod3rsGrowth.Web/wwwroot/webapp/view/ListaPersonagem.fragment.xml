@@ -1,5 +1,6 @@
 <core:FragmentDefinition
    xmlns="sap.m"
+   xmlns:u="sap.ui.unified"
    xmlns:core="sap.ui.core"
 >
     <ViewSettingsDialog id="dialogoFiltros" confirm="aoAplicarFiltros" resetFilters="aoResetarFiltros">
@@ -10,6 +11,12 @@
                     <ViewSettingsItem id="personagemVilao" text="Vilão" key="vilao"/>
                 </items>
             </ViewSettingsFilterItem>
+
+            <ViewSettingsCustomItem id="dataCriacaoFiltro" text="Data de Criação" key="dataCriacao">
+                <customControl>
+                    <u:Calendar id="calendarario" select="tratarSelecaoDeDatas" intervalSelection="true" />
+                </customControl>
+            </ViewSettingsCustomItem>
         </filterItems>
     </ViewSettingsDialog>
 </core:FragmentDefinition>

@@ -26,9 +26,8 @@
 				</headerToolbar>
 				<items>
 					<StandardListItem
-						title="{nome} {LastName}"
-						iconDensityAware="false"
-						iconInset="false"
+						icon="{ path: 'eVilao', formatter: '.formatter.iconePersonagem' }"
+						title="{nome}"
 						type="Navigation"
 						press=".onListItemPressed"/>
 				</items>

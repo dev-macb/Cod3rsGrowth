@@ -2,8 +2,9 @@ sap.ui.define([
 	"coders-growth/controller/BaseController",
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/model/Filter",
-	"sap/ui/model/FilterOperator"
-], function(BaseController, JSONModel, Filter, FilterOperator) {
+	"sap/ui/model/FilterOperator",
+	"sap/ui/core/format/DateFormat"
+], function(BaseController, JSONModel, Filter, FilterOperator, DateFormat) {
 	"use strict";
 
 	return BaseController.extend("coders-growth.controller.ListaPersonagem", {
@@ -60,6 +61,18 @@ sap.ui.define([
 			this.dialogoFiltros.open();
 		},
 
+		tratarSelecaoDeDatas: function(evento) {
+			var calendario = evento.getSource();
+			var datasSelecionadas = calendario.getSelectedDates()[0];
+			
+			if (datasSelecionadas) {
+				var formatadorDeData = DateFormat.getDateTimeInstance({
+					pattern: "yyyy-MM-dd'T'HH:mm:ss'Z'"
+				});
+				this._filtros.database = formatadorDeData.format(datasSelecionadas.getStartDate());
+				this._filtros.datateto = formatadorDeData.format(datasSelecionadas.getEndDate());
+			}
+		},
 
 		aoAplicarFiltros: async function(evento) {
 			const itensDoFiltro = evento.getParameter("filterItems");
@@ -84,7 +97,16 @@ sap.ui.define([
 		
 		aoResetarFiltros: function() {
 			this._filtros = {};
+			this.byId("calendarario").removeAllSelectedDates();
+
 			this._carregarPersonagens();
-		}
+		},
+
+
+		formatter: {
+            iconePersonagem: function(eVilao) {
+                return eVilao ? "images/luva_vermelha.png" : "images/luva_azul.png";
+            }
+        }
 	});
 });
