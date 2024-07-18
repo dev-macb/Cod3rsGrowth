@@ -3,11 +3,12 @@ sap.ui.define([
     "sap/ui/model/json/JSONModel",
     "sap/ui/model/Filter",
 	"sap/ui/model/FilterOperator"
-], function(BaseController, JSONModel, Filter, FilterOperator) {
+], function(BaseController, JSONModel) {
 	"use strict";
 
 	return BaseController.extend("coders-growth.controller.ListaHabilidade", {
         onInit: function() {
+			this.obterRotiador()
 			this._filtros = {};
             this._carregarHabilidades();
         },
@@ -42,7 +43,7 @@ sap.ui.define([
         aoFiltrarHabilidadePorNome: function(evento) {
 			const filtroNome = evento.getSource().getValue();
 			
-			if (query && query.length > 0) {
+			if (filtroNome && filtroNome.length > 0) {
 				this._filtros.nome = filtroNome;
 				this._carregarHabilidades();
 			}

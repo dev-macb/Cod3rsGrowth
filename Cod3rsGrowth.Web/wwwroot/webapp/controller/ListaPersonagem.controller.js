@@ -1,10 +1,8 @@
 sap.ui.define([
 	"coders-growth/controller/BaseController",
 	"sap/ui/model/json/JSONModel",
-	"sap/ui/model/Filter",
-	"sap/ui/model/FilterOperator",
 	"sap/ui/core/format/DateFormat"
-], function(BaseController, JSONModel, Filter, FilterOperator, DateFormat) {
+], function(BaseController, JSONModel, DateFormat) {
 	"use strict";
 
 	return BaseController.extend("coders-growth.controller.ListaPersonagem", {
@@ -32,7 +30,7 @@ sap.ui.define([
 				const personagens = await resposta.json();
 				const modeloPersonagem = new JSONModel(personagens);
             	this.getView().setModel(modeloPersonagem);
-				this.obterRotiador().navTo("personagens", { "?query": this._filtros })
+				this.obterRotiador().navTo("personagens", { "query": this._filtros })
 			}
 			catch (erro) {
 				console.error(erro);
@@ -43,7 +41,7 @@ sap.ui.define([
 		aoFiltrarPersonagemPorNome(evento) {
 			const filtroNome = evento.getSource().getValue();
 			
-			if (query && query.length > 0) {
+			if (filtroNome && filtroNome.length > 0) {
 				this._filtro.nome = filtroNome;
 				this._carregarPersonagens();
 			}

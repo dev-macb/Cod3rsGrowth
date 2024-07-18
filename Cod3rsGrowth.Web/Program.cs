@@ -1,6 +1,7 @@
 using Cod3rsGrowth.Web;
 using Cod3rsGrowth.Infra;
 using Cod3rsGrowth.Service;
+using Microsoft.Extensions.FileProviders;
 
 
 var construtor = WebApplication.CreateBuilder(args);
@@ -20,7 +21,13 @@ StartupInfra.InicializarBancoDeDados(app.Services);
 
 
 app.UseStaticFiles(new StaticFileOptions(){ ServeUnknownFileTypes = true });
+app.UseFileServer(new FileServerOptions
+{
+    FileProvider = new PhysicalFileProvider(Path.Combine(app.Environment.ContentRootPath, "wwwroot", "webapp")),
+    EnableDirectoryBrowsing = true
+});
 app.UseProblemDetailsExceptionHandler(app.Services.GetRequiredService<ILoggerFactory>());
+app.UseHttpsRedirection();
 app.UseHttpsRedirection();
 app.UseAuthorization();
 app.MapControllers();
