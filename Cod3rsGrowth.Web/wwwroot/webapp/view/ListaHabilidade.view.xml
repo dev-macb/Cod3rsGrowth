@@ -5,7 +5,7 @@
 >
 	<Page 
         id="paginaListaHabilidade"
-		title="{i18n>Home.titulo}"
+		title="{i18n>ListaHabilidade.titulo}"
 		showNavButton="true"
 		navButtonPress="navegarPara('home')"
 		class="sapUiResponsiveContentPadding"

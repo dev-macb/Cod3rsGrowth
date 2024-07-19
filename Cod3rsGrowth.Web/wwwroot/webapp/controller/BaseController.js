@@ -12,21 +12,8 @@ sap.ui.define([
 
 
 		navegarPara: function (rotaDestino) {
-			if (rotaDestino) { this.obterRotiador().navTo(rota); }
+			if (rotaDestino) { this.obterRotiador().navTo(rotaDestino); }
 			else { this.obterRotiador().navTo("home"); }
-		},
-
-
-		navegarDeVolta: function () {
-			var historico = History.getInstance();
-            var hashAnterior = historico.getPreviousHash();            
-
-            if (hashAnterior === undefined || hashAnterior === "notFound") {
-                this.obterRotiador().navTo("home");
-            } 
-            else {
-                window.history.go(-1);
-            }
 		}
 	});
 });
