@@ -10,6 +10,13 @@ sap.ui.define([
 			return UIComponent.getRouterFor(this);
 		},
 
+
+		navegarPara: function (rotaDestino) {
+			if (rotaDestino) { this.obterRotiador().navTo(rota); }
+			else { this.obterRotiador().navTo("home"); }
+		},
+
+
 		navegarDeVolta: function () {
 			var historico = History.getInstance();
             var hashAnterior = historico.getPreviousHash();            

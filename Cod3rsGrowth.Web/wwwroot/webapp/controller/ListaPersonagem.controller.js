@@ -30,7 +30,7 @@ sap.ui.define([
 				const personagens = await resposta.json();
 				const modeloPersonagem = new JSONModel(personagens);
             	this.getView().setModel(modeloPersonagem);
-				this.obterRotiador().navTo("personagens", { "query": this._filtros })
+				this.obterRotiador().navTo("personagens", Object.keys(this._filtros).length === 0 ? {} : { "query": this._filtros })
 			}
 			catch (erro) {
 				console.error(erro);
@@ -41,10 +41,10 @@ sap.ui.define([
 		aoFiltrarPersonagemPorNome(evento) {
 			const filtroNome = evento.getSource().getValue();
 			
-			if (filtroNome && filtroNome.length > 0) {
-				this._filtro.nome = filtroNome;
-				this._carregarPersonagens();
-			}
+			if (filtroNome) { this._filtros.nome = filtroNome; } 
+			else { delete this._filtros.nome; }	
+
+			this._carregarPersonagens();
 		},
 
 

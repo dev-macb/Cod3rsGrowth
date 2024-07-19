@@ -7,7 +7,7 @@
         id="paginaListaHabilidade"
 		title="{i18n>Home.titulo}"
 		showNavButton="true"
-		navButtonPress="navegarDeVolta"
+		navButtonPress="navegarPara('home')"
 		class="sapUiResponsiveContentPadding"
     >
 		<content>

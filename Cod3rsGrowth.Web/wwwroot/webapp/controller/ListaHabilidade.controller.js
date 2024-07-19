@@ -8,7 +8,6 @@ sap.ui.define([
 
 	return BaseController.extend("coders-growth.controller.ListaHabilidade", {
         onInit: function() {
-			this.obterRotiador()
 			this._filtros = {};
             this._carregarHabilidades();
         },
@@ -32,7 +31,7 @@ sap.ui.define([
 				const habilidades = await resposta.json();
 				const modeloHabilidade = new JSONModel(habilidades);
 				this.getView().setModel(modeloHabilidade);
-				this.obterRotiador().navTo("habilidades", { "?query": this._filtros });
+				this.obterRotiador().navTo("habilidades", Object.keys(this._filtros).length === 0 ? {} : { "?query": this._filtros });
 			} 
 			catch (erro) {
 				console.error(erro);
@@ -43,10 +42,10 @@ sap.ui.define([
         aoFiltrarHabilidadePorNome: function(evento) {
 			const filtroNome = evento.getSource().getValue();
 			
-			if (filtroNome && filtroNome.length > 0) {
-				this._filtros.nome = filtroNome;
-				this._carregarHabilidades();
-			}
+			if (filtroNome) { this._filtros.nome = filtroNome; } 
+			else { delete this._filtros.nome; }	
+
+			this._carregarHabilidades();
 		},
     });
 });
