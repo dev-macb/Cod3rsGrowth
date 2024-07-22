@@ -26,6 +26,17 @@ sap.ui.define([
                         errorMessage: "Botão 'Ver Lista de Habilidades' não encontrado."
                     });
                 }
+            },
+            assertions: {
+                deveVerificarUrlHome: function() {
+                    return this.waitFor({
+                        success: function() {
+                            const sHash = Opa5.getHashChanger().getHash();
+                            Opa5.assert.strictEqual(sHash, "", "A URL está correta");
+                        },
+                        errorMessage: "A URL não é a esperada"
+                    });
+                }
             }
         }
     });

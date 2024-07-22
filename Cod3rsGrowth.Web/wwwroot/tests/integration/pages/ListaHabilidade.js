@@ -1,13 +1,24 @@
 sap.ui.define([
     "sap/ui/test/Opa5",
-    "sap/ui/test/matchers/PropertyStrictEquals"
-], function(Opa5, PropertyStrictEquals) {
+    "sap/ui/test/matchers/PropertyStrictEquals",
+    "sap/ui/test/actions/Press"
+], function(Opa5, PropertyStrictEquals, Press) {
     "use strict";
 
     const nomeDaView = "coders-growth.view.ListaHabilidade";
 
     Opa5.createPageObjects({
         naListaHabilidade: {
+            actions: {
+                aoClicarNoBotaoVoltar: function() {
+                    return this.waitFor({
+                        controlType: "sap.m.Button",
+                        id: "__xmlview3--paginaListaHabilidade-navButton",
+                        actions: new Press(),
+                        errorMessage: "Botão de voltar não encontrado."
+                    });
+                }
+            },
             assertions: {
                 deveVerificarUrlHabilidades: function() {
                     return this.waitFor({

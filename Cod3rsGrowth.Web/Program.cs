@@ -19,6 +19,7 @@ var app = construtor.Build();
 
 StartupInfra.InicializarBancoDeDados(app.Services);
 
+
 app.UseFileServer(new FileServerOptions
 {
     FileProvider = new PhysicalFileProvider(Path.Combine(app.Environment.ContentRootPath, "wwwroot", "webapp")),

@@ -24,17 +24,17 @@ sap.ui.define([
     });
 
     opaTest("Deve navegar para a listagem de habilidades", (Given, When, Then) => {
-        console.log("INICIO TESTE 2");
         // Arrange
         Given.iStartMyUIComponent({ componentConfig: { name: "coders-growth" } });
 
         // Act
-        console.log("Clicar - Ver Lista Habilidade");
         When.naPaginaHome.aoClicarEmVerListaHabilidade();
-        console.log("Clicado");
 
         // Assert
         Then.naListaHabilidade.deveVerificarUrlHabilidades();
         Then.naListaHabilidade.deveVerificarTituloListaHabilidade();
+
+        When.naListaHabilidade.aoClicarNoBotaoVoltar();
+        Then.iTeardownMyApp();
     });
 });
