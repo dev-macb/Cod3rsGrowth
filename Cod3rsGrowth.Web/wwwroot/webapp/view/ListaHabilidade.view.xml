@@ -17,7 +17,7 @@
 					<Toolbar>
 						<Title text="Habilidades" />
 						<ToolbarSpacer />
-						<SearchField width="30%" liveChange="aoFiltrarHabilidadePorNome" />
+						<SearchField id="filtroNome" width="30%" liveChange="aoFiltrarHabilidadePorNome" />
 					</Toolbar>
 				</headerToolbar>
 				<items>

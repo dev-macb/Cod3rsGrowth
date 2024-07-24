@@ -17,10 +17,7 @@
 					<Toolbar>
 						<Title text="Personagens" />
 						<ToolbarSpacer />
-						<SearchField
-							width="30%"
-							liveChange="aoFiltrarPersonagemPorNome"
-						/>
+						<SearchField id="filtroNome" width="30%" liveChange="aoFiltrarPersonagemPorNome" />
 						<Button icon="sap-icon://filter" press="aoAbrirFiltros" />
 					</Toolbar>
 				</headerToolbar>

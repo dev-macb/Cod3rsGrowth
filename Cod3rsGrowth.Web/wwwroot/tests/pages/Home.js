@@ -4,7 +4,7 @@ sap.ui.define([
 ], function(Opa5, Press) {
     "use strict";
 
-    const nomeDaView = "coders-growth.view.Home";
+    const nomeDaView = "Home";
 
     Opa5.createPageObjects({
         naPaginaHome: {
@@ -31,8 +31,8 @@ sap.ui.define([
                 deveVerificarUrlHome: function() {
                     return this.waitFor({
                         success: function() {
-                            const sHash = Opa5.getHashChanger().getHash();
-                            Opa5.assert.strictEqual(sHash, "", "A URL está correta");
+                            const hash = Opa5.getHashChanger().getHash();
+                            Opa5.assert.strictEqual(hash, "", "Navegou para o endpoind da Home");
                         },
                         errorMessage: "A URL não é a esperada"
                     });
