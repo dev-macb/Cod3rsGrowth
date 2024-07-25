@@ -36,6 +36,54 @@ sap.ui.define([
                         errorMessage: "Campo de busca para filtrar por nome não encontrado."
                     });
                 },
+                aoClicarEmVerFiltros: function() {
+                    return this.waitFor({
+                        id: "btnFiltroHabilidade",
+                        viewName: nomeDaView,
+                        actions: new Press(),
+                        errorMessage: "Botão 'Ver Lista de Personagens' não encontrado."
+                    });
+                },
+                aoSelecionarFiltroDataDeCriacao: function() {
+                    return this.waitFor({
+                        id: "__xmlview1--filtroDataDeCriacao-list-item",
+                        viewName: nomeDaView,
+                        actions: new Press(),
+                        errorMessage: "Filtro 'Data de Criação' não encontrado."
+                    });
+                },
+                aoDefinirFiltroDataDeCriacao: function(dataBase, dataTeto) {
+                    return this.waitFor({
+                        controlType: "sap.m.ViewSettingsDialog",
+                        matchers: new sap.ui.test.matchers.PropertyStrictEquals({ name: "id", value: "__xmlview1--dialogoFiltrosHabilidade" }),
+                        success: function(aDialogs) {
+                            var oDialog = aDialogs[0];
+                            return this.waitFor({
+                                controlType: "sap.ui.unified.Calendar",
+                                matchers: new sap.ui.test.matchers.Ancestor(oDialog),
+                                success: function(calendarios) {
+                                    var calendario = calendarios[0];
+                                    var oBaseDate = new Date(dataBase);
+                                    var oTetoDate = new Date(dataTeto);
+                                    
+                                    calendario.removeAllSelectedDates();
+                                    calendario.addSelectedDate(new sap.ui.unified.DateRange({ startDate: oBaseDate, endDate: oTetoDate }));
+                                    Opa5.assert.ok(true, "Datas definidas no calendário: " + oBaseDate.toDateString() + " - " + oTetoDate.toDateString());
+                                },
+                                errorMessage: "Calendário para o filtro 'Data de Criação' não encontrado."
+                            });
+                        },
+                        errorMessage: "Diálogo de filtros de habilidade não encontrado."
+                    });
+                },
+                aoClicarEmAplicarFiltros: function() {
+                    return this.waitFor({
+                        controlType: "sap.m.Button",
+                        id: "__xmlview1--dialogoFiltrosHabilidade-acceptbutton",
+                        actions: new Press(),
+                        errorMessage: "Botão 'Ok' não encontrado no dialogo de filtros."
+                    });
+                }
             },
             assertions: {
                 deveVerificarUrlListaHabilidade: function() {
@@ -108,13 +156,45 @@ sap.ui.define([
                         errorMessage: "Erro ao filtrar por nome"
                     });
                 },
-                verificaParametroNomeNaURL: function() {
+                verificaParametroNomeNaURL: function(valor) {
                     return this.waitFor({
                         success: function() {
                             const hash = Opa5.getHashChanger().getHash();
-                            Opa5.assert.ok(hash.includes("nome=Defesa"), "O parâmetro 'nome' está presente na URL.");
+                            Opa5.assert.ok(hash.includes(valor), "O parâmetro '" + valor+ "' está presente na URL.");
                         },
                         errorMessage: "O parâmetro 'nome' não está presente na URL."
+                    });
+                },
+                verificaSeListaHabilidadeSemDados: function() {
+                    return this.waitFor({
+						id: "listaHabilidade",
+						viewName: nomeDaView,
+						matchers: new AggregationLengthEquals({
+							name: "items",
+							length: 0
+						}),
+						success: function () {
+							Opa5.assert.ok(true, "Mostrando lista completa com todos os 13 itens");
+						},
+						errorMessage: "Mais dados não foram carregados na lista."
+					});
+                },
+                verificaSeBuscouComFiltroDataDeCriacao: function(dataBase, dataTeto) {
+                    return this.waitFor({
+                        id: "listaHabilidade",
+                        viewName: nomeDaView,
+                        success: function(oList) {
+                            var bFiltroAplicado = oList.getItems().every(function(oItem) {
+                                var oBindingContext = oItem.getBindingContext();
+                                if (!oBindingContext) {
+                                    return false;
+                                }
+                                var dataCriacao = oBindingContext.getProperty("dataCriacao");
+                                return (new Date(dataCriacao) >= new Date(dataBase)) && (new Date(dataCriacao) <= new Date(dataTeto));
+                            });
+                            Opa5.assert.ok(bFiltroAplicado, "A lista foi filtrada pela data de criação entre " + dataBase + " e " + dataTeto);
+                        },
+                        errorMessage: "Erro ao verificar a filtragem por data de criação"
                     });
                 }
             }

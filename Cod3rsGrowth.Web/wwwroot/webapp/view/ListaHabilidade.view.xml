@@ -18,6 +18,7 @@
 						<Title text="Habilidades" />
 						<ToolbarSpacer />
 						<SearchField id="filtroNome" width="30%" liveChange="aoFiltrarHabilidadePorNome" />
+						<Button id="btnFiltroHabilidade" icon="sap-icon://filter" press="aoAbrirFiltrosHabilidade" />
 					</Toolbar>
 				</headerToolbar>
 				<items>

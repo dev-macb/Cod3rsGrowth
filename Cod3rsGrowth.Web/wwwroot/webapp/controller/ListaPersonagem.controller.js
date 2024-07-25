@@ -50,7 +50,7 @@ sap.ui.define([
 
 		aoAbrirFiltros: async function() {
 			this.dialogoFiltros ??= await this.loadFragment({
-				name: "coders-growth.view.ListaPersonagem",
+				name: "coders-growth.view.FiltroPersonagem",
 				controller: this
 			});
 			this.dialogoFiltros.open();

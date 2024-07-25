@@ -20,13 +20,13 @@ sap.ui.define([
         Then.naPaginaListaHabilidade.verificaSeMaisDadosForamCarregados();
     });
 
-    opaTest("Deve filtrar listagem de habilidade por nome", (Given, When, Then) => {
+    opaTest("Deve filtrar por nome 'Defesa'", (Given, When, Then) => {
         // Act
         When.naPaginaListaHabilidade.aoInserirFiltroNome("Defesa");
 
         // Assert
         Then.naPaginaListaHabilidade.verificaSeBuscouComFiltroNome("Defesa");
-        Then.naPaginaListaHabilidade.verificaParametroNomeNaURL();
+        Then.naPaginaListaHabilidade.verificaParametroNomeNaURL("nome=Defesa");
     });
 
     opaTest("Deve limpar filtragem por nome", (Given, When, Then) => {
@@ -35,7 +35,27 @@ sap.ui.define([
 
         // Assert
         Then.naPaginaListaHabilidade.verificaSeHaPaginacao();
-        Then.naPaginaListaHabilidade.deveVerificarUrlListaHabilidade();
-        Then.iTeardownMyApp();
+        Then.naPaginaListaHabilidade.deveVerificarUrlListaHabilidade("");
+    });
+
+    opaTest("Deve filtrar por nome inexistente", (Given, When, Then) => {
+        // Act
+        When.naPaginaListaHabilidade.aoInserirFiltroNome("HabilidadeInexistente");
+
+        // Assert
+        Then.naPaginaListaHabilidade.verificaSeListaHabilidadeSemDados();
+        Then.naPaginaListaHabilidade.verificaParametroNomeNaURL("nome=HabilidadeInexistente");
+    });
+
+    opaTest("Deve filtrar por data de criação", (Given, When, Then) => { 
+        // Act
+        When.naPaginaListaHabilidade.aoInserirFiltroNome("");
+        When.naPaginaListaHabilidade.aoClicarEmVerFiltros();
+        When.naPaginaListaHabilidade.aoSelecionarFiltroDataDeCriacao();
+        When.naPaginaListaHabilidade.aoDefinirFiltroDataDeCriacao("2024-07-01", "2024-07-10");
+        When.naPaginaListaHabilidade.aoClicarEmAplicarFiltros();
+
+        // Assert
+        Then.naPaginaListaHabilidade.verificaSeBuscouComFiltroDataDeCriacao();
     });
 });

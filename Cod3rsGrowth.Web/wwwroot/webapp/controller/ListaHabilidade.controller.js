@@ -1,9 +1,8 @@
 sap.ui.define([
 	"coders-growth/controller/BaseController",
     "sap/ui/model/json/JSONModel",
-    "sap/ui/model/Filter",
-	"sap/ui/model/FilterOperator"
-], function(BaseController, JSONModel) {
+	"sap/ui/core/format/DateFormat"
+], function(BaseController, JSONModel, DateFormat) {
 	"use strict";
 
 	return BaseController.extend("coders-growth.controller.ListaHabilidade", {
@@ -38,12 +37,44 @@ sap.ui.define([
 			}
         },
 
-		
         aoFiltrarHabilidadePorNome: function(evento) {
 			const filtroNome = evento.getSource().getValue();
 			
 			if (filtroNome) { this._filtros.nome = filtroNome; } 
 			else { delete this._filtros.nome; }	
+
+			this._carregarHabilidades();
+		},
+
+		aoAbrirFiltrosHabilidade: async function() {
+			this.dialogoFiltrosHabilidade ??= await this.loadFragment({
+				name: "coders-growth.view.FiltroHabilidade",
+				controller: this
+			});
+			this.dialogoFiltrosHabilidade.open();
+		},
+
+		tratarSelecaoDeDatas: function(evento) {
+			var calendario = evento.getSource();
+			var datasSelecionadas = calendario.getSelectedDates()[0];
+			
+			if (datasSelecionadas) {
+				var formatadorDeData = DateFormat.getDateTimeInstance({
+					pattern: "yyyy-MM-dd'T'HH:mm:ss'Z'"
+				});
+				this._filtros.database = formatadorDeData.format(datasSelecionadas.getStartDate());
+				this._filtros.datateto = formatadorDeData.format(datasSelecionadas.getEndDate());
+			}
+		},
+
+		aoAplicarFiltrosHabilidade: async function(evento) {
+			this._carregarHabilidades();
+		},
+
+		
+		aoResetarFiltrosHabilidade: function() {
+			this._filtros = {};
+			this.byId("calendario").removeAllSelectedDates();
 
 			this._carregarHabilidades();
 		},
