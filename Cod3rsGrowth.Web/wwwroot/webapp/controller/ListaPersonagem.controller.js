@@ -13,26 +13,33 @@ sap.ui.define([
 
 
 		_carregarPersonagens: async function() {
-			const urlObterTodosPersonagens = new URL("https://localhost:5051/api/Personagem");
-
+			const urlObterTodasHabilidades = new URL("https://localhost:5051/api/Personagem");
+		
 			Object.keys(this._filtros).forEach(chave => {
-                urlObterTodosPersonagens.searchParams.append(chave, this._filtros[chave]);
-            });
-
+				let valor = this._filtros[chave];
+		
+				if (chave === "database" || chave === "datateto") {
+					const data = new Date(valor);
+					if (!isNaN(data)) valor = data.toISOString();
+				}
+				
+				urlObterTodasHabilidades.searchParams.append(chave, valor);
+			});
+		
 			try {
-				const resposta = await fetch(urlObterTodosPersonagens, {
+				console.log(urlObterTodasHabilidades.href)
+				const resposta = await fetch(urlObterTodasHabilidades.href, {
 					method: "GET",
 					headers: { "Content-Type": "application/json" },
 				});
-
+		
 				if (!resposta.ok) throw new Error('Erro na resposta da API');
-
-				const personagens = await resposta.json();
-				const modeloPersonagem = new JSONModel(personagens);
-            	this.getView().setModel(modeloPersonagem);
-				this.obterRotiador().navTo("personagens", Object.keys(this._filtros).length === 0 ? {} : { "query": this._filtros })
-			}
-			catch (erro) {
+		
+				const habilidades = await resposta.json();
+				const modeloHabilidade = new JSONModel(habilidades);
+				this.getView().setModel(modeloHabilidade);
+				this.obterRotiador().navTo("personagens", Object.keys(this._filtros).length === 0 ? {} : { "?query": this._filtros });
+			} catch (erro) {
 				console.error(erro);
 			}
 		},

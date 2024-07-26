@@ -3,7 +3,7 @@
    xmlns:u="sap.ui.unified"
    xmlns:core="sap.ui.core"
 >
-    <ViewSettingsDialog id="dialogoFiltros" confirm="aoAplicarFiltros" resetFilters="aoResetarFiltros">
+    <ViewSettingsDialog id="dialogoFiltrosPersonagem" confirm="aoAplicarFiltros" resetFilters="aoResetarFiltros">
         <filterItems>
             <ViewSettingsFilterItem id="itensFiltros" text="Propósito" key="Personagem" multiSelect="false">
                 <items>

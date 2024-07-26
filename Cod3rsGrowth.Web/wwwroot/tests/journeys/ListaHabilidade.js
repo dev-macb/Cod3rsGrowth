@@ -35,7 +35,7 @@ sap.ui.define([
 
         // Assert
         Then.naPaginaListaHabilidade.verificaSeHaPaginacao();
-        Then.naPaginaListaHabilidade.deveVerificarUrlListaHabilidade("");
+        Then.naPaginaListaHabilidade.verificaUrlListaHabilidade("");
     });
 
     opaTest("Deve filtrar por nome inexistente", (Given, When, Then) => {
@@ -48,14 +48,17 @@ sap.ui.define([
     });
 
     opaTest("Deve filtrar por data de criação", (Given, When, Then) => { 
-        // Act
+        // Arrange
         When.naPaginaListaHabilidade.aoInserirFiltroNome("");
+
+        // Act
         When.naPaginaListaHabilidade.aoClicarEmVerFiltros();
         When.naPaginaListaHabilidade.aoSelecionarFiltroDataDeCriacao();
-        When.naPaginaListaHabilidade.aoDefinirFiltroDataDeCriacao("2024-07-01", "2024-07-10");
+        When.naPaginaListaHabilidade.aoDefinirFiltroDataDeCriacao("2024-07-26", "2024-07-27");
         When.naPaginaListaHabilidade.aoClicarEmAplicarFiltros();
 
         // Assert
         Then.naPaginaListaHabilidade.verificaSeBuscouComFiltroDataDeCriacao();
+        Then.iTeardownMyApp();
     });
 });

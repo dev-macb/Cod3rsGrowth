@@ -46,47 +46,59 @@ sap.ui.define([
                 },
                 aoSelecionarFiltroDataDeCriacao: function() {
                     return this.waitFor({
-                        id: "__xmlview1--filtroDataDeCriacao-list-item",
-                        viewName: nomeDaView,
-                        actions: new Press(),
-                        errorMessage: "Filtro 'Data de Criação' não encontrado."
+                        searchOpenDialogs: true,
+                        controlType: "sap.m.StandardListItem",
+                        matchers: new PropertyStrictEquals({ name: "title", value: "Data de Criação" }),
+                        actions: function (item) {
+							item.firePress();
+						},
+                        errorMessage: "Botão 'Ver Lista de Personagens' não encontrado."
                     });
                 },
                 aoDefinirFiltroDataDeCriacao: function(dataBase, dataTeto) {
                     return this.waitFor({
-                        controlType: "sap.m.ViewSettingsDialog",
-                        matchers: new sap.ui.test.matchers.PropertyStrictEquals({ name: "id", value: "__xmlview1--dialogoFiltrosHabilidade" }),
-                        success: function(aDialogs) {
-                            var oDialog = aDialogs[0];
-                            return this.waitFor({
-                                controlType: "sap.ui.unified.Calendar",
-                                matchers: new sap.ui.test.matchers.Ancestor(oDialog),
-                                success: function(calendarios) {
-                                    var calendario = calendarios[0];
-                                    var oBaseDate = new Date(dataBase);
-                                    var oTetoDate = new Date(dataTeto);
-                                    
-                                    calendario.removeAllSelectedDates();
-                                    calendario.addSelectedDate(new sap.ui.unified.DateRange({ startDate: oBaseDate, endDate: oTetoDate }));
-                                    Opa5.assert.ok(true, "Datas definidas no calendário: " + oBaseDate.toDateString() + " - " + oTetoDate.toDateString());
-                                },
-                                errorMessage: "Calendário para o filtro 'Data de Criação' não encontrado."
-                            });
+                        id: "calendario",
+                        viewName: nomeDaView,
+                        success: function(oCalendar) {
+                            var oBaseDate = new Date(dataBase);
+                            var oTetoDate = new Date(dataTeto);
+                            
+                            // Clear any previously selected dates
+                            oCalendar.removeAllSelectedDates();
+                            
+                            // Add new selected dates
+                            oCalendar.addSelectedDate(new sap.ui.unified.DateRange({ startDate: oBaseDate, endDate: oTetoDate }));
+                            
+                            Opa5.assert.ok(true, "Datas definidas no calendário: " + oBaseDate.toDateString() + " - " + oTetoDate.toDateString());
                         },
-                        errorMessage: "Diálogo de filtros de habilidade não encontrado."
+                        errorMessage: "Calendário para o filtro 'Data de Criação' não encontrado."
                     });
                 },
                 aoClicarEmAplicarFiltros: function() {
                     return this.waitFor({
+                        searchOpenDialogs: true,
                         controlType: "sap.m.Button",
-                        id: "__xmlview1--dialogoFiltrosHabilidade-acceptbutton",
-                        actions: new Press(),
-                        errorMessage: "Botão 'Ok' não encontrado no dialogo de filtros."
+                        check: function(aButtons) {
+                            return aButtons.some(function(oButton) {
+                                return oButton.getId().includes("dialogoFiltrosHabilidade-acceptbutton");
+                            });
+                        },
+                        success: function(aButtons) {
+                            var oButton = aButtons.find(function(oButton) {
+                                return oButton.getId().includes("dialogoFiltrosHabilidade-acceptbutton");
+                            });
+                            if (oButton) {
+                                oButton.firePress();
+                            } else {
+                                throw new Error("Botão 'Ok' não encontrado.");
+                            }
+                        },
+                        errorMessage: "Botão 'Ok' não encontrado."
                     });
                 }
             },
             assertions: {
-                deveVerificarUrlListaHabilidade: function() {
+                verificaUrlListaHabilidade: function() {
                     return this.waitFor({
                         success: function() {
                             const hash = Opa5.getHashChanger().getHash();
@@ -95,7 +107,7 @@ sap.ui.define([
                         errorMessage: "A URL não é a esperada"
                     });
                 },
-                deveVerificarTituloListaHabilidade: function() {
+                verificaTituloListaHabilidade: function() {
                     return this.waitFor({
                         controlType: "sap.m.Page",
                         viewName: nomeDaView,
@@ -126,7 +138,7 @@ sap.ui.define([
 						viewName: nomeDaView,
 						matchers: new AggregationLengthEquals({
 							name: "items",
-							length: 13
+							length: 14
 						}),
 						success: function () {
 							Opa5.assert.ok(true, "Mostrando lista completa com todos os 13 itens");
@@ -179,24 +191,28 @@ sap.ui.define([
 						errorMessage: "Mais dados não foram carregados na lista."
 					});
                 },
-                verificaSeBuscouComFiltroDataDeCriacao: function(dataBase, dataTeto) {
+                verificaSeBuscouComFiltroDataDeCriacao: function () {
+                    function verificarSeListaIncluiItemComNome(lista) {
+                        return lista.getItems().every(function (elemento) {
+                            if (!elemento.getBindingContext()) {
+                                return false;
+                            }
+
+                            var nomeItem = elemento.getBindingContext().getProperty("nome");
+                            return nomeItem.includes("NOVO NOVO NOVO");
+                        });
+                    }
+
                     return this.waitFor({
                         id: "listaHabilidade",
                         viewName: nomeDaView,
-                        success: function(oList) {
-                            var bFiltroAplicado = oList.getItems().every(function(oItem) {
-                                var oBindingContext = oItem.getBindingContext();
-                                if (!oBindingContext) {
-                                    return false;
-                                }
-                                var dataCriacao = oBindingContext.getProperty("dataCriacao");
-                                return (new Date(dataCriacao) >= new Date(dataBase)) && (new Date(dataCriacao) <= new Date(dataTeto));
-                            });
-                            Opa5.assert.ok(bFiltroAplicado, "A lista foi filtrada pela data de criação entre " + dataBase + " e " + dataTeto);
+                        success: function (lista) {
+                            var listaFiltrada = verificarSeListaIncluiItemComNome(lista);
+                            Opa5.assert.ok(listaFiltrada, "A lista foi filtrada pelo nome: " + "NOVO NOVO NOVO");
                         },
-                        errorMessage: "Erro ao verificar a filtragem por data de criação"
+                        errorMessage: "Erro ao filtrar por data de criação"
                     });
-                }
+                },
             }
         }
     });

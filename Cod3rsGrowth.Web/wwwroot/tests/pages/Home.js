@@ -43,7 +43,7 @@ sap.ui.define([
                         errorMessage: "A URL não é a esperada"
                     });
                 },
-                verificarUrlPaginaHome: function() {
+                verificaUrlPaginaHome: function() {
                     return this.waitFor({
                         success: function() {
                             const hash = Opa5.getHashChanger().getHash();

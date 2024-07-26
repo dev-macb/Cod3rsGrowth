@@ -16,8 +16,8 @@ sap.ui.define([
         When.naPaginaHome.aoClicarEmVerListaPersonagem();
 
         // Assert
-        Then.naPaginaListaPersonagem.deveVerificarUrlListaPersonagem();
-        Then.naPaginaListaPersonagem.deveVerificarTituloListaPersonagem();
+        Then.naPaginaListaPersonagem.verificaUrlListaPersonagem();
+        Then.naPaginaListaPersonagem.verificaTituloListaPersonagem();
         Then.iTeardownMyApp();
     });
 
@@ -29,8 +29,8 @@ sap.ui.define([
         When.naPaginaHome.aoClicarEmVerListaHabilidade();
 
         // Assert
-        Then.naPaginaListaHabilidade.deveVerificarUrlListaHabilidade();
-        Then.naPaginaListaHabilidade.deveVerificarTituloListaHabilidade();
+        Then.naPaginaListaHabilidade.verificaUrlListaHabilidade();
+        Then.naPaginaListaHabilidade.verificaTituloListaHabilidade();
         Then.iTeardownMyApp();
     });
 });
