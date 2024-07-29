@@ -11,11 +11,11 @@
 		class="sapUiResponsiveContentPadding"
     >
 		<content>
-			<Button icon="sap-icon://add" text="Adicionar" />
+			<Button icon="sap-icon://add" text="{i18n>ListaPersonagem.botaoAdicionar}" />
 			<List id="listaPersonagem" items="{ path: '/' }" growing="true" growingThreshold="10">
 				<headerToolbar>
 					<Toolbar>
-						<Title text="Personagens" />
+						<Title text="{i18n>ListaPersonagem.tituloLista}" />
 						<ToolbarSpacer />
 						<SearchField id="filtroNome" width="30%" liveChange="aoFiltrarPersonagemPorNome" />
 						<Button id="btnFiltroPersonagem" icon="sap-icon://filter" press="aoAbrirFiltros" />

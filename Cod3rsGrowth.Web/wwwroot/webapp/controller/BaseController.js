@@ -4,6 +4,8 @@ sap.ui.define([
 ], function(Controller, UIComponent) {
 	"use strict";
 
+	const ROTA_HOME = "home";
+
 	return Controller.extend("coders-growth.controller.BaseController", {
 		obterRotiador : function () {
 			return UIComponent.getRouterFor(this);
@@ -12,7 +14,7 @@ sap.ui.define([
 
 		navegarPara: function (rotaDestino) {
 			if (rotaDestino) { this.obterRotiador().navTo(rotaDestino); }
-			else { this.obterRotiador().navTo("home"); }
+			else { this.obterRotiador().navTo(ROTA_HOME); }
 		}
 	});
 });
