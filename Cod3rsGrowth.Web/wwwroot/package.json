@@ -1,0 +1,16 @@
+{
+    "name": "coders-growth",
+    "version": "1.0.0",
+    "main": "index.js",
+    "scripts": {
+        "dev": "ui5 serve -o index.html",
+        "test": "ui5 serve -o tests/integration/opaTests.qunit.html"
+    },
+    "keywords": [],
+    "author": "",
+    "license": "ISC",
+    "description": "",
+    "devDependencies": {
+        "@ui5/cli": "^3.11.0"
+    }
+}

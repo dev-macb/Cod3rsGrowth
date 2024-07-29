@@ -1,0 +1,22 @@
+<core:FragmentDefinition
+   xmlns="sap.m"
+   xmlns:u="sap.ui.unified"
+   xmlns:core="sap.ui.core"
+>
+    <ViewSettingsDialog id="dialogoFiltrosPersonagem" confirm="aoAplicarFiltros" resetFilters="aoResetarFiltros">
+        <filterItems>
+            <ViewSettingsFilterItem id="itensFiltros" text="Propósito" key="Personagem" multiSelect="false">
+                <items>
+                    <ViewSettingsItem id="personagemHeroi" text="Herói" key="heroi"/>
+                    <ViewSettingsItem id="personagemVilao" text="Vilão" key="vilao"/>
+                </items>
+            </ViewSettingsFilterItem>
+
+            <ViewSettingsCustomItem id="dataCriacaoFiltro" text="Data de Criação" key="dataCriacao">
+                <customControl>
+                    <u:Calendar id="calendarario" select="tratarSelecaoDeDatas" intervalSelection="true" />
+                </customControl>
+            </ViewSettingsCustomItem>
+        </filterItems>
+    </ViewSettingsDialog>
+</core:FragmentDefinition> 
