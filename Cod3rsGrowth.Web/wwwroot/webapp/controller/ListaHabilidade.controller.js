@@ -27,7 +27,7 @@ sap.ui.define([
 			});
 		
 			try {
-				console.log(urlObterTodasHabilidades.href)
+				console.log(urlObterTodasHabilidades)
 				const resposta = await fetch(urlObterTodasHabilidades.href, {
 					method: "GET",
 					headers: { "Content-Type": "application/json" },
@@ -75,7 +75,6 @@ sap.ui.define([
 		},
 
 		aoAplicarFiltrosHabilidade: async function(evento) {
-			console.log('APLICAR FILTROS')
 			this._carregarHabilidades();
 		},
 

@@ -26,7 +26,7 @@ sap.ui.define([
 
         // Assert
         Then.naPaginaListaPersonagem.verificaSeBuscouComFiltroNome("Ryu");
-        Then.naPaginaListaPersonagem.verificaParametroNomeNaURL("nome=Ryu");
+        Then.naPaginaListaPersonagem.verificaParametroNaURL("nome=Ryu");
     });
 
     opaTest("Deve limpar filtragem por nome", (Given, When, Then) => {
@@ -43,8 +43,8 @@ sap.ui.define([
         When.naPaginaListaPersonagem.aoInserirFiltroNome("HabilidadeInexistente");
 
         // Assert
-        Then.naPaginaListaPersonagem.verificaSeListaHabilidadeSemDados();
-        Then.naPaginaListaPersonagem.verificaParametroNomeNaURL("nome=HabilidadeInexistente");
+        Then.naPaginaListaPersonagem.verificaSeListaPersonagemSemDados();
+        Then.naPaginaListaPersonagem.verificaParametroNaURL("nome=HabilidadeInexistente");
     });
 
     opaTest("Deve filtrar por propósito heroico", (Given, When, Then) => { 
@@ -58,23 +58,41 @@ sap.ui.define([
         When.naPaginaListaPersonagem.aoClicarEmAplicarFiltros();
 
         // Assert
-        Then.naPaginaListaPersonagem.verificaParametroNomeNaURL("evilao=false");
-        // Then.naPaginaListaPersonagem.verificaSeBuscouComFiltroProposito(false);
+        Then.naPaginaListaPersonagem.verificaParametroNaURL("evilao=false");
+        Then.naPaginaListaPersonagem.verificaSeBuscouComFiltroProposito(false);
     });
 
     opaTest("Deve filtrar por propósito vilanesco", (Given, When, Then) => { 
-        // Arrange
-        When.naPaginaListaPersonagem.aoInserirFiltroNome("");
-
         // Act
         When.naPaginaListaPersonagem.aoClicarEmVerFiltros();
-        When.naPaginaListaPersonagem.aoSelecionarFiltroProposito();
         When.naPaginaListaPersonagem.aoDefinirFiltroProposito("Vilão");
         When.naPaginaListaPersonagem.aoClicarEmAplicarFiltros();
 
         // Assert
-        Then.naPaginaListaPersonagem.verificaParametroNomeNaURL("evilao=true");
-        // Then.naPaginaListaPersonagem.verificaSeBuscouComFiltroProposito(false);
+        Then.naPaginaListaPersonagem.verificaParametroNaURL("evilao=true");
+        Then.naPaginaListaPersonagem.verificaSeBuscouComFiltroProposito(true);
+    });
+
+    opaTest("Deve resetar os filtros", (Given, When, Then) => { 
+        // Act
+        When.naPaginaListaPersonagem.aoClicarEmVerFiltros();
+        When.naPaginaListaPersonagem.aoClicarEmResetarFiltros();
+        When.naPaginaListaPersonagem.aoClicarEmAplicarFiltros();
+
+        // Assert
+        Then.naPaginaListaPersonagem.verificaParametroNaURL("");
+    });
+
+    opaTest("Deve filtrar por data de criação", (Given, When, Then) => { 
+        // Act
+        When.naPaginaListaPersonagem.aoClicarEmVerFiltros();
+        When.naPaginaListaPersonagem.aoSelecionarFiltroDataDeCriacao();
+        When.naPaginaListaPersonagem.aoDefinirFiltroDataDeCriacao("2024-07-28", "2024-07-30");
+        When.naPaginaListaPersonagem.aoClicarEmAplicarFiltros();
+
+        // Assert
+        Then.naPaginaListaPersonagem.verificaSeBuscouComFiltroDataDeCriacao("2024-07-28", "2024-07-30");
+        Then.naPaginaListaPersonagem.verificaParametroNaURL("database=2024-07-27T21:00:00Z&datateto=2024-07-29T21:00:00Z");
         Then.iTeardownMyApp();
     });
 });

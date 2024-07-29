@@ -26,7 +26,7 @@ sap.ui.define([
 
         // Assert
         Then.naPaginaListaHabilidade.verificaSeBuscouComFiltroNome("Defesa");
-        Then.naPaginaListaHabilidade.verificaParametroNomeNaURL("nome=Defesa");
+        Then.naPaginaListaHabilidade.verificaParametroNaURL("nome=Defesa");
     });
 
     opaTest("Deve limpar filtragem por nome", (Given, When, Then) => {
@@ -44,7 +44,7 @@ sap.ui.define([
 
         // Assert
         Then.naPaginaListaHabilidade.verificaSeListaHabilidadeSemDados();
-        Then.naPaginaListaHabilidade.verificaParametroNomeNaURL("nome=HabilidadeInexistente");
+        Then.naPaginaListaHabilidade.verificaParametroNaURL("nome=HabilidadeInexistente");
     });
 
     opaTest("Deve filtrar por data de criação", (Given, When, Then) => { 
@@ -54,11 +54,12 @@ sap.ui.define([
         // Act
         When.naPaginaListaHabilidade.aoClicarEmVerFiltros();
         When.naPaginaListaHabilidade.aoSelecionarFiltroDataDeCriacao();
-        When.naPaginaListaHabilidade.aoDefinirFiltroDataDeCriacao("2024-07-26", "2024-07-27");
+        When.naPaginaListaHabilidade.aoDefinirFiltroDataDeCriacao("2024-07-25", "2024-07-27");
         When.naPaginaListaHabilidade.aoClicarEmAplicarFiltros();
 
         // Assert
-        Then.naPaginaListaHabilidade.verificaSeBuscouComFiltroDataDeCriacao();
+        Then.naPaginaListaHabilidade.verificaSeBuscouComFiltroDataDeCriacao("2024-07-25", "2024-07-27");
+        Then.naPaginaListaHabilidade.verificaParametroNaURL("database=2024-07-24T21:00:00Z&datateto=2024-07-26T21:00:00Z");
         Then.iTeardownMyApp();
     });
 });

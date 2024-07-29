@@ -3,13 +3,16 @@ sap.ui.define([
 ], function (BaseController) {
 	"use strict";
 
+	const rotaPersonagens = "personagens";
+	const rotaHabilidades = "habilidades";
+
 	return BaseController.extend("coders-growth.controller.Home", {
 		irListaPersonagem() {
-			this.obterRotiador().navTo("personagens");
+			this.obterRotiador().navTo(rotaPersonagens);
 		},
 
 		irListaHabilidade() {
-			this.obterRotiador().navTo("habilidades");
+			this.obterRotiador().navTo(rotaHabilidades);
 		}
 	});
 });
