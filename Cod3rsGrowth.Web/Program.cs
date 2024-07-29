@@ -1,9 +1,11 @@
 using Cod3rsGrowth.Web;
 using Cod3rsGrowth.Infra;
 using Cod3rsGrowth.Service;
+using Microsoft.Extensions.FileProviders;
 
 
 var construtor = WebApplication.CreateBuilder(args);
+
 
 string? stringDeConexao = construtor.Configuration.GetConnectionString("ConexaoPadrao");
 if (string.IsNullOrEmpty(stringDeConexao)) throw new Exception("Sem URI do banco");
@@ -18,12 +20,12 @@ var app = construtor.Build();
 StartupInfra.InicializarBancoDeDados(app.Services);
 
 
-if (app.Environment.IsDevelopment())
+app.UseFileServer(new FileServerOptions
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
+    FileProvider = new PhysicalFileProvider(Path.Combine(app.Environment.ContentRootPath, "wwwroot", "webapp")),
+    EnableDirectoryBrowsing = true
+});
+app.UseStaticFiles(new StaticFileOptions(){ ServeUnknownFileTypes = true });
 app.UseProblemDetailsExceptionHandler(app.Services.GetRequiredService<ILoggerFactory>());
 app.UseHttpsRedirection();
 app.UseAuthorization();

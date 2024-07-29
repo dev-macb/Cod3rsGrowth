@@ -8,6 +8,6 @@
 		text="{i18n>NotFound.texto}" 
 		description="{i18n>NotFound.descricao}"
 		showNavButton="true"
-		navButtonPress="voltarNavegacao"
+		navButtonPress="navegarPara('home')"
 	/>
 </mvc:View>

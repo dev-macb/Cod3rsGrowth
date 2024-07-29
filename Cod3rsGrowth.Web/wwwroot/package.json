@@ -9,5 +9,8 @@
     "keywords": [],
     "author": "",
     "license": "ISC",
-    "description": ""
+    "description": "",
+    "devDependencies": {
+        "@ui5/cli": "^3.11.0"
+    }
 }

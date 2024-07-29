@@ -5,7 +5,8 @@
 >
 	<Page title="{i18n>Home.titulo}" class="sapUiResponsiveContentPadding">
 		<content>
-			<Text id="txtOlaMundo" text="{i18n>Home.textoOlaMundo}" />
+            <Button id="btnVerListaPersonagem" text="{i18n>Home.botaoVerListaPersonagem}" press="irListaPersonagem" class="sapUiTinyMarginEnd" />
+            <Button id="btnVerListaHabilidade" text="{i18n>Home.botaoVerListaHabilidade}" press="irListaHabilidade" />
 		</content>
 	</Page>
 </mvc:View>

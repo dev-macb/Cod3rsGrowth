@@ -6,13 +6,15 @@ sap.ui.define([
 
     return UIComponent.extend("coders-growth.Component", {
         metadata: {
+            interfaces: ["sap.ui.core.IAsyncContentCreation"],
             manifest: "json"
         },
         
         init() {
             UIComponent.prototype.init.apply(this, arguments);
+
             this.getRouter().initialize();
-            this.getRouter().attachBypassed(() => {
+            this.getRouter().attachBypassed(function() {
                 var trocadorDeHash = HashChanger.getInstance();
                 trocadorDeHash.replaceHash("notFound");
             });

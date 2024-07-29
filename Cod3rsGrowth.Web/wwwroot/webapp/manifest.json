@@ -1,11 +1,19 @@
 {
-    "_version": "1.58.0",
-    "sap.app": {
-        "id": "coders-growth",
-        "type": "application",
-        "i18n": "i18n/i18n.properties",
-        "applicationVersion": { "version": "1.0.0" }
-    },
+	"_version": "1.58.0",
+	"sap.app": {
+		"id": "coders-growth",
+		"title": "coders-growth",
+		"description": "Projeto de Treinamento",
+		"type": "application",
+		"i18n": {
+			"bundleUrl": "i18n/i18n_pt_BR.properties",
+			"supportedLocales": [""],
+			"fallbackLocale": ""
+		},
+		"applicationVersion": {
+			"version": "1.0.0"
+		}
+	},
 	"sap.ui": {
 		"technology": "UI5",
 		"deviceTypes": {
@@ -13,12 +21,30 @@
 			"tablet": true,
 			"phone": true
 		}
-  	},
+	},
 	"sap.ui5": {
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "coders-growth.i18n.i18n",
+					"supportedLocales": ["pt_BR", "en"],
+					"fallbackLocale": "pt_BR"
+				}
+			},
+			"personagens": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "https://localhost:5051/api/Personagem"
+			},
+			"habilidades": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "https://localhost:5051/api/Habilidade"
+			}
+		},
 		"rootView": {
-            "id": "app",
-            "type": "XML",
-            "async": true,
+			"id": "app",
+			"type": "XML",
+			"async": true,
 			"viewName": "coders-growth.view.App"
 		},
 		"routing": {
@@ -45,18 +71,36 @@
 					"pattern": "notFound",
 					"name": "notFound",
 					"target": "notFound"
+				},
+				{
+					"pattern": "personagens:?query:",
+					"name": "personagens",
+					"target": "personagens"
+				},
+				{
+					"pattern": "habilidades:?query:",
+					"name": "habilidades",
+					"target": "habilidades"
 				}
 			],
 			"targets": {
 				"home": {
-                    "viewName": "Home",
-                    "viewLevel": 1
-                },
-                "notFound": {
-                    "viewName": "NotFound",
-                    "viewLevel": 2
-                }
+					"viewName": "Home",
+					"viewLevel": 1
+				},
+				"notFound": {
+					"viewName": "NotFound",
+					"viewLevel": 2
+				},
+				"personagens": {
+					"viewName": "ListaPersonagem",
+					"viewLevel": 2
+				},
+				"habilidades": {
+					"viewName": "ListaHabilidade",
+					"viewLevel": 2
+				}
 			}
 		}
 	}
-}
+} 

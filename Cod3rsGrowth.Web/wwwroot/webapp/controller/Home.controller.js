@@ -1,7 +1,18 @@
 sap.ui.define([
-	"sap/ui/core/mvc/Controller"
-], function (Controller) {
+	"coders-growth/controller/BaseController"
+], function (BaseController) {
 	"use strict";
 
-	return Controller.extend("sap.ui.demo.nav.controller.Home", {});
+	const rotaPersonagens = "personagens";
+	const rotaHabilidades = "habilidades";
+
+	return BaseController.extend("coders-growth.controller.Home", {
+		irListaPersonagem() {
+			this.obterRotiador().navTo(rotaPersonagens);
+		},
+
+		irListaHabilidade() {
+			this.obterRotiador().navTo(rotaHabilidades);
+		}
+	});
 });
