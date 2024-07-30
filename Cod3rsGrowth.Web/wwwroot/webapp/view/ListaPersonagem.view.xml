@@ -26,7 +26,7 @@
 						icon="{ path: 'eVilao', formatter: '.formatter.iconePersonagem' }"
 						title="{nome}"
 						type="Navigation"
-						press=".onListItemPressed"/>
+						press=".aoClicarEmVerDetalhes"/>
 				</items>
 			</List>
 		</content>

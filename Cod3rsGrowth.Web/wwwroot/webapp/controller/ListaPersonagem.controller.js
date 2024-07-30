@@ -1,8 +1,9 @@
 sap.ui.define([
 	"coders-growth/controller/BaseController",
 	"sap/ui/model/json/JSONModel",
-	"sap/ui/core/format/DateFormat"
-], function(BaseController, JSONModel, DateFormat) {
+	"sap/ui/core/format/DateFormat",
+	"../services/PersonagemService"
+], function(BaseController, JSONModel, DateFormat, PersonagemService) {
 	"use strict";
 
 	const ROTA_PERSONAGENS = "personagens";
@@ -81,6 +82,13 @@ sap.ui.define([
 			this.byId(ID_CALENDARIO).removeAllSelectedDates();
 
 			this._carregarPersonagens();
+		},
+
+		aoClicarEmVerDetalhes: function(elemento) {
+			console.log("VER DETALHES")
+			this.obterRotiador().navTo("personagem", { 
+				idPersonagem: elemento.getSource().getBindingContext().getProperty("id") 
+			})
 		},
 
 		formatter: {

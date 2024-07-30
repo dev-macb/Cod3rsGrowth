@@ -78,6 +78,11 @@
 					"target": "personagens"
 				},
 				{
+					"pattern": "personagem/{idPersonagem}",
+					"name": "personagem",
+					"target": "personagem"
+				},
+				{
 					"pattern": "habilidades:?query:",
 					"name": "habilidades",
 					"target": "habilidades"
@@ -95,6 +100,10 @@
 				"personagens": {
 					"viewName": "ListaPersonagem",
 					"viewLevel": 2
+				},
+				"personagem": {
+					"viewName": "DetalhePersonagem",
+					"viewLevel": 3
 				},
 				"habilidades": {
 					"viewName": "ListaHabilidade",
