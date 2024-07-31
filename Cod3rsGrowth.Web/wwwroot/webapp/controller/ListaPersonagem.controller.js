@@ -16,14 +16,11 @@ sap.ui.define([
         },
 
 		_carregarPersonagens: async function() {
-			try {
-				const personagens = await PersonagemService.obterTodosPersonagens(this._filtros);
-                const modeloPersonagem = new JSONModel(personagens);
-                this.getView().setModel(modeloPersonagem);
-                this.obterRotiador().navTo(ROTA_PERSONAGENS, Object.keys(this._filtros).length === 0 ? {} : { "?query": this._filtros });
-			} catch (erro) {
-				console.error(erro);
-			}
+			const personagens = await PersonagemService.obterTodosPersonagens(this._filtros);
+			const modeloPersonagem = new JSONModel(personagens);
+
+			this.getView().setModel(modeloPersonagem);
+			this.obterRotiador().navTo(ROTA_PERSONAGENS, Object.keys(this._filtros).length === 0 ? {} : { "?query": this._filtros });
 		},
 
 		aoFiltrarPersonagemPorNome(evento) {
@@ -85,10 +82,7 @@ sap.ui.define([
 		},
 
 		aoClicarEmVerDetalhes: function(elemento) {
-			console.log("VER DETALHES")
-			this.obterRotiador().navTo("personagem", { 
-				idPersonagem: elemento.getSource().getBindingContext().getProperty("id") 
-			})
+			this.obterRotiador().navTo("personagem", { idPersonagem: elemento.getSource().getBindingContext().getProperty("id") })
 		},
 
 		formatter: {
