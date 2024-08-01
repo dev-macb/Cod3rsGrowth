@@ -4,8 +4,8 @@ sap.ui.define([
     "sap/ui/test/actions/EnterText",
     "sap/ui/test/matchers/PropertyStrictEquals",
     "sap/ui/test/matchers/AggregationLengthEquals",
-    "sap/ui/test/matchers/AggregationContainsPropertyEqual"
-], function (Opa5, Press, EnterText, PropertyStrictEquals, AggregationLengthEquals, AggregationContainsPropertyEqual) {
+    "sap/ui/test/matchers/BindingPath"
+], function (Opa5, Press, EnterText, PropertyStrictEquals, AggregationLengthEquals, BindingPath) {
     "use strict";
 
     const nomeDaView = "ListaPersonagem";
@@ -119,7 +119,8 @@ sap.ui.define([
                             });
                             if (oButton) {
                                 oButton.firePress();
-                            } else {
+                            } 
+                            else {
                                 throw new Error("Não foi possível encontrar o botão 'Resetar Filtros'.");
                             }
                         },
@@ -152,7 +153,26 @@ sap.ui.define([
                         },
                         errorMessage: "Não foi possível definir o filtro de data de criação."
                     });
-                }
+                },
+                aoClicarNaLista: function () {
+					return this.waitFor({
+						id: idListaPersonagem,
+						viewName: nomeDaView,
+						actions: new Press(),
+						errorMessage: "Lista de personagens não encontrada"
+					});
+				},
+                aoSelecionarItemDaLista: function(indice){
+					return this.waitFor({
+						controlType: "sap.m.List",
+						matchers:  new BindingPath({
+							path: "/" + indice,
+							modelName: "listaPersonagem",
+						}),
+						actions: new Press(),
+						errorMessage: "A lista de clientes não contem um cliente na posição " + indice
+					});
+				},
             },
             assertions: {
                 verificaUrlListaPersonagem: function () {

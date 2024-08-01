@@ -1,8 +1,9 @@
 sap.ui.define([
 	"coders-growth/controller/BaseController",
 	"sap/ui/model/json/JSONModel",
-	"../services/PersonagemService"
-], function (BaseController, JSONModel, PersonagemService) {
+	"../services/PersonagemService",
+	"../services/HabilidadeService",
+], function (BaseController, JSONModel, PersonagemService, HabilidadeService) {
 	"use strict";
 
 	return BaseController.extend("coders-growth.controller.DetalhePersonagem", {
@@ -12,13 +13,22 @@ sap.ui.define([
 
         _aoCarregarDetalhes: async function (evento) {
 			const argumentos = evento.getParameter("arguments");
-			const personagem = await PersonagemService.obterPorId(argumentos.idPersonagem);
-			const modeloPersonagem = new JSONModel(personagem);
+			try {
+				const personagem = await PersonagemService.obterPorId(argumentos.idPersonagem);
+				const modeloPersonagem = new JSONModel(personagem);
+				this.getView().setModel(modeloPersonagem, "personagem");
 
-			this.getView().setModel(modeloPersonagem, "personagem");
+				const habilidades = await HabilidadeService.obterHabilidadesPorIds(personagem.habilidades);
+                const modeloHabilidades = new JSONModel(habilidades);
+				this.getView().setModel(modeloHabilidades, "habilidades");
+			}
+			catch (erro) {
+                console.error("Erro ao obter detalhes do personagem:", erro);
+                this.obterRotiador().getTargets().display("notFound");
+            }
 		},
 
-		formatter: {
+		formatter: {	
             formatarNivel: function(valor) {
                 switch (valor) {
 					case 0: return "Fraco";
@@ -31,6 +41,9 @@ sap.ui.define([
             },
 			formatarProposito: function(proposito) {
                 return proposito ? "Vilão" : "Herói";
+            },
+            definirClasseProposito: function(proposito) {
+                return proposito ? "txtVilao" : "txtHeroi";
             }
         }
 	});

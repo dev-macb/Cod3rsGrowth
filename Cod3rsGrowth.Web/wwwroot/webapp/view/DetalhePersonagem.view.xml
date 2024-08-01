@@ -7,7 +7,7 @@
 >
     <Page
         id="detalhePersonagem"
-        title="Detalhes do Personagem"
+        title="{i18n>DetalhesPersonagem.titulo}"
         showNavButton="true"
         navButtonPress="navegarPara('personagens')"
         class="sapUiResponsiveContentPadding"
@@ -25,21 +25,21 @@
                 <content>
                     <f:SimpleForm editable="false" layout="ResponsiveGridLayout">
                         <f:content>
-                            <Label text="Vida"/>
+                            <Label text="{i18n>DetalhesPersonagem.vida}"/>
                             <Text text="{personagem>/vida}"/>
-                            <Label text="Energia"/>
+                            <Label text="{i18n>DetalhesPersonagem.energia}"/>
                             <Text text="{personagem>/energia}"/>
-                            <Label text="Velocidade"/>
+                            <Label text="{i18n>DetalhesPersonagem.velocidade}"/>
                             <Text text="{personagem>/velocidade}"/>
-                            <Label text="Força"/>
-                            <Text text="{path: 'personagem>/forca', formatter: '.formatter.formatarNivel'}" class='distintivo' />
-                            <Label text="Inteligencia"/>
-                            <Text text="{path: 'personagem>/inteligencia', formatter: '.formatter.formatarNivel'}" class='distintivo' />
-                            <Label text="Propósito"/>
-                            <Text text="{path: 'personagem>/eVilao', formatter: '.formatter.formatarProposito'}"/>
+                            <Label text="{i18n>DetalhesPersonagem.forca}"/>
+                            <Text text="{path: 'personagem>/forca', formatter: '.formatter.formatarNivel'}" class="distintivo" />
+                            <Label text="{i18n>DetalhesPersonagem.inteligencia}"/>
+                            <Text text="{path: 'personagem>/inteligencia', formatter: '.formatter.formatarNivel'}" class="distintivo" />
+                            <Label text="{i18n>DetalhesPersonagem.proposito}"/>
+                            <Text text="{path: 'personagem>/eVilao', formatter: '.formatter.formatarProposito'}" />
                         </f:content>
                     </f:SimpleForm>
-					<List id="listaHabilidade" items="{ path: '/' }" growing="true" growingThreshold="10">
+					<List id="listaHabilidade" items="{habilidades>/}" growing="true" growingThreshold="10">
 						<headerToolbar>
 							<Toolbar>
 								<Title text="{i18n>ListaHabilidade.tituloLista}" />
@@ -47,10 +47,10 @@
 						</headerToolbar>
 						<items>
 							<StandardListItem
-								title="{nome}"
-								description="{descricao}"
-								type="Navigation"
-								press=".onListItemPressed"/>
+                                title="{habilidades>nome}"
+                                description="{habilidades>descricao}"
+                                type="Navigation"
+                                press=".onListItemPressed"/>
 						</items>
 					</List>
                 </content>
