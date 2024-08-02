@@ -1,0 +1,60 @@
+<mvc:View
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:f="sap.ui.layout.form"
+    busyIndicatorDelay="0"
+    controllerName="coders-growth.controller.DetalhePersonagem"
+>
+    <Page
+        id="detalhePersonagem"
+        title="{i18n>DetalhesPersonagem.titulo}"
+        showNavButton="true"
+        navButtonPress="navegarPara('personagens')"
+        class="sapUiResponsiveContentPadding"
+    >
+        <content>
+            <Panel id="painelDetalhePersonagem" width="auto" class="sapUiResponsiveMargin sapUiNoContentPadding">
+                <headerToolbar>
+                    <Toolbar>
+                        <Title text="{personagem>/nome} ({personagem>/id})" level="H2"/>
+                        <ToolbarSpacer />	
+                        <Button icon="sap-icon://edit" />
+                        <Button icon="sap-icon://delete" />
+                    </Toolbar>
+                </headerToolbar>
+                <content>
+                    <f:SimpleForm id="formDetalhePersonagem" editable="false" layout="ResponsiveGridLayout">
+                        <f:content>
+                            <Label text="{i18n>DetalhesPersonagem.vida}"/>
+                            <Text id="txtVida" text="{personagem>/vida}"/>
+                            <Label text="{i18n>DetalhesPersonagem.energia}"/>
+                            <Text id="txtEnergia" text="{personagem>/energia}"/>
+                            <Label text="{i18n>DetalhesPersonagem.velocidade}"/>
+                            <Text id="txtVelocidade" text="{personagem>/velocidade}"/>
+                            <Label text="{i18n>DetalhesPersonagem.forca}"/>
+                            <Text id="txtForca" text="{path: 'personagem>/forca', formatter: '.formatter.formatarNivel'}" class="distintivo" />
+                            <Label text="{i18n>DetalhesPersonagem.inteligencia}"/>
+                            <Text id="txtInteligencia" text="{path: 'personagem>/inteligencia', formatter: '.formatter.formatarNivel'}" class="distintivo" />
+                            <Label text="{i18n>DetalhesPersonagem.proposito}"/>
+                            <Text id="txtEVilao" text="{path: 'personagem>/eVilao', formatter: '.formatter.formatarProposito'}" />
+                        </f:content>
+                    </f:SimpleForm>
+					<List id="listaHabilidade" items="{habilidades>/}" growing="true" growingThreshold="10">
+						<headerToolbar>
+							<Toolbar>
+								<Title text="{i18n>ListaHabilidade.tituloLista}" />
+							</Toolbar>
+						</headerToolbar>
+						<items>
+							<StandardListItem
+                                title="{habilidades>nome}"
+                                description="{habilidades>descricao}"
+                                type="Navigation"
+                                press=".onListItemPressed"/>
+						</items>
+					</List>
+                </content>
+            </Panel>
+        </content>
+    </Page>
+</mvc:View>

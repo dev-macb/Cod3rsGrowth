@@ -4,8 +4,8 @@ sap.ui.define([
     "sap/ui/test/actions/EnterText",
     "sap/ui/test/matchers/PropertyStrictEquals",
     "sap/ui/test/matchers/AggregationLengthEquals",
-    "sap/ui/test/matchers/AggregationContainsPropertyEqual"
-], function (Opa5, Press, EnterText, PropertyStrictEquals, AggregationLengthEquals, AggregationContainsPropertyEqual) {
+    "sap/ui/test/matchers/BindingPath"
+], function (Opa5, Press, EnterText, PropertyStrictEquals, AggregationLengthEquals, BindingPath) {
     "use strict";
 
     const nomeDaView = "ListaPersonagem";
@@ -86,18 +86,19 @@ sap.ui.define([
                     return this.waitFor({
                         searchOpenDialogs: true,
                         controlType: "sap.m.Button",
-                        check: function (aButtons) {
-                            return aButtons.some(function (oButton) {
-                                return oButton.getId().includes("dialogoFiltrosPersonagem-acceptbutton");
+                        check: function (botoes) {
+                            return botoes.some(function (botao) {
+                                return botao.getId().includes("dialogoFiltrosPersonagem-acceptbutton");
                             });
                         },
-                        success: function (aButtons) {
-                            var oButton = aButtons.find(function (oButton) {
-                                return oButton.getId().includes("dialogoFiltrosPersonagem-acceptbutton");
+                        success: function (botoes) {
+                            var botao = botoes.find(function (botao) {
+                                return botao.getId().includes("dialogoFiltrosPersonagem-acceptbutton");
                             });
-                            if (oButton) {
-                                oButton.firePress();
-                            } else {
+                            if (botao) {
+                                botao.firePress();
+                            } 
+                            else {
                                 throw new Error("Não foi possível encontrar o botão 'OK' para aplicar os filtros.");
                             }
                         },
@@ -119,7 +120,8 @@ sap.ui.define([
                             });
                             if (oButton) {
                                 oButton.firePress();
-                            } else {
+                            } 
+                            else {
                                 throw new Error("Não foi possível encontrar o botão 'Resetar Filtros'.");
                             }
                         },
@@ -151,6 +153,25 @@ sap.ui.define([
                             oCalendar.fireSelect();
                         },
                         errorMessage: "Não foi possível definir o filtro de data de criação."
+                    });
+                },
+                aoClicarNaLista: function () {
+					return this.waitFor({
+						id: idListaPersonagem,
+						viewName: nomeDaView,
+						actions: new Press(),
+						errorMessage: "Lista de personagens não encontrada"
+					});
+				},
+                aoSelecionarItemDaLista: function (indice) {
+                    return this.waitFor({
+                        id: idListaPersonagem,
+						viewName: nomeDaView,
+                        success: function (oList) {
+                            var oFirstItem = oList.getItems()[indice];
+                            oFirstItem.$().trigger("tap");
+                        },
+                        errorMessage: "A lista de personagens não foi encontrada."
                     });
                 }
             },

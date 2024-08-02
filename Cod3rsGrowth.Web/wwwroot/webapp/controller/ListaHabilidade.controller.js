@@ -10,9 +10,13 @@ sap.ui.define([
 
 	return BaseController.extend("coders-growth.controller.ListaHabilidade", {
         onInit: function() {
+			this.vincularRota(ROTA_PERSONAGENS, this._aoConcidirRota);
+        },
+
+		_aoConcidirRota: function() {
 			this._filtros = {};
             this._carregarHabilidades();
-        },
+		},
 
         _carregarHabilidades: async function() {
 			try {

@@ -34,6 +34,23 @@ sap.ui.define([], function() {
                 console.error(erro);
                 throw erro;
             }
+        },
+
+        obterPorId: async function(id) {
+            try {
+                const resposta = await fetch(URL_OBTER_TODOS_PERSONAGEM + `/${id}`, {
+                    method: "GET",
+                    headers: { "Content-Type": "application/json" }
+                });
+
+                if (!resposta.ok) throw new Error('Erro na resposta da API');
+
+                return await resposta.json();
+            } 
+            catch (erro) {
+                console.error(erro);
+                throw erro;
+            }
         }
     };
 });

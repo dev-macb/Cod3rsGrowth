@@ -1,8 +1,9 @@
 sap.ui.define([
 	"coders-growth/controller/BaseController",
 	"sap/ui/model/json/JSONModel",
-	"sap/ui/core/format/DateFormat"
-], function(BaseController, JSONModel, DateFormat) {
+	"sap/ui/core/format/DateFormat",
+	"../services/PersonagemService"
+], function(BaseController, JSONModel, DateFormat, PersonagemService) {
 	"use strict";
 
 	const ROTA_PERSONAGENS = "personagens";
@@ -10,19 +11,20 @@ sap.ui.define([
 
 	return BaseController.extend("coders-growth.controller.ListaPersonagem", {
 		onInit: function() {
-			this._filtros = {};
-            this._carregarPersonagens();
+			this.vincularRota(ROTA_PERSONAGENS, this._aoConcidirRota);
         },
 
+		_aoConcidirRota: function() {
+			this._filtros = {};
+            this._carregarPersonagens();
+		},
+
 		_carregarPersonagens: async function() {
-			try {
-				const personagens = await PersonagemService.obterTodosPersonagens(this._filtros);
-                const modeloPersonagem = new JSONModel(personagens);
-                this.getView().setModel(modeloPersonagem);
-                this.obterRotiador().navTo(ROTA_PERSONAGENS, Object.keys(this._filtros).length === 0 ? {} : { "?query": this._filtros });
-			} catch (erro) {
-				console.error(erro);
-			}
+			const personagens = await PersonagemService.obterTodosPersonagens(this._filtros);
+			const modeloPersonagem = new JSONModel(personagens);
+
+			this.getView().setModel(modeloPersonagem);
+			this.obterRotiador().navTo(ROTA_PERSONAGENS, Object.keys(this._filtros).length === 0 ? {} : { "?query": this._filtros });
 		},
 
 		aoFiltrarPersonagemPorNome(evento) {
@@ -81,6 +83,10 @@ sap.ui.define([
 			this.byId(ID_CALENDARIO).removeAllSelectedDates();
 
 			this._carregarPersonagens();
+		},
+
+		aoClicarEmVerDetalhes: function(elemento) {
+			this.obterRotiador().navTo("personagem", { idPersonagem: elemento.getSource().getBindingContext().getProperty("id") })
 		},
 
 		formatter: {

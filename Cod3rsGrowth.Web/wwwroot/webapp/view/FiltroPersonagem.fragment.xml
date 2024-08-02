@@ -14,7 +14,7 @@
 
             <ViewSettingsCustomItem id="dataCriacaoFiltro" text="Data de Criação" key="dataCriacao">
                 <customControl>
-                    <u:Calendar id="calendarario" select="tratarSelecaoDeDatas" intervalSelection="true" />
+                    <u:Calendar id="calendario" select="tratarSelecaoDeDatas" intervalSelection="true" />
                 </customControl>
             </ViewSettingsCustomItem>
         </filterItems>
