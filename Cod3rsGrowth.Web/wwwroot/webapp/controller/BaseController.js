@@ -15,6 +15,10 @@ sap.ui.define([
 		navegarPara: function (rotaDestino) {
 			if (rotaDestino) { this.obterRotiador().navTo(rotaDestino); }
 			else { this.obterRotiador().navTo(ROTA_HOME); }
-		}
+		},
+
+		vincularRota: function(rota, metodo) {
+            this.obterRotiador().getRoute(rota).attachMatched(metodo, this);
+        }
 	});
 });
