@@ -86,18 +86,19 @@ sap.ui.define([
                     return this.waitFor({
                         searchOpenDialogs: true,
                         controlType: "sap.m.Button",
-                        check: function (aButtons) {
-                            return aButtons.some(function (oButton) {
-                                return oButton.getId().includes("dialogoFiltrosPersonagem-acceptbutton");
+                        check: function (botoes) {
+                            return botoes.some(function (botao) {
+                                return botao.getId().includes("dialogoFiltrosPersonagem-acceptbutton");
                             });
                         },
-                        success: function (aButtons) {
-                            var oButton = aButtons.find(function (oButton) {
-                                return oButton.getId().includes("dialogoFiltrosPersonagem-acceptbutton");
+                        success: function (botoes) {
+                            var botao = botoes.find(function (botao) {
+                                return botao.getId().includes("dialogoFiltrosPersonagem-acceptbutton");
                             });
-                            if (oButton) {
-                                oButton.firePress();
-                            } else {
+                            if (botao) {
+                                botao.firePress();
+                            } 
+                            else {
                                 throw new Error("Não foi possível encontrar o botão 'OK' para aplicar os filtros.");
                             }
                         },
@@ -162,17 +163,17 @@ sap.ui.define([
 						errorMessage: "Lista de personagens não encontrada"
 					});
 				},
-                aoSelecionarItemDaLista: function(indice){
-					return this.waitFor({
-						controlType: "sap.m.List",
-						matchers:  new BindingPath({
-							path: "/" + indice,
-							modelName: "listaPersonagem",
-						}),
-						actions: new Press(),
-						errorMessage: "A lista de clientes não contem um cliente na posição " + indice
-					});
-				},
+                aoSelecionarItemDaLista: function (indice) {
+                    return this.waitFor({
+                        id: idListaPersonagem,
+						viewName: nomeDaView,
+                        success: function (oList) {
+                            var oFirstItem = oList.getItems()[indice];
+                            oFirstItem.$().trigger("tap");
+                        },
+                        errorMessage: "A lista de personagens não foi encontrada."
+                    });
+                }
             },
             assertions: {
                 verificaUrlListaPersonagem: function () {

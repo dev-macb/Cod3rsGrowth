@@ -23,20 +23,20 @@
                     </Toolbar>
                 </headerToolbar>
                 <content>
-                    <f:SimpleForm editable="false" layout="ResponsiveGridLayout">
+                    <f:SimpleForm id="formDetalhePersonagem" editable="false" layout="ResponsiveGridLayout">
                         <f:content>
                             <Label text="{i18n>DetalhesPersonagem.vida}"/>
-                            <Text text="{personagem>/vida}"/>
+                            <Text id="txtVida" text="{personagem>/vida}"/>
                             <Label text="{i18n>DetalhesPersonagem.energia}"/>
-                            <Text text="{personagem>/energia}"/>
+                            <Text id="txtEnergia" text="{personagem>/energia}"/>
                             <Label text="{i18n>DetalhesPersonagem.velocidade}"/>
-                            <Text text="{personagem>/velocidade}"/>
+                            <Text id="txtVelocidade" text="{personagem>/velocidade}"/>
                             <Label text="{i18n>DetalhesPersonagem.forca}"/>
-                            <Text text="{path: 'personagem>/forca', formatter: '.formatter.formatarNivel'}" class="distintivo" />
+                            <Text id="txtForca" text="{path: 'personagem>/forca', formatter: '.formatter.formatarNivel'}" class="distintivo" />
                             <Label text="{i18n>DetalhesPersonagem.inteligencia}"/>
-                            <Text text="{path: 'personagem>/inteligencia', formatter: '.formatter.formatarNivel'}" class="distintivo" />
+                            <Text id="txtInteligencia" text="{path: 'personagem>/inteligencia', formatter: '.formatter.formatarNivel'}" class="distintivo" />
                             <Label text="{i18n>DetalhesPersonagem.proposito}"/>
-                            <Text text="{path: 'personagem>/eVilao', formatter: '.formatter.formatarProposito'}" />
+                            <Text id="txtEVilao" text="{path: 'personagem>/eVilao', formatter: '.formatter.formatarProposito'}" />
                         </f:content>
                     </f:SimpleForm>
 					<List id="listaHabilidade" items="{habilidades>/}" growing="true" growingThreshold="10">

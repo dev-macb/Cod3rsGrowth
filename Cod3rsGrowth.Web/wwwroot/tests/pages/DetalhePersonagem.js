@@ -1,29 +1,52 @@
 sap.ui.define([
     "sap/ui/test/Opa5",
+    "sap/ui/test/actions/Press",
     "sap/ui/test/matchers/PropertyStrictEquals"
-], function (Opa5, PropertyStrictEquals) {
+], function (Opa5, Press, PropertyStrictEquals) {
     "use strict";
+
+    const nomeDaView = "DetalhePersonagem";
 
     Opa5.createPageObjects({
         naPaginaDetalhePersonagem: {
-            actions: {},
+            actions: {
+                aoClicarNoBotaoVoltar: function() {
+                    return this.waitFor({
+                        controlType: "sap.m.Button",
+                        matchers: function(botao) {
+                            return botao.getId().includes("detalhePersonagem-navButton");
+                        },
+                        actions: new Press(),
+                        errorMessage: "Botão de voltar não encontrado."
+                    });
+                },
+            },
             assertions: {
                 verificaDetalhesDoPersonagem: function () {
                     return this.waitFor({
-                        controlType: "sap.m.Page",
-                        id: "detalhePersonagem",
-                        success: function (oPage) {
-                            Opa5.assert.ok(oPage, "A página de detalhes do personagem foi encontrada.");
+                        controlType: "sap.m.Text",
+                        check: function (textos) {
+                            var idsRequeridos = ["txtVida", "txtEnergia", "txtVelocidade", "txtForca", "txtInteligencia", "txtEVilao"];
+                            var todosCamposEncontrados = idsRequeridos.every(function (id) {
+                                var texto = textos.find(function (texto) {
+                                    return texto.getId().indexOf(id) !== -1;
+                                });
+                                return texto && texto.getText() !== "";
+                            });
+                            return todosCamposEncontrados;
                         },
-                        errorMessage: "A página de detalhes do personagem não foi encontrada."
+                        success: function () {
+                            Opa5.assert.ok(true, "Todos os campos de detalhes do personagem foram encontrados e não estão vazios.");
+                        },
+                        errorMessage: "Alguns campos de detalhes do personagem não foram encontrados ou estão vazios."
                     });
                 },
-                verificaUrlDetalhePersonagem: function () {
+                verificaUrlDetalhePersonagem: function (id) {
                     return this.waitFor({
                         success: function () {
                             var oHashChanger = sap.ui.core.routing.HashChanger.getInstance();
                             var sHash = oHashChanger.getHash();
-                            Opa5.assert.strictEqual(sHash, "detalhePersonagem/{idPersonagem}", "A URL de detalhes do personagem está correta.");
+                            Opa5.assert.strictEqual(sHash, `personagens/${id}`, "A URL de detalhes do personagem está correta.");
                         },
                         errorMessage: "A URL de detalhes do personagem está incorreta."
                     });
@@ -31,14 +54,34 @@ sap.ui.define([
                 verificaTituloListaPersonagem: function () {
                     return this.waitFor({
                         controlType: "sap.m.Title",
-                        matchers: new PropertyStrictEquals({
-                            name: "text",
-                            value: "Lista de Personagens"
-                        }),
-                        success: function (oTitle) {
-                            Opa5.assert.ok(oTitle, "O título da lista de personagens foi verificado.");
+                        matchers: new PropertyStrictEquals({ name: "text", value: "Detalhes do Personagem" }),
+                        success: function (titulo) {
+                            Opa5.assert.ok(titulo, "O título da lista de personagens foi verificado.");
                         },
                         errorMessage: "O título da lista de personagens não foi encontrado."
+                    });
+                },
+                verificaQuatidadeDaListaDeHabilidades: function (quantidadeEsperada) {
+                    return this.waitFor({
+                        id: "listaHabilidade",
+                        viewName: nomeDaView,
+                        success: function (lista) {
+                            var quantidadeDeItens = lista.getItems().length;
+                            Opa5.assert.strictEqual(quantidadeDeItens, quantidadeEsperada, "A lista de habilidades possui " + quantidadeEsperada + " itens.");
+                        },
+                        errorMessage: "A lista de habilidades não possui a quantidade esperada de itens."
+                    });
+                },
+                verificaClasseTextoEVilao: function (classeEsperada) {
+                    return this.waitFor({
+                        id: "txtEVilao",
+                        viewName: "DetalhePersonagem",
+                        success: function (texto) {
+                            var classeCSS = texto.aCustomStyleClasses[0];
+                            var possuiClasseCSS = classeCSS.includes(classeEsperada);
+                            Opa5.assert.ok(possuiClasseCSS, "O texto de propósito tem a classe " + classeEsperada);
+                        },
+                        errorMessage: "O texto de propósito não tem a classe esperada."
                     });
                 }
             }
