@@ -27,6 +27,11 @@ sap.ui.define([
 			this.obterRotiador().navTo(ROTA_PERSONAGENS, Object.keys(this._filtros).length === 0 ? {} : { "?query": this._filtros });
 		},
 
+		irAdicionarPersonagem: function() {
+			console.log("IR ADICIONAR PERSONAGEM")
+			this.obterRotiador().navTo("adicionarPersonagem", {});
+		},
+
 		aoFiltrarPersonagemPorNome(evento) {
 			const filtroNome = evento.getSource().getValue();
 			

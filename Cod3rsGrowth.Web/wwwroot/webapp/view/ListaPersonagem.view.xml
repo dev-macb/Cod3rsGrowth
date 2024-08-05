@@ -11,7 +11,7 @@
 		class="sapUiResponsiveContentPadding"
     >
 		<content>
-			<Button icon="sap-icon://add" text="{i18n>ListaPersonagem.botaoAdicionar}" />
+			<Button icon="sap-icon://add" text="{i18n>ListaPersonagem.botaoAdicionar}" press=".irAdicionarPersonagem" />
 			<List id="listaPersonagem" items="{ path: '/' }" growing="true" growingThreshold="10">
 				<headerToolbar>
 					<Toolbar>

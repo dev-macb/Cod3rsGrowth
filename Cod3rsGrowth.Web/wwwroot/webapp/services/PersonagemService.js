@@ -51,6 +51,24 @@ sap.ui.define([], function() {
                 console.error(erro);
                 throw erro;
             }
+        },
+
+        adicionar: async function() {
+            try {
+                const resposta = await fetch(URL_OBTER_TODOS_PERSONAGEM, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify(personagem)
+                });
+
+                if (!resposta.ok) throw new Error('Erro na resposta da API');
+
+                return await resposta.json();
+            } 
+            catch (erro) {
+                console.error(erro);
+                throw erro;
+            }
         }
     };
 });

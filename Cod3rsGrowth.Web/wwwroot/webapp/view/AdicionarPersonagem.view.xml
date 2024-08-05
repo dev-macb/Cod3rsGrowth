@@ -1,0 +1,80 @@
+<mvc:View
+    xmlns="sap.m"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    controllerName="coders-growth.controller.AdicionarPersonagem"
+>
+    <Page 
+        id="paginaAdicionarPersonagem"
+        title="Adicionar Personagem"
+        showNavButton="true"
+        navButtonPress="navegarPara('personagens')"
+        class="sapUiResponsiveContentPadding"
+    >
+        <content>
+            <VBox>
+                <!-- Primeira linha: Campo Nome -->
+                <VBox>
+                    <Label text="{i18n>AdicionarPersonagem.nome}" />
+                    <Input id="inputNome" />
+                </VBox>
+
+                <!-- Segunda linha: Campos Vida, Energia e Velocidade -->
+                <HBox justifyContent="SpaceBetween">
+                    <VBox width="30%">
+                        <Label text="{i18n>AdicionarPersonagem.vida}" />
+                        <Input id="inputVida" type="Number" />
+                    </VBox>
+                    <VBox width="30%">
+                        <Label text="{i18n>AdicionarPersonagem.energia}" />
+                        <Input id="inputEnergia" type="Number" />
+                    </VBox>
+                    <VBox width="30%">
+                        <Label text="{i18n>AdicionarPersonagem.velocidade}" />
+                        <Input id="inputVelocidade" type="Number" />
+                    </VBox>
+                </HBox>
+
+                <!-- Terceira linha: Campos Força e Inteligência -->
+                <HBox justifyContent="SpaceBetween">
+                    <VBox width="45%">
+                        <Label text="{i18n>AdicionarPersonagem.forca}" />
+                        <ComboBox id="comboForca">
+                            <items>
+                                <core:Item key="fraco" text="Fraco" />
+                                <core:Item key="medio" text="Médio" />
+                                <core:Item key="bom" text="Bom" />
+                                <core:Item key="excepcional" text="Excepcional" />
+                                <core:Item key="extraordinario" text="Extraordinário" />
+                            </items>
+                        </ComboBox>
+                    </VBox>
+                    <VBox width="45%">
+                        <Label text="{i18n>AdicionarPersonagem.inteligencia}" />
+                        <ComboBox id="comboInteligencia">
+                            <items>
+                                <core:Item key="fraco" text="Fraco" />
+                                <core:Item key="medio" text="Médio" />
+                                <core:Item key="bom" text="Bom" />
+                                <core:Item key="excepcional" text="Excepcional" />
+                                <core:Item key="extraordinario" text="Extraordinário" />
+                            </items>
+                        </ComboBox>
+                    </VBox>
+                </HBox>
+
+                <!-- Quarta linha: Radios para vilão ou herói -->
+                <VBox>
+                    <Label text="{i18n>AdicionarPersonagem.eVilao}" />
+                    <RadioButtonGroup columns="2">
+                        <buttons>
+                            <RadioButton text="{i18n>AdicionarPersonagem.heroi}" selected="true" />
+                            <RadioButton text="{i18n>AdicionarPersonagem.vilao}" />
+                        </buttons>
+                    </RadioButtonGroup>
+                </VBox>
+                <Button text="{i18n>AdicionarPersonagem.botaoSalvar}" press="onSave" />
+            </VBox>
+        </content>
+    </Page>
+</mvc:View>

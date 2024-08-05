@@ -81,6 +81,11 @@
 					"target": "personagens"
 				},
 				{
+					"pattern": "personagens/adicionar",
+					"name": "adicionarPersonagem",
+					"target": "adicionarPersonagem"
+				},
+				{
 					"pattern": "personagens/{idPersonagem}",
 					"name": "personagem",
 					"target": "personagem"
@@ -106,6 +111,10 @@
 				},
 				"personagem": {
 					"viewName": "DetalhePersonagem",
+					"viewLevel": 3
+				},
+				"adicionarPersonagem": {
+					"viewName": "AdicionarPersonagem",
 					"viewLevel": 3
 				},
 				"habilidades": {
