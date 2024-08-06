@@ -16,7 +16,7 @@ sap.ui.define([
 	const PROPOSITO_HEROI = "Herói";
 	const ROTA_PERSONAGEM = "personagem"; 
 	const MODELO_PERSONAGEM = "personagem"; 
-	const MODELO_HABILIDADES = "personagem"; 
+	const MODELO_HABILIDADES = "habilidades"; 
 	const ID_TEXT_PROPOSITO = "txtEVilao";
 	const CLASSE_VILAO = "txtVilao";
 	const CLASSE_HEROI = "txtHeroi";

@@ -18,6 +18,22 @@ sap.ui.define([
 
 		vincularRota: function(rota, metodo) {
             this.obterRotiador().getRoute(rota).attachMatched(metodo, this);
+        },
+
+		definirModelo: function(modelo, nome) {
+            this.getView().setModel(modelo, nome);
+        },
+
+        obterModelo: function(nome) {
+            return this.getView().getModel(nome);
+        },
+
+        obterVisualizacao: function() {
+            return this.getView();
+        },
+
+        obterElementoPorId: function(id) {
+            return this.byId(id);
         }
 	});
 });

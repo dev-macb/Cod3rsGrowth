@@ -18,8 +18,8 @@
                     <Toolbar>
                         <Title text="{personagem>/nome} ({personagem>/id})" level="H2"/>
                         <ToolbarSpacer />	
-                        <Button icon="sap-icon://edit" />
-                        <Button icon="sap-icon://delete" />
+                        <Button icon="sap-icon://edit" text="Editar" />
+                        <Button icon="sap-icon://delete" text="Excluir" />
                     </Toolbar>
                 </headerToolbar>
                 <content>
