@@ -42,7 +42,6 @@ sap.ui.define([], function() {
                     method: "GET",
                     headers: { "Content-Type": "application/json" }
                 });
-
                 if (!resposta.ok) throw new Error('Erro na resposta da API');
 
                 return await resposta.json();
@@ -53,20 +52,22 @@ sap.ui.define([], function() {
             }
         },
 
-        adicionar: async function() {
+        adicionar: async function(personagem) {
             try {
-                const resposta = await fetch(URL_OBTER_TODOS_PERSONAGEM, {
+                const resposta = await fetch(new URL(URL_OBTER_TODOS_PERSONAGEM), {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(personagem)
                 });
-
-                if (!resposta.ok) throw new Error('Erro na resposta da API');
-
+        
+                if (!resposta.ok) {
+                    const erro = await resposta.json();
+                    throw erro;
+                }
+        
                 return await resposta.json();
             } 
             catch (erro) {
-                console.error(erro);
                 throw erro;
             }
         }

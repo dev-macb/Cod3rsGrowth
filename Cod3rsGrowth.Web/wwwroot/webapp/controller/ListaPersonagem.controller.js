@@ -12,7 +12,7 @@ sap.ui.define([
 	return BaseController.extend("coders-growth.controller.ListaPersonagem", {
 		onInit: function() {
 			this._filtros = {};
-			this.vincularRota(ROTA_PERSONAGENS, this._aoConcidirRota);
+			this.__vincularRota(ROTA_PERSONAGENS, this._aoConcidirRota);
         },
 
 		_aoConcidirRota: function() {
@@ -24,12 +24,12 @@ sap.ui.define([
 			const modeloPersonagem = new JSONModel(personagens);
 
 			this.getView().setModel(modeloPersonagem);
-			this.obterRotiador().navTo(ROTA_PERSONAGENS, Object.keys(this._filtros).length === 0 ? {} : { "?query": this._filtros });
+			this.__obterRotiador().navTo(ROTA_PERSONAGENS, Object.keys(this._filtros).length === 0 ? {} : { "?query": this._filtros });
 		},
 
 		irAdicionarPersonagem: function() {
 			console.log("IR ADICIONAR PERSONAGEM")
-			this.obterRotiador().navTo("adicionarPersonagem", {});
+			this.__obterRotiador().navTo("adicionarPersonagem", {});
 		},
 
 		aoFiltrarPersonagemPorNome(evento) {

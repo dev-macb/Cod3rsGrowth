@@ -9,7 +9,7 @@
         id="detalhePersonagem"
         title="{i18n>DetalhesPersonagem.titulo}"
         showNavButton="true"
-        navButtonPress="navegarPara('personagens')"
+        navButtonPress="__navegarPara('personagens')"
         class="sapUiResponsiveContentPadding"
     >
         <content>
@@ -49,7 +49,6 @@
 							<StandardListItem
                                 title="{habilidades>nome}"
                                 description="{habilidades>descricao}"
-                                type="Navigation"
                                 press=".onListItemPressed"/>
 						</items>
 					</List>

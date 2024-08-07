@@ -7,7 +7,7 @@
         id="paginaListaPersonagem"
 		title="{i18n>ListaPersonagem.titulo}"
 		showNavButton="true"
-		navButtonPress="navegarPara('home')"
+		navButtonPress="__navegarPara('home')"
 		class="sapUiResponsiveContentPadding"
     >
 		<content>

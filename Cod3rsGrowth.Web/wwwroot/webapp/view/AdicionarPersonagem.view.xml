@@ -6,13 +6,18 @@
 >
     <Page 
         id="paginaAdicionarPersonagem"
-        title="Adicionar Personagem"
+        title=" Personagem"
         showNavButton="true"
-        navButtonPress="navegarPara('personagens')"
+        navButtonPress="__navegarPara('personagens')"
         class="sapUiResponsiveContentPadding"
     >
         <content>
             <Panel id="painelDetalhePersonagem" width="auto" class="sapUiLargeMargin sapUiResponsiveContentPadding" >
+                <headerToolbar>
+                    <Toolbar>
+                        <Title text="Adicionar" level="H2"/>
+                    </Toolbar>
+                </headerToolbar>
                 <content>
                     <VBox>
                         <VBox class="sapUiSmallMarginBottom">

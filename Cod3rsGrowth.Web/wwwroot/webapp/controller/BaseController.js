@@ -7,32 +7,33 @@ sap.ui.define([
 	const ROTA_HOME = "home";
 
 	return Controller.extend("coders-growth.controller.BaseController", {
-		obterRotiador : function () {
+		__obterRotiador : function () {
 			return UIComponent.getRouterFor(this);
 		},
 
-		navegarPara: function (rotaDestino) {
-			if (rotaDestino) { this.obterRotiador().navTo(rotaDestino); }
-			else { this.obterRotiador().navTo(ROTA_HOME); }
+		__navegarPara: function (rotaDestino) {
+			console.log(rotaDestino)
+			if (rotaDestino) { this.__obterRotiador().navTo(rotaDestino); }
+			else { this.__obterRotiador().navTo(ROTA_HOME); }
 		},
 
-		vincularRota: function(rota, metodo) {
-            this.obterRotiador().getRoute(rota).attachMatched(metodo, this);
+		__vincularRota: function(rota, metodo) {
+            this.__obterRotiador().getRoute(rota).attachMatched(metodo, this);
         },
 
-		definirModelo: function(modelo, nome) {
+		__definirModelo: function(modelo, nome) {
             this.getView().setModel(modelo, nome);
         },
 
-        obterModelo: function(nome) {
+        __obterModelo: function(nome) {
             return this.getView().getModel(nome);
         },
 
-        obterVisualizacao: function() {
+        __obterVisualizacao: function() {
             return this.getView();
         },
 
-        obterElementoPorId: function(id) {
+        __obterElementoPorId: function(id) {
             return this.byId(id);
         }
 	});

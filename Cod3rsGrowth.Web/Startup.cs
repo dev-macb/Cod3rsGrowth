@@ -8,7 +8,6 @@
             servicos.AddControllers();
             servicos.AddEndpointsApiExplorer();
             servicos.AddSwaggerGen();
-            servicos.ConfigureProblemDetailsModelState();
         }
     }
 }

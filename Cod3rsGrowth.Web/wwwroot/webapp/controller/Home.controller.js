@@ -8,11 +8,11 @@ sap.ui.define([
 
 	return BaseController.extend("coders-growth.controller.Home", {
 		irListaPersonagem() {
-			this.obterRotiador().navTo(rotaPersonagens);
+			this.__obterRotiador().navTo(rotaPersonagens);
 		},
 
 		irListaHabilidade() {
-			this.obterRotiador().navTo(rotaHabilidades);
+			this.__obterRotiador().navTo(rotaHabilidades);
 		}
 	});
 });

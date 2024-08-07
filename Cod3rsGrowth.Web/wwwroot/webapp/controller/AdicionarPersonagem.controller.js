@@ -9,93 +9,142 @@ sap.ui.define([
 
     return BaseController.extend("coders-growth.controller.AdicionarPersonagem", {
         onInit: function () {
-            const personagemModelo = new JSONModel({
-                nome: null,
-                vida: null,
-                energia: null,
-                velocidade: null,
-                forca: null,
-                inteligencia: null,
-                eVilao: null
-            });
-            this.definirModelo(personagemModelo, "personagem");
+            this.__definirModelo(new JSONModel(this._inicializarModeloPersonagem(), "personagem"));
             this._resetarEstadoInputs();
         },
 
         adicionarPersonagem: async function() {
             this._resetarEstadoInputs();
 
-            if (this._validarInputs()) {
-                MessageBox.error("Por favor, corrija os erros antes de salvar.");
-                return;
-            }
+            // if (!this._validarInputs()) {
+            //     MessageBox.error("Por favor, corrija os erros antes de salvar.");
+            //     return;
+            // }
 
-            const modeloPersonagem = this.obterModelo("personagem").getData();
-
-            const novoPersonagem = {
-                nome: modeloPersonagem.nome,
-                vida: parseInt(modeloPersonagem.vida, 10),
-                energia: parseInt(modeloPersonagem.energia, 10),
-                velocidade: parseFloat(modeloPersonagem.velocidade),
-                forca: modeloPersonagem.forca,
-                inteligencia: modeloPersonagem.inteligencia,
-                eVilao: modeloPersonagem.eVilao === 1
-            };
+            const modeloPersonagem = this.__obterModelo("personagem");
+            const novoPersonagem = this._inicializarModeloPersonagem(modeloPersonagem);
 
             try {
                 await PersonagemService.adicionar(novoPersonagem);
                 sap.m.MessageToast.show("Personagem adicionado com sucesso!");
+                this._limparFormulario();
             } 
             catch (erro) {
-                sap.m.MessageToast.show("Erro ao adicionar personagem.");
+                this._exibirErroModal(erro);
             }
         },
 
-        _resetarEstadoInputs: function() {
-            const visualizacao = this.obterVisualizacao();
-            const inputs = ["inputNome", "inputVida", "inputEnergia", "inputVelocidade", "comboForca", "comboInteligencia"];
+        _inicializarModeloPersonagem: function(modeloPersonagem) {
+            if (!modeloPersonagem) {
+                modeloPersonagem = { personagem: {
+                    nome: "",
+                    vida: null,
+                    energia: null,
+                    velocidade: null,
+                    forca: "",
+                    inteligencia: "",
+                    eVilao: null
+                }};
+            } else {
+                modeloPersonagem = { personagem: {
+                    nome: modeloPersonagem.nome,
+                    vida: parseInt(modeloPersonagem.vida, 10),
+                    energia: parseInt(modeloPersonagem.energia, 10),
+                    velocidade: parseFloat(modeloPersonagem.velocidade),
+                    forca: modeloPersonagem.forca,
+                    inteligencia: modeloPersonagem.inteligencia,
+                    eVilao: modeloPersonagem.eVilao === 1
+                }};
+            }
 
-            inputs.forEach(function(inputId) {
-                visualizacao.byId(inputId).setValueState(ValueState.None);
+            return new JSONModel(modeloPersonagem);
+        },
+
+        _resetarEstadoInputs: function() {
+            const inputs = ["inputNome", "inputVida", "inputEnergia", "inputVelocidade", "comboForca", "comboInteligencia"];
+            inputs.forEach(inputId => {
+                this.__obterElementoPorId(inputId).setValueState(ValueState.None);
             });
         },
 
         _validarInputs: function() {
             let contemErro = false;
-            const visualizacao = this.obterVisualizacao();
-            const modeloPersonagem = this.obterModelo("personagem").getData();
+            const modeloPersonagem = this.__obterModelo("personagem").getData();
 
-            if (!modeloPersonagem.nome || isNaN(modeloPersonagem.vida) || modeloPersonagem.vida.length < 3 || modeloPersonagem.vida.length > 100) {
-                visualizacao.byId("inputNome").setValueState(ValueState.Error);
+            if (!this._validarCampoTexto("inputNome", modeloPersonagem.nome, 3, 100)) {
                 contemErro = true;
             }
 
-            if (!modeloPersonagem.vida || isNaN(modeloPersonagem.vida) || modeloPersonagem.vida < 0 || modeloPersonagem.vida > 100) {
-                visualizacao.byId("inputVida").setValueState(ValueState.Error);
+            if (!this._validarCampoNumerico("inputVida", modeloPersonagem.vida, 0, 100)) {
                 contemErro = true;
             }
 
-            if (!modeloPersonagem.energia || isNaN(modeloPersonagem.energia) || modeloPersonagem.energia < 0 || modeloPersonagem.energia > 50) {
-                visualizacao.byId("inputEnergia").setValueState(ValueState.Error);
+            if (!this._validarCampoNumerico("inputEnergia", modeloPersonagem.energia, 0, 50)) {
                 contemErro = true;
             }
 
-            if (!modeloPersonagem.velocidade || isNaN(modeloPersonagem.velocidade) || modeloPersonagem.velocidade < 0 || modeloPersonagem.velocidade > 2) {
-                visualizacao.byId("inputVelocidade").setValueState(ValueState.Error);
+            if (!this._validarCampoNumerico("inputVelocidade", modeloPersonagem.velocidade, 0, 2)) {
                 contemErro = true;
             }
 
-            if (!modeloPersonagem.forca) {
-                visualizacao.byId("comboForca").setValueState(ValueState.Error);
+            if (!this._validarCampoSelecao("comboForca", modeloPersonagem.forca)) {
                 contemErro = true;
             }
 
-            if (!modeloPersonagem.inteligencia) {
-                visualizacao.byId("comboInteligencia").setValueState(ValueState.Error);
+            if (!this._validarCampoSelecao("comboInteligencia", modeloPersonagem.inteligencia)) {
                 contemErro = true;
             }
 
             return !contemErro;
+        },
+
+        _validarCampoTexto: function(id, valor, minLen, maxLen) {
+            const campo = this.__obterElementoPorId(id);
+            if (!valor || valor.length < minLen || valor.length > maxLen) {
+                campo.setValueState(ValueState.Error);
+                return false;
+            }
+            campo.setValueState(ValueState.None);
+            return true;
+        },
+
+        _validarCampoNumerico: function(id, valor, min, max) {
+            const campo = this.__obterElementoPorId(id);
+            if (!valor || isNaN(valor) || valor < min || valor > max) {
+                campo.setValueState(ValueState.Error);
+                return false;
+            }
+            campo.setValueState(ValueState.None);
+            return true;
+        },
+
+        _validarCampoSelecao: function(id, valor) {
+            const campo = this.__obterElementoPorId(id);
+            if (!valor) {
+                campo.setValueState(ValueState.Error);
+                return false;
+            }
+            campo.setValueState(ValueState.None);
+            return true;
+        },
+
+        _exibirErroModal: function(erro) {
+            console.log("_exibirErroModal")
+            console.log(erro)
+
+            MessageBox.error(
+                erro.detail,
+                {
+                    title: erro.title,
+                    details: `Status: ${erro.status} - ${erro.errors.personagem} ${$.id}`,
+                    contentWidth: "500px"
+                }
+            );
+        },
+
+        _limparFormulario: function() {
+            this.__definirModelo(this._inicializarModeloPersonagem(), "personagem");
+            this._resetarEstadoInputs();
         }
     });
 });

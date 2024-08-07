@@ -11,7 +11,7 @@ sap.ui.define([
 	return BaseController.extend("coders-growth.controller.ListaHabilidade", {
         onInit: function() {
 			this._filtros = {};
-			this.vincularRota(ROTA_HABILIDADES, this._aoConcidirRota);
+			this.__vincularRota(ROTA_HABILIDADES, this._aoConcidirRota);
         },
 
 		_aoConcidirRota: function() {
@@ -23,7 +23,7 @@ sap.ui.define([
 				const habilidades = await HabilidadeService.obterTodasHabilidades(this._filtros);
 				const modeloHabilidade = new JSONModel(habilidades);
 				this.getView().setModel(modeloHabilidade);
-				this.obterRotiador().navTo(ROTA_HABILIDADES, Object.keys(this._filtros).length === 0 ? {} : { "?query": this._filtros });
+				this.__obterRotiador().navTo(ROTA_HABILIDADES, Object.keys(this._filtros).length === 0 ? {} : { "?query": this._filtros });
 			} catch (erro) {
 				console.error(erro);
 			}
