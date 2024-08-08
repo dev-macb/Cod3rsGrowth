@@ -11,9 +11,8 @@ sap.ui.define([
 			return UIComponent.getRouterFor(this);
 		},
 
-		__navegarPara: function (rotaDestino) {
-			console.log(rotaDestino)
-			if (rotaDestino) { this.__obterRotiador().navTo(rotaDestino); }
+		__navegarPara: function (rotaDestino, parametros = {}) {
+			if (rotaDestino) { this.__obterRotiador().navTo(rotaDestino, parametros); }
 			else { this.__obterRotiador().navTo(ROTA_HOME); }
 		},
 

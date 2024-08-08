@@ -22,61 +22,76 @@
                     <VBox>
                         <VBox class="sapUiSmallMarginBottom">
                             <Label text="{i18n>AdicionarPersonagem.nome}" />
-                            <Input id="inputNome" placeholder="Digite o nome do personagem..." valueStateText="O nome é obrigatório. Deve ter no mínimo 3 caracteres e no máximo 50." />
+                            <Input id="inputNome" value="{personagem>/nome}" placeholder="Digite o nome do personagem..." valueStateText="O nome é obrigatório. Deve ter no mínimo 3 caracteres e no máximo 50." />
                         </VBox>
-        
+                    
                         <HBox justifyContent="SpaceBetween" class="sapUiSmallMarginBottom">
                             <VBox width="30%">
                                 <Label text="{i18n>AdicionarPersonagem.vida}" />
-                                <Input id="inputVida" type="Number" placeholder="Insira o valor da vida..." valueStateText="A vida deve estar entre 0 e 100." />
+                                <Input id="inputVida" value="{ path: 'personagem>/vida', type: 'sap.ui.model.type.Integer', constraints: { minimum: 0, maximum: 100 } }" type="Number" placeholder="Insira o valor da vida..." valueStateText="A vida deve estar entre 0 e 100." />
                             </VBox>
                             <VBox width="30%">
                                 <Label text="{i18n>AdicionarPersonagem.energia}" />
-                                <Input id="inputEnergia" type="Number" />
+                                <Input id="inputEnergia" value="{ path: 'personagem>/energia', type: 'sap.ui.model.type.Integer', constraints: { minimum: 0, maximum: 50 } }" type="Number" />
                             </VBox>
                             <VBox width="30%">
                                 <Label text="{i18n>AdicionarPersonagem.velocidade}" />
-                                <Input id="inputVelocidade" type="Number" />
+                                <Input id="inputVelocidade" value="{ path: 'personagem>/velocidade', type: 'sap.ui.model.type.Float', constraints: { minimum: 0, maximum: 2 } }" type="Number" />
                             </VBox>
                         </HBox>
-        
+                    
                         <HBox justifyContent="SpaceBetween" class="sapUiSmallMarginBottom">
                             <VBox width="47%">
                                 <Label text="{i18n>AdicionarPersonagem.forca}" />
-                                <ComboBox id="comboForca" width="100%" placeholder="Selecione a força...">
+                                <ComboBox id="comboForca" selectedKey="{personagem>/forca}" width="100%" placeholder="Selecione a força...">
                                     <items>
-                                        <core:Item key="fraco" text="Fraco" />
-                                        <core:Item key="medio" text="Médio" />
-                                        <core:Item key="bom" text="Bom" />
-                                        <core:Item key="excepcional" text="Excepcional" />
-                                        <core:Item key="extraordinario" text="Extraordinário" />
+                                        <core:Item key="0" text="Fraco" />
+                                        <core:Item key="1" text="Médio" />
+                                        <core:Item key="2" text="Bom" />
+                                        <core:Item key="3" text="Excepcional" />
+                                        <core:Item key="4" text="Extraordinário" />
                                     </items>
                                 </ComboBox>
                             </VBox>
                             <VBox width="47%">
                                 <Label text="{i18n>AdicionarPersonagem.inteligencia}" />
-                                <ComboBox id="comboInteligencia" width="100%" placeholder="Selecione a inteligência...">
+                                <ComboBox id="comboInteligencia" selectedKey="{personagem>/inteligencia}" width="100%" placeholder="Selecione a inteligência...">
                                     <items>
-                                        <core:Item key="fraco" text="Fraco" />
-                                        <core:Item key="medio" text="Médio" />
-                                        <core:Item key="bom" text="Bom" />
-                                        <core:Item key="excepcional" text="Excepcional" />
-                                        <core:Item key="extraordinario" text="Extraordinário" />
+                                        <core:Item key="0" text="Fraco" />
+                                        <core:Item key="1" text="Médio" />
+                                        <core:Item key="2" text="Bom" />
+                                        <core:Item key="3" text="Excepcional" />
+                                        <core:Item key="4" text="Extraordinário" />
                                     </items>
                                 </ComboBox>
                             </VBox>
                         </HBox>
-        
+                    
                         <VBox class="sapUiSmallMarginBottom">
                             <Label text="{i18n>AdicionarPersonagem.eVilao}" />
                             <RadioButtonGroup columns="2">
                                 <buttons>
-                                    <RadioButton id="radioHeroi" text="{i18n>AdicionarPersonagem.heroi}" selected="true" />
-                                    <RadioButton id="radioVilao" text="{i18n>AdicionarPersonagem.vilao}" />
+                                    <RadioButton id="radioHeroi" selected="{= !${personagem>/eVilao} }" text="{i18n>AdicionarPersonagem.heroi}" />
+                                    <RadioButton id="radioVilao" selected="{personagem>/eVilao}" text="{i18n>AdicionarPersonagem.vilao}" />
                                 </buttons>
                             </RadioButtonGroup>
                         </VBox>
+            
                         
+                        <List id="listaHabilidade" items="{habilidades>/}" growing="true" growingThreshold="5">
+                            <headerToolbar>
+                                <Toolbar>
+                                    <Title text="{i18n>ListaHabilidade.tituloLista}" />
+                                </Toolbar>
+                            </headerToolbar>
+                            <items>
+                                <StandardListItem
+                                    title="{habilidades>nome}"
+                                    description="{habilidades>descricao}"
+                                    press=".onListItemPressed"/>
+                            </items>
+                        </List>
+
                         <HBox justifyContent="End">
                             <Button text="{i18n>AdicionarPersonagem.botaoSalvar}" press="adicionarPersonagem" />
                         </HBox>

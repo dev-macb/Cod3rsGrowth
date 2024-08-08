@@ -9,55 +9,36 @@ sap.ui.define([
 
     return BaseController.extend("coders-growth.controller.AdicionarPersonagem", {
         onInit: function () {
-            this.__definirModelo(new JSONModel(this._inicializarModeloPersonagem(), "personagem"));
+            this.__vincularRota("adicionarPersonagem", this._aoConcidirRota)
+        },
+
+        _aoConcidirRota: function () {
             this._resetarEstadoInputs();
+            this.__definirModelo(new JSONModel({ eVilao: false }), "personagem");
+            this.modeloPersonagem = this.__obterModelo("personagem")
         },
 
         adicionarPersonagem: async function() {
-            this._resetarEstadoInputs();
-
             // if (!this._validarInputs()) {
-            //     MessageBox.error("Por favor, corrija os erros antes de salvar.");
+            //     MessageBox.error("Por favor, corrija o(s) erro(s) no formulário antes de salvar.");
             //     return;
             // }
 
-            const modeloPersonagem = this.__obterModelo("personagem");
-            const novoPersonagem = this._inicializarModeloPersonagem(modeloPersonagem);
+            const personagem = this.modeloPersonagem.getData();
+            console.log(personagem)
+            personagem.forca = parseInt(personagem.forca, 10)
+            personagem.inteligencia = parseInt(personagem.inteligencia, 10)
 
             try {
-                await PersonagemService.adicionar(novoPersonagem);
+                const resultado = await PersonagemService.adicionar(personagem);
+                console.log(resultado)
                 sap.m.MessageToast.show("Personagem adicionado com sucesso!");
-                this._limparFormulario();
+                this._resetarEstadoInputs();
+                this.__navegarPara("personagem", { idPersonagem: resultado });
             } 
             catch (erro) {
                 this._exibirErroModal(erro);
             }
-        },
-
-        _inicializarModeloPersonagem: function(modeloPersonagem) {
-            if (!modeloPersonagem) {
-                modeloPersonagem = { personagem: {
-                    nome: "",
-                    vida: null,
-                    energia: null,
-                    velocidade: null,
-                    forca: "",
-                    inteligencia: "",
-                    eVilao: null
-                }};
-            } else {
-                modeloPersonagem = { personagem: {
-                    nome: modeloPersonagem.nome,
-                    vida: parseInt(modeloPersonagem.vida, 10),
-                    energia: parseInt(modeloPersonagem.energia, 10),
-                    velocidade: parseFloat(modeloPersonagem.velocidade),
-                    forca: modeloPersonagem.forca,
-                    inteligencia: modeloPersonagem.inteligencia,
-                    eVilao: modeloPersonagem.eVilao === 1
-                }};
-            }
-
-            return new JSONModel(modeloPersonagem);
         },
 
         _resetarEstadoInputs: function() {
@@ -129,22 +110,31 @@ sap.ui.define([
         },
 
         _exibirErroModal: function(erro) {
-            console.log("_exibirErroModal")
-            console.log(erro)
-
+            console.log("_exibirErroModal");
+            console.log(erro);
+        
+            let mensagemErro = "Ocorreu um erro desconhecido";
+            let detalhesErro = "Sem stacktrace disponível";
+        
+            if (erro.Extensions && erro.Extensions.FluentValidation) {
+                mensagemErro = Object.values(erro.Extensions.FluentValidation).join(" ");
+            } 
+            else if (erro.detail) {
+                mensagemErro = erro.detail;
+            }
+        
+            if (erro.Title || erro.title) {
+                detalhesErro = `Status: ${erro.Status || erro.status} - ${erro.Detail || erro.errors?.$ || "Sem detalhes adicionais"}`;
+            }
+        
             MessageBox.error(
-                erro.detail,
+                mensagemErro,
                 {
-                    title: erro.title,
-                    details: `Status: ${erro.status} - ${erro.errors.personagem} ${$.id}`,
+                    title: erro.Title || erro.title || "Erro ao adicionar personagem",
+                    details: detalhesErro,
                     contentWidth: "500px"
                 }
             );
-        },
-
-        _limparFormulario: function() {
-            this.__definirModelo(this._inicializarModeloPersonagem(), "personagem");
-            this._resetarEstadoInputs();
         }
     });
 });

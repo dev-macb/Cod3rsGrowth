@@ -18,13 +18,13 @@
                     <Toolbar>
                         <Title text="{personagem>/nome} ({personagem>/id})" level="H2"/>
                         <ToolbarSpacer />	
-                        <Button icon="sap-icon://edit" text="Editar" />
-                        <Button icon="sap-icon://delete" text="Excluir" />
+                        <Button icon="sap-icon://edit" text="{i18n>DetalhesPersonagem.botaoEditar}" />
+                        <Button icon="sap-icon://delete" text="{i18n>DetalhesPersonagem.botaoExcluir}" />
                     </Toolbar>
                 </headerToolbar>
                 <content>
-                    <f:SimpleForm id="formDetalhePersonagem" editable="false" layout="ResponsiveGridLayout">
-                        <f:content>
+                    <f:SimpleForm id="formDetalhePersonagem" editable="false" layout="ResponsiveGridLayout" width="100%" >
+                        <f:content >
                             <Label text="{i18n>DetalhesPersonagem.vida}"/>
                             <Text id="txtVida" text="{personagem>/vida}"/>
                             <Label text="{i18n>DetalhesPersonagem.energia}"/>
@@ -37,6 +37,10 @@
                             <Text id="txtInteligencia" text="{path: 'personagem>/inteligencia', formatter: '.formatter.formatarNivel'}" class="distintivo" />
                             <Label text="{i18n>DetalhesPersonagem.proposito}"/>
                             <Text id="txtEVilao" text="{path: 'personagem>/eVilao', formatter: '.formatter.formatarProposito'}" />
+                            <Label text="{i18n>DetalhesPersonagem.criadoEm}"/>
+                            <Text id="txtDataCriacao" text="{path: 'personagem>/criadoEm', formatter: '.formatter.formatarData'}"/>
+                            <Label text="{i18n>DetalhesPersonagem.atualizadoEm}"/>
+                            <Text id="txtDataAtualizacao" text="{path: 'personagem>/atualizadoEm', formatter: '.formatter.formatarData'}"/>
                         </f:content>
                     </f:SimpleForm>
 					<List id="listaHabilidade" items="{habilidades>/}" growing="true" growingThreshold="10">

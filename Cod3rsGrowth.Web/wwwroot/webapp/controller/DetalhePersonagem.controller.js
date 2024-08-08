@@ -1,9 +1,10 @@
 sap.ui.define([
 	"coders-growth/controller/BaseController",
 	"sap/ui/model/json/JSONModel",
+	"sap/ui/core/format/DateFormat",
 	"../services/PersonagemService",
 	"../services/HabilidadeService",
-], function (BaseController, JSONModel, PersonagemService, HabilidadeService) {
+], function (BaseController, JSONModel, DateFormat, PersonagemService, HabilidadeService) {
 	"use strict";
 
 	const STATUS_FRACO = "Fraco";
@@ -25,7 +26,7 @@ sap.ui.define([
 
 	return BaseController.extend("coders-growth.controller.DetalhePersonagem", {
 		onInit: function () {
-            this.vincularRota(ROTA_PERSONAGEM, this._aoCarregarDetalhes);
+            this.__vincularRota(ROTA_PERSONAGEM, this._aoCarregarDetalhes);
 		},
 
         _aoCarregarDetalhes: async function (evento) {
@@ -61,7 +62,13 @@ sap.ui.define([
             },
 			formatarProposito: function(proposito) {
                 return proposito ? PROPOSITO_VILAO : PROPOSITO_HEROI;
-            }
+            },
+			formatarData: function(data) {
+				if (!data) return "---";
+
+				const formatadorDeData = DateFormat.getDateTimeInstance({ pattern: "dd/MM/yyyy" });
+            	return formatadorDeData.format(new Date(data));
+			}
         }
 	});
 });

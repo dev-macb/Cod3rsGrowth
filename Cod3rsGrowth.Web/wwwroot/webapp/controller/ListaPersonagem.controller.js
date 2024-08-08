@@ -91,7 +91,7 @@ sap.ui.define([
 		},
 
 		aoClicarEmVerDetalhes: function(elemento) {
-			this.obterRotiador().navTo("personagem", { idPersonagem: elemento.getSource().getBindingContext().getProperty("id") })
+			this.__obterRotiador().navTo("personagem", { idPersonagem: elemento.getSource().getBindingContext().getProperty("id") })
 		},
 
 		formatter: {
