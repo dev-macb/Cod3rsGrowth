@@ -22,28 +22,28 @@
                     <VBox>
                         <VBox class="sapUiSmallMarginBottom">
                             <Label text="{i18n>AdicionarPersonagem.nome}" />
-                            <Input id="inputNome" value="{personagem>/nome}" placeholder="Digite o nome do personagem..." valueStateText="O nome é obrigatório. Deve ter no mínimo 3 caracteres e no máximo 50." />
+                            <Input id="inputNome" value="{personagem>/nome}" placeholder="Digite o nome do personagem..." valueStateText="O nome é obrigatório. Deve ter no mínimo 3 caracteres e no máximo 50." liveChange =".aoDigitarNoInpunt" />
                         </VBox>
                     
                         <HBox justifyContent="SpaceBetween" class="sapUiSmallMarginBottom">
                             <VBox width="30%">
                                 <Label text="{i18n>AdicionarPersonagem.vida}" />
-                                <Input id="inputVida" value="{ path: 'personagem>/vida', type: 'sap.ui.model.type.Integer', constraints: { minimum: 0, maximum: 100 } }" type="Number" placeholder="Insira o valor da vida..." valueStateText="A vida deve estar entre 0 e 100." />
+                                <Input id="inputVida" value="{ path: 'personagem>/vida', type: 'sap.ui.model.type.Integer', constraints: { minimum: 0, maximum: 100 } }" type="Number" placeholder="Insira o valor da vida..." valueStateText="A vida deve estar entre 0 e 100." liveChange =".aoDigitarNoInpunt" />
                             </VBox>
                             <VBox width="30%">
                                 <Label text="{i18n>AdicionarPersonagem.energia}" />
-                                <Input id="inputEnergia" value="{ path: 'personagem>/energia', type: 'sap.ui.model.type.Integer', constraints: { minimum: 0, maximum: 50 } }" type="Number" />
+                                <Input id="inputEnergia" value="{ path: 'personagem>/energia', type: 'sap.ui.model.type.Integer', constraints: { minimum: 0, maximum: 50 } }" type="Number" placeholder="Insira o valor da energia..." valueStateText="A energia deve estar entre 0 e 50." liveChange =".aoDigitarNoInpunt" />
                             </VBox>
                             <VBox width="30%">
                                 <Label text="{i18n>AdicionarPersonagem.velocidade}" />
-                                <Input id="inputVelocidade" value="{ path: 'personagem>/velocidade', type: 'sap.ui.model.type.Float', constraints: { minimum: 0, maximum: 2 } }" type="Number" />
+                                <Input id="inputVelocidade" value="{ path: 'personagem>/velocidade', type: 'sap.ui.model.type.Float', constraints: { minimum: 0, maximum: 2 } }" type="Number" placeholder="Insira o valor da velocidade..." valueStateText="A velocidade deve estar entre 0 e 2." liveChange =".aoDigitarNoInpunt" />
                             </VBox>
                         </HBox>
                     
                         <HBox justifyContent="SpaceBetween" class="sapUiSmallMarginBottom">
                             <VBox width="47%">
                                 <Label text="{i18n>AdicionarPersonagem.forca}" />
-                                <ComboBox id="comboForca" selectedKey="{personagem>/forca}" width="100%" placeholder="Selecione a força...">
+                                <ComboBox id="comboForca" selectedKey="{personagem>/forca}" width="100%" placeholder="Selecione a força..." valueStateText="A força deve ser um valor válido de CategoriasEnum." change =".aoDigitarNoInpunt">
                                     <items>
                                         <core:Item key="0" text="Fraco" />
                                         <core:Item key="1" text="Médio" />
@@ -55,7 +55,7 @@
                             </VBox>
                             <VBox width="47%">
                                 <Label text="{i18n>AdicionarPersonagem.inteligencia}" />
-                                <ComboBox id="comboInteligencia" selectedKey="{personagem>/inteligencia}" width="100%" placeholder="Selecione a inteligência...">
+                                <ComboBox id="comboInteligencia" selectedKey="{personagem>/inteligencia}" width="100%" placeholder="Selecione a inteligência..." valueStateText="A inteligência deve ser um valor válido de CategoriasEnum." change =".aoDigitarNoInpunt">
                                     <items>
                                         <core:Item key="0" text="Fraco" />
                                         <core:Item key="1" text="Médio" />
@@ -77,13 +77,8 @@
                             </RadioButtonGroup>
                         </VBox>
             
-                        
-                        <List id="listaHabilidade" items="{habilidades>/}" growing="true" growingThreshold="5">
-                            <headerToolbar>
-                                <Toolbar>
-                                    <Title text="{i18n>ListaHabilidade.tituloLista}" />
-                                </Toolbar>
-                            </headerToolbar>
+                        <Label text="{i18n>AdicionarPersonagem.habilidades}" />
+                        <List id="listaHabilidadeSelecionadas" mode="MultiSelect" items="{habilidades>/}" growing="true" growingThreshold="5">
                             <items>
                                 <StandardListItem
                                     title="{habilidades>nome}"
@@ -93,7 +88,7 @@
                         </List>
 
                         <HBox justifyContent="End">
-                            <Button text="{i18n>AdicionarPersonagem.botaoSalvar}" press="adicionarPersonagem" />
+                            <Button icon="sap-icon://save" text="{i18n>AdicionarPersonagem.botaoSalvar}" press="adicionarPersonagem" />
                         </HBox>
                     </VBox>
                 </content>

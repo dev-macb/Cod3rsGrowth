@@ -24,12 +24,11 @@ sap.ui.define([
 			const modeloPersonagem = new JSONModel(personagens);
 
 			this.getView().setModel(modeloPersonagem);
-			this.__obterRotiador().navTo(ROTA_PERSONAGENS, Object.keys(this._filtros).length === 0 ? {} : { "?query": this._filtros });
+			this.__navegarPara(ROTA_PERSONAGENS, Object.keys(this._filtros).length === 0 ? {} : { "?query": this._filtros });
 		},
 
 		irAdicionarPersonagem: function() {
-			console.log("IR ADICIONAR PERSONAGEM")
-			this.__obterRotiador().navTo("adicionarPersonagem", {});
+			this.__navegarPara("adicionarPersonagem");
 		},
 
 		aoFiltrarPersonagemPorNome(evento) {

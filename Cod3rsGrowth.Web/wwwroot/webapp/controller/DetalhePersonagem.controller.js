@@ -45,7 +45,7 @@ sap.ui.define([
 			}
 			catch (erro) {
                 console.error("Erro ao obter detalhes do personagem:", erro);
-                this.obterRotiador().getTargets().display(ROTA_NOT_FOUND);
+                this.__obterRotiador().getTargets().display(ROTA_NOT_FOUND);
             }
 		},
 
