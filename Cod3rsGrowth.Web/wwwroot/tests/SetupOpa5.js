@@ -9,6 +9,7 @@ sap.ui.require([
     "coders-growth/tests/journeys/ListaPersonagem",
     "coders-growth/tests/journeys/NotFound",
     "coders-growth/tests/journeys/DetalhePersonagem",
+    "coders-growth/tests/journeys/AdicionarPersonagem",
 ], async (Core, Opa5, Startup) => {
     "use strict";
 
