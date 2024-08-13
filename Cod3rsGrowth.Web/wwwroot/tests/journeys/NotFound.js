@@ -9,13 +9,10 @@ sap.ui.define([
 
     opaTest("Deve navegar para uma página inexistente", (Given, When, Then) => {
         // Arrange
-        Given.iStartMyApp();
-
-        // Act
-        When.naPaginaHome.aoNavegarParaRotaInexistente();
+        Given.iniciarAplicacao({ hash: "rota/que/nao/existe" });
 
         // Assert
-        Then.naPaginaNotFound.verificaUrlPaginaNotFound();
+        Then.naPaginaNotFound.verificaUrl();
         Then.naPaginaNotFound.verificaTituloPaginaNotFound();
     });
 
@@ -24,7 +21,7 @@ sap.ui.define([
         When.naPaginaNotFound.aoClicarEmVerVoltarHome();
 
         // Assert
-        Then.naPaginaHome.verificaUrlPaginaHome();
+        Then.naPaginaHome.verificaUrl();
         Then.naPaginaHome.verificaTituloPaginaHome();
 
         Then.iTeardownMyApp();

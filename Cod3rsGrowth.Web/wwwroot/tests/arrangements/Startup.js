@@ -4,9 +4,10 @@ sap.ui.define([
 	"use strict";
 
 	return Opa5.extend("sap.ui.demo.bulletinboard.test.integration.arrangements.Startup", {
-		iStartMyApp: function (parametroOpcoes) {
+		iniciarAplicacao: function (parametroOpcoes) {
 			var opcoes  = parametroOpcoes || {};
 			opcoes.delay = opcoes.delay || 50;
+			
 			this.iStartMyUIComponent({
 				componentConfig: { name: "coders-growth", async: true, manifest: true },
 				hash: opcoes.hash,

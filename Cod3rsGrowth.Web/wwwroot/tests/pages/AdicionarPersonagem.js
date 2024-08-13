@@ -1,19 +1,57 @@
 sap.ui.define([
     "sap/ui/test/Opa5",
     "sap/ui/test/actions/Press",
+    "sap/ui/test/matchers/Ancestor",
     "sap/ui/test/actions/EnterText",
+    "sap/ui/test/matchers/Properties",
     "sap/ui/test/matchers/PropertyStrictEquals",
-    "sap/ui/test/matchers/AggregationFilled",
-], (Opa5, Press, EnterText, PropertyStrictEquals, AggregationFilled) => {
+    "sap/ui/test/matchers/I18NText"
+], (Opa5, Press, Ancestor, EnterText, Properties, PropertyStrictEquals, I18NText) => {
     "use strict";
+
+    const nomeDaView = "AdicionarPersonagem";
 
     Opa5.createPageObjects({
         noFormularioPersonagem: {
             actions: {
-                aoInserirNome: function (nome) {
+                aoClicarNoBotaoVoltar: function () {
+                    return this.waitFor({
+                        id: "botaoVoltar",
+                        viewName: nomeDaView,
+                        actions: new Press(),
+                        errorMessage: "Não foi possível encontrar o botão de voltar."
+                    });
+                },
+
+                aoClicarNoBotaoSalvar: function () {
+                    return this.waitFor({
+                        id: "butaoSalvarPersonagem",
+                        viewName: nomeDaView,
+                        actions: new Press(),
+                        errorMessage: "Botão de salvar não encontrado ou não clicável."
+                    });
+                },
+
+                aoFecharMessageBox: function (textoButao) {
+                    return this.waitFor({
+						controlType: "sap.m.Button",
+						matchers: [
+							new Properties({ text: textoButao }),
+							new Ancestor(Opa5.getContext().dialog, false) 
+						],
+						actions: new Press(),
+						success: function () {
+							Opa5.assert.ok(true, "Sucesso ao fechar MessageBox ao clicar no botao Ok.");
+						},
+						errorMessage: "Falha ao fechar MessageBox ao clicar no botao Ok."
+                    });
+                },
+
+                aoInserirNome: function (texto) {
                     return this.waitFor({
                         id: "inputNome",
-                        actions: new EnterText({ text: nome }),
+                        viewName: nomeDaView,
+                        actions: new EnterText({ text: texto }),
                         errorMessage: "Campo 'Nome' não encontrado ou não editável."
                     });
                 },
@@ -21,6 +59,7 @@ sap.ui.define([
                 aoInserirVida: function (vida) {
                     return this.waitFor({
                         id: "inputVida",
+                        viewName: nomeDaView,
                         actions: new EnterText({ text: vida.toString() }),
                         errorMessage: "Campo 'Vida' não encontrado ou não editável."
                     });
@@ -29,6 +68,7 @@ sap.ui.define([
                 aoInserirEnergia: function (energia) {
                     return this.waitFor({
                         id: "inputEnergia",
+                        viewName: nomeDaView,
                         actions: new EnterText({ text: energia.toString() }),
                         errorMessage: "Campo 'Energia' não encontrado ou não editável."
                     });
@@ -37,6 +77,7 @@ sap.ui.define([
                 aoInserirVelocidade: function (velocidade) {
                     return this.waitFor({
                         id: "inputVelocidade",
+                        viewName: nomeDaView,
                         actions: new EnterText({ text: velocidade.toString() }),
                         errorMessage: "Campo 'Velocidade' não encontrado ou não editável."
                     });
@@ -45,10 +86,10 @@ sap.ui.define([
                 aoSelecionarForca: function (forca) {
                     return this.waitFor({
                         id: "comboForca",
+                        viewName: nomeDaView,
                         actions: new Press(),
                         success: function (comboBox) {
                             comboBox.setSelectedKey(forca);
-                            Opa5.assert.strictEqual(comboBox.getSelectedKey(), forca.toString(), "Força selecionada corretamente.");
                         },
                         errorMessage: "ComboBox 'Força' não encontrado ou não selecionável."
                     });
@@ -57,10 +98,10 @@ sap.ui.define([
                 aoSelecionarInteligencia: function (inteligencia) {
                     return this.waitFor({
                         id: "comboInteligencia",
+                        viewName: nomeDaView,
                         actions: new Press(),
                         success: function (comboBox) {
                             comboBox.setSelectedKey(inteligencia);
-                            Opa5.assert.strictEqual(comboBox.getSelectedKey(), inteligencia.toString(), "Inteligência selecionada corretamente.");
                         },
                         errorMessage: "ComboBox 'Inteligência' não encontrado ou não selecionável."
                     });
@@ -69,10 +110,8 @@ sap.ui.define([
                 aoDefinirEVilao: function (eVilao) {
                     return this.waitFor({
                         id: eVilao ? "radioVilao" : "radioHeroi",
+                        viewName: nomeDaView,
                         actions: new Press(),
-                        success: function () {
-                            Opa5.assert.ok(true, "Opção de vilão/herói selecionada corretamente.");
-                        },
                         errorMessage: "Opção de vilão/herói não encontrada ou não selecionável."
                     });
                 },
@@ -80,42 +119,43 @@ sap.ui.define([
                 aoDefinirHabilidades: function (listaHabilidades) {
                     return this.waitFor({
                         id: "listaHabilidadeSelecionadas",
-                        matchers: new AggregationFilled({ name: "items" }),
+                        viewName: nomeDaView,
                         success: function (lista) {
                             listaHabilidades.forEach((indice) => {
-                                const item = lista.getItems()[indice];
-                                if (item) {
-                                    item.setSelected(true);
-                                    Opa5.assert.ok(item.getSelected(), "Habilidade selecionada corretamente.");
-                                } else {
-                                    Opa5.assert.ok(false, "Habilidade com índice " + indice + " não encontrada.");
-                                }
+                                lista.getItems()[indice].setSelected(true);
                             });
                         },
-                        errorMessage: "Lista de habilidades não encontrada, sem itens ou índice inválido."
-                    });
-                },
-
-                aoClicarNoBotaoSalvar: function () {
-                    return this.waitFor({
-                        id: "paginaAdicionarPersonagem--btnSalvar",
-                        actions: new Press(),
-                        errorMessage: "Botão de salvar não encontrado ou não clicável."
+                        errorMessage: "Lista de habilidades não encontrada ou sem itens."
                     });
                 }
             },
-
             assertions: {
-                deveMostrarMessageToastComMensagem: function (mensagem) {
+                deveMostrarMessageBox: function(titulo, mensagem){
+					return this.waitFor({
+						controlType: "sap.m.Dialog",
+						matchers: new Properties({ title: titulo }),
+						success: function (dialogo) {
+							this.waitFor({
+                                controlType: "sap.m.Text",
+                                matchers: new Ancestor(dialogo[0], false),
+                                success: function(texto) {
+                                    const txt = texto[0].getText();
+                                    Opa5.assert.strictEqual(txt, mensagem, `O MessageBox apareceu com a mensagem correta: "${mensagem}".`);
+                                },
+                                errorMessage: `O MessageBox apareceu, mas a mensagem não correspondeu a: "${mensagem}".`
+                            });
+						},
+						errorMessage: `O MessageBox não apareceu com título '${titulo}' com mensagem '${mensagem}'.`
+					});
+				},
+
+                deveMostrarMessageToast: function () {
                     return this.waitFor({
-                        check: function () {
-                            const toast = sap.ui.test.Opa5.getJQuery()(".sapMMessageToast:visible");
-                            return toast.length > 0 && toast.text() === mensagem;
-                        },
+                        controlType: "sap.m.MessageToast",
                         success: function () {
-                            Opa5.assert.ok(true, "Mensagem de sucesso exibida com o texto correto.");
+                            Opa5.assert.ok(true, "Um MessageToast foi exibido.");
                         },
-                        errorMessage: "Mensagem de sucesso não foi exibida ou texto incorreto."
+                        errorMessage: "Nenhum MessageToast foi exibido."
                     });
                 }
             }

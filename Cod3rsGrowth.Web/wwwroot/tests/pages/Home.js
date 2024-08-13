@@ -24,30 +24,14 @@ sap.ui.define([
                         actions: new Press(),
                         errorMessage: "Botão 'Ver Lista de Habilidades' não encontrado."
                     });
-                },
-                aoNavegarParaRotaInexistente: function() {
-                    return this.waitFor({
-                        success: function() {
-                            sap.ui.test.Opa5.getHashChanger().setHash("RotaInexistente");
-                        }
-                    });
                 }
             },
             assertions: {
-                verificaUrlPaginaHome: function() {
+                verificaUrl: function() {
                     return this.waitFor({
                         success: function() {
                             const hash = Opa5.getHashChanger().getHash();
                             Opa5.assert.strictEqual(hash, "", "Navegou para o endpoind da pagina Home");
-                        },
-                        errorMessage: "A URL não é a esperada"
-                    });
-                },
-                verificaUrlPaginaHome: function() {
-                    return this.waitFor({
-                        success: function() {
-                            const hash = Opa5.getHashChanger().getHash();
-                            Opa5.assert.strictEqual(hash, "", "Navegou para o endpoint Home");
                         },
                         errorMessage: "A URL não é a esperada"
                     });

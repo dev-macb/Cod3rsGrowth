@@ -19,7 +19,7 @@ sap.ui.define([
                 }
             },
             assertions: {
-                verificaUrlPaginaNotFound: function() {
+                verificaUrl: function() {
                     return this.waitFor({
                         success: function() {
                             const hash = Opa5.getHashChanger().getHash();

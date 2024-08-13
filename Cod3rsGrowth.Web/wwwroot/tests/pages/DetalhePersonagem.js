@@ -1,8 +1,9 @@
 sap.ui.define([
     "sap/ui/test/Opa5",
     "sap/ui/test/actions/Press",
+    "sap/ui/core/routing/HashChanger",
     "sap/ui/test/matchers/PropertyStrictEquals"
-], function (Opa5, Press, PropertyStrictEquals) {
+], function (Opa5, Press, HashChanger, PropertyStrictEquals) {
     "use strict";
 
     const nomeDaView = "DetalhePersonagem";
@@ -22,6 +23,15 @@ sap.ui.define([
                 },
             },
             assertions: {
+                verificaUrl: function (idEsperado) {
+                    return this.waitFor({
+                        success: function () {
+                            var hash = Opa5.getHashChanger().getHash();
+                            Opa5.assert.strictEqual(hash, `personagens/${idEsperado}`, "A URL de detalhes do personagem está correta.");
+                        },
+                        errorMessage: "A URL de detalhes do personagem está incorreta."
+                    });
+                },
                 verificaDetalhesDoPersonagem: function () {
                     return this.waitFor({
                         controlType: "sap.m.Text",
@@ -39,16 +49,6 @@ sap.ui.define([
                             Opa5.assert.ok(true, "Todos os campos de detalhes do personagem foram encontrados e não estão vazios.");
                         },
                         errorMessage: "Alguns campos de detalhes do personagem não foram encontrados ou estão vazios."
-                    });
-                },
-                verificaUrlDetalhePersonagem: function (id) {
-                    return this.waitFor({
-                        success: function () {
-                            var oHashChanger = sap.ui.core.routing.HashChanger.getInstance();
-                            var sHash = oHashChanger.getHash();
-                            Opa5.assert.strictEqual(sHash, `personagens/${id}`, "A URL de detalhes do personagem está correta.");
-                        },
-                        errorMessage: "A URL de detalhes do personagem está incorreta."
                     });
                 },
                 verificaTituloListaPersonagem: function () {

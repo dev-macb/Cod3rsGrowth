@@ -19,8 +19,8 @@ sap.ui.define([
             actions: {
                 aoClicarNoBotaoVoltar: function () {
                     return this.waitFor({
-                        controlType: "sap.m.Button",
                         id: idBotaoVoltar,
+                        controlType: "sap.m.Button",
                         actions: new Press(),
                         errorMessage: "Não foi possível encontrar o botão de voltar."
                     });
@@ -176,7 +176,7 @@ sap.ui.define([
                 }
             },
             assertions: {
-                verificaUrlListaPersonagem: function () {
+                verificaUrl: function () {
                     return this.waitFor({
                         success: function () {
                             const hash = Opa5.getHashChanger().getHash();

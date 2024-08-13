@@ -14,7 +14,7 @@ sap.ui.define([
         let id1 = 1;
         let quantidade5 = 5;
         let classeHeroi = "txtHeroi";
-        Given.iStartMyApp();
+        Given.iniciarAplicacao();
         When.naPaginaHome.aoClicarEmVerListaPersonagem();
 
         // Act
@@ -22,7 +22,7 @@ sap.ui.define([
         When.naPaginaListaPersonagem.aoSelecionarItemDaLista(primeiroItem);
 
         // Assert
-        Then.naPaginaDetalhePersonagem.verificaUrlDetalhePersonagem(id1);
+        Then.naPaginaDetalhePersonagem.verificaUrl(id1);
         Then.naPaginaDetalhePersonagem.verificaTituloListaPersonagem();
         Then.naPaginaDetalhePersonagem.verificaDetalhesDoPersonagem();
         Then.naPaginaDetalhePersonagem.verificaQuatidadeDaListaDeHabilidades(quantidade5);
@@ -34,7 +34,7 @@ sap.ui.define([
         When.naPaginaDetalhePersonagem.aoClicarNoBotaoVoltar();
 
         // Assert
-        Then.naPaginaListaPersonagem.verificaUrlListaPersonagem();
+        Then.naPaginaListaPersonagem.verificaUrl();
         Then.naPaginaListaPersonagem.verificaTituloListaPersonagem();
     });
 
@@ -50,7 +50,7 @@ sap.ui.define([
         When.naPaginaListaPersonagem.aoSelecionarItemDaLista(nonoItem);
 
         // Assert
-        Then.naPaginaDetalhePersonagem.verificaUrlDetalhePersonagem(id9);
+        Then.naPaginaDetalhePersonagem.verificaUrl(id9);
         Then.naPaginaDetalhePersonagem.verificaTituloListaPersonagem();
         Then.naPaginaDetalhePersonagem.verificaDetalhesDoPersonagem();
         Then.naPaginaDetalhePersonagem.verificaQuatidadeDaListaDeHabilidades(quantidade5);

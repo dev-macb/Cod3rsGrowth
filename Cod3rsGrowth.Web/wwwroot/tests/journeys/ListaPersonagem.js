@@ -9,7 +9,7 @@ sap.ui.define([
 
     opaTest("Deve carregar mais itens da listagem", (Given, When, Then) => {
         // Arrange
-        Given.iStartMyApp();
+        Given.iniciarAplicacao();
         When.naPaginaHome.aoClicarEmVerListaPersonagem();
 
         // Act

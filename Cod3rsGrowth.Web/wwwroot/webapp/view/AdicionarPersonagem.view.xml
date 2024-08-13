@@ -4,13 +4,13 @@
     xmlns:core="sap.ui.core"
     controllerName="coders-growth.controller.AdicionarPersonagem"
 >
-    <Page 
-        id="paginaAdicionarPersonagem"
-        title=" Personagem"
-        showNavButton="true"
-        navButtonPress="__navegarPara('personagens')"
-        class="sapUiResponsiveContentPadding"
-    >
+    <Page id="paginaAdicionarPersonagem" showHeader="true" class="sapUiResponsiveContentPadding">
+        <customHeader>
+            <Toolbar>
+                <Button id="botaoVoltar" text="Voltar" icon="sap-icon://nav-back" press="__navegarPara('personagens')" tooltip="Voltar"/>
+                <Title text="Personagem" titleStyle="H4" width="100%"/>
+            </Toolbar>
+        </customHeader>
         <content>
             <Panel id="painelDetalhePersonagem" width="auto" class="sapUiLargeMargin sapUiResponsiveContentPadding" >
                 <headerToolbar>
@@ -88,7 +88,7 @@
                         </List>
 
                         <HBox justifyContent="End">
-                            <Button icon="sap-icon://save" text="{i18n>AdicionarPersonagem.botaoSalvar}" press="adicionarPersonagem" />
+                            <Button id="butaoSalvarPersonagem" icon="sap-icon://save" text="{i18n>AdicionarPersonagem.botaoSalvar}" press="adicionarPersonagem" />
                         </HBox>
                     </VBox>
                 </content>

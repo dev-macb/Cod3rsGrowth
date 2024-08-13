@@ -99,7 +99,7 @@ sap.ui.define([
                 },
             },
             assertions: {
-                verificaUrlListaHabilidade: function() {
+                verificaUrl: function() {
                     return this.waitFor({
                         success: function() {
                             const hash = Opa5.getHashChanger().getHash();

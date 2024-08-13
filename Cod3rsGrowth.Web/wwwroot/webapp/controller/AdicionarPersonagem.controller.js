@@ -21,7 +21,7 @@ sap.ui.define([
 
         adicionarPersonagem: async function() {
             if (!this._validarInputs()) {
-                MessageBox.error("Por favor, corrija o(s) erro(s) no formulário antes de salvar.");
+                MessageBox.warning("Por favor, corrija o(s) erro(s) no formulário antes de salvar.");
                 return;
             }
 

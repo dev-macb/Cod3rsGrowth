@@ -10,26 +10,26 @@ sap.ui.define([
 
     opaTest("Deve navegar para a listagem de personagens", (Given, When, Then) => {
         // Arrange
-        Given.iStartMyApp();
+        Given.iniciarAplicacao({ hash: "" });
 
         // Act
         When.naPaginaHome.aoClicarEmVerListaPersonagem();
 
         // Assert
-        Then.naPaginaListaPersonagem.verificaUrlListaPersonagem();
+        Then.naPaginaListaPersonagem.verificaUrl();
         Then.naPaginaListaPersonagem.verificaTituloListaPersonagem();
         Then.iTeardownMyApp();
     });
 
     opaTest("Deve navegar para a listagem de habilidades", (Given, When, Then) => {
         // Arrange
-        Given.iStartMyApp();
+        Given.iniciarAplicacao({ hash: "" });
         
         // Act
         When.naPaginaHome.aoClicarEmVerListaHabilidade();
 
         // Assert
-        Then.naPaginaListaHabilidade.verificaUrlListaHabilidade();
+        Then.naPaginaListaHabilidade.verificaUrl();
         Then.naPaginaListaHabilidade.verificaTituloListaHabilidade();
         Then.iTeardownMyApp();
     });
