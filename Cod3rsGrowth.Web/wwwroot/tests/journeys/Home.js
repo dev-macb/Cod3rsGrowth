@@ -17,7 +17,7 @@ sap.ui.define([
 
         // Assert
         Then.naPaginaListaPersonagem.verificaUrl();
-        Then.naPaginaListaPersonagem.verificaTituloListaPersonagem();
+        Then.naPaginaListaPersonagem.verificaTituloDaPagina("Lista de Personagens");
         Then.iTeardownMyApp();
     });
 
@@ -30,7 +30,7 @@ sap.ui.define([
 
         // Assert
         Then.naPaginaListaHabilidade.verificaUrl();
-        Then.naPaginaListaHabilidade.verificaTituloListaHabilidade();
+        Then.naPaginaListaHabilidade.verificaTituloDaPagina("Lista de Habilidades");
         Then.iTeardownMyApp();
     });
 });

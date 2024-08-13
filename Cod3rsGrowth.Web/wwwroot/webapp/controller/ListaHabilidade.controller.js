@@ -1,17 +1,18 @@
 sap.ui.define([
-	"coders-growth/controller/BaseController",
-    "sap/ui/model/json/JSONModel",
-	"../services/HabilidadeService"
-], function(BaseController, JSONModel, HabilidadeService) {
+	"coders-growth/common/BaseController",
+	"coders-growth/common/HttpService",
+	"coders-growth/common/Constantes",
+	"sap/m/MessageBox",
+	"sap/ui/model/json/JSONModel"
+], function(BaseController, HttpService, Constantes, MessageBox, JSONModel) {
 	"use strict";
 
-	const ROTA_HABILIDADES = "habilidades";
 	const ID_CALENDARIO = "calendario";
 
 	return BaseController.extend("coders-growth.controller.ListaHabilidade", {
         onInit: function() {
 			this._filtros = {};
-			this.__vincularRota(ROTA_HABILIDADES, this._aoConcidirRota);
+			this.__vincularRota(Constantes.ROTA_HABILIDADES, this._aoConcidirRota);
         },
 
 		_aoConcidirRota: function() {
@@ -20,12 +21,12 @@ sap.ui.define([
 
         _carregarHabilidades: async function() {
 			try {
-				const habilidades = await HabilidadeService.obterTodasHabilidades(this._filtros);
-				const modeloHabilidade = new JSONModel(habilidades);
-				this.getView().setModel(modeloHabilidade);
-				this.__obterRotiador().navTo(ROTA_HABILIDADES, Object.keys(this._filtros).length === 0 ? {} : { "?query": this._filtros });
-			} catch (erro) {
-				console.error(erro);
+				const habilidades = await HttpService.get(Constantes.URL_HABILIDADE, null, this._filtros);
+				this.__definirModelo(new JSONModel(habilidades));
+				this.__navegarPara(Constantes.ROTA_HABILIDADES, Object.keys(this._filtros).length === 0 ? {} : { "?query": this._filtros });
+			} 
+			catch (erro) {
+				this._exibirErroModal(erro);
 			}
 		},
 
@@ -71,5 +72,30 @@ sap.ui.define([
 
 			this._carregarHabilidades();
 		},
+
+		_exibirErroModal: function(erro) {  
+            let mensagemErro = "Ocorreu um erro desconhecido!";
+            let detalhesErro = "Sem stacktrace disponível.";
+        
+            if (erro.Extensions && erro.Extensions.FluentValidation) {
+                mensagemErro = Object.values(erro.Extensions.FluentValidation).join(" ");
+            } 
+            else if (erro.detail) {
+                mensagemErro = erro.detail;
+            }
+        
+            if (erro.Title || erro.title) {
+                detalhesErro = `Status: ${erro.Status || erro.status} - ${erro.Detail || erro.errors?.$ || "Sem detalhes adicionais"}`;
+            }
+        
+            MessageBox.error(
+                mensagemErro,
+                {
+                    title: erro.Title || erro.title || "Erro ao adicionar personagem",
+                    details: detalhesErro,
+                    contentWidth: "500px"
+                }
+            );
+        }
     });
 });

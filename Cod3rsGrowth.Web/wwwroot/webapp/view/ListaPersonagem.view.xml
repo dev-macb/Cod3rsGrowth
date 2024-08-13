@@ -1,34 +1,30 @@
-<mvc:View
-	xmlns="sap.m"
-	xmlns:mvc="sap.ui.core.mvc"
-	controllerName="coders-growth.controller.ListaPersonagem"
->
-	<Page 
-        id="paginaListaPersonagem"
-		title="{i18n>ListaPersonagem.titulo}"
-		showNavButton="true"
-		navButtonPress="__navegarPara('home')"
-		class="sapUiResponsiveContentPadding"
-    >
+<mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" controllerName="coders-growth.controller.ListaPersonagem" >
+	<Page id="paginaListaPersonagem" class="sapUiResponsiveContentPadding">
+		<customHeader>
+			<Toolbar>
+				<Button id="botaoVoltar" text="{i18n>geral.voltar}" icon="sap-icon://nav-back" press="__navegarPara('home')" />
+				<Title text="{i18n>geral.codersgrowth}" titleStyle="H3" />
+			</Toolbar>
+		</customHeader>
 		<content>
-			<Button icon="sap-icon://add" text="{i18n>ListaPersonagem.botaoAdicionar}" press=".irAdicionarPersonagem" />
-			<List id="listaPersonagem" items="{ path: '/' }" growing="true" growingThreshold="10">
+			<Title text="{i18n>listaPersonagem.titulo}" titleStyle="H2" class="sapUiLargeMarginBeginEnd" />
+			<Panel id="painelListaPersonagem" width="auto" class="sapUiLargeMarginBeginEnd sapUiTinyMarginTop">
 				<headerToolbar>
 					<Toolbar>
-						<Title text="{i18n>ListaPersonagem.tituloLista}" />
-						<ToolbarSpacer />
-						<SearchField id="filtroNome" width="30%" liveChange="aoFiltrarPersonagemPorNome" />
-						<Button id="btnFiltroPersonagem" icon="sap-icon://filter" press="aoAbrirFiltros" />
+						<Button id="btnAdicionarPersonagem" icon="sap-icon://add" text="{i18n>geral.adicionar}" type="Emphasized" press=".irAdicionarPersonagem" />
+						<ToolbarSpacer />		
+						<Button id="btnFiltroPersonagem" icon="sap-icon://filter" text="{i18n>geral.filtrar}" press=".aoAbrirFiltros" />
+						<SearchField id="filtroNome" width="30%" liveChange=".aoFiltrarPersonagemPorNome" />
 					</Toolbar>
 				</headerToolbar>
-				<items>
-					<StandardListItem
-						icon="{ path: 'eVilao', formatter: '.formatter.iconePersonagem' }"
-						title="{nome}"
-						type="Navigation"
-						press=".aoClicarEmVerDetalhes"/>
-				</items>
-			</List>
+				<content>
+					<List id="listaPersonagem" items="{ path: '/' }" growing="true" growingThreshold="10">	
+						<items>
+							<StandardListItem icon="{ path: 'eVilao', formatter: '.formatter.iconePersonagem' }" title="{nome}" type="Navigation" press=".aoClicarEmVerDetalhes"/>
+						</items>
+					</List>
+				</content>
+			</Panel>
 		</content>
 	</Page>
 </mvc:View>

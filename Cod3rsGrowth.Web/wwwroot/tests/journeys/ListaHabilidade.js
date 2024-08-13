@@ -9,8 +9,7 @@ sap.ui.define([
 
     opaTest("Deve carregar mais itens da listagem de habilidades", (Given, When, Then) => {
         // Arrange
-        Given.iniciarAplicacao();
-        When.naPaginaHome.aoClicarEmVerListaHabilidade();
+        Given.iniciarAplicacao({ hash: "habilidades" });
 
         // Act
         Then.naPaginaListaHabilidade.verificaSeHaPaginacao();

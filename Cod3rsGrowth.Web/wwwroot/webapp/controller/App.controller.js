@@ -1,5 +1,5 @@
 sap.ui.define([
-    "coders-growth/controller/BaseController",
+    "coders-growth/common/BaseController"
 ], (BaseController) => {
     "use strict";
 

@@ -1,10 +1,9 @@
 sap.ui.define([
 	"sap/ui/core/mvc/Controller",
-	"sap/ui/core/UIComponent"
-], function(Controller, UIComponent) {
+	"sap/ui/core/UIComponent",
+	"coders-growth/common/Constantes",
+], function(Controller, UIComponent, Constantes) {
 	"use strict";
-
-	const ROTA_HOME = "home";
 
 	return Controller.extend("coders-growth.controller.BaseController", {
 		__obterRotiador : function () {
@@ -13,7 +12,7 @@ sap.ui.define([
 
 		__navegarPara: function (rotaDestino, parametros = {}) {
 			if (rotaDestino) { this.__obterRotiador().navTo(rotaDestino, parametros); }
-			else { this.__obterRotiador().navTo(ROTA_HOME); }
+			else { this.__obterRotiador().navTo(Constantes.ROTA_HOME); }
 		},
 
 		__vincularRota: function(rota, metodo) {

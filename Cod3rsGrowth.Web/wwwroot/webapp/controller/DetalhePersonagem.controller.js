@@ -1,10 +1,10 @@
 sap.ui.define([
-	"coders-growth/controller/BaseController",
+	"coders-growth/common/BaseController",
+	"coders-growth/common/HttpService",
+	"coders-growth/common/Constantes",
 	"sap/ui/model/json/JSONModel",
-	"sap/ui/core/format/DateFormat",
-	"../services/PersonagemService",
-	"../services/HabilidadeService",
-], function (BaseController, JSONModel, DateFormat, PersonagemService, HabilidadeService) {
+	"sap/ui/core/format/DateFormat"
+], function (BaseController, HttpService, Constantes, JSONModel, DateFormat) {
 	"use strict";
 
 	const STATUS_FRACO = "Fraco";
@@ -32,13 +32,14 @@ sap.ui.define([
         _aoCarregarDetalhes: async function (evento) {
 			const argumentos = evento.getParameter("arguments");
 			try {
-				const personagem = await PersonagemService.obterPorId(argumentos.idPersonagem);
+				const personagem = await HttpService.get(Constantes.URL_PERSONAGEM, argumentos.idPersonagem); // PersonagemService.obterPorId(argumentos.idPersonagem);
 				const modeloPersonagem = new JSONModel(personagem);
-				this.getView().setModel(modeloPersonagem, MODELO_PERSONAGEM);
+				this.__definirModelo(modeloPersonagem, MODELO_PERSONAGEM);
 
-				const habilidades = await HabilidadeService.obterHabilidadesPorIds(personagem.habilidades);
-                const modeloHabilidades = new JSONModel(habilidades);
-				this.getView().setModel(modeloHabilidades, MODELO_HABILIDADES);
+				const habilidades = await Promise.all(personagem.habilidades.map((id) => {
+					return HttpService.get(Constantes.URL_HABILIDADE, id);
+				}));
+				this.__definirModelo(new JSONModel(habilidades), MODELO_HABILIDADES);
 
 				var txtEVilao = this.byId(ID_TEXT_PROPOSITO);
 				modeloPersonagem.getProperty(PROPRIEDADE_E_VILAO) ? txtEVilao.addStyleClass(CLASSE_VILAO).removeStyleClass(CLASSE_HEROI) : txtEVilao.addStyleClass(CLASSE_HEROI).removeStyleClass(CLASSE_VILAO)

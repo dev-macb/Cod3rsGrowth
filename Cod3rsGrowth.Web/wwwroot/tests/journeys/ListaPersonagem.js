@@ -9,8 +9,7 @@ sap.ui.define([
 
     opaTest("Deve carregar mais itens da listagem", (Given, When, Then) => {
         // Arrange
-        Given.iniciarAplicacao();
-        When.naPaginaHome.aoClicarEmVerListaPersonagem();
+        Given.iniciarAplicacao({ hash: "personagens" });
 
         // Act
         Then.naPaginaListaPersonagem.verificaSeHaPaginacao();
@@ -35,7 +34,7 @@ sap.ui.define([
 
         // Assert
         Then.naPaginaListaPersonagem.verificaSeHaPaginacao();
-        Then.naPaginaListaPersonagem.verificaUrlListaPersonagem("");
+        Then.naPaginaListaPersonagem.verificaUrl();
     });
 
     opaTest("Deve filtrar por nome inexistente", (Given, When, Then) => {

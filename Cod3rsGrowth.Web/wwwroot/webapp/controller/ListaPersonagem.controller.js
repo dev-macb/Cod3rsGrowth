@@ -1,18 +1,21 @@
 sap.ui.define([
-	"coders-growth/controller/BaseController",
+	"coders-growth/common/BaseController",
+	"coders-growth/common/HttpService",
+	"coders-growth/common/Constantes",
+	"sap/m/MessageBox",
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/core/format/DateFormat",
-	"../services/PersonagemService"
-], function(BaseController, JSONModel, DateFormat, PersonagemService) {
+], function(BaseController, HttpService, Constantes, MessageBox, JSONModel, DateFormat) {
 	"use strict";
 
-	const ROTA_PERSONAGENS = "personagens";
 	const ID_CALENDARIO = "calendario";
+	const IMG_LUVA_AZUL = "images/luva_azul.png";
+	const IMG_LUVA_VERMELHA = "images/luva_vermelha.png";
 
 	return BaseController.extend("coders-growth.controller.ListaPersonagem", {
 		onInit: function() {
 			this._filtros = {};
-			this.__vincularRota(ROTA_PERSONAGENS, this._aoConcidirRota);
+			this.__vincularRota(Constantes.ROTA_PERSONAGENS, this._aoConcidirRota);
         },
 
 		_aoConcidirRota: function() {
@@ -20,15 +23,18 @@ sap.ui.define([
 		},
 
 		_carregarPersonagens: async function() {
-			const personagens = await PersonagemService.obterTodosPersonagens(this._filtros);
-			const modeloPersonagem = new JSONModel(personagens);
-
-			this.getView().setModel(modeloPersonagem);
-			this.__navegarPara(ROTA_PERSONAGENS, Object.keys(this._filtros).length === 0 ? {} : { "?query": this._filtros });
+			try {
+				const personagens = await HttpService.get(Constantes.URL_PERSONAGEM, null, this._filtros);
+				this.__definirModelo(new JSONModel(personagens));
+				this.__navegarPara(Constantes.ROTA_PERSONAGENS, Object.keys(this._filtros).length === 0 ? {} : { "?query": this._filtros });
+			}
+			catch (erro) {
+				this._exibirErroModal(erro);
+			}
 		},
 
 		irAdicionarPersonagem: function() {
-			this.__navegarPara("adicionarPersonagem");
+			this.__navegarPara("formularioPersonagem");
 		},
 
 		aoFiltrarPersonagemPorNome(evento) {
@@ -90,13 +96,38 @@ sap.ui.define([
 		},
 
 		aoClicarEmVerDetalhes: function(elemento) {
-			this.__obterRotiador().navTo("personagem", { idPersonagem: elemento.getSource().getBindingContext().getProperty("id") })
+			this.__navegarPara(Constantes.ROTA_PERSONAGEM, { idPersonagem: elemento.getSource().getBindingContext().getProperty("id") });
 		},
 
 		formatter: {
             iconePersonagem: function(eVilao) {
-                return eVilao ? "images/luva_vermelha.png" : "images/luva_azul.png";
+                return eVilao ? IMG_LUVA_VERMELHA : IMG_LUVA_AZUL;
             }
+        },
+
+		_exibirErroModal: function(erro) {  
+            let mensagemErro = "Ocorreu um erro desconhecido!";
+            let detalhesErro = "Sem stacktrace disponível.";
+        
+            if (erro.Extensions && erro.Extensions.FluentValidation) {
+                mensagemErro = Object.values(erro.Extensions.FluentValidation).join(" ");
+            } 
+            else if (erro.detail) {
+                mensagemErro = erro.detail;
+            }
+        
+            if (erro.Title || erro.title) {
+                detalhesErro = `Status: ${erro.Status || erro.status}  -  ${erro.Detail || erro.errors?.$ || "Sem detalhes adicionais"}`;
+            }
+        
+            MessageBox.error(
+                mensagemErro,
+                {
+                    title: erro.Title || erro.title || "Erro ao adicionar personagem",
+                    details: detalhesErro,
+                    contentWidth: "500px"
+                }
+            );
         }
 	});
 });

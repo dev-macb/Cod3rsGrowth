@@ -82,8 +82,8 @@
 				},
 				{
 					"pattern": "personagens/adicionar",
-					"name": "adicionarPersonagem",
-					"target": "adicionarPersonagem"
+					"name": "formularioPersonagem",
+					"target": "formularioPersonagem"
 				},
 				{
 					"pattern": "personagens/{idPersonagem}",
@@ -113,8 +113,8 @@
 					"viewName": "DetalhePersonagem",
 					"viewLevel": 3
 				},
-				"adicionarPersonagem": {
-					"viewName": "AdicionarPersonagem",
+				"formularioPersonagem": {
+					"viewName": "FormularioPersonagem",
 					"viewLevel": 3
 				},
 				"habilidades": {

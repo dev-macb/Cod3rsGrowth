@@ -103,20 +103,20 @@ sap.ui.define([
                     return this.waitFor({
                         success: function() {
                             const hash = Opa5.getHashChanger().getHash();
-                            Opa5.assert.strictEqual(hash, "habilidades", "Navegou para a lista de habilidades.");
+                            Opa5.assert.strictEqual(hash, "habilidades", "A URL corresponde ao endpoint da lista de habilidades");
                         },
                         errorMessage: "A URL não é a esperada."
                     });
                 },
-                verificaTituloListaHabilidade: function() {
+                verificaTituloDaPagina: function (texto) {
                     return this.waitFor({
-                        controlType: "sap.m.Page",
+                        controlType: "sap.m.Title",
                         viewName: nomeDaView,
-                        matchers: new PropertyStrictEquals({ name: "title", value: "Lista de Habilidades" }),
-                        success: function(pagina) {
-                            Opa5.assert.ok(pagina, "O título da página está correto.");
+                        matchers: new PropertyStrictEquals({ name: "text", value: texto }),
+                        success: function (pagina) {
+                            Opa5.assert.ok(pagina, `Página ListaHabilidade tem título: ${texto}`);
                         },
-                        errorMessage: "Não foi possível navegar para a lista de habilidades ou o título está incorreto."
+                        errorMessage: `Página ListaHabilidade tem título: ${texto}`
                     });
                 },
                 verificaSeHaPaginacao: function() {

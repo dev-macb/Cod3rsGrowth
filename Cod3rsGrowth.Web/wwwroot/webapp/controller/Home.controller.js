@@ -1,18 +1,16 @@
 sap.ui.define([
-	"coders-growth/controller/BaseController"
-], function (BaseController) {
+	"coders-growth/common/BaseController",
+	"coders-growth/common/Constantes"
+], function (BaseController, Constantes) {
 	"use strict";
-
-	const rotaPersonagens = "personagens";
-	const rotaHabilidades = "habilidades";
 
 	return BaseController.extend("coders-growth.controller.Home", {
 		irListaPersonagem() {
-			this.__obterRotiador().navTo(rotaPersonagens);
+			this.__navegarPara(Constantes.ROTA_PERSONAGENS);
 		},
 
 		irListaHabilidade() {
-			this.__obterRotiador().navTo(rotaHabilidades);
+			this.__navegarPara(Constantes.ROTA_HABILIDADES);
 		}
 	});
 });

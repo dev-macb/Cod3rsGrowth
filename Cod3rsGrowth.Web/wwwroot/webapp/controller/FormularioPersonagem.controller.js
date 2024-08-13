@@ -1,16 +1,17 @@
 sap.ui.define([
-    "coders-growth/controller/BaseController",
-    "../services/PersonagemService",
+    "coders-growth/common/BaseController",
+    "coders-growth/common/HttpService",
+    "coders-growth/common/Constantes",
     "sap/m/MessageBox",
     "sap/m/MessageToast",
     "sap/ui/model/json/JSONModel",
-    "sap/ui/core/ValueState"
-], (BaseController, PersonagemService, MessageBox, MessageToast, JSONModel, ValueState) => {
+    "sap/ui/core/ValueState",
+], (BaseController, HttpService, Constantes, MessageBox, MessageToast, JSONModel, ValueState) => {
     "use strict";
 
     return BaseController.extend("coders-growth.controller.AdicionarPersonagem", {
         onInit: function () {
-            this.__vincularRota("adicionarPersonagem", this._aoConcidirRota)
+            this.__vincularRota("formularioPersonagem", this._aoConcidirRota)
         },
 
         _aoConcidirRota: function () {
@@ -31,10 +32,11 @@ sap.ui.define([
             personagem.habilidades = this._obterHabilidadesSelecionadas();
             
             try {
-                const resultado = await PersonagemService.adicionar(personagem);
+                const resultado = await HttpService.post(Constantes.URL_PERSONAGEM, personagem);
                 MessageToast.show(`Personagem ${resultado} criado com êxito!`, { duration: 5000, closeOnBrowserNavigation: false });
                 this._resetarEstadoInputs();
                 this.__navegarPara("personagem", { idPersonagem: resultado });
+                return resultado;
             } 
             catch (erro) {
                 this._exibirErroModal(erro);
@@ -136,8 +138,6 @@ sap.ui.define([
         },
 
         _exibirErroModal: function(erro) {  
-            console.log(erro)
-
             let mensagemErro = "Ocorreu um erro desconhecido";
             let detalhesErro = "Sem stacktrace disponível";
         

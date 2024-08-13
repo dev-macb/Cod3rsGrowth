@@ -4,12 +4,10 @@ sap.ui.define([
     "sap/ui/test/matchers/Ancestor",
     "sap/ui/test/actions/EnterText",
     "sap/ui/test/matchers/Properties",
-    "sap/ui/test/matchers/PropertyStrictEquals",
-    "sap/ui/test/matchers/I18NText"
-], (Opa5, Press, Ancestor, EnterText, Properties, PropertyStrictEquals, I18NText) => {
+], (Opa5, Press, Ancestor, EnterText, Properties) => {
     "use strict";
 
-    const nomeDaView = "AdicionarPersonagem";
+    const nomeDaView = "FormularioPersonagem";
 
     Opa5.createPageObjects({
         noFormularioPersonagem: {
@@ -130,7 +128,26 @@ sap.ui.define([
                 }
             },
             assertions: {
-                deveMostrarMessageBox: function(titulo, mensagem){
+                verificaTipoDosInputs: function (tipo) {
+                    const idsDosInputs = ["inputNome", "inputVida", "inputEnergia", "inputVelocidade", "comboForca", "comboInteligencia"];
+                    
+                    idsDosInputs.forEach(id => {
+                        this.waitFor({
+                            id: id,
+                            viewName: nomeDaView,
+                            success: function (input) {
+                                const estadoValor = input.getValueState();
+                                Opa5.assert.strictEqual(
+                                    estadoValor,
+                                    tipo,
+                                    `O input '${id}' está corretamente com o ValueState '${tipo}'.`
+                                );
+                            },
+                            errorMessage: `O input com id '${id}' não foi encontrado ou não possui um ValueState '${tipo}'.`
+                        });
+                    });
+                },
+                deveMostrarMessageBox: function (titulo, mensagem) {
 					return this.waitFor({
 						controlType: "sap.m.Dialog",
 						matchers: new Properties({ title: titulo }),
@@ -140,7 +157,7 @@ sap.ui.define([
                                 matchers: new Ancestor(dialogo[0], false),
                                 success: function(texto) {
                                     const txt = texto[0].getText();
-                                    Opa5.assert.strictEqual(txt, mensagem, `O MessageBox apareceu com a mensagem correta: "${mensagem}".`);
+                                    Opa5.assert.strictEqual(txt, mensagem, `O MessageBox apareceu com a mensagem '${mensagem}'`);
                                 },
                                 errorMessage: `O MessageBox apareceu, mas a mensagem não correspondeu a: "${mensagem}".`
                             });
