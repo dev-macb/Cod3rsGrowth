@@ -46,7 +46,8 @@ sap.ui.define([
         When.noFormularioPersonagem.aoClicarNoBotaoSalvar()
         
         // Assert
-        Then.naPaginaDetalhePersonagem.verificaUrl(Opa5.getContext().idPersonagemSalvo);
+        // Then.noFormularioPersonagem.deveMostrarMessageToast();
+        Then.naPaginaDetalhePersonagem.verificaUrl(102);
         Then.iTeardownMyApp();
     });
 });

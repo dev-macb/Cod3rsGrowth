@@ -174,6 +174,19 @@ sap.ui.define([
                         },
                         errorMessage: "Nenhum MessageToast foi exibido."
                     });
+                },
+                
+                deveNavegarParaDetalhesDoPersonagem: function () {
+                    return this.waitFor({
+                        success: function () {
+                            const oHashChanger = Opa5.getHashChanger();
+                            const sCurrentHash = oHashChanger.getHash();
+                            const bCorreto = /personagens\/\d+/.test(sCurrentHash);
+                            
+                            Opa5.assert.ok(bCorreto, `Redirecionado corretamente para: '${sCurrentHash}'`);
+                        },
+                        errorMessage: "Navegação para a página de detalhes do personagem falhou."
+                    });
                 }
             }
         }
