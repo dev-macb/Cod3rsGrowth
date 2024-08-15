@@ -35,13 +35,14 @@
 					"fallbackLocale": "pt_BR"
 				}
 			},
-			"personagens": {
-				"type": "sap.ui.model.json.JSONModel",
-				"uri": "https://localhost:5051/api/Personagem"
-			},
-			"habilidades": {
-				"type": "sap.ui.model.json.JSONModel",
-				"uri": "https://localhost:5051/api/Habilidade"
+			"": {
+				"type": "sap.ui.model.odata.v2.ODataModel",
+				"settings": {
+					"serviceUrl": "https://localhost:5051/api/",
+					"defaultBindingMode": "TwoWay",
+					"defaultCountMode": "Inline",
+					"useBatch": false
+				}
 			}
 		},
 		"rootView": {
@@ -124,4 +125,4 @@
 			}
 		}
 	}
-} 
+}

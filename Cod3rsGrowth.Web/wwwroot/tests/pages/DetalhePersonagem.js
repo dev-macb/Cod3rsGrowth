@@ -20,6 +20,15 @@ sap.ui.define([
                 },
             },
             assertions: {
+                deveMostrarMessageToast: function () {
+                    return this.waitFor({
+                        controlType: "sap.m.MessageToast",
+                        success: function () {
+                            Opa5.assert.ok(true, "Um MessageToast foi exibido.");
+                        },
+                        errorMessage: "Nenhum MessageToast foi exibido."
+                    });
+                },
                 verificaUrl: function (idEsperado) {
                     return this.waitFor({
                         success: function () {

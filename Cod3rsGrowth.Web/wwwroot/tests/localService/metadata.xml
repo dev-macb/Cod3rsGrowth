@@ -1,0 +1,37 @@
+<edmx:Edmx xmlns:edmx="http://docs.oasis-open.org/odata/ns/edmx" Version="4.0">
+    <edmx:DataServices>
+        <Schema xmlns="http://docs.oasis-open.org/odata/ns/edm" Namespace="coders_growth">
+            <EntityType Name="Personagem">
+                <Key>
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="ID" Type="Edm.Int32" Nullable="false" />
+                <Property Name="Nome" Type="Edm.String" Nullable="false" MaxLength="100" />
+                <Property Name="Vida" Type="Edm.Int32" Nullable="false" />
+                <Property Name="Energia" Type="Edm.Int32" Nullable="false" />
+                <Property Name="Velocidade" Type="Edm.Double" Nullable="false" />
+                <Property Name="Forca" Type="Edm.Int32" Nullable="false" />
+                <Property Name="Inteligencia" Type="Edm.Int32" Nullable="false" />
+                <Property Name="EVilao" Type="Edm.Boolean" Nullable="false" />
+                <Property Name="CriadoEm" Type="Edm.DateTimeOffset" Nullable="false" />
+                <Property Name="AtualizadoEm" Type="Edm.DateTimeOffset" Nullable="false" />
+                <Property Name="Habilidades" Type="Collection(coders_growth.Habilidade)" Nullable="true" />
+            </EntityType>
+
+
+            <EntityType Name="Habilidade">
+                <Key>
+                    <PropertyRef Name="ID" />
+                </Key>
+                <Property Name="ID" Type="Edm.Int32" Nullable="false" />
+                <Property Name="Descricao" Type="Edm.String" Nullable="false" MaxLength="200" />
+            </EntityType>
+
+
+            <EntityContainer Name="Container">
+                <EntitySet Name="Personagens" EntityType="coders_growth.Personagem" />
+                <EntitySet Name="Habilidades" EntityType="coders_growth.Habilidade" />
+            </EntityContainer>
+        </Schema>
+    </edmx:DataServices>
+</edmx:Edmx>

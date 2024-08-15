@@ -309,6 +309,15 @@ sap.ui.define([
                         },
                         errorMessage: "Erro ao filtrar a lista por data de criação."
                     });
+                },
+                verificaTamanhoDaLista: function (tamanho) {
+                    return this.waitFor({
+                        id: "listaPersonagem",
+                        viewName: "ListaPersonagem",
+                        matchers: new AggregationLengthEquals({ name: "items", length: tamanho }),
+                        success: function() { Opa5.assert.ok(true, "A lista está paginada com 10 itens."); },
+                        errorMessage: "A lista não está paginada corretamente."
+                    });
                 }
             }
         }
