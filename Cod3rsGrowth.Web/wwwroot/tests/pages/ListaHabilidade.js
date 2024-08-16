@@ -139,7 +139,7 @@ sap.ui.define([
                         viewName: nomeDaView,
                         matchers: new AggregationLengthEquals({
                             name: "items",
-                            length: 14
+                            length: 13
                         }),
                         success: function() {
                             Opa5.assert.ok(true, "Mostrando lista completa com todos os 14 itens.");

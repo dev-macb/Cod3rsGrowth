@@ -166,13 +166,21 @@ sap.ui.define([
 					});
 				},
 
-                deveMostrarMessageToast: function () {
+                deveMostrarMessageToast: function (mensagem) {
                     return this.waitFor({
-                        controlType: "sap.m.MessageToast",
-                        success: function () {
-                            Opa5.assert.ok(true, "Um MessageToast foi exibido.");
+                        pollingInterval: 100,
+                        check: function () {
+                            var elementosMessageToast = sap.ui.test.Opa5.getJQuery()(".sapMMessageToast");
+                            var elementosEsperados = elementosMessageToast.filter(function (i, elemento) {
+                                return elemento && elemento.textContent.trim() === mensagem;
+                            });
+                
+                            return elementosEsperados.length > 0;
                         },
-                        errorMessage: "Nenhum MessageToast foi exibido."
+                        success: function () {
+                            Opa5.assert.ok(true, "MessageToast foi exibido com o texto: " + mensagem);
+                        },
+                        errorMessage: "MessageToast com o texto '" + mensagem + "' não foi encontrado."
                     });
                 },
                 

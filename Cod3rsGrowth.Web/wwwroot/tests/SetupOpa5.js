@@ -16,7 +16,10 @@ sap.ui.require([
 	Opa5.extendConfig({
 		arrangements: new Startup(),
 		viewNamespace: "coders-growth.view",
-		autoWait: true
+		autoWait: true,
+        beforeEach: async function() {
+            await fetch("https://localhost:5051/api/resetarBanco", { method: 'POST' });
+        }
 	});
 
     Core.attachInit(() => QUnit.start());
