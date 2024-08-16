@@ -2,10 +2,9 @@ sap.ui.define([
 	"coders-growth/common/BaseController",
 	"coders-growth/common/HttpService",
 	"coders-growth/common/Constantes",
-	"sap/m/MessageBox",
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/core/format/DateFormat",
-], function(BaseController, HttpService, Constantes, MessageBox, JSONModel, DateFormat) {
+], function(BaseController, HttpService, Constantes, JSONModel, DateFormat) {
 	"use strict";
 
 	const ID_CALENDARIO = "calendario";
@@ -29,12 +28,12 @@ sap.ui.define([
 				this.__navegarPara(Constantes.ROTA_PERSONAGENS, Object.keys(this._filtros).length === 0 ? {} : { "?query": this._filtros });
 			}
 			catch (erro) {
-				this._exibirErroModal(erro);
+				this.__exibirErroModal(erro);
 			}
 		},
 
 		irAdicionarPersonagem: function() {
-			this.__navegarPara("formularioPersonagem");
+			this.__navegarPara(Constantes.ROTA_FORMULARIO_PERSONAGEM);
 		},
 
 		aoFiltrarPersonagemPorNome(evento) {
@@ -103,31 +102,6 @@ sap.ui.define([
             iconePersonagem: function(eVilao) {
                 return eVilao ? IMG_LUVA_VERMELHA : IMG_LUVA_AZUL;
             }
-        },
-
-		_exibirErroModal: function(erro) {  
-            let mensagemErro = "Ocorreu um erro desconhecido!";
-            let detalhesErro = "Sem stacktrace disponível.";
-        
-            if (erro.Extensions && erro.Extensions.FluentValidation) {
-                mensagemErro = Object.values(erro.Extensions.FluentValidation).join(" ");
-            } 
-            else if (erro.detail) {
-                mensagemErro = erro.detail;
-            }
-        
-            if (erro.Title || erro.title) {
-                detalhesErro = `Status: ${erro.Status || erro.status}  -  ${erro.Detail || erro.errors?.$ || "Sem detalhes adicionais"}`;
-            }
-        
-            MessageBox.error(
-                mensagemErro,
-                {
-                    title: erro.Title || erro.title || "Erro ao adicionar personagem",
-                    details: detalhesErro,
-                    contentWidth: "500px"
-                }
-            );
         }
 	});
 });

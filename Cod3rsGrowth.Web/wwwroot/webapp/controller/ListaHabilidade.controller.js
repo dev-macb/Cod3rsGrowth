@@ -2,9 +2,8 @@ sap.ui.define([
 	"coders-growth/common/BaseController",
 	"coders-growth/common/HttpService",
 	"coders-growth/common/Constantes",
-	"sap/m/MessageBox",
 	"sap/ui/model/json/JSONModel"
-], function(BaseController, HttpService, Constantes, MessageBox, JSONModel) {
+], function(BaseController, HttpService, Constantes, JSONModel) {
 	"use strict";
 
 	const ID_CALENDARIO = "calendario";
@@ -26,7 +25,7 @@ sap.ui.define([
 				this.__navegarPara(Constantes.ROTA_HABILIDADES, Object.keys(this._filtros).length === 0 ? {} : { "?query": this._filtros });
 			} 
 			catch (erro) {
-				this._exibirErroModal(erro);
+				this.__exibirErroModal(erro);
 			}
 		},
 
@@ -61,7 +60,7 @@ sap.ui.define([
 			}
 		},
 
-		aoAplicarFiltrosHabilidade: async function(evento) {
+		aoAplicarFiltrosHabilidade: async function() {
 			this._carregarHabilidades();
 		},
 
@@ -71,31 +70,6 @@ sap.ui.define([
 			this.byId(ID_CALENDARIO).removeAllSelectedDates();
 
 			this._carregarHabilidades();
-		},
-
-		_exibirErroModal: function(erro) {  
-            let mensagemErro = "Ocorreu um erro desconhecido!";
-            let detalhesErro = "Sem stacktrace disponível.";
-        
-            if (erro.Extensions && erro.Extensions.FluentValidation) {
-                mensagemErro = Object.values(erro.Extensions.FluentValidation).join(" ");
-            } 
-            else if (erro.detail) {
-                mensagemErro = erro.detail;
-            }
-        
-            if (erro.Title || erro.title) {
-                detalhesErro = `Status: ${erro.Status || erro.status} - ${erro.Detail || erro.errors?.$ || "Sem detalhes adicionais"}`;
-            }
-        
-            MessageBox.error(
-                mensagemErro,
-                {
-                    title: erro.Title || erro.title || "Erro ao buscar personagens",
-                    details: detalhesErro,
-                    contentWidth: "500px"
-                }
-            );
-        }
+		}
     });
 });

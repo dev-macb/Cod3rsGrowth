@@ -15,41 +15,44 @@ sap.ui.define([
 	const STATUS_DESCONHECIDO = "Desconhecido";
 	const PROPOSITO_VILAO = "Vilão";
 	const PROPOSITO_HEROI = "Herói";
-	const ROTA_PERSONAGEM = "personagem"; 
-	const MODELO_PERSONAGEM = "personagem"; 
-	const MODELO_HABILIDADES = "habilidades"; 
 	const ID_TEXT_PROPOSITO = "txtEVilao";
 	const CLASSE_VILAO = "txtVilao";
 	const CLASSE_HEROI = "txtHeroi";
 	const PROPRIEDADE_E_VILAO = "/eVilao";
-	const ROTA_NOT_FOUND = "notFound";
 
 	return BaseController.extend("coders-growth.controller.DetalhePersonagem", {
 		onInit: function () {
-            this.__vincularRota(ROTA_PERSONAGEM, this._aoCarregarDetalhes);
+            this.__vincularRota(Constantes.ROTA_PERSONAGEM, this._aoCarregarDetalhes);
+		},
+
+		_carregarPersonagem: async function (id) {
+			return await HttpService.get(Constantes.URL_PERSONAGEM, id);
+		},
+
+		_carregarHabilidadesDoPersonagem: async function (id) {
+			return await HttpService.get(Constantes.URL_HABILIDADE, id);
 		},
 
         _aoCarregarDetalhes: async function (evento) {
 			const argumentos = evento.getParameter("arguments");
 			try {
-				const personagem = await HttpService.get(Constantes.URL_PERSONAGEM, argumentos.idPersonagem); // PersonagemService.obterPorId(argumentos.idPersonagem);
+				const personagem = await this._carregarPersonagem(argumentos.idPersonagem);
 				const modeloPersonagem = new JSONModel(personagem);
-				this.__definirModelo(modeloPersonagem, MODELO_PERSONAGEM);
+				this.__definirModelo(modeloPersonagem, Constantes.MODELO_PERSONAGEM);
 
-				const habilidades = await Promise.all(personagem.habilidades.map((id) => {
-					return HttpService.get(Constantes.URL_HABILIDADE, id);
+				const habilidadesDoPersonagem = await Promise.all(personagem.habilidades.map(async (id) => {
+					return await this._carregarHabilidadesDoPersonagem(id);
 				}));
-				this.__definirModelo(new JSONModel(habilidades), MODELO_HABILIDADES);
+				this.__definirModelo(new JSONModel(habilidadesDoPersonagem), Constantes.MODELO_HABILIDADES);
 
 				var txtEVilao = this.byId(ID_TEXT_PROPOSITO);
-				modeloPersonagem.getProperty(PROPRIEDADE_E_VILAO) ? txtEVilao.addStyleClass(CLASSE_VILAO).removeStyleClass(CLASSE_HEROI) : txtEVilao.addStyleClass(CLASSE_HEROI).removeStyleClass(CLASSE_VILAO)
+				modeloPersonagem.getProperty(PROPRIEDADE_E_VILAO) ? txtEVilao.addStyleClass(CLASSE_VILAO).removeStyleClass(CLASSE_HEROI) : txtEVilao.addStyleClass(CLASSE_HEROI).removeStyleClass(CLASSE_VILAO);
 			}
 			catch (erro) {
-                console.error("Erro ao obter detalhes do personagem:", erro);
-                this.__obterRotiador().getTargets().display(ROTA_NOT_FOUND);
+                this.__navegarPara(Constantes.ROTA_NOT_FOUND);
             }
 		},
-
+		
 		formatter: {	
             formatarNivel: function(valor) {
                 switch (valor) {
