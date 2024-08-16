@@ -9,24 +9,21 @@ sap.ui.define([
 
     opaTest("Deve navegar para uma página inexistente", (Given, When, Then) => {
         // Arrange
-        Given.iStartMyApp();
-
-        // Act
-        When.naPaginaHome.aoNavegarParaRotaInexistente();
+        Given.iniciarAplicacao({ hash: "rota/que/nao/existe" });
 
         // Assert
-        Then.naPaginaNotFound.verificaUrlPaginaNotFound();
-        Then.naPaginaNotFound.verificaTituloPaginaNotFound();
+        Then.naPaginaNotFound.verificaUrl();
+        Then.naPaginaNotFound.verificaPropriedadesDaPagina();
     });
 
     opaTest("Deve retornar para Home ao clicar no botão voltar", (Given, When, Then) => {        
         // Act
-        When.naPaginaNotFound.aoClicarEmVerVoltarHome();
+        When.naPaginaNotFound.aoClicarEmVerVoltar();
 
         // Assert
-        Then.naPaginaHome.verificaUrlPaginaHome();
-        Then.naPaginaHome.verificaTituloPaginaHome();
-
+        Then.naPaginaHome.verificaUrl();
+        Then.naPaginaHome.verificaTituloDaPagina("Coder's Growth");
+        Then.naPaginaHome.verificaTituloDoPainel("Glossário do Street Fighter");        
         Then.iTeardownMyApp();
     });
 });

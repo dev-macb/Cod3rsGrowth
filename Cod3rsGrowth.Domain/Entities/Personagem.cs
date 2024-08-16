@@ -13,22 +13,22 @@ namespace Cod3rsGrowth.Domain.Entities
         public required string Nome { get; set; }
 
         [Column("vida")]
-        public int Vida { get; set; }
+        public required int Vida { get; set; }
 
         [Column("energia"), NotNull]
-        public int Energia { get; set; }
+        public required int Energia { get; set; }
 
         [Column("velocidade"), NotNull]
-        public double Velocidade { get; set; }
+        public required double Velocidade { get; set; }
 
         [Column("forca"), NotNull]
-        public CategoriasEnum Forca { get; set; }
+        public required CategoriasEnum Forca { get; set; }
 
         [Column("inteligencia"), NotNull]
-        public CategoriasEnum Inteligencia { get; set; }
+        public required CategoriasEnum Inteligencia { get; set; }
 
         [Column("e_vilao")]
-        public bool? EVilao { get; set; }
+        public required bool? EVilao { get; set; }
 
         [Column("criado_em", SkipOnInsert = true, SkipOnUpdate = true), NotNull]
         public DateTime? CriadoEm { get; set; }

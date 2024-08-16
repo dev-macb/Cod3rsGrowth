@@ -1,31 +1,31 @@
 sap.ui.define([
-	"coders-growth/controller/BaseController",
-    "sap/ui/model/json/JSONModel",
-	"../services/HabilidadeService"
-], function(BaseController, JSONModel, HabilidadeService) {
+	"coders-growth/common/BaseController",
+	"coders-growth/common/HttpService",
+	"coders-growth/common/Constantes",
+	"sap/ui/model/json/JSONModel"
+], function(BaseController, HttpService, Constantes, JSONModel) {
 	"use strict";
 
-	const ROTA_HABILIDADES = "habilidades";
 	const ID_CALENDARIO = "calendario";
 
 	return BaseController.extend("coders-growth.controller.ListaHabilidade", {
         onInit: function() {
-			this.vincularRota(ROTA_PERSONAGENS, this._aoConcidirRota);
+			this._filtros = {};
+			this.__vincularRota(Constantes.ROTA_HABILIDADES, this._aoConcidirRota);
         },
 
 		_aoConcidirRota: function() {
-			this._filtros = {};
             this._carregarHabilidades();
 		},
 
         _carregarHabilidades: async function() {
 			try {
-				const habilidades = await HabilidadeService.obterTodasHabilidades(this._filtros);
-				const modeloHabilidade = new JSONModel(habilidades);
-				this.getView().setModel(modeloHabilidade);
-				this.obterRotiador().navTo(ROTA_HABILIDADES, Object.keys(this._filtros).length === 0 ? {} : { "?query": this._filtros });
-			} catch (erro) {
-				console.error(erro);
+				const habilidades = await HttpService.get(Constantes.URL_HABILIDADE, null, this._filtros);
+				this.__definirModelo(new JSONModel(habilidades));
+				this.__navegarPara(Constantes.ROTA_HABILIDADES, Object.keys(this._filtros).length === 0 ? {} : { "?query": this._filtros });
+			} 
+			catch (erro) {
+				this.__exibirErroModal(erro);
 			}
 		},
 
@@ -60,7 +60,7 @@ sap.ui.define([
 			}
 		},
 
-		aoAplicarFiltrosHabilidade: async function(evento) {
+		aoAplicarFiltrosHabilidade: async function() {
 			this._carregarHabilidades();
 		},
 
@@ -70,6 +70,6 @@ sap.ui.define([
 			this.byId(ID_CALENDARIO).removeAllSelectedDates();
 
 			this._carregarHabilidades();
-		},
+		}
     });
 });

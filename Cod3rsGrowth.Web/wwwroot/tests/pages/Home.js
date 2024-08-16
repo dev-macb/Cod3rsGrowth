@@ -1,7 +1,8 @@
 sap.ui.define([
     "sap/ui/test/Opa5",
     "sap/ui/test/actions/Press",
-], function(Opa5, Press) {
+    "sap/ui/test/matchers/PropertyStrictEquals",
+], function(Opa5, Press, PropertyStrictEquals) {
     "use strict";
 
     const nomeDaView = "Home";
@@ -14,7 +15,7 @@ sap.ui.define([
                         id: "btnVerListaPersonagem",
                         viewName: nomeDaView,
                         actions: new Press(),
-                        errorMessage: "Botão 'Ver Lista de Personagens' não encontrado."
+                        errorMessage: "Botão 'Ver Lista de Personagens' não encontrado"
                     });
                 },
                 aoClicarEmVerListaHabilidade: function() {
@@ -22,47 +23,41 @@ sap.ui.define([
                         id: "btnVerListaHabilidade",
                         viewName: nomeDaView,
                         actions: new Press(),
-                        errorMessage: "Botão 'Ver Lista de Habilidades' não encontrado."
-                    });
-                },
-                aoNavegarParaRotaInexistente: function() {
-                    return this.waitFor({
-                        success: function() {
-                            sap.ui.test.Opa5.getHashChanger().setHash("RotaInexistente");
-                        }
+                        errorMessage: "Botão 'Ver Lista de Habilidades' não encontrado"
                     });
                 }
             },
             assertions: {
-                verificaUrlPaginaHome: function() {
+                verificaUrl: function() {
                     return this.waitFor({
                         success: function() {
                             const hash = Opa5.getHashChanger().getHash();
-                            Opa5.assert.strictEqual(hash, "", "Navegou para o endpoind da pagina Home");
+                            Opa5.assert.strictEqual(hash, "", "A URL corresponde a página Home");
                         },
                         errorMessage: "A URL não é a esperada"
                     });
                 },
-                verificaUrlPaginaHome: function() {
+                verificaTituloDaPagina: function(texto) {
                     return this.waitFor({
-                        success: function() {
-                            const hash = Opa5.getHashChanger().getHash();
-                            Opa5.assert.strictEqual(hash, "", "Navegou para o endpoint Home");
+                        id: "tituloPaginaHome",
+                        viewName: nomeDaView,
+                        matchers: new PropertyStrictEquals({ name: "text", value: texto }),
+                        success: function(pagina) {
+                            console.log(pagina)
+                            Opa5.assert.ok(pagina, `Página Home tem o titulo: ${texto}`);
                         },
-                        errorMessage: "A URL não é a esperada"
+                        errorMessage: `Página Home tem o titulo: ${texto}`
                     });
                 },
-                verificaTituloPaginaHome: function() {
+                verificaTituloDoPainel: function(texto) {
                     return this.waitFor({
-                        controlType: "sap.m.Page",
-                        viewName: "Home",
-                        matchers: new sap.ui.test.matchers.Properties({
-                            title: "Coder's Growth"
-                        }),
-                        success: function(oPage) {
-                            Opa5.assert.ok(oPage, "O título da página Home está correto");
+                        id: "tituloPainelHome",
+                        viewName: nomeDaView,
+                        matchers: new PropertyStrictEquals({ name: "text", value: texto }),
+                        success: function(painel) {
+                            Opa5.assert.ok(painel, `Painel principal da página Home tem o titulo: ${texto}`);
                         },
-                        errorMessage: "Título da página Home não está correto"
+                        errorMessage: `Painel principal da página Home tem o titulo: ${texto}`
                     });
                 }
             }

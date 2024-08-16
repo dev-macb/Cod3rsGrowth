@@ -10,23 +10,15 @@ sap.ui.define([
 
     opaTest("Deve navegar para o detalhes de um herói", (Given, When, Then) => {
         // Arrange
-        let primeiroItem = 0;
-        let id1 = 1;
-        let quantidade5 = 5;
-        let classeHeroi = "txtHeroi";
-        Given.iStartMyApp();
-        When.naPaginaHome.aoClicarEmVerListaPersonagem();
-
-        // Act
-        When.naPaginaListaPersonagem.aoClicarNaLista();
-        When.naPaginaListaPersonagem.aoSelecionarItemDaLista(primeiroItem);
+        let idPersonagem = 1;
+        Given.iniciarAplicacao({ hash: `personagens/${idPersonagem}` });
 
         // Assert
-        Then.naPaginaDetalhePersonagem.verificaUrlDetalhePersonagem(id1);
-        Then.naPaginaDetalhePersonagem.verificaTituloListaPersonagem();
+        Then.naPaginaDetalhePersonagem.verificaUrl(idPersonagem);
+        Then.naPaginaDetalhePersonagem.verificaTituloDaPagina("Detalhes do Personagem");
         Then.naPaginaDetalhePersonagem.verificaDetalhesDoPersonagem();
-        Then.naPaginaDetalhePersonagem.verificaQuatidadeDaListaDeHabilidades(quantidade5);
-        Then.naPaginaDetalhePersonagem.verificaClasseTextoEVilao(classeHeroi); 
+        Then.naPaginaDetalhePersonagem.verificaQuatidadeDaListaDeHabilidades(5);
+        Then.naPaginaDetalhePersonagem.verificaClasseTextoEVilao("txtHeroi"); 
     });
 
     opaTest("Deve navegar de volta para a tela de listagem", (Given, When, Then) => {
@@ -34,8 +26,8 @@ sap.ui.define([
         When.naPaginaDetalhePersonagem.aoClicarNoBotaoVoltar();
 
         // Assert
-        Then.naPaginaListaPersonagem.verificaUrlListaPersonagem();
-        Then.naPaginaListaPersonagem.verificaTituloListaPersonagem();
+        Then.naPaginaListaPersonagem.verificaUrl();
+        Then.naPaginaListaPersonagem.verificaTituloDaPagina("Lista de Personagens");
     });
 
     opaTest("Deve navegar para o detalhes de um vilão", (Given, When, Then) => {
@@ -50,8 +42,8 @@ sap.ui.define([
         When.naPaginaListaPersonagem.aoSelecionarItemDaLista(nonoItem);
 
         // Assert
-        Then.naPaginaDetalhePersonagem.verificaUrlDetalhePersonagem(id9);
-        Then.naPaginaDetalhePersonagem.verificaTituloListaPersonagem();
+        Then.naPaginaDetalhePersonagem.verificaUrl(id9);
+        Then.naPaginaDetalhePersonagem.verificaTituloDaPagina("Detalhes do Personagem");
         Then.naPaginaDetalhePersonagem.verificaDetalhesDoPersonagem();
         Then.naPaginaDetalhePersonagem.verificaQuatidadeDaListaDeHabilidades(quantidade5);
         Then.naPaginaDetalhePersonagem.verificaClasseTextoEVilao(classeVilao); 

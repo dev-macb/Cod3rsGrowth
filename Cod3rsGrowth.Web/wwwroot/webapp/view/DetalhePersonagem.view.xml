@@ -5,52 +5,53 @@
     busyIndicatorDelay="0"
     controllerName="coders-growth.controller.DetalhePersonagem"
 >
-    <Page
-        id="detalhePersonagem"
-        title="{i18n>DetalhesPersonagem.titulo}"
-        showNavButton="true"
-        navButtonPress="navegarPara('personagens')"
-        class="sapUiResponsiveContentPadding"
-    >
+    <Page id="detalhePersonagem" class="sapUiResponsiveContentPadding">
+        <customHeader>
+			<Toolbar>
+				<Button id="botaoVoltar" text="{i18n>geral.voltar}" icon="sap-icon://nav-back" press="__navegarPara('personagens')" />
+				<Title text="{i18n>geral.codersgrowth}" titleStyle="H3" />
+			</Toolbar>
+		</customHeader>
         <content>
-            <Panel id="painelDetalhePersonagem" width="auto" class="sapUiResponsiveMargin sapUiNoContentPadding">
+            <Title text="{i18n>detalhesPersonagem.titulo}" titleStyle="H2" class="sapUiLargeMarginBeginEnd" />
+            <Panel id="painelDetalhePersonagem" width="auto" class="sapUiLargeMarginBeginEnd sapUiTinyMarginTop sapUiResponsiveContentPadding">
                 <headerToolbar>
                     <Toolbar>
                         <Title text="{personagem>/nome} ({personagem>/id})" level="H2"/>
                         <ToolbarSpacer />	
-                        <Button icon="sap-icon://edit" />
-                        <Button icon="sap-icon://delete" />
+                        <Button icon="sap-icon://edit" text="{i18n>geral.editar}" type="Emphasized" />
+                        <Button icon="sap-icon://delete" text="{i18n>geral.excluir}" />
                     </Toolbar>
                 </headerToolbar>
                 <content>
-                    <f:SimpleForm id="formDetalhePersonagem" editable="false" layout="ResponsiveGridLayout">
-                        <f:content>
-                            <Label text="{i18n>DetalhesPersonagem.vida}"/>
+                    <f:SimpleForm id="formDetalhePersonagem" editable="false" layout="ResponsiveGridLayout" width="100%" >
+                        <f:content >
+                            <Label text="{i18n>detalhesPersonagem.vida}"/>
                             <Text id="txtVida" text="{personagem>/vida}"/>
-                            <Label text="{i18n>DetalhesPersonagem.energia}"/>
+                            <Label text="{i18n>detalhesPersonagem.energia}"/>
                             <Text id="txtEnergia" text="{personagem>/energia}"/>
-                            <Label text="{i18n>DetalhesPersonagem.velocidade}"/>
+                            <Label text="{i18n>detalhesPersonagem.velocidade}"/>
                             <Text id="txtVelocidade" text="{personagem>/velocidade}"/>
-                            <Label text="{i18n>DetalhesPersonagem.forca}"/>
+                            <Label text="{i18n>detalhesPersonagem.forca}"/>
                             <Text id="txtForca" text="{path: 'personagem>/forca', formatter: '.formatter.formatarNivel'}" class="distintivo" />
-                            <Label text="{i18n>DetalhesPersonagem.inteligencia}"/>
+                            <Label text="{i18n>detalhesPersonagem.inteligencia}"/>
                             <Text id="txtInteligencia" text="{path: 'personagem>/inteligencia', formatter: '.formatter.formatarNivel'}" class="distintivo" />
-                            <Label text="{i18n>DetalhesPersonagem.proposito}"/>
+                            <Label text="{i18n>detalhesPersonagem.proposito}"/>
                             <Text id="txtEVilao" text="{path: 'personagem>/eVilao', formatter: '.formatter.formatarProposito'}" />
+                            <Label text="{i18n>detalhesPersonagem.criadoEm}"/>
+                            <Text id="txtDataCriacao" text="{path: 'personagem>/criadoEm', formatter: '.formatter.formatarData'}"/>
+                            <Label text="{i18n>detalhesPersonagem.atualizadoEm}"/>
+                            <Text id="txtDataAtualizacao" text="{path: 'personagem>/atualizadoEm', formatter: '.formatter.formatarData'}"/>
                         </f:content>
                     </f:SimpleForm>
 					<List id="listaHabilidade" items="{habilidades>/}" growing="true" growingThreshold="10">
 						<headerToolbar>
 							<Toolbar>
-								<Title text="{i18n>ListaHabilidade.tituloLista}" />
+								<Title text="{i18n>detalhesPersonagem.habilidades}" />
 							</Toolbar>
 						</headerToolbar>
 						<items>
-							<StandardListItem
-                                title="{habilidades>nome}"
-                                description="{habilidades>descricao}"
-                                type="Navigation"
-                                press=".onListItemPressed"/>
+							<StandardListItem title="{habilidades>nome}" description="{habilidades>descricao}" />
 						</items>
 					</List>
                 </content>

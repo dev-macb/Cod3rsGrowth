@@ -1,30 +1,39 @@
 sap.ui.define([
-	"coders-growth/controller/BaseController",
+	"coders-growth/common/BaseController",
+	"coders-growth/common/HttpService",
+	"coders-growth/common/Constantes",
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/core/format/DateFormat",
-	"../services/PersonagemService"
-], function(BaseController, JSONModel, DateFormat, PersonagemService) {
+], function(BaseController, HttpService, Constantes, JSONModel, DateFormat) {
 	"use strict";
 
-	const ROTA_PERSONAGENS = "personagens";
 	const ID_CALENDARIO = "calendario";
+	const IMG_LUVA_AZUL = "images/luva_azul.png";
+	const IMG_LUVA_VERMELHA = "images/luva_vermelha.png";
 
 	return BaseController.extend("coders-growth.controller.ListaPersonagem", {
 		onInit: function() {
-			this.vincularRota(ROTA_PERSONAGENS, this._aoConcidirRota);
+			this._filtros = {};
+			this.__vincularRota(Constantes.ROTA_PERSONAGENS, this._aoConcidirRota);
         },
 
 		_aoConcidirRota: function() {
-			this._filtros = {};
             this._carregarPersonagens();
 		},
 
 		_carregarPersonagens: async function() {
-			const personagens = await PersonagemService.obterTodosPersonagens(this._filtros);
-			const modeloPersonagem = new JSONModel(personagens);
+			try {
+				const personagens = await HttpService.get(Constantes.URL_PERSONAGEM, null, this._filtros);
+				this.__definirModelo(new JSONModel(personagens));
+				this.__navegarPara(Constantes.ROTA_PERSONAGENS, Object.keys(this._filtros).length === 0 ? {} : { "?query": this._filtros });
+			}
+			catch (erro) {
+				this.__exibirErroModal(erro);
+			}
+		},
 
-			this.getView().setModel(modeloPersonagem);
-			this.obterRotiador().navTo(ROTA_PERSONAGENS, Object.keys(this._filtros).length === 0 ? {} : { "?query": this._filtros });
+		irAdicionarPersonagem: function() {
+			this.__navegarPara(Constantes.ROTA_FORMULARIO_PERSONAGEM);
 		},
 
 		aoFiltrarPersonagemPorNome(evento) {
@@ -86,12 +95,12 @@ sap.ui.define([
 		},
 
 		aoClicarEmVerDetalhes: function(elemento) {
-			this.obterRotiador().navTo("personagem", { idPersonagem: elemento.getSource().getBindingContext().getProperty("id") })
+			this.__navegarPara(Constantes.ROTA_PERSONAGEM, { idPersonagem: elemento.getSource().getBindingContext().getProperty("id") });
 		},
 
 		formatter: {
             iconePersonagem: function(eVilao) {
-                return eVilao ? "images/luva_vermelha.png" : "images/luva_azul.png";
+                return eVilao ? IMG_LUVA_VERMELHA : IMG_LUVA_AZUL;
             }
         }
 	});

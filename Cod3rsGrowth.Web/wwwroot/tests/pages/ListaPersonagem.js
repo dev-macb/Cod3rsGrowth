@@ -3,9 +3,8 @@ sap.ui.define([
     "sap/ui/test/actions/Press",
     "sap/ui/test/actions/EnterText",
     "sap/ui/test/matchers/PropertyStrictEquals",
-    "sap/ui/test/matchers/AggregationLengthEquals",
-    "sap/ui/test/matchers/BindingPath"
-], function (Opa5, Press, EnterText, PropertyStrictEquals, AggregationLengthEquals, BindingPath) {
+    "sap/ui/test/matchers/AggregationLengthEquals"
+], function (Opa5, Press, EnterText, PropertyStrictEquals, AggregationLengthEquals) {
     "use strict";
 
     const nomeDaView = "ListaPersonagem";
@@ -19,8 +18,8 @@ sap.ui.define([
             actions: {
                 aoClicarNoBotaoVoltar: function () {
                     return this.waitFor({
-                        controlType: "sap.m.Button",
                         id: idBotaoVoltar,
+                        viewName: nomeDaView,
                         actions: new Press(),
                         errorMessage: "Não foi possível encontrar o botão de voltar."
                     });
@@ -176,24 +175,24 @@ sap.ui.define([
                 }
             },
             assertions: {
-                verificaUrlListaPersonagem: function () {
+                verificaUrl: function () {
                     return this.waitFor({
                         success: function () {
                             const hash = Opa5.getHashChanger().getHash();
-                            Opa5.assert.strictEqual(hash, "personagens", "A URL corresponde ao endpoint da lista de personagens.");
+                            Opa5.assert.strictEqual(hash, "personagens", "A URL corresponde a página ListaPersonagem");
                         },
                         errorMessage: "A URL não é a esperada."
                     });
                 },
-                verificaTituloListaPersonagem: function () {
+                verificaTituloDaPagina: function (texto) {
                     return this.waitFor({
-                        controlType: "sap.m.Page",
+                        controlType: "sap.m.Title",
                         viewName: nomeDaView,
-                        matchers: new PropertyStrictEquals({ name: "title", value: "Lista de Personagens" }),
+                        matchers: new PropertyStrictEquals({ name: "text", value: texto }),
                         success: function (pagina) {
-                            Opa5.assert.ok(pagina, "O título da página está correto.");
+                            Opa5.assert.ok(pagina, `A página ListaPersonagem tem título: '${texto}'`);
                         },
-                        errorMessage: "Não foi possível verificar o título da página."
+                        errorMessage: `A página ListaPersonagem tem título: '${texto}'`
                     });
                 },
                 verificaSeHaPaginacao: function () {
@@ -309,6 +308,15 @@ sap.ui.define([
                             Opa5.assert.ok(true, "A lista está filtrada corretamente por data de criação.");
                         },
                         errorMessage: "Erro ao filtrar a lista por data de criação."
+                    });
+                },
+                verificaTamanhoDaLista: function (tamanho) {
+                    return this.waitFor({
+                        id: "listaPersonagem",
+                        viewName: "ListaPersonagem",
+                        matchers: new AggregationLengthEquals({ name: "items", length: tamanho }),
+                        success: function() { Opa5.assert.ok(true, "A lista está paginada com 10 itens."); },
+                        errorMessage: "A lista não está paginada corretamente."
                     });
                 }
             }

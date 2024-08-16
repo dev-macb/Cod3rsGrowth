@@ -9,8 +9,7 @@ sap.ui.define([
 
     opaTest("Deve carregar mais itens da listagem de habilidades", (Given, When, Then) => {
         // Arrange
-        Given.iStartMyApp();
-        When.naPaginaHome.aoClicarEmVerListaHabilidade();
+        Given.iniciarAplicacao({ hash: "habilidades" });
 
         // Act
         Then.naPaginaListaHabilidade.verificaSeHaPaginacao();
@@ -35,7 +34,7 @@ sap.ui.define([
 
         // Assert
         Then.naPaginaListaHabilidade.verificaSeHaPaginacao();
-        Then.naPaginaListaHabilidade.verificaUrlListaHabilidade("");
+        Then.naPaginaListaHabilidade.verificaUrl();
     });
 
     opaTest("Deve filtrar por nome inexistente", (Given, When, Then) => {

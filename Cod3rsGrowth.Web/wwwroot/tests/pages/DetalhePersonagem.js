@@ -12,16 +12,23 @@ sap.ui.define([
             actions: {
                 aoClicarNoBotaoVoltar: function() {
                     return this.waitFor({
-                        controlType: "sap.m.Button",
-                        matchers: function(botao) {
-                            return botao.getId().includes("detalhePersonagem-navButton");
-                        },
+                        id: "botaoVoltar",
+                        viewName: nomeDaView,
                         actions: new Press(),
-                        errorMessage: "Botão de voltar não encontrado."
+                        errorMessage: "Não foi possível encontrar o botão de voltar."
                     });
                 },
             },
             assertions: {
+                verificaUrl: function (idEsperado) {
+                    return this.waitFor({
+                        success: function () {
+                            var hash = Opa5.getHashChanger().getHash();
+                            Opa5.assert.strictEqual(hash, `personagens/${idEsperado}`, "A URL corresponde a página DetalhePersonagem");
+                        },
+                        errorMessage: "A URL de detalhes do personagem está incorreta."
+                    });
+                },
                 verificaDetalhesDoPersonagem: function () {
                     return this.waitFor({
                         controlType: "sap.m.Text",
@@ -36,29 +43,19 @@ sap.ui.define([
                             return todosCamposEncontrados;
                         },
                         success: function () {
-                            Opa5.assert.ok(true, "Todos os campos de detalhes do personagem foram encontrados e não estão vazios.");
+                            Opa5.assert.ok(true, "Todos os campos do formulário do personagem possuem dados");
                         },
-                        errorMessage: "Alguns campos de detalhes do personagem não foram encontrados ou estão vazios."
+                        errorMessage: "Alguns campos do formulário do personagem não foram encontrados ou estão vazios"
                     });
                 },
-                verificaUrlDetalhePersonagem: function (id) {
-                    return this.waitFor({
-                        success: function () {
-                            var oHashChanger = sap.ui.core.routing.HashChanger.getInstance();
-                            var sHash = oHashChanger.getHash();
-                            Opa5.assert.strictEqual(sHash, `personagens/${id}`, "A URL de detalhes do personagem está correta.");
-                        },
-                        errorMessage: "A URL de detalhes do personagem está incorreta."
-                    });
-                },
-                verificaTituloListaPersonagem: function () {
+                verificaTituloDaPagina: function (texto) {
                     return this.waitFor({
                         controlType: "sap.m.Title",
-                        matchers: new PropertyStrictEquals({ name: "text", value: "Detalhes do Personagem" }),
+                        matchers: new PropertyStrictEquals({ name: "text", value: texto }),
                         success: function (titulo) {
-                            Opa5.assert.ok(titulo, "O título da lista de personagens foi verificado.");
+                            Opa5.assert.ok(titulo, `A página possui titulo '${texto}'`);
                         },
-                        errorMessage: "O título da lista de personagens não foi encontrado."
+                        errorMessage: `A página possui titulo '${texto}'`
                     });
                 },
                 verificaQuatidadeDaListaDeHabilidades: function (quantidadeEsperada) {
@@ -67,7 +64,7 @@ sap.ui.define([
                         viewName: nomeDaView,
                         success: function (lista) {
                             var quantidadeDeItens = lista.getItems().length;
-                            Opa5.assert.strictEqual(quantidadeDeItens, quantidadeEsperada, "A lista de habilidades possui " + quantidadeEsperada + " itens.");
+                            Opa5.assert.strictEqual(quantidadeDeItens, quantidadeEsperada, `A lista de habilidades possui '${quantidadeEsperada}' itens`);
                         },
                         errorMessage: "A lista de habilidades não possui a quantidade esperada de itens."
                     });
@@ -79,7 +76,7 @@ sap.ui.define([
                         success: function (texto) {
                             var classeCSS = texto.aCustomStyleClasses[0];
                             var possuiClasseCSS = classeCSS.includes(classeEsperada);
-                            Opa5.assert.ok(possuiClasseCSS, "O texto de propósito tem a classe " + classeEsperada);
+                            Opa5.assert.ok(possuiClasseCSS, `O texto do Propósito do personagem possui a classe '${classeEsperada}'`);
                         },
                         errorMessage: "O texto de propósito não tem a classe esperada."
                     });
