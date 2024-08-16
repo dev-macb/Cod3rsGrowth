@@ -9,7 +9,7 @@
       "dotnetRunMessages": true,
       "applicationUrl": "http://localhost:5050"
     },
-    "https": { 
+    "https": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "webapp/index.html",
@@ -19,15 +19,15 @@
       "dotnetRunMessages": true,
       "applicationUrl": "https://localhost:5051;http://localhost:5052"
     },
-    "testes": { 
+    "testes": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "tests/TestesOpa5.html",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Test"
       },
       "dotnetRunMessages": true,
-      "applicationUrl": "https://localhost:5051;http://localhost:5052"
+      "applicationUrl": "https://localhost:5051"
     },
     "IIS Express": {
       "commandName": "IISExpress",

@@ -6,8 +6,8 @@ using Microsoft.Extensions.FileProviders;
 
 var construtor = WebApplication.CreateBuilder(args);
 
-
-string? stringDeConexao = construtor.Configuration.GetConnectionString("ConexaoPadrao");
+string chaveDeConexao = construtor.Environment.EnvironmentName == "Test" ? "ConexaoTeste" : "ConexaoPadrao";
+string? stringDeConexao = construtor.Configuration.GetConnectionString(chaveDeConexao);
 if (string.IsNullOrEmpty(stringDeConexao)) throw new Exception("Sem URI do banco");
 
 StartupWeb.Registrar(construtor.Services);
@@ -16,16 +16,17 @@ StartupService.Registrar(construtor.Services);
 
 var app = construtor.Build();
 
-
+if (chaveDeConexao == "ConexaoTeste") {
+    StartupInfra.ApagarBancoDeDados(app.Services);
+}
 StartupInfra.InicializarBancoDeDados(app.Services);
-
 
 app.UseFileServer(new FileServerOptions
 {
     FileProvider = new PhysicalFileProvider(Path.Combine(app.Environment.ContentRootPath, "wwwroot", "webapp")),
     EnableDirectoryBrowsing = true
 });
-app.UseStaticFiles(new StaticFileOptions(){ ServeUnknownFileTypes = true });
+app.UseStaticFiles(new StaticFileOptions() { ServeUnknownFileTypes = true });
 app.UseProblemDetailsExceptionHandler(app.Services.GetRequiredService<ILoggerFactory>());
 app.UseHttpsRedirection();
 app.UseAuthorization();
