@@ -10,6 +10,7 @@ sap.ui.define([], function() {
         ROTA_PERSONAGEM: "personagem",
         ROTA_HABILIDADES: "habilidades",
         ROTA_FORMULARIO_PERSONAGEM: "formularioPersonagem",
+        ROTA_EDITAR_PERSONAGEM: "editarPersonagem",
         ROTA_NOT_FOUND: "notFound",
 
         MODELO_PERSONAGEM: "personagem",

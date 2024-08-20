@@ -168,7 +168,7 @@ sap.ui.define([
 
                 deveMostrarMessageToast: function (mensagem) {
                     return this.waitFor({
-                        pollingInterval: 100,
+                        pollingInterval: 200,
                         check: function () {
                             var elementosMessageToast = sap.ui.test.Opa5.getJQuery()(".sapMMessageToast");
                             var elementosEsperados = elementosMessageToast.filter(function (i, elemento) {

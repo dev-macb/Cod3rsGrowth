@@ -52,6 +52,10 @@ sap.ui.define([
                 this.__navegarPara(Constantes.ROTA_NOT_FOUND);
             }
 		},
+
+		aoClicarEmEditarPersonagem: function() {
+			this.__navegarPara(Constantes.ROTA_FORMULARIO_PERSONAGEM, { idPersonagem: this.__obterModelo(Constantes.MODELO_PERSONAGEM).getData().id });
+		},
 		
 		formatter: {	
             formatarNivel: function(valor) {
