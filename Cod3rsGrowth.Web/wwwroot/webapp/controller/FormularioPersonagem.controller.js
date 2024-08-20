@@ -19,15 +19,33 @@ sap.ui.define([
     const BASE_10 = 10;
     const TMP_5_MILISEGUNDOS = 5000;
     
-    return BaseController.extend("coders-growth.controller.AdicionarPersonagem", {
+    return BaseController.extend("coders-growth.controller.FormularioPersonagem", {
         onInit: function () {
-            this.__vincularRota(Constantes.ROTA_FORMULARIO_PERSONAGEM, this._aoConcidirRota)
+            this.__vincularRota(Constantes.ROTA_FORMULARIO_PERSONAGEM, this._aoConcidirRotaAdicionar);
+            this.__vincularRota(Constantes.ROTA_EDITAR_PERSONAGEM, this._aoConcidirRotaEditar);
         },
 
-        _aoConcidirRota: function () {
+        _aoConcidirRotaAdicionar: function () {
             this._resetarEstadoInputs();
             this.__definirModelo(new JSONModel(this._iniciarPersonagem()), Constantes.MODELO_PERSONAGEM);
             this.modeloPersonagem = this.__obterModelo(Constantes.MODELO_PERSONAGEM)
+        },
+
+        _aoConcidirRotaEditar: async function () {
+            // TODO: MUDAR TITULO DA PAGINA
+            try {
+                const personagemExistente = await HttpService.get(Constantes.URL_PERSONAGEM, this._obterIdPeloParametro());
+                this.__definirModelo(new JSONModel(personagemExistente), Constantes.MODELO_PERSONAGEM);
+                this.modeloPersonagem = this.__obterModelo(Constantes.MODELO_PERSONAGEM);
+            } 
+            catch (erro) {
+                this.__exibirErroModal(erro);
+            }
+        },  
+
+        _obterIdPeloParametro: function () {
+            const indiceDoId = 1;
+            return this.__obterRotiador().getHashChanger().getHash().split("/")[indiceDoId];
         },
 
         adicionarPersonagem: async function() {

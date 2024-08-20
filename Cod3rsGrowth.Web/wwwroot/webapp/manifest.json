@@ -87,8 +87,8 @@
 				},
 				{
 					"pattern": "personagens/{idPersonagem}/editar",
-					"name": "personagem",
-					"target": "personagem"
+					"name": "editarPersonagem",
+					"target": "editarPersonagem"
 				},
 				{
 					"pattern": "personagens/{idPersonagem}",
