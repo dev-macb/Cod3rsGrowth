@@ -1,0 +1,22 @@
+<mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" controllerName="coders-growth.controller.Home">
+	<Page class="sapUiResponsiveContentPadding">
+		<customHeader>
+			<Toolbar>
+				<Title id="tituloPaginaHome" text="{i18n>geral.codersgrowth}" titleStyle="H3" />
+			</Toolbar>
+		</customHeader>
+		<content>
+			<Panel id="painelHome" width="auto" class="sapUiLargeMarginBeginEnd sapUiTinyMarginTop sapUiResponsiveContentPadding">
+				<headerToolbar>
+					<Toolbar>
+						<Title id="tituloPainelHome" text="{i18n>home.titulo}" titleStyle="H3" />
+					</Toolbar>
+				</headerToolbar>
+				<content>
+					<Button id="btnVerListaPersonagem" icon="sap-icon://forward" text="{i18n>home.verListaPersonagem}" press="irListaPersonagem" class="sapUiTinyMarginEnd" />
+					<Button id="btnVerListaHabilidade" icon="sap-icon://forward" text="{i18n>home.verListaHabilidade}" press="irListaHabilidade" />
+				</content>
+			</Panel>
+		</content>
+	</Page>
+</mvc:View>
