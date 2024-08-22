@@ -13,7 +13,7 @@ sap.ui.define([
     const ID_INPUT_NOME = "inputNome";
     const ID_INPUT_VIDA = "inputVida";
     const ID_INPUT_ENERGIA = "inputEnergia";
-    const ID_INPUT_VELOCIDAE = "inputVelocidade";
+    const ID_INPUT_VELOCIDADE = "inputVelocidade";
     const ID_COMBO_FORCA = "comboForca";
     const ID_COMBO_INTELIGENCIA = "comboInteligencia";
     const BASE_10 = 10;
@@ -27,44 +27,54 @@ sap.ui.define([
 
         _aoConcidirRotaAdicionar: function () {
             this._resetarEstadoInputs();
+            this.__obterElementoPorId("tituloFormularioPersonagem").setText("Cadastrar Personagem");
+
             this.__definirModelo(new JSONModel(this._iniciarPersonagem()), Constantes.MODELO_PERSONAGEM);
-            this.modeloPersonagem = this.__obterModelo(Constantes.MODELO_PERSONAGEM)
+            this.modeloPersonagem = this.__obterModelo(Constantes.MODELO_PERSONAGEM);
         },
 
         _aoConcidirRotaEditar: async function () {
-            // TODO: MUDAR TITULO DA PAGINA
+            this._resetarEstadoInputs();
+            this.__obterElementoPorId("tituloFormularioPersonagem").setText("Editar Personagem");
+
             try {
-                const personagemExistente = await HttpService.get(Constantes.URL_PERSONAGEM, this._obterIdPeloParametro());
+                const personagemExistente = await HttpService.get(Constantes.URL_PERSONAGEM, this._obterListaDeParametros()[1]);
                 this.__definirModelo(new JSONModel(personagemExistente), Constantes.MODELO_PERSONAGEM);
                 this.modeloPersonagem = this.__obterModelo(Constantes.MODELO_PERSONAGEM);
+
+                this._definirHabilidadesSelecionadas();
             } 
             catch (erro) {
                 this.__exibirErroModal(erro);
             }
         },  
 
-        _obterIdPeloParametro: function () {
-            const indiceDoId = 1;
-            return this.__obterRotiador().getHashChanger().getHash().split("/")[indiceDoId];
-        },
-
-        adicionarPersonagem: async function() {
+        salvarPersonagem: async function() {
             if (!this._validarInputs()) {
                 MessageBox.warning(Constantes.MSG_AVISO_DE_VALIDACAO);
                 return;
             }
 
             const personagem = this.modeloPersonagem.getData();
-            personagem.forca = parseInt(personagem.forca, BASE_10)
-            personagem.inteligencia = parseInt(personagem.inteligencia, BASE_10)
+            personagem.forca = parseInt(personagem.forca, BASE_10);
+            personagem.inteligencia = parseInt(personagem.inteligencia, BASE_10);
             personagem.habilidades = this._obterHabilidadesSelecionadas();
             
             try {
-                const resultado = await HttpService.post(Constantes.URL_PERSONAGEM, personagem);
-                MessageToast.show(`Personagem ${resultado} criado com êxito!`, { duration: TMP_5_MILISEGUNDOS, closeOnBrowserNavigation: false });
-                this._resetarEstadoInputs();
-                this.__navegarPara(Constantes.ROTA_PERSONAGEM, { idPersonagem: resultado });
-                return resultado;
+                const parametros = this._obterListaDeParametros(); 
+                const acao = parametros[parametros.length - 1];
+                const idPersonagem = parametros[parametros.length - 2];
+
+                if (acao === "adicionar") {
+                    const resultado = await HttpService.post(Constantes.URL_PERSONAGEM, personagem);
+                    MessageToast.show(`Personagem ${resultado} criado com êxito!`, { duration: TMP_5_MILISEGUNDOS, closeOnBrowserNavigation: false });    
+                    this.__navegarPara(Constantes.ROTA_PERSONAGEM, { idPersonagem: resultado });
+                }
+                else if (acao === "editar") {
+                    await HttpService.put(Constantes.URL_PERSONAGEM, idPersonagem, personagem);
+                    MessageToast.show(`Personagem ${idPersonagem} atualizado com êxito!`, { duration: TMP_5_MILISEGUNDOS, closeOnBrowserNavigation: false });
+                    this.__navegarPara(Constantes.ROTA_PERSONAGEM, { idPersonagem: idPersonagem });
+                }
             } 
             catch (erro) {
                 this.__exibirErroModal(erro);
@@ -73,7 +83,11 @@ sap.ui.define([
 
         aoDigitarNoInpunt: function(evento) {
             let campo = evento.getSource();
-            campo.setValueState(ValueState.None)
+            campo.setValueState(ValueState.None);
+        },
+
+        _obterListaDeParametros: function () {
+            return this.__obterRotiador().getHashChanger().getHash().split("/");
         },
 
         _iniciarPersonagem: function() {
@@ -96,8 +110,21 @@ sap.ui.define([
             return itensSelecionados.map(item => item.getBindingContext("habilidades").getProperty("id"));
         },
 
+        _definirHabilidadesSelecionadas: function(){
+            const lista = this.__obterElementoPorId(ID_LISTA_HABILIDADES_SELECIONADAS);
+            const habilidadesSelecionadas = this.__obterModelo(Constantes.MODELO_PERSONAGEM).getProperty("/habilidades");
+
+            lista.getItems().forEach(item => {
+                const contextoHabilidade = item.getBindingContext("habilidades");
+                const habilidadeId = contextoHabilidade.getProperty("id");
+        
+                const estaSelecionada = habilidadesSelecionadas.includes(habilidadeId);
+                lista.setSelectedItem(item, estaSelecionada);
+            });
+        },
+
         _resetarEstadoInputs: function() {
-            const inputs = [ID_INPUT_NOME, ID_INPUT_VIDA, ID_INPUT_ENERGIA, ID_INPUT_VELOCIDAE, ID_COMBO_FORCA, ID_COMBO_INTELIGENCIA];
+            const inputs = [ID_INPUT_NOME, ID_INPUT_VIDA, ID_INPUT_ENERGIA, ID_INPUT_VELOCIDADE, ID_COMBO_FORCA, ID_COMBO_INTELIGENCIA];
             inputs.forEach(inputId => {
                 this.__obterElementoPorId(inputId).setValueState(ValueState.None);
             });
@@ -108,19 +135,19 @@ sap.ui.define([
             let contemErro = false;
             const modeloPersonagem = this.__obterModelo(Constantes.MODELO_PERSONAGEM).getData();
 
-            if (!this._validarCampoTexto(ID_INPUT_NOME, modeloPersonagem.nome, 3, 100)) {
+            if (!this._validarCampoTexto(ID_INPUT_NOME, this.__obterElementoPorId(ID_INPUT_NOME), 3, 100)) {
                 contemErro = true;
             }
 
-            if (!this._validarCampoNumerico(ID_INPUT_VIDA, modeloPersonagem.vida, 0, 100)) {
+            if (!this._validarCampoNumerico(ID_INPUT_VIDA, this.__obterElementoPorId(ID_INPUT_VIDA).getProperty("value"), 0, 100)) {
                 contemErro = true;
             }
 
-            if (!this._validarCampoNumerico(ID_INPUT_ENERGIA, modeloPersonagem.energia, 0, 50)) {
+            if (!this._validarCampoNumerico(ID_INPUT_ENERGIA, this.__obterElementoPorId(ID_INPUT_ENERGIA).getProperty("value"), 0, 50)) {
                 contemErro = true;
             }
 
-            if (!this._validarCampoNumerico(ID_INPUT_VELOCIDAE, modeloPersonagem.velocidade, 0, 2)) {
+            if (!this._validarCampoNumerico(ID_INPUT_VELOCIDADE, this.__obterElementoPorId(ID_INPUT_VELOCIDADE).getProperty("value"), 0, 2)) {
                 contemErro = true;
             }
 
@@ -145,9 +172,10 @@ sap.ui.define([
             return true;
         },
 
-        _validarCampoNumerico: function(id, valor, min, max) {
+        _validarCampoNumerico: function(id, valor = null, min, max) {
             const campo = this.__obterElementoPorId(id);
-            if (!valor || isNaN(valor) || valor < min || valor > max) {
+            const valorNumerico = parseInt(valor, BASE_10);
+            if (isNaN(valorNumerico) || valorNumerico < min || valorNumerico > max) {
                 campo.setValueState(ValueState.Error);
                 return false;
             }

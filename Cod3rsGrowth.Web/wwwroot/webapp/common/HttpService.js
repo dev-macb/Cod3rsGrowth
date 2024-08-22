@@ -3,7 +3,7 @@ sap.ui.define([], function() {
 
     async function requisicaoHttp(method, urlBase, argumentos = null, query = {}, corpo = null) {
         if (argumentos) urlBase = urlBase + "/" + argumentos;
-        
+
         const url = new URL(urlBase);
 
         Object.keys(query).forEach(chave => {
@@ -25,13 +25,17 @@ sap.ui.define([], function() {
             const resposta = await fetch(url.href, cabecalhos);
 
             if (!resposta.ok) {
-                const erro = await resposta.json();
                 throw erro;
             }
 
+            if (resposta.status == 204) {
+                return;
+            }
+            
             return await resposta.json();
         } 
         catch (erro) {
+            console.log(erro)
             throw erro;
         }
     }
@@ -43,8 +47,8 @@ sap.ui.define([], function() {
         post: function(url, corpo) {
             return requisicaoHttp("POST", url, null, {}, corpo);
         },
-        put: function(url, corpo) {
-            return requisicaoHttp("PUT", url, corpo);
+        put: function(url, argumentos, corpo) {
+            return requisicaoHttp("PUT", url, argumentos, {}, corpo);
         },
         delete: function(url) {
             return requisicaoHttp("DELETE", url);
