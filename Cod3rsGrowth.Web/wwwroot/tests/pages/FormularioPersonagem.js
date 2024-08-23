@@ -4,7 +4,7 @@ sap.ui.define([
     "sap/ui/test/matchers/Ancestor",
     "sap/ui/test/actions/EnterText",
     "sap/ui/test/matchers/Properties",
-], (Opa5, Press, Ancestor, EnterText, Properties) => {
+    ], (Opa5, Press, Ancestor, EnterText, Properties) => {
     "use strict";
 
     const nomeDaView = "FormularioPersonagem";
@@ -119,7 +119,9 @@ sap.ui.define([
                         id: "listaHabilidadeSelecionadas",
                         viewName: nomeDaView,
                         success: function (lista) {
+                            lista.removeSelections()
                             listaHabilidades.forEach((indice) => {
+                                console.log(indice)
                                 lista.getItems()[indice].setSelected(true);
                             });
                         },
@@ -128,6 +130,21 @@ sap.ui.define([
                 }
             },
             assertions: {
+                verificaTipoDoInput: function (idInput, tipo) {
+                    this.waitFor({
+                        id: idInput,
+                        viewName: nomeDaView,
+                        success: function (input) {
+                            const estadoValor = input.getValueState();
+                            Opa5.assert.strictEqual(
+                                estadoValor,
+                                tipo,
+                                `O input '${idInput}' está corretamente com o ValueState '${tipo}'.`
+                            );
+                        },
+                        errorMessage: `O input com id '${idInput}' não foi encontrado ou não possui um ValueState '${tipo}'.`
+                    });
+                },
                 verificaTipoDosInputs: function (tipo) {
                     const idsDosInputs = ["inputNome", "inputVida", "inputEnergia", "inputVelocidade", "comboForca", "comboInteligencia"];
                     

@@ -135,9 +135,9 @@ sap.ui.define([
             let contemErro = false;
             const modeloPersonagem = this.__obterModelo(Constantes.MODELO_PERSONAGEM).getData();
 
-            if (!this._validarCampoTexto(ID_INPUT_NOME, this.__obterElementoPorId(ID_INPUT_NOME), 3, 100)) {
+            if (!this._validarCampoTexto(ID_INPUT_NOME, this.__obterElementoPorId(ID_INPUT_NOME).getProperty("value"), 3, 100)) {
                 contemErro = true;
-            }
+            } 
 
             if (!this._validarCampoNumerico(ID_INPUT_VIDA, this.__obterElementoPorId(ID_INPUT_VIDA).getProperty("value"), 0, 100)) {
                 contemErro = true;
@@ -166,7 +166,7 @@ sap.ui.define([
             const campo = this.__obterElementoPorId(id);
             if (!valor || valor.length < minLen || valor.length > maxLen) {
                 campo.setValueState(ValueState.Error);
-                return false;
+                return false; 
             }
             campo.setValueState(ValueState.None);
             return true;
@@ -174,7 +174,7 @@ sap.ui.define([
 
         _validarCampoNumerico: function(id, valor = null, min, max) {
             const campo = this.__obterElementoPorId(id);
-            const valorNumerico = parseInt(valor, BASE_10);
+            const valorNumerico = parseFloat(valor, BASE_10);
             if (isNaN(valorNumerico) || valorNumerico < min || valorNumerico > max) {
                 campo.setValueState(ValueState.Error);
                 return false;

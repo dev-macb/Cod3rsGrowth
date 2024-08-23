@@ -25,7 +25,7 @@ sap.ui.define([], function() {
             const resposta = await fetch(url.href, cabecalhos);
 
             if (!resposta.ok) {
-                throw erro;
+                throw await resposta.json();
             }
 
             if (resposta.status == 204) {

@@ -6,7 +6,7 @@
 			</Toolbar>
 		</customHeader>
 		<content>
-			<Panel id="painelHome" width="auto" class="sapUiLargeMarginBeginEnd sapUiTinyMarginTop sapUiResponsiveContentPadding">
+			<Panel id="painelHome" width="auto" class="sapUiLargeMarginBeginEnd sapUiTinyMarginTop sapUiLargeMarginBottom sapUiResponsiveContentPadding">
 				<headerToolbar>
 					<Toolbar>
 						<Title id="tituloPainelHome" text="{i18n>home.titulo}" titleStyle="H3" />
@@ -16,6 +16,13 @@
 					<Button id="btnVerListaPersonagem" icon="sap-icon://forward" text="{i18n>home.verListaPersonagem}" press="irListaPersonagem" class="sapUiTinyMarginEnd" />
 					<Button id="btnVerListaHabilidade" icon="sap-icon://forward" text="{i18n>home.verListaHabilidade}" press="irListaHabilidade" />
 				</content>
+			</Panel>
+			<Panel width="auto" class="sapUiLargeMarginBeginEnd sapUiTinyMarginTop sapUiResponsiveContentPadding">
+				<headerToolbar>
+					<Toolbar>
+						<Title text="{i18n>home.tituloBatalhas}" titleStyle="H3" />
+					</Toolbar>
+				</headerToolbar>
 			</Panel>
 		</content>
 	</Page>
