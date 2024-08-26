@@ -18,6 +18,10 @@ sap.ui.define([
     const ID_COMBO_INTELIGENCIA = "comboInteligencia";
     const BASE_10 = 10;
     const TMP_5_MILISEGUNDOS = 5000;
+    const ID_TITULO_FORMULARIO_PERSONAGEM = "tituloFormularioPersonagem"
+    const TITULO_CADASTRAR = "Cadastrar Personagem";
+    const TITULO_EDITAR = "Editar Personagem";
+    const SEGUNDO_PARAMETRO = 1;
     
     return BaseController.extend("coders-growth.controller.FormularioPersonagem", {
         onInit: function () {
@@ -27,7 +31,7 @@ sap.ui.define([
 
         _aoConcidirRotaAdicionar: function () {
             this._resetarEstadoInputs();
-            this.__obterElementoPorId("tituloFormularioPersonagem").setText("Cadastrar Personagem");
+            this.__obterElementoPorId(ID_TITULO_FORMULARIO_PERSONAGEM).setText(TITULO_CADASTRAR);
 
             this.__definirModelo(new JSONModel(this._iniciarPersonagem()), Constantes.MODELO_PERSONAGEM);
             this.modeloPersonagem = this.__obterModelo(Constantes.MODELO_PERSONAGEM);
@@ -35,10 +39,10 @@ sap.ui.define([
 
         _aoConcidirRotaEditar: async function () {
             this._resetarEstadoInputs();
-            this.__obterElementoPorId("tituloFormularioPersonagem").setText("Editar Personagem");
+            this.__obterElementoPorId(ID_TITULO_FORMULARIO_PERSONAGEM).setText(TITULO_EDITAR);
 
             try {
-                const personagemExistente = await HttpService.get(Constantes.URL_PERSONAGEM, this._obterListaDeParametros()[1]);
+                const personagemExistente = await HttpService.get(Constantes.URL_PERSONAGEM, this._obterListaDeParametros()[SEGUNDO_PARAMETRO]);
                 this.__definirModelo(new JSONModel(personagemExistente), Constantes.MODELO_PERSONAGEM);
                 this.modeloPersonagem = this.__obterModelo(Constantes.MODELO_PERSONAGEM);
 
