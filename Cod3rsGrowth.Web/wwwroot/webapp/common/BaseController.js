@@ -54,7 +54,7 @@ sap.ui.define([
             MessageBox.error(
                 mensagemErro,
                 {
-                    title: erro.Title || erro.title || "Erro ao adicionar personagem",
+                    title: erro.Title || erro.title,
                     details: detalhesErro,
                     contentWidth: "500px"
                 }

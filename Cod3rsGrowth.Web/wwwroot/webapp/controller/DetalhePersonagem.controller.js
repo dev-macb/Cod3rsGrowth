@@ -7,19 +7,6 @@ sap.ui.define([
 ], function (BaseController, HttpService, Constantes, JSONModel, DateFormat) {
 	"use strict";
 
-	const STATUS_FRACO = "Fraco";
-	const STATUS_MEDIO = "Médio";
-	const STATUS_BOM = "Bom";
-	const STATUS_EXCEPCIONAL = "Excepcional";
-	const STATUS_EXTRAORDINARIO = "Extraordinário";
-	const STATUS_DESCONHECIDO = "Desconhecido";
-	const PROPOSITO_VILAO = "Vilão";
-	const PROPOSITO_HEROI = "Herói";
-	const ID_TEXT_PROPOSITO = "txtEVilao";
-	const CLASSE_VILAO = "txtVilao";
-	const CLASSE_HEROI = "txtHeroi";
-	const PROPRIEDADE_E_VILAO = "/eVilao";
-
 	return BaseController.extend("coders-growth.controller.DetalhePersonagem", {
 		onInit: function () {
             this.__vincularRota(Constantes.ROTA_PERSONAGEM, this._aoCarregarDetalhes);
@@ -45,27 +32,31 @@ sap.ui.define([
 				}));
 				this.__definirModelo(new JSONModel(habilidadesDoPersonagem), Constantes.MODELO_HABILIDADES);
 
-				var txtEVilao = this.byId(ID_TEXT_PROPOSITO);
-				modeloPersonagem.getProperty(PROPRIEDADE_E_VILAO) ? txtEVilao.addStyleClass(CLASSE_VILAO).removeStyleClass(CLASSE_HEROI) : txtEVilao.addStyleClass(CLASSE_HEROI).removeStyleClass(CLASSE_VILAO);
+				var txtEVilao = this.__obterElementoPorId(Constantes.ID_TEXT_PROPOSITO);
+				modeloPersonagem.getProperty(Constantes.PROPRIEDADE_E_VILAO) ? txtEVilao.addStyleClass(Constantes.CLASSE_VILAO).removeStyleClass(Constantes.CLASSE_HEROI) : txtEVilao.addStyleClass(Constantes.CLASSE_HEROI).removeStyleClass(Constantes.CLASSE_VILAO);
 			}
 			catch (erro) {
                 this.__navegarPara(Constantes.ROTA_NOT_FOUND);
             }
 		},
+
+		aoClicarEmEditarPersonagem: function() {
+			this.__navegarPara(Constantes.ROTA_EDITAR_PERSONAGEM, { idPersonagem: this.__obterModelo(Constantes.MODELO_PERSONAGEM).getData().id });
+		},
 		
 		formatter: {	
             formatarNivel: function(valor) {
                 switch (valor) {
-					case 0: return STATUS_FRACO;
-					case 1: return STATUS_MEDIO;
-					case 2: return STATUS_BOM;
-					case 3: return STATUS_EXCEPCIONAL;
-					case 4: return STATUS_EXTRAORDINARIO;
-					default: return STATUS_DESCONHECIDO;
+					case 0: return Constantes.STATUS_FRACO;
+					case 1: return Constantes.STATUS_MEDIO;
+					case 2: return Constantes.STATUS_BOM;
+					case 3: return Constantes.STATUS_EXCEPCIONAL;
+					case 4: return Constantes.STATUS_EXTRAORDINARIO;
+					default: return Constantes.STATUS_DESCONHECIDO;
 				}
             },
 			formatarProposito: function(proposito) {
-                return proposito ? PROPOSITO_VILAO : PROPOSITO_HEROI;
+                return proposito ? Constantes.PROPOSITO_VILAO : Constantes.PROPOSITO_HEROI;
             },
 			formatarData: function(data) {
 				if (!data) return "---";

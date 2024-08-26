@@ -6,8 +6,6 @@ sap.ui.define([
 ], function(BaseController, HttpService, Constantes, JSONModel) {
 	"use strict";
 
-	const ID_CALENDARIO = "calendario";
-
 	return BaseController.extend("coders-growth.controller.ListaHabilidade", {
         onInit: function() {
 			this._filtros = {};
@@ -67,7 +65,7 @@ sap.ui.define([
 		
 		aoResetarFiltrosHabilidade: function() {
 			this._filtros = {};
-			this.byId(ID_CALENDARIO).removeAllSelectedDates();
+			this.__obterElementoPorId(Constantes.ID_CALENDARIO).removeAllSelectedDates();
 
 			this._carregarHabilidades();
 		}

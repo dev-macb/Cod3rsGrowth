@@ -86,6 +86,11 @@
 					"target": "formularioPersonagem"
 				},
 				{
+					"pattern": "personagens/{idPersonagem}/editar",
+					"name": "editarPersonagem",
+					"target": "editarPersonagem"
+				},
+				{
 					"pattern": "personagens/{idPersonagem}",
 					"name": "personagem",
 					"target": "personagem"
@@ -102,8 +107,7 @@
 					"viewLevel": 1
 				},
 				"notFound": {
-					"viewName": "NotFound",
-					"viewLevel": 2
+					"viewName": "NotFound"
 				},
 				"personagens": {
 					"viewName": "ListaPersonagem",
@@ -114,6 +118,10 @@
 					"viewLevel": 3
 				},
 				"formularioPersonagem": {
+					"viewName": "FormularioPersonagem",
+					"viewLevel": 3
+				},
+				"editarPersonagem": {
 					"viewName": "FormularioPersonagem",
 					"viewLevel": 3
 				},

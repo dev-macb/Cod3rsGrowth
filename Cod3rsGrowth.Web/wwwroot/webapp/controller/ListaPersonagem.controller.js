@@ -7,10 +7,6 @@ sap.ui.define([
 ], function(BaseController, HttpService, Constantes, JSONModel, DateFormat) {
 	"use strict";
 
-	const ID_CALENDARIO = "calendario";
-	const IMG_LUVA_AZUL = "images/luva_azul.png";
-	const IMG_LUVA_VERMELHA = "images/luva_vermelha.png";
-
 	return BaseController.extend("coders-growth.controller.ListaPersonagem", {
 		onInit: function() {
 			this._filtros = {};
@@ -89,7 +85,7 @@ sap.ui.define([
 
 		aoResetarFiltros: function() {
 			this._filtros = {};
-			this.byId(ID_CALENDARIO).removeAllSelectedDates();
+			this.__obterElementoPorId(Constantes.ID_CALENDARIO).removeAllSelectedDates();
 
 			this._carregarPersonagens();
 		},
@@ -100,7 +96,7 @@ sap.ui.define([
 
 		formatter: {
             iconePersonagem: function(eVilao) {
-                return eVilao ? IMG_LUVA_VERMELHA : IMG_LUVA_AZUL;
+                return eVilao ? Constantes.IMG_LUVA_VERMELHA : Constantes.IMG_LUVA_AZUL;
             }
         }
 	});

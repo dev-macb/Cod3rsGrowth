@@ -4,7 +4,8 @@ sap.ui.define([
     "sap/ui/test/matchers/Ancestor",
     "sap/ui/test/actions/EnterText",
     "sap/ui/test/matchers/Properties",
-], (Opa5, Press, Ancestor, EnterText, Properties) => {
+    "sap/ui/test/matchers/PropertyStrictEquals"
+    ], (Opa5, Press, Ancestor, EnterText, Properties, PropertyStrictEquals) => {
     "use strict";
 
     const nomeDaView = "FormularioPersonagem";
@@ -119,6 +120,7 @@ sap.ui.define([
                         id: "listaHabilidadeSelecionadas",
                         viewName: nomeDaView,
                         success: function (lista) {
+                            lista.removeSelections()
                             listaHabilidades.forEach((indice) => {
                                 lista.getItems()[indice].setSelected(true);
                             });
@@ -128,6 +130,21 @@ sap.ui.define([
                 }
             },
             assertions: {
+                verificaTipoDoInput: function (idInput, tipo) {
+                    this.waitFor({
+                        id: idInput,
+                        viewName: nomeDaView,
+                        success: function (input) {
+                            const estadoValor = input.getValueState();
+                            Opa5.assert.strictEqual(
+                                estadoValor,
+                                tipo,
+                                `O input '${idInput}' está corretamente com o ValueState '${tipo}'.`
+                            );
+                        },
+                        errorMessage: `O input com id '${idInput}' não foi encontrado ou não possui um ValueState '${tipo}'.`
+                    });
+                },
                 verificaTipoDosInputs: function (tipo) {
                     const idsDosInputs = ["inputNome", "inputVida", "inputEnergia", "inputVelocidade", "comboForca", "comboInteligencia"];
                     
@@ -168,7 +185,7 @@ sap.ui.define([
 
                 deveMostrarMessageToast: function (mensagem) {
                     return this.waitFor({
-                        pollingInterval: 100,
+                        pollingInterval: 200,
                         check: function () {
                             var elementosMessageToast = sap.ui.test.Opa5.getJQuery()(".sapMMessageToast");
                             var elementosEsperados = elementosMessageToast.filter(function (i, elemento) {
@@ -194,6 +211,44 @@ sap.ui.define([
                             Opa5.assert.ok(bCorreto, `Redirecionado corretamente para: '${sCurrentHash}'`);
                         },
                         errorMessage: "Navegação para a página de detalhes do personagem falhou."
+                    });
+                },
+
+                verificaUrlEditar: function (idEsperado) {
+                    return this.waitFor({
+                        success: function () {
+                            var hash = Opa5.getHashChanger().getHash();
+                            Opa5.assert.strictEqual(hash, `personagens/${idEsperado}/editar`, "A URL corresponde a página FormularioPersonagem como edição");
+                        },
+                        errorMessage: "A URL de detalhes do personagem está incorreta."
+                    });
+                },
+
+                verificaTituloDaPagina: function (texto) {
+                    return this.waitFor({
+                        controlType: "sap.m.Title",
+                        matchers: new PropertyStrictEquals({ name: "text", value: texto }),
+                        success: function (titulo) {
+                            Opa5.assert.ok(titulo, `A página possui titulo '${texto}'`);
+                        },
+                        errorMessage: `A página possui titulo '${texto}'`
+                    });
+                },
+
+                verificaSeInputsPreenchidos: function () {
+                    const idsDosInputs = ["inputNome", "inputVida", "inputEnergia", "inputVelocidade", "comboForca", "comboInteligencia"];
+                    
+                    idsDosInputs.forEach(id => {
+                        this.waitFor({
+                            id: id,
+                            viewName: nomeDaView,
+                            success: function (input) {
+                                const texto = input.getValue();
+                                console.log(texto)
+                                Opa5.assert.ok(texto, `O input '${id}' está preenchido com o texto '${texto}'.`);
+                            },
+                            errorMessage: `O input com id '${id}' não foi preenchido.`
+                        });
                     });
                 }
             }

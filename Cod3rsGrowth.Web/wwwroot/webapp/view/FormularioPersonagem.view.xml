@@ -12,34 +12,34 @@
             </Toolbar>
         </customHeader>
         <content>
-            <Title text="Cadastro de Personagem" titleStyle="H2" class="sapUiLargeMarginBeginEnd" />
+            <Title id="tituloFormularioPersonagem" text="Cadastro de Personagem" titleStyle="H2" class="sapUiLargeMarginBeginEnd" />
             <Panel id="painelFormularioPersonagem" width="auto" class="sapUiLargeMarginBeginEnd sapUiTinyMarginTop sapUiResponsiveContentPadding">
                 <content>
                     <VBox>
                         <VBox class="sapUiSmallMarginBottom">
                             <Label text="{i18n>formularioPersonagem.nome}" />
-                            <Input id="inputNome" value="{personagem>/nome}" placeholder="Digite o nome do personagem..." valueStateText="O nome é obrigatório. Deve ter no mínimo 3 caracteres e no máximo 50." liveChange =".aoDigitarNoInpunt" />
+                            <Input id="inputNome" value="{personagem>/nome}" placeholder="Digite o nome do personagem..." valueStateText="O nome é obrigatório. Deve ter no mínimo 3 caracteres e no máximo 50." liveChange =".aoDigitarNoInpunt" required="true" />
                         </VBox>
                     
                         <HBox justifyContent="SpaceBetween" class="sapUiSmallMarginBottom">
                             <VBox width="30%">
                                 <Label text="{i18n>formularioPersonagem.vida}" />
-                                <Input id="inputVida" value="{ path: 'personagem>/vida', type: 'sap.ui.model.type.Integer', constraints: { minimum: 0, maximum: 100 } }" type="Number" placeholder="Insira o valor da vida..." valueStateText="A vida deve estar entre 0 e 100." liveChange =".aoDigitarNoInpunt" />
+                                <Input id="inputVida" value="{ path: 'personagem>/vida', type: 'sap.ui.model.type.Integer', constraints: { minimum: 0, maximum: 100 } }" placeholder="Insira o valor da vida..." valueStateText="A vida deve estar entre 0 e 100." liveChange =".aoDigitarNoInpunt" required="true" />
                             </VBox>
                             <VBox width="30%">
                                 <Label text="{i18n>formularioPersonagem.energia}" />
-                                <Input id="inputEnergia" value="{ path: 'personagem>/energia', type: 'sap.ui.model.type.Integer', constraints: { minimum: 0, maximum: 50 } }" type="Number" placeholder="Insira o valor da energia..." valueStateText="A energia deve estar entre 0 e 50." liveChange =".aoDigitarNoInpunt" />
+                                <Input id="inputEnergia" value="{ path: 'personagem>/energia', type: 'sap.ui.model.type.Integer', constraints: { minimum: 0, maximum: 50 } }" type="Number" placeholder="Insira o valor da energia..." valueStateText="A energia deve estar entre 0 e 50." liveChange =".aoDigitarNoInpunt" required="true" />
                             </VBox>
                             <VBox width="30%">
                                 <Label text="{i18n>formularioPersonagem.velocidade}" />
-                                <Input id="inputVelocidade" value="{ path: 'personagem>/velocidade', type: 'sap.ui.model.type.Float', constraints: { minimum: 0, maximum: 2 } }" type="Number" placeholder="Insira o valor da velocidade..." valueStateText="A velocidade deve estar entre 0 e 2." liveChange =".aoDigitarNoInpunt" />
+                                <Input id="inputVelocidade" value="{ path: 'personagem>/velocidade', type: 'sap.ui.model.type.Float', constraints: { minimum: 0, maximum: 2 } }" placeholder="Insira o valor da velocidade..." valueStateText="A velocidade deve estar entre 0 e 2." liveChange =".aoDigitarNoInpunt" required="true" />
                             </VBox>
                         </HBox>
                     
                         <HBox justifyContent="SpaceBetween" class="sapUiSmallMarginBottom">
                             <VBox width="47%">
                                 <Label text="{i18n>formularioPersonagem.forca}" />
-                                <ComboBox id="comboForca" selectedKey="{personagem>/forca}" width="100%" placeholder="Selecione a força..." valueStateText="A força deve ser um valor válido de CategoriasEnum." change =".aoDigitarNoInpunt">
+                                <ComboBox id="comboForca" selectedKey="{personagem>/forca}" width="100%" placeholder="Selecione a força..." valueStateText="A força deve ser um valor válido de CategoriasEnum." change =".aoDigitarNoInpunt" required="true">
                                     <items>
                                         <core:Item key="0" text="Fraco" />
                                         <core:Item key="1" text="Médio" />
@@ -51,7 +51,7 @@
                             </VBox>
                             <VBox width="47%">
                                 <Label text="{i18n>formularioPersonagem.inteligencia}" />
-                                <ComboBox id="comboInteligencia" selectedKey="{personagem>/inteligencia}" width="100%" placeholder="Selecione a inteligência..." valueStateText="A inteligência deve ser um valor válido de CategoriasEnum." change =".aoDigitarNoInpunt">
+                                <ComboBox id="comboInteligencia" selectedKey="{personagem>/inteligencia}" width="100%" placeholder="Selecione a inteligência..." valueStateText="A inteligência deve ser um valor válido de CategoriasEnum." change =".aoDigitarNoInpunt" required="true">
                                     <items>
                                         <core:Item key="0" text="Fraco" />
                                         <core:Item key="1" text="Médio" />
@@ -84,7 +84,7 @@
                         </List>
 
                         <HBox justifyContent="End" class="">
-                            <Button id="butaoSalvarPersonagem" icon="sap-icon://save" type="Emphasized" text="{i18n>geral.salvar}" press="adicionarPersonagem" class="sapUiSmallMarginTop" />
+                            <Button id="butaoSalvarPersonagem" icon="sap-icon://save" type="Emphasized" text="{i18n>geral.salvar}" press="salvarPersonagem" class="sapUiSmallMarginTop" />
                         </HBox>
                     </VBox>
                 </content>
