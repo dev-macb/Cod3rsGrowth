@@ -7,23 +7,18 @@ sap.ui.define([
 
     QUnit.module("EditarPersonagem");
 
-    opaTest("Deve voltar para a listagem de personagens ao clicar no botão Voltar", (Given, When, Then) => {
+    opaTest("Verifica se formulário vem preenchido com dados do personagem", (Given, When, Then) => {
         // Arrange
-        Given.iniciarAplicacao({ hash: "personagens/1/editar" });
+        let idAlvo = 1;
+        Given.iniciarAplicacao({ hash: `personagens/${idAlvo}/editar` });
 
-        // Act
-        When.noFormularioPersonagem.aoClicarNoBotaoVoltar();
-
-        // Assert
-        Then.naPaginaListaPersonagem.verificaUrl();
-        Then.naPaginaListaPersonagem.verificaTituloDaPagina("Lista de Personagens");
-        Then.iTeardownMyApp();
+        // Assert   
+        Then.noFormularioPersonagem.verificaUrlEditar(idAlvo);
+        Then.noFormularioPersonagem.verificaTituloDaPagina("Editar Personagem");
+        Then.noFormularioPersonagem.verificaSeInputsPreenchidos();
     });
 
     opaTest("Tenta salvar um personagem sem inserir dados inválidos", (Given, When, Then) => {
-        // Arrange
-        Given.iniciarAplicacao({ hash: "personagens/1/editar" });
-
         // Act
         When.noFormularioPersonagem.aoInserirNome("T");
         When.noFormularioPersonagem.aoInserirVida(101);
