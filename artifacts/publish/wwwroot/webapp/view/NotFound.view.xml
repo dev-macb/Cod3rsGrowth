@@ -1,8 +1,0 @@
-<mvc:View xmlns="sap.m" xmlns:mvc="sap.ui.core.mvc" controllerName="coders-growth.controller.NotFound">
-	<MessagePage 
-		title="{i18n>notFound.titulo}" 
-		text="{i18n>notFound.texto}" 
-		description="{i18n>notFound.descricao}" 
-		showNavButton="true" 
-		navButtonPress="__navegarPara('home')" />
-</mvc:View>
