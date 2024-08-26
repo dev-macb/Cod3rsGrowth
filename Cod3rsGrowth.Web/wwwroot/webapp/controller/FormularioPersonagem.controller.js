@@ -22,6 +22,19 @@ sap.ui.define([
     const TITULO_CADASTRAR = "Cadastrar Personagem";
     const TITULO_EDITAR = "Editar Personagem";
     const SEGUNDO_PARAMETRO = 1;
+    const ACAO_ADICIONAR = "adicionar";
+    const CONTEXTO_HABILIDADES = "habilidades"
+    const PROPRIEDADE_ID = "id;"
+    const NOME_TAMANHO_MIN = 3;
+    const NOME_TAMANHO_MAX = 100;
+    const VIDA_VALOR_MIN = 0;
+    const VIDA_VALOR_MAX = 100;
+    const ENERGIA_VALOR_MIN = 0;
+    const ENERGIA_VALOR_MAX = 50;
+    const VELOCIDADE_VALOR_MIN = 0;
+    const VELOCIDADE_VALOR_MAX = 2;
+    const PROPRIEDADE_HABILIDADES = "/habilidades";
+    const DIVISOR_BARRA = "/";
     
     return BaseController.extend("coders-growth.controller.FormularioPersonagem", {
         onInit: function () {
@@ -69,16 +82,15 @@ sap.ui.define([
                 const acao = parametros[parametros.length - 1];
                 const idPersonagem = parametros[parametros.length - 2];
 
-                if (acao === "adicionar") {
+                if (acao === ACAO_ADICIONAR) {
                     const resultado = await HttpService.post(Constantes.URL_PERSONAGEM, personagem);
                     MessageToast.show(`Personagem ${resultado} criado com êxito!`, { duration: TMP_5_MILISEGUNDOS, closeOnBrowserNavigation: false });    
-                    this.__navegarPara(Constantes.ROTA_PERSONAGEM, { idPersonagem: resultado });
+                    return this.__navegarPara(Constantes.ROTA_PERSONAGEM, { idPersonagem: resultado });
                 }
-                else if (acao === "editar") {
-                    await HttpService.put(Constantes.URL_PERSONAGEM, idPersonagem, personagem);
-                    MessageToast.show(`Personagem ${idPersonagem} atualizado com êxito!`, { duration: TMP_5_MILISEGUNDOS, closeOnBrowserNavigation: false });
-                    this.__navegarPara(Constantes.ROTA_PERSONAGEM, { idPersonagem: idPersonagem });
-                }
+
+                await HttpService.put(Constantes.URL_PERSONAGEM, idPersonagem, personagem);
+                MessageToast.show(`Personagem ${idPersonagem} atualizado com êxito!`, { duration: TMP_5_MILISEGUNDOS, closeOnBrowserNavigation: false });
+                this.__navegarPara(Constantes.ROTA_PERSONAGEM, { idPersonagem: idPersonagem });
             } 
             catch (erro) {
                 this.__exibirErroModal(erro);
@@ -91,7 +103,7 @@ sap.ui.define([
         },
 
         _obterListaDeParametros: function () {
-            return this.__obterRotiador().getHashChanger().getHash().split("/");
+            return this.__obterRotiador().getHashChanger().getHash().split(DIVISOR_BARRA);
         },
 
         _iniciarPersonagem: function() {
@@ -111,16 +123,16 @@ sap.ui.define([
             const lista = this.__obterElementoPorId(ID_LISTA_HABILIDADES_SELECIONADAS);
             const itensSelecionados = lista.getSelectedItems();
 
-            return itensSelecionados.map(item => item.getBindingContext("habilidades").getProperty("id"));
+            return itensSelecionados.map(item => item.getBindingContext(CONTEXTO_HABILIDADES).getProperty(PROPRIEDADE_ID));
         },
 
         _definirHabilidadesSelecionadas: function(){
             const lista = this.__obterElementoPorId(ID_LISTA_HABILIDADES_SELECIONADAS);
-            const habilidadesSelecionadas = this.__obterModelo(Constantes.MODELO_PERSONAGEM).getProperty("/habilidades");
+            const habilidadesSelecionadas = this.__obterModelo(Constantes.MODELO_PERSONAGEM).getProperty(PROPRIEDADE_HABILIDADES);
 
             lista.getItems().forEach(item => {
-                const contextoHabilidade = item.getBindingContext("habilidades");
-                const habilidadeId = contextoHabilidade.getProperty("id");
+                const contextoHabilidade = item.getBindingContext(CONTEXTO_HABILIDADES);
+                const habilidadeId = contextoHabilidade.getProperty(PROPRIEDADE_ID);
         
                 const estaSelecionada = habilidadesSelecionadas.includes(habilidadeId);
                 lista.setSelectedItem(item, estaSelecionada);
@@ -139,19 +151,19 @@ sap.ui.define([
             let contemErro = false;
             const modeloPersonagem = this.__obterModelo(Constantes.MODELO_PERSONAGEM).getData();
 
-            if (!this._validarCampoTexto(ID_INPUT_NOME, this.__obterElementoPorId(ID_INPUT_NOME).getProperty("value"), 3, 100)) {
+            if (!this._validarCampoTexto(ID_INPUT_NOME, this.__obterElementoPorId(ID_INPUT_NOME).getProperty("value"), NOME_TAMANHO_MIN, NOME_TAMANHO_MAX)) {
                 contemErro = true;
             } 
 
-            if (!this._validarCampoNumerico(ID_INPUT_VIDA, this.__obterElementoPorId(ID_INPUT_VIDA).getProperty("value"), 0, 100)) {
+            if (!this._validarCampoNumerico(ID_INPUT_VIDA, this.__obterElementoPorId(ID_INPUT_VIDA).getProperty("value"), VIDA_VALOR_MIN, VIDA_VALOR_MAX)) {
                 contemErro = true;
             }
 
-            if (!this._validarCampoNumerico(ID_INPUT_ENERGIA, this.__obterElementoPorId(ID_INPUT_ENERGIA).getProperty("value"), 0, 50)) {
+            if (!this._validarCampoNumerico(ID_INPUT_ENERGIA, this.__obterElementoPorId(ID_INPUT_ENERGIA).getProperty("value"), ENERGIA_VALOR_MIN, ENERGIA_VALOR_MAX)) {
                 contemErro = true;
             }
 
-            if (!this._validarCampoNumerico(ID_INPUT_VELOCIDADE, this.__obterElementoPorId(ID_INPUT_VELOCIDADE).getProperty("value"), 0, 2)) {
+            if (!this._validarCampoNumerico(ID_INPUT_VELOCIDADE, this.__obterElementoPorId(ID_INPUT_VELOCIDADE).getProperty("value"), VELOCIDADE_VALOR_MIN, VELOCIDADE_VALOR_MAX)) {
                 contemErro = true;
             }
 
