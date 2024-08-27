@@ -2,8 +2,10 @@ sap.ui.define([], function() {
     "use strict";
 
     async function requisicaoHttp(method, urlBase, argumentos = null, query = {}, corpo = null) {
-        if (argumentos) urlBase = urlBase + "/" + argumentos;
-
+        if (argumentos) {
+            urlBase = urlBase + "/" + argumentos;
+        }
+    
         const url = new URL(urlBase);
 
         Object.keys(query).forEach(chave => {
@@ -50,8 +52,8 @@ sap.ui.define([], function() {
         put: function(url, argumentos, corpo) {
             return requisicaoHttp("PUT", url, argumentos, {}, corpo);
         },
-        delete: function(url) {
-            return requisicaoHttp("DELETE", url);
+        delete: function(url, argumentos) {
+            return requisicaoHttp("DELETE", url, argumentos, {}, null);
         }
     };
 });

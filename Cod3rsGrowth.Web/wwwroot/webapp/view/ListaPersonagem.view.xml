@@ -18,9 +18,9 @@
 					</Toolbar>
 				</headerToolbar>
 				<content>
-					<List id="listaPersonagem" items="{ path: '/' }" growing="true" growingThreshold="10">	
+					<List id="listaPersonagem" items="{ path: 'personagens>/' }" growing="true" growingThreshold="10">	
 						<items>
-							<StandardListItem icon="{ path: 'eVilao', formatter: '.formatter.iconePersonagem' }" title="{nome}" type="Navigation" press=".aoClicarEmVerDetalhes"/>
+							<StandardListItem icon="{ path: 'personagens>eVilao', formatter: '.formatter.iconePersonagem' }" title="{ path: 'personagens>nome' }" type="Navigation" press=".aoClicarEmVerDetalhes"/>
 						</items>
 					</List>
 				</content>

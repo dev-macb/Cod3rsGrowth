@@ -2,10 +2,13 @@ sap.ui.define([
 	"coders-growth/common/BaseController",
 	"coders-growth/common/HttpService",
 	"coders-growth/common/Constantes",
+    "sap/m/MessageBox",
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/core/format/DateFormat"
-], function (BaseController, HttpService, Constantes, JSONModel, DateFormat) {
+], function (BaseController, HttpService, Constantes, MessageBox, JSONModel, DateFormat) {
 	"use strict";
+
+	const ACAO_OK = "OK";
 
 	return BaseController.extend("coders-growth.controller.DetalhePersonagem", {
 		onInit: function () {
@@ -21,11 +24,12 @@ sap.ui.define([
 		},
 
         _aoCarregarDetalhes: async function (evento) {
+
 			const argumentos = evento.getParameter("arguments");
 			try {
 				const personagem = await this._carregarPersonagem(argumentos.idPersonagem);
-				const modeloPersonagem = new JSONModel(personagem);
-				this.__definirModelo(modeloPersonagem, Constantes.MODELO_PERSONAGEM);
+				this.__definirModelo(new JSONModel(personagem), Constantes.MODELO_PERSONAGEM);
+				const modeloPersonagem = this.__obterModelo(Constantes.MODELO_PERSONAGEM);
 
 				const habilidadesDoPersonagem = await Promise.all(personagem.habilidades.map(async (id) => {
 					return await this._carregarHabilidadesDoPersonagem(id);
@@ -36,12 +40,26 @@ sap.ui.define([
 				modeloPersonagem.getProperty(Constantes.PROPRIEDADE_E_VILAO) ? txtEVilao.addStyleClass(Constantes.CLASSE_VILAO).removeStyleClass(Constantes.CLASSE_HEROI) : txtEVilao.addStyleClass(Constantes.CLASSE_HEROI).removeStyleClass(Constantes.CLASSE_VILAO);
 			}
 			catch (erro) {
+				console.log("aqui")
                 this.__navegarPara(Constantes.ROTA_NOT_FOUND);
             }
 		},
 
 		aoClicarEmEditarPersonagem: function() {
 			this.__navegarPara(Constantes.ROTA_EDITAR_PERSONAGEM, { idPersonagem: this.__obterModelo(Constantes.MODELO_PERSONAGEM).getData().id });
+		},
+
+		aoClicarEmRemoverPersonagem: async function () {
+			MessageBox.warning(Constantes.MSG_AVISO_DE_EXCLUSAO, { 
+				actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL], 
+				emphasizedAction: MessageBox.Action.OK,
+				onClose: async (acao) => {
+					if (acao === ACAO_OK) {	
+						await HttpService.delete(Constantes.URL_PERSONAGEM, this.__obterModelo(Constantes.MODELO_PERSONAGEM).getData().id);
+						this.__navegarPara(Constantes.ROTA_PERSONAGENS);
+					}
+				}
+			});			
 		},
 		
 		formatter: {	

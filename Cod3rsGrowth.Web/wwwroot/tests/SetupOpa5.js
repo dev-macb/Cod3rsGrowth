@@ -11,6 +11,7 @@ sap.ui.require([
     "coders-growth/tests/journeys/DetalhePersonagem",
     "coders-growth/tests/journeys/AdicionarPersonagem",
     "coders-growth/tests/journeys/EditarPersonagem",
+    "coders-growth/tests/journeys/DeletarPersonagem",
 ], async (Core, Opa5, Startup) => {
     "use strict";
 

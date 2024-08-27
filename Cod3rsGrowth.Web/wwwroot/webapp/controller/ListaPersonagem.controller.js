@@ -20,7 +20,7 @@ sap.ui.define([
 		_carregarPersonagens: async function() {
 			try {
 				const personagens = await HttpService.get(Constantes.URL_PERSONAGEM, null, this._filtros);
-				this.__definirModelo(new JSONModel(personagens));
+				this.__definirModelo(new JSONModel(personagens), Constantes.MODELO_LISTA_PERSONAGENS);
 				this.__navegarPara(Constantes.ROTA_PERSONAGENS, Object.keys(this._filtros).length === 0 ? {} : { "?query": this._filtros });
 			}
 			catch (erro) {
@@ -91,7 +91,7 @@ sap.ui.define([
 		},
 
 		aoClicarEmVerDetalhes: function(elemento) {
-			this.__navegarPara(Constantes.ROTA_PERSONAGEM, { idPersonagem: elemento.getSource().getBindingContext().getProperty("id") });
+			this.__navegarPara(Constantes.ROTA_PERSONAGEM, { idPersonagem: elemento.getSource().getBindingContext("personagens").getProperty("id") });
 		},
 
 		formatter: {

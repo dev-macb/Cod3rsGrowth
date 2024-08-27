@@ -1,8 +1,10 @@
 sap.ui.define([
     "sap/ui/test/Opa5",
     "sap/ui/test/actions/Press",
+    "sap/ui/test/matchers/Ancestor",
+    "sap/ui/test/matchers/Properties",
     "sap/ui/test/matchers/PropertyStrictEquals"
-], function (Opa5, Press, PropertyStrictEquals) {
+], function (Opa5, Press, Ancestor, Properties, PropertyStrictEquals) {
     "use strict";
 
     const nomeDaView = "DetalhePersonagem";
@@ -18,13 +20,35 @@ sap.ui.define([
                         errorMessage: "Não foi possível encontrar o botão de voltar."
                     });
                 },
+                aoClicarNoBotaoExcluirPersonagem: function() {
+                    return this.waitFor({
+                        id: "botaoExcluirPersonagem",
+                        viewName: nomeDaView,
+                        actions: new Press(),
+                        errorMessage: "Não foi possível encontrar o botão Excluir."
+                    });
+                },
+                aoClicarNoBotaoDoMessageBox: function (textoButao) {
+                    return this.waitFor({
+						controlType: "sap.m.Button",
+						matchers: [
+							new Properties({ text: textoButao }),
+							new Ancestor(Opa5.getContext().dialog, false) 
+						],
+						actions: new Press(),
+						success: function () {
+							Opa5.assert.ok(true, `Sucesso ao fechar MessageBox ao clicar no botao '${textoButao}'.`);
+						},
+						errorMessage: "Falha ao fechar MessageBox ao clicar no botao Ok."
+                    });
+                },
             },
             assertions: {
                 verificaUrl: function (idEsperado) {
                     return this.waitFor({
                         success: function () {
                             var hash = Opa5.getHashChanger().getHash();
-                            Opa5.assert.strictEqual(hash, `personagens/${idEsperado}`, "A URL corresponde a página DetalhePersonagem");
+                            Opa5.assert.strictEqual(hash, `personagens/${idEsperado}`, `O hash da URL DetalhesPersonagem é 'personagens/${idEsperado}'`);
                         },
                         errorMessage: "A URL de detalhes do personagem está incorreta."
                     });
@@ -80,7 +104,26 @@ sap.ui.define([
                         },
                         errorMessage: "O texto de propósito não tem a classe esperada."
                     });
-                }
+                },
+                verificaMensagemDeConfirmacao: function (titulo, mensagem) {
+                    return this.waitFor({
+                        controlType: "sap.m.Dialog",
+                        matchers: new Properties({ title: titulo }),
+                        success: function (listaDeDialogos) {
+                            var dialogo = listaDeDialogos[0];
+                            this.waitFor({
+                                controlType: "sap.m.Text",
+                                matchers: new Ancestor(dialogo, false),
+                                success: function (listaDeTextos) {
+                                    const texto = listaDeTextos[0].getText();
+                                    Opa5.assert.strictEqual(texto, mensagem, `O MessageBox apareceu com a mensagem '${mensagem}'`);
+                                },
+                                errorMessage: `O MessageBox apareceu com o título '${titulo}', mas a mensagem não correspondeu a: "${mensagem}".`
+                            });
+                        },
+                        errorMessage: `O MessageBox não apareceu com o título '${titulo}'.`
+                    });
+                }                
             }
         }
     });

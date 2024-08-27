@@ -244,7 +244,6 @@ sap.ui.define([
                             viewName: nomeDaView,
                             success: function (input) {
                                 const texto = input.getValue();
-                                console.log(texto)
                                 Opa5.assert.ok(texto, `O input '${id}' está preenchido com o texto '${texto}'.`);
                             },
                             errorMessage: `O input com id '${id}' não foi preenchido.`

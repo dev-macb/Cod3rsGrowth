@@ -14,6 +14,7 @@ sap.ui.define([], function() {
         ROTA_NOT_FOUND: "notFound",
 
         MODELO_PERSONAGEM: "personagem",
+        MODELO_LISTA_PERSONAGENS: "personagens",
         MODELO_HABILIDADES: "habilidades",
 
         STATUS_FRACO: "Fraco",
@@ -35,6 +36,7 @@ sap.ui.define([], function() {
         ID_TEXT_PROPOSITO: "txtEVilao",
 
         MSG_AVISO_DE_VALIDACAO: "Por favor, corrija o(s) erro(s) no formulário antes de salvar.",
+        MSG_AVISO_DE_EXCLUSAO: "Tem certeza que deseja excluir o registro?",
 
         IMG_LUVA_AZUL: "images/luva_azul.png",
 	    IMG_LUVA_VERMELHA: "images/luva_vermelha.png",
