@@ -24,11 +24,12 @@ sap.ui.define([
 		},
 
         _aoCarregarDetalhes: async function (evento) {
+
 			const argumentos = evento.getParameter("arguments");
 			try {
 				const personagem = await this._carregarPersonagem(argumentos.idPersonagem);
-				const modeloPersonagem = new JSONModel(personagem);
-				this.__definirModelo(modeloPersonagem, Constantes.MODELO_PERSONAGEM);
+				this.__definirModelo(new JSONModel(personagem), Constantes.MODELO_PERSONAGEM);
+				const modeloPersonagem = this.__obterModelo(Constantes.MODELO_PERSONAGEM);
 
 				const habilidadesDoPersonagem = await Promise.all(personagem.habilidades.map(async (id) => {
 					return await this._carregarHabilidadesDoPersonagem(id);
@@ -39,6 +40,7 @@ sap.ui.define([
 				modeloPersonagem.getProperty(Constantes.PROPRIEDADE_E_VILAO) ? txtEVilao.addStyleClass(Constantes.CLASSE_VILAO).removeStyleClass(Constantes.CLASSE_HEROI) : txtEVilao.addStyleClass(Constantes.CLASSE_HEROI).removeStyleClass(Constantes.CLASSE_VILAO);
 			}
 			catch (erro) {
+				console.log("aqui")
                 this.__navegarPara(Constantes.ROTA_NOT_FOUND);
             }
 		},

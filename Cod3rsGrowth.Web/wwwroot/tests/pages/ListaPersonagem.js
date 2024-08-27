@@ -318,6 +318,17 @@ sap.ui.define([
                         success: function() { Opa5.assert.ok(true, "A lista está paginada com 10 itens."); },
                         errorMessage: "A lista não está paginada corretamente."
                     });
+                },
+                verificaQuantidadeDaListaPersonagem: function (tamanhoEsperado) {
+                    return this.waitFor({
+                        id: idListaPersonagem,
+						viewName: nomeDaView,
+                        success: function (lista) {
+                            var tamanhoAtual = lista.getModel("personagens").getData().length;
+                            Opa5.assert.strictEqual(tamanhoAtual, tamanhoEsperado, "tem tamanho 32");
+                        },
+                        errorMessage: "A lista de personagens não foi encontrada."
+                    });
                 }
             }
         }

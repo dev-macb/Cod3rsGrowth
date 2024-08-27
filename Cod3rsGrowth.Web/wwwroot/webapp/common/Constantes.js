@@ -14,6 +14,7 @@ sap.ui.define([], function() {
         ROTA_NOT_FOUND: "notFound",
 
         MODELO_PERSONAGEM: "personagem",
+        MODELO_LISTA_PERSONAGENS: "personagens",
         MODELO_HABILIDADES: "habilidades",
 
         STATUS_FRACO: "Fraco",

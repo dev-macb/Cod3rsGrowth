@@ -37,7 +37,7 @@ sap.ui.define([
 						],
 						actions: new Press(),
 						success: function () {
-							Opa5.assert.ok(true, "Sucesso ao fechar MessageBox ao clicar no botao Ok.");
+							Opa5.assert.ok(true, `Sucesso ao fechar MessageBox ao clicar no botao '${textoButao}'.`);
 						},
 						errorMessage: "Falha ao fechar MessageBox ao clicar no botao Ok."
                     });
@@ -48,7 +48,7 @@ sap.ui.define([
                     return this.waitFor({
                         success: function () {
                             var hash = Opa5.getHashChanger().getHash();
-                            Opa5.assert.strictEqual(hash, `personagens/${idEsperado}`, "A URL corresponde a página DetalhePersonagem");
+                            Opa5.assert.strictEqual(hash, `personagens/${idEsperado}`, `O hash da URL DetalhesPersonagem é 'personagens/${idEsperado}'`);
                         },
                         errorMessage: "A URL de detalhes do personagem está incorreta."
                     });

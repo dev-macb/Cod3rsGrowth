@@ -103,31 +103,25 @@
 			],
 			"targets": {
 				"home": {
-					"viewName": "Home",
-					"viewLevel": 1
+					"viewName": "Home"
 				},
 				"notFound": {
 					"viewName": "NotFound"
 				},
 				"personagens": {
-					"viewName": "ListaPersonagem",
-					"viewLevel": 2
+					"viewName": "ListaPersonagem"
 				},
 				"personagem": {
-					"viewName": "DetalhePersonagem",
-					"viewLevel": 3
+					"viewName": "DetalhePersonagem"
 				},
 				"formularioPersonagem": {
-					"viewName": "FormularioPersonagem",
-					"viewLevel": 3
+					"viewName": "FormularioPersonagem"
 				},
 				"editarPersonagem": {
-					"viewName": "FormularioPersonagem",
-					"viewLevel": 3
+					"viewName": "FormularioPersonagem"
 				},
 				"habilidades": {
-					"viewName": "ListaHabilidade",
-					"viewLevel": 2
+					"viewName": "ListaHabilidade"
 				}
 			}
 		}
