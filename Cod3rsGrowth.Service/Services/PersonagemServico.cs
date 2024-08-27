@@ -59,7 +59,7 @@ namespace Cod3rsGrowth.Service.Services
 
         public async Task Deletar(int id)
         {
-            var personagemExistente = _habilidadeRepositorio.ObterPorId(id);
+            var personagemExistente = _personagemRepositorio.ObterPorId(id);
             if (personagemExistente.Result == null) throw new ValidationException("Personagem inexistente");
 
             await _personagemRepositorio.Deletar(id);
