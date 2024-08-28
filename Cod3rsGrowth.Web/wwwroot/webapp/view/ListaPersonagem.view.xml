@@ -20,7 +20,7 @@
 				<content>
 					<List id="listaPersonagem" items="{ path: 'personagens>/' }" growing="true" growingThreshold="10">	
 						<items>
-							<StandardListItem icon="{ path: 'personagens>eVilao', formatter: '.formatter.iconePersonagem' }" title="{ path: 'personagens>nome' }" type="Navigation" press=".aoClicarEmVerDetalhes"/>
+							<StandardListItem id="itemListaPersonagem" icon="{ path: 'personagens>eVilao', formatter: '.formatter.iconePersonagem' }" title="{ path: 'personagens>nome' }" type="Navigation" press=".aoClicarEmVerDetalhes"/>
 						</items>
 					</List>
 				</content>

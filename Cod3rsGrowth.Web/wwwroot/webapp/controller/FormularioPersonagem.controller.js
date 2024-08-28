@@ -24,7 +24,7 @@ sap.ui.define([
     const SEGUNDO_PARAMETRO = 1;
     const ACAO_ADICIONAR = "adicionar";
     const CONTEXTO_HABILIDADES = "habilidades"
-    const PROPRIEDADE_ID = "id;"
+    const PROPRIEDADE_ID = "id"
     const NOME_TAMANHO_MIN = 3;
     const NOME_TAMANHO_MAX = 100;
     const VIDA_VALOR_MIN = 0;
@@ -54,16 +54,13 @@ sap.ui.define([
             this._resetarEstadoInputs();
             this.__obterElementoPorId(ID_TITULO_FORMULARIO_PERSONAGEM).setText(TITULO_EDITAR);
 
-            try {
-                const personagemExistente = await HttpService.get(Constantes.URL_PERSONAGEM, this._obterListaDeParametros()[SEGUNDO_PARAMETRO]);
+            this.__exibirEspera(async () => {
+				const personagemExistente = await HttpService.get(Constantes.URL_PERSONAGEM, this._obterListaDeParametros()[SEGUNDO_PARAMETRO]);
                 this.__definirModelo(new JSONModel(personagemExistente), Constantes.MODELO_PERSONAGEM);
                 this.modeloPersonagem = this.__obterModelo(Constantes.MODELO_PERSONAGEM);
 
                 this._definirHabilidadesSelecionadas();
-            } 
-            catch (erro) {
-                this.__exibirErroModal(erro);
-            }
+			});
         },  
 
         salvarPersonagem: async function() {
@@ -77,8 +74,8 @@ sap.ui.define([
             personagem.inteligencia = parseInt(personagem.inteligencia, BASE_10);
             personagem.habilidades = this._obterHabilidadesSelecionadas();
             
-            try {
-                const parametros = this._obterListaDeParametros(); 
+            this.__exibirEspera(async () => {
+				const parametros = this._obterListaDeParametros(); 
                 const acao = parametros[parametros.length - 1];
                 const idPersonagem = parametros[parametros.length - 2];
 
@@ -91,10 +88,7 @@ sap.ui.define([
                 await HttpService.put(Constantes.URL_PERSONAGEM, idPersonagem, personagem);
                 MessageToast.show(`Personagem ${idPersonagem} atualizado com êxito!`, { duration: TMP_5_MILISEGUNDOS, closeOnBrowserNavigation: false });
                 this.__navegarPara(Constantes.ROTA_PERSONAGEM, { idPersonagem: idPersonagem });
-            } 
-            catch (erro) {
-                this.__exibirErroModal(erro);
-            }
+			});
         },
 
         aoDigitarNoInpunt: function(evento) {
@@ -131,9 +125,7 @@ sap.ui.define([
             const habilidadesSelecionadas = this.__obterModelo(Constantes.MODELO_PERSONAGEM).getProperty(PROPRIEDADE_HABILIDADES);
 
             lista.getItems().forEach(item => {
-                const contextoHabilidade = item.getBindingContext(CONTEXTO_HABILIDADES);
-                const habilidadeId = contextoHabilidade.getProperty(PROPRIEDADE_ID);
-        
+                const habilidadeId = item.getBindingContext(CONTEXTO_HABILIDADES).getProperty(PROPRIEDADE_ID);
                 const estaSelecionada = habilidadesSelecionadas.includes(habilidadeId);
                 lista.setSelectedItem(item, estaSelecionada);
             });
