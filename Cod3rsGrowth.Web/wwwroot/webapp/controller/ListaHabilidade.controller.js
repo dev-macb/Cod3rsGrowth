@@ -16,6 +16,10 @@ sap.ui.define([
             this._carregarHabilidades();
 		},
 
+		aoClicarEmAdicionarHabilidade: function() {
+			this.__navegarPara(Constantes.ROTA_ADICIONAR_HABILIDADE);
+		},
+
         _carregarHabilidades: async function() {
 			try {
 				const habilidades = await HttpService.get(Constantes.URL_HABILIDADE, null, this._filtros);

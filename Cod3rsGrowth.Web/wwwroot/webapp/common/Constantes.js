@@ -9,13 +9,16 @@ sap.ui.define([], function() {
         ROTA_PERSONAGENS: "personagens",
         ROTA_PERSONAGEM: "personagem",
         ROTA_HABILIDADES: "habilidades",
-        ROTA_FORMULARIO_PERSONAGEM: "formularioPersonagem",
+        ROTA_ADICIONAR_PERSONAGEM: "adicionarPersonagem",
         ROTA_EDITAR_PERSONAGEM: "editarPersonagem",
+        ROTA_ADICIONAR_HABILIDADE: "adicionarHabilidade",
+        ROTA_EDITAR_HABILIDADE: "editarHabilidade",
         ROTA_NOT_FOUND: "notFound",
 
         MODELO_PERSONAGEM: "personagem",
         MODELO_LISTA_PERSONAGENS: "personagens",
         MODELO_HABILIDADES: "habilidades",
+        MODELO_HABILIDADE: "habilidade",
 
         STATUS_FRACO: "Fraco",
         STATUS_MEDIO: "Médio",

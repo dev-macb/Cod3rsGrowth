@@ -1,9 +1,10 @@
 sap.ui.define([
-	"sap/ui/core/mvc/Controller",
 	"coders-growth/common/Constantes",
+	"sap/ui/core/mvc/Controller",
 	"sap/ui/core/UIComponent",
 	"sap/m/MessageBox",
-], function(Controller, Constantes, UIComponent, MessageBox) {
+    "sap/ui/core/ValueState",
+], function(Constantes, Controller, UIComponent, MessageBox, ValueState) {
 	"use strict";
 
 	return Controller.extend("coders-growth.controller.BaseController", {
@@ -59,6 +60,19 @@ sap.ui.define([
                     contentWidth: "500px"
                 }
             );
-		}
+		},
+
+        __validarCampoTexto: function(id, tamanhoMin, tamanhoMax) {
+            const campo = this.__obterElementoPorId(id);
+            const valor = campo.getValue();
+
+            if (!valor || valor.length < tamanhoMin || valor.length > tamanhoMax) {
+                campo.setValueState(ValueState.Error);
+                return false; 
+            }
+
+            campo.setValueState(ValueState.None);
+            return true;
+        },
 	});
 });

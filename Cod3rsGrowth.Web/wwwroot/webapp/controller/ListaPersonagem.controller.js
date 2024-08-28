@@ -29,7 +29,7 @@ sap.ui.define([
 		},
 
 		irAdicionarPersonagem: function() {
-			this.__navegarPara(Constantes.ROTA_FORMULARIO_PERSONAGEM);
+			this.__navegarPara(Constantes.ROTA_ADICIONAR_PERSONAGEM);
 		},
 
 		aoFiltrarPersonagemPorNome(evento) {

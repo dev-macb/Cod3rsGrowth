@@ -38,7 +38,7 @@ sap.ui.define([
     
     return BaseController.extend("coders-growth.controller.FormularioPersonagem", {
         onInit: function () {
-            this.__vincularRota(Constantes.ROTA_FORMULARIO_PERSONAGEM, this._aoConcidirRotaAdicionar);
+            this.__vincularRota(Constantes.ROTA_ADICIONAR_PERSONAGEM, this._aoConcidirRotaAdicionar);
             this.__vincularRota(Constantes.ROTA_EDITAR_PERSONAGEM, this._aoConcidirRotaEditar);
         },
 
@@ -77,24 +77,7 @@ sap.ui.define([
             personagem.inteligencia = parseInt(personagem.inteligencia, BASE_10);
             personagem.habilidades = this._obterHabilidadesSelecionadas();
             
-            try {
-                const parametros = this._obterListaDeParametros(); 
-                const acao = parametros[parametros.length - 1];
-                const idPersonagem = parametros[parametros.length - 2];
-
-                if (acao === ACAO_ADICIONAR) {
-                    const resultado = await HttpService.post(Constantes.URL_PERSONAGEM, personagem);
-                    MessageToast.show(`Personagem ${resultado} criado com êxito!`, { duration: TMP_5_MILISEGUNDOS, closeOnBrowserNavigation: false });    
-                    return this.__navegarPara(Constantes.ROTA_PERSONAGEM, { idPersonagem: resultado });
-                }
-
-                await HttpService.put(Constantes.URL_PERSONAGEM, idPersonagem, personagem);
-                MessageToast.show(`Personagem ${idPersonagem} atualizado com êxito!`, { duration: TMP_5_MILISEGUNDOS, closeOnBrowserNavigation: false });
-                this.__navegarPara(Constantes.ROTA_PERSONAGEM, { idPersonagem: idPersonagem });
-            } 
-            catch (erro) {
-                this.__exibirErroModal(erro);
-            }
+            
         },
 
         aoDigitarNoInpunt: function(evento) {

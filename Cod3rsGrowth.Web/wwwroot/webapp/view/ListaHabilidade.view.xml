@@ -11,7 +11,7 @@
 			<Panel id="painelListaHabilidade" width="auto" class="sapUiLargeMarginBeginEnd sapUiTinyMarginTop">
 				<headerToolbar>
 					<Toolbar>
-						<Button icon="sap-icon://add" text="{i18n>geral.adicionar}" type="Emphasized" />
+						<Button icon="sap-icon://add" text="{i18n>geral.adicionar}" type="Emphasized" press="aoClicarEmAdicionarHabilidade" />
 						<ToolbarSpacer />
 						<Button id="btnFiltroHabilidade" icon="sap-icon://filter" text="{i18n>geral.filtrar}" press="aoAbrirFiltrosHabilidade" />
 						<SearchField id="filtroNome" width="30%" liveChange="aoFiltrarHabilidadePorNome" />
