@@ -14,11 +14,12 @@ sap.ui.define([], function() {
         ROTA_ADICIONAR_HABILIDADE: "adicionarHabilidade",
         ROTA_EDITAR_HABILIDADE: "editarHabilidade",
         ROTA_NOT_FOUND: "notFound",
+        ROTA_HABILIDADE: "habilidade",
 
         MODELO_PERSONAGEM: "personagem",
         MODELO_LISTA_PERSONAGENS: "personagens",
-        MODELO_HABILIDADES: "habilidades",
         MODELO_HABILIDADE: "habilidade",
+        MODELO_HABILIDADES: "habilidades",
 
         STATUS_FRACO: "Fraco",
         STATUS_MEDIO: "Médio",
@@ -43,6 +44,8 @@ sap.ui.define([], function() {
 
         IMG_LUVA_AZUL: "images/luva_azul.png",
 	    IMG_LUVA_VERMELHA: "images/luva_vermelha.png",
+
+        TEMPO_5_MILISEGUNDOS: 5000
     };
 
     return constantes;

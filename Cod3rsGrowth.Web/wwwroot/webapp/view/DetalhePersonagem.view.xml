@@ -48,6 +48,8 @@
 						<headerToolbar>
 							<Toolbar>
 								<Title text="{i18n>detalhesPersonagem.habilidades}" />
+                                <ToolbarSpacer />	
+                                <Button icon="sap-icon://add" text="{i18n>geral.novo}" press=".aoClicarEmNovaHabilidade" />
 							</Toolbar>
 						</headerToolbar>
 						<items>

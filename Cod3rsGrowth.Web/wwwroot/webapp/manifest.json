@@ -104,6 +104,11 @@
 					"pattern": "habilidades/adicionar",
 					"name": "adicionarHabilidade",
 					"target": "adicionarHabilidade"
+				},
+				{
+					"pattern": "habilidades/{idHabilidade}",
+					"name": "habilidade",
+					"target": "habilidade"
 				}
 			],
 			"targets": {
@@ -127,6 +132,9 @@
 				},
 				"habilidades": {
 					"viewName": "ListaHabilidade"
+				},
+				"habilidade": {
+					"viewName": "DetalheHabilidade"
 				},
 				"adicionarHabilidade": {
 					"viewName": "FormularioHabilidade"

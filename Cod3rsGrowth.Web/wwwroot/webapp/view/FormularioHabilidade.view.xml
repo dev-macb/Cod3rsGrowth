@@ -7,7 +7,7 @@
     <Page id="paginaAdicionarHabilidade" showHeader="true" class="sapUiResponsiveContentPadding">
         <customHeader>
             <Toolbar>
-                <Button id="botaoVoltar" text="Voltar" icon="sap-icon://nav-back" press="__navegarPara('personagens')" />
+                <Button id="botaoVoltar" text="Voltar" icon="sap-icon://nav-back" press="__navegarPara('habilidades')" />
                 <Title text="Coder's Growth" titleStyle="H3" />
             </Toolbar>
         </customHeader>

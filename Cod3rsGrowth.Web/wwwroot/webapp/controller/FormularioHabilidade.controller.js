@@ -26,7 +26,7 @@ sap.ui.define([
         _iniciarHabilidade: function () {
             return { nome: "", descricao: "" }
         },
-
+        
         _validarInputs: function () {
             let contemErro = false;
             
@@ -49,15 +49,11 @@ sap.ui.define([
 
             const habilidade = this.modeloHabilidade.getData();
 
-            try {
+            this.__exibirEspera(async () => {
                 const resultado = await HttpService.post(Constantes.URL_HABILIDADE, habilidade);
-                MessageToast.show(`Habilidade ${resultado} criada com êxito!`, { duration: TMP_5_MILISEGUNDOS, closeOnBrowserNavigation: false });    
-                // return this.__navegarPara(Constantes.ROTA_HABILIDADE, { idHabilidade: resultado });
-                console.log(resultado);
-            } 
-            catch (erro) {
-                this.__exibirErroModal(erro);
-            }   
+                MessageToast.show(`Habilidade ${resultado} criada com êxito!`, { duration: Constantes.TEMPO_5_MILISEGUNDOS, closeOnBrowserNavigation: false });
+                return this.__navegarPara(Constantes.ROTA_HABILIDADES);
+            }); 
         }
     });
 });

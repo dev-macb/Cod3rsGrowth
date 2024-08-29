@@ -18,9 +18,9 @@
 					</Toolbar>
 				</headerToolbar>
 				<content>
-					<List id="listaHabilidade" items="{ path: '/' }" growing="true" growingThreshold="10">
+					<List id="listaHabilidade" items="{ path: 'habilidades>/' }" growing="true" growingThreshold="10">
 						<items>
-							<StandardListItem title="{nome}" description="{descricao}" type="Navigation" />
+							<StandardListItem title="{habilidades>nome}" description="{habilidades>descricao}" type="Navigation" press=".aoClicarEmVerDetalhes" />
 						</items>
 					</List>
 				</content>
