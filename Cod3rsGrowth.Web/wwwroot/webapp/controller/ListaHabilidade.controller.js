@@ -6,6 +6,7 @@ sap.ui.define([
 ], function(BaseController, HttpService, Constantes, JSONModel) {
 	"use strict";
 
+	const FRAGMENTO_FILTRO_HABILIDADE = "coders-growth.view.FiltroHabilidade";
 	return BaseController.extend("coders-growth.controller.ListaHabilidade", {
         onInit: function() {
 			this._filtros = {};
@@ -21,14 +22,11 @@ sap.ui.define([
 		},
 
         _carregarHabilidades: async function() {
-			try {
+			this.__exibirEspera(async () => {
 				const habilidades = await HttpService.get(Constantes.URL_HABILIDADE, null, this._filtros);
 				this.__definirModelo(new JSONModel(habilidades));
 				this.__navegarPara(Constantes.ROTA_HABILIDADES, Object.keys(this._filtros).length === 0 ? {} : { "?query": this._filtros });
-			} 
-			catch (erro) {
-				this.__exibirErroModal(erro);
-			}
+			});
 		},
 
         aoFiltrarHabilidadePorNome: function(evento) {
@@ -41,11 +39,13 @@ sap.ui.define([
 		},
 
 		aoAbrirFiltrosHabilidade: async function() {
-			this.dialogoFiltrosHabilidade ??= await this.loadFragment({
-				name: "coders-growth.view.FiltroHabilidade",
-				controller: this
+			this.__exibirEspera(async () => {
+				this.dialogoFiltrosHabilidade ??= await this.loadFragment({
+					name: FRAGMENTO_FILTRO_HABILIDADE,
+					controller: this
+				});
+				this.dialogoFiltrosHabilidade.open();
 			});
-			this.dialogoFiltrosHabilidade.open();
 		},
 
 		tratarSelecaoDeDatas: function (evento) {

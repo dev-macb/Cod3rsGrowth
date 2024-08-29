@@ -37,9 +37,23 @@ sap.ui.define([
             return this.byId(id);
         },
 
+        __exibirEspera: async function (funcao, idElemento) {
+            if (idElemento) { this.__obterElementoPorId(idElemento).setBusy(true); }
+            else { BusyIndicator.show(0); }
+
+            return Promise.resolve(funcao())
+                .catch((erro) => {
+                    this.__exibirErroModal(erro)
+                })
+                .finally(() => {
+                    if (idElemento) { this.__obterElementoPorId(idElemento).setBusy(false); }
+                    else { BusyIndicator.hide(); }
+                });
+        },
+
 		__exibirErroModal: function (erro) {
-			let mensagemErro = "Ocorreu um erro desconhecido";
-            let detalhesErro = "Sem stacktrace disponível";
+			let mensagemErro = erro.message || "Ocorreu um erro desconhecido.";
+            let detalhesErro = erro.stack || "Sem stacktrace disponível.";
         
             if (erro.Extensions && erro.Extensions.FluentValidation) {
                 mensagemErro = Object.values(erro.Extensions.FluentValidation).join(" ");

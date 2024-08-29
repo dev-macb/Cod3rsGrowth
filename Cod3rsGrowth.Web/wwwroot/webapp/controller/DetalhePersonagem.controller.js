@@ -24,25 +24,26 @@ sap.ui.define([
 		},
 
         _aoCarregarDetalhes: async function (evento) {
+			this.__exibirEspera(async () => {
+				const argumentos = evento.getParameter("arguments");
 
-			const argumentos = evento.getParameter("arguments");
-			try {
-				const personagem = await this._carregarPersonagem(argumentos.idPersonagem);
-				this.__definirModelo(new JSONModel(personagem), Constantes.MODELO_PERSONAGEM);
-				const modeloPersonagem = this.__obterModelo(Constantes.MODELO_PERSONAGEM);
-
-				const habilidadesDoPersonagem = await Promise.all(personagem.habilidades.map(async (id) => {
-					return await this._carregarHabilidadesDoPersonagem(id);
-				}));
-				this.__definirModelo(new JSONModel(habilidadesDoPersonagem), Constantes.MODELO_HABILIDADES);
-
-				var txtEVilao = this.__obterElementoPorId(Constantes.ID_TEXT_PROPOSITO);
-				modeloPersonagem.getProperty(Constantes.PROPRIEDADE_E_VILAO) ? txtEVilao.addStyleClass(Constantes.CLASSE_VILAO).removeStyleClass(Constantes.CLASSE_HEROI) : txtEVilao.addStyleClass(Constantes.CLASSE_HEROI).removeStyleClass(Constantes.CLASSE_VILAO);
-			}
-			catch (erro) {
-				console.log("aqui")
-                this.__navegarPara(Constantes.ROTA_NOT_FOUND);
-            }
+				try {
+					const personagem = await this._carregarPersonagem(argumentos.idPersonagem);
+					this.__definirModelo(new JSONModel(personagem), Constantes.MODELO_PERSONAGEM);
+					const modeloPersonagem = this.__obterModelo(Constantes.MODELO_PERSONAGEM);
+	
+					const habilidadesDoPersonagem = await Promise.all(personagem.habilidades.map(async (id) => {
+						return await this._carregarHabilidadesDoPersonagem(id);
+					}));
+					this.__definirModelo(new JSONModel(habilidadesDoPersonagem), Constantes.MODELO_HABILIDADES);
+	
+					var txtEVilao = this.__obterElementoPorId(Constantes.ID_TEXT_PROPOSITO);
+					modeloPersonagem.getProperty(Constantes.PROPRIEDADE_E_VILAO) ? txtEVilao.addStyleClass(Constantes.CLASSE_VILAO).removeStyleClass(Constantes.CLASSE_HEROI) : txtEVilao.addStyleClass(Constantes.CLASSE_HEROI).removeStyleClass(Constantes.CLASSE_VILAO);
+				}
+				catch (erro) {
+					this.__navegarPara(Constantes.ROTA_NOT_FOUND);
+				}
+			});
 		},
 
 		aoClicarEmEditarPersonagem: function() {
@@ -54,10 +55,12 @@ sap.ui.define([
 				actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL], 
 				emphasizedAction: MessageBox.Action.OK,
 				onClose: async (acao) => {
-					if (acao === ACAO_OK) {	
-						await HttpService.delete(Constantes.URL_PERSONAGEM, this.__obterModelo(Constantes.MODELO_PERSONAGEM).getData().id);
-						this.__navegarPara(Constantes.ROTA_PERSONAGENS);
-					}
+					this.__exibirEspera(async () => {
+						if (acao === ACAO_OK) {	
+							await HttpService.delete(Constantes.URL_PERSONAGEM, this.__obterModelo(Constantes.MODELO_PERSONAGEM).getData().id);
+							this.__navegarPara(Constantes.ROTA_PERSONAGENS);
+						}
+					});
 				}
 			});			
 		},

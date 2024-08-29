@@ -7,6 +7,8 @@ sap.ui.define([
 ], function(BaseController, HttpService, Constantes, JSONModel, DateFormat) {
 	"use strict";
 
+	const FRAGMENTO_FILTRO_PERSONAGEM = "coders-growth.view.FiltroPersonagem";
+
 	return BaseController.extend("coders-growth.controller.ListaPersonagem", {
 		onInit: function() {
 			this._filtros = {};
@@ -18,14 +20,11 @@ sap.ui.define([
 		},
 
 		_carregarPersonagens: async function() {
-			try {
+			this.__exibirEspera(async () => {
 				const personagens = await HttpService.get(Constantes.URL_PERSONAGEM, null, this._filtros);
 				this.__definirModelo(new JSONModel(personagens), Constantes.MODELO_LISTA_PERSONAGENS);
 				this.__navegarPara(Constantes.ROTA_PERSONAGENS, Object.keys(this._filtros).length === 0 ? {} : { "?query": this._filtros });
-			}
-			catch (erro) {
-				this.__exibirErroModal(erro);
-			}
+			});
 		},
 
 		irAdicionarPersonagem: function() {
@@ -42,11 +41,13 @@ sap.ui.define([
 		},
 
 		aoAbrirFiltros: async function() {
-			this.dialogoFiltros ??= await this.loadFragment({
-				name: "coders-growth.view.FiltroPersonagem",
-				controller: this
+			this.__exibirEspera(async () => {
+				this.dialogoFiltros ??= await this.loadFragment({ 
+					name: FRAGMENTO_FILTRO_PERSONAGEM, 
+					controller: this
+				});
+				this.dialogoFiltros.open();
 			});
-			this.dialogoFiltros.open();
 		},
 
 		tratarSelecaoDeDatas: function(evento) {
