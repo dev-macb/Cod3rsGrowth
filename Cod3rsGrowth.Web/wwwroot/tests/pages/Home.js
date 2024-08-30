@@ -43,7 +43,6 @@ sap.ui.define([
                         viewName: nomeDaView,
                         matchers: new PropertyStrictEquals({ name: "text", value: texto }),
                         success: function(pagina) {
-                            console.log(pagina)
                             Opa5.assert.ok(pagina, `Página Home tem o titulo: ${texto}`);
                         },
                         errorMessage: `Página Home tem o titulo: ${texto}`

@@ -50,10 +50,9 @@ sap.ui.define([
 			});
 		},
 
-		_carregarHabilidadesDoPersonagem: async function (habilidades) {
-			return await Promise.all(habilidades.map(async (id) => {
-				return await HttpService.get(Constantes.URL_HABILIDADE, id);
-			}));
+		_carregarHabilidadesDoPersonagem: async function (habilidadesIds) {
+			const habilidadesDoPersonagem = habilidadesIds.map(id => HttpService.get(Constantes.URL_HABILIDADE, id));
+			return await Promise.all(habilidadesDoPersonagem);
 		},
 
 		_validarInputs: function () {
@@ -95,13 +94,14 @@ sap.ui.define([
 				});
 
 				this.modalFormularioPersonagem.open();
+				this.__obterElementoPorId(CHECKBOX_VINCULAR).setSelected(false);
 			});
 		},
 
 		aoClicarEmSalvarNovaHabilidade: function() {
 			this.__exibirEspera(async () => {
-				if (!this._validarInputs) {
-					this.__exibirMessageBox(Constantes.MSG_AVISO_DE_VALIDACAO, "aviso")
+				if (!this._validarInputs()) {
+					this.__exibirMessageBox(Constantes.MSG_AVISO_DE_VALIDACAO, "aviso");
 					return;
 				}
 

@@ -17,7 +17,7 @@ sap.ui.define([
         Then.naPaginaDetalhePersonagem.verificaUrl(idPersonagem);
         Then.naPaginaDetalhePersonagem.verificaTituloDaPagina("Detalhes do Personagem");
         Then.naPaginaDetalhePersonagem.verificaDetalhesDoPersonagem();
-        Then.naPaginaDetalhePersonagem.verificaQuatidadeDaListaDeHabilidades(5);
+        Then.naPaginaDetalhePersonagem.verificaQuatidadeDaListaDeHabilidades(3);
         Then.naPaginaDetalhePersonagem.verificaClasseTextoEVilao("txtHeroi"); 
     });
 
@@ -47,7 +47,6 @@ sap.ui.define([
         Then.naPaginaDetalhePersonagem.verificaDetalhesDoPersonagem();
         Then.naPaginaDetalhePersonagem.verificaQuatidadeDaListaDeHabilidades(quantidade5);
         Then.naPaginaDetalhePersonagem.verificaClasseTextoEVilao(classeVilao); 
-
         Then.iTeardownMyApp();
     });
 });

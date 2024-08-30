@@ -32,7 +32,7 @@ sap.ui.define([
                 contemErro = true;
             }
 
-            if (!this.__validarCampoTexto("inputDescricao", 3, 50)) {
+            if (!this.__validarCampoTexto("inputDescricao", 0, 50)) {
                 contemErro = true;
             }
 
@@ -48,9 +48,9 @@ sap.ui.define([
             const habilidade = this.modeloHabilidade.getData();
 
             this.__exibirEspera(async () => {
-                const resultado = await HttpService.post(Constantes.URL_HABILIDADE, habilidade);
-                this.__exibirMessageToast(`Habilidade ${resultado} criada com êxito!`);
-                return this.__navegarPara(Constantes.ROTA_HABILIDADES);
+                const idHabilidade = await HttpService.post(Constantes.URL_HABILIDADE, habilidade);
+                this.__exibirMessageToast(`Habilidade ${idHabilidade} criada com êxito!`);
+                return this.__navegarPara(Constantes.ROTA_HABILIDADE, { idHabilidade });
             }); 
         }
     });

@@ -1,8 +1,7 @@
 sap.ui.define([
     "sap/ui/test/opaQunit",
-    "../pages/Home",
-    "../pages/ListaPersonagem",
-    "../pages/DetalhePersonagem",
+    "../pages/ListaHabilidade",
+    "../pages/DetalheHabilidade",
 ], (opaTest) => {
     "use strict";
 
@@ -26,5 +25,6 @@ sap.ui.define([
         // Assert
         Then.naPaginaListaHabilidade.verificaUrl();
         Then.naPaginaListaHabilidade.verificaTituloDaPagina("Lista de Habilidades");
+        Then.iTeardownMyApp();
     });
 });
