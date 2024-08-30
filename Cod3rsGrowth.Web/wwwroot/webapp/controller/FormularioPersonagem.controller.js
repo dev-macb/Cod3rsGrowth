@@ -2,11 +2,9 @@ sap.ui.define([
     "coders-growth/common/BaseController",
     "coders-growth/common/HttpService",
     "coders-growth/common/Constantes",
-    "sap/m/MessageBox",
-    "sap/m/MessageToast",
     "sap/ui/model/json/JSONModel",
     "sap/ui/core/ValueState",
-], (BaseController, HttpService, Constantes, MessageBox, MessageToast, JSONModel, ValueState) => {
+], (BaseController, HttpService, Constantes, JSONModel, ValueState) => {
     "use strict";
 
     const ID_LISTA_HABILIDADES_SELECIONADAS = "listaHabilidadeSelecionadas";
@@ -17,7 +15,6 @@ sap.ui.define([
     const ID_COMBO_FORCA = "comboForca";
     const ID_COMBO_INTELIGENCIA = "comboInteligencia";
     const BASE_10 = 10;
-    const TMP_5_MILISEGUNDOS = 5000;
     const ID_TITULO_FORMULARIO_PERSONAGEM = "tituloFormularioPersonagem"
     const TITULO_CADASTRAR = "Cadastrar Personagem";
     const TITULO_EDITAR = "Editar Personagem";
@@ -64,30 +61,30 @@ sap.ui.define([
         },  
 
         salvarPersonagem: async function() {
-            if (!this._validarInputs()) {
-                MessageBox.warning(Constantes.MSG_AVISO_DE_VALIDACAO);
-                return;
-            }
-
-            const personagem = this.modeloPersonagem.getData();
-            personagem.forca = parseInt(personagem.forca, BASE_10);
-            personagem.inteligencia = parseInt(personagem.inteligencia, BASE_10);
-            personagem.habilidades = this._obterHabilidadesSelecionadas();
-            
             this.__exibirEspera(async () => {
+                if (!this._validarInputs()) {
+                    this.__exibirMessageBox(Constantes.MSG_AVISO_DE_VALIDACAO, "aviso");
+                    return;
+                }
+
+                const personagem = this.modeloPersonagem.getData();
+                personagem.forca = parseInt(personagem.forca, BASE_10);
+                personagem.inteligencia = parseInt(personagem.inteligencia, BASE_10);
+                personagem.habilidades = this._obterHabilidadesSelecionadas();
+            
 				const parametros = this._obterListaDeParametros(); 
                 const acao = parametros[parametros.length - 1];
                 const idPersonagem = parametros[parametros.length - 2];
 
                 if (acao === ACAO_ADICIONAR) {
                     const resultado = await HttpService.post(Constantes.URL_PERSONAGEM, personagem);
-                    MessageToast.show(`Personagem ${resultado} criado com êxito!`, { duration: TMP_5_MILISEGUNDOS, closeOnBrowserNavigation: false });    
+                    this.__exibirMessageToast(`Personagem ${resultado} criado com êxito!`);
                     return this.__navegarPara(Constantes.ROTA_PERSONAGEM, { idPersonagem: resultado });
                 }
 
                 await HttpService.put(Constantes.URL_PERSONAGEM, idPersonagem, personagem);
-                MessageToast.show(`Personagem ${idPersonagem} atualizado com êxito!`, { duration: TMP_5_MILISEGUNDOS, closeOnBrowserNavigation: false });
-                this.__navegarPara(Constantes.ROTA_PERSONAGEM, { idPersonagem: idPersonagem });
+                this.__exibirMessageToast(`Personagem ${idPersonagem} atualizado com êxito!`);
+                this.__navegarPara(Constantes.ROTA_PERSONAGEM, { idPersonagem });
 			});
         },
 

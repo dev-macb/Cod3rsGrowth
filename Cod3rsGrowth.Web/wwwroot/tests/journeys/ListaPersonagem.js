@@ -7,7 +7,7 @@ sap.ui.define([
 
     QUnit.module("ListaPersonagem");
 
-    opaTest("Deve carregar mais itens da listagem", (Given, When, Then) => {
+    opaTest("Deve aumentar paginação ao carregar mais itens na lista", (Given, When, Then) => {
         // Arrange
         Given.iniciarAplicacao({ hash: "personagens" });
 
@@ -19,7 +19,7 @@ sap.ui.define([
         Then.naPaginaListaPersonagem.verificaSeMaisDadosForamCarregados();
     });
 
-    opaTest("Deve filtrar por nome 'Ryu'", (Given, When, Then) => {
+    opaTest("Deve exibir um item na listagem ao filtrar pelo nome 'Ryu'", (Given, When, Then) => {
         // Act
         When.naPaginaListaPersonagem.aoInserirFiltroNome("Ryu");
 
@@ -28,7 +28,7 @@ sap.ui.define([
         Then.naPaginaListaPersonagem.verificaParametroNaURL("nome=Ryu");
     });
 
-    opaTest("Deve limpar filtragem por nome", (Given, When, Then) => {
+    opaTest("Verifica se a paginação e URL estão corretos ao remover filtragem por nome", (Given, When, Then) => {
         // Act
         When.naPaginaListaPersonagem.aoInserirFiltroNome("");
 
@@ -37,7 +37,7 @@ sap.ui.define([
         Then.naPaginaListaPersonagem.verificaUrl();
     });
 
-    opaTest("Deve filtrar por nome inexistente", (Given, When, Then) => {
+    opaTest("Deve exibir lista vazia ao filtrar por nome inexistente", (Given, When, Then) => {
         // Act
         When.naPaginaListaPersonagem.aoInserirFiltroNome("HabilidadeInexistente");
 
@@ -46,7 +46,7 @@ sap.ui.define([
         Then.naPaginaListaPersonagem.verificaParametroNaURL("nome=HabilidadeInexistente");
     });
 
-    opaTest("Deve filtrar por propósito heroico", (Given, When, Then) => { 
+    opaTest("Deve exibir listagem dos heróis ao filtrar por propósito heroico", (Given, When, Then) => { 
         // Arrange
         When.naPaginaListaPersonagem.aoInserirFiltroNome("");
 

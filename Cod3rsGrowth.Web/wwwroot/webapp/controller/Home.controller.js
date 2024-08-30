@@ -5,11 +5,11 @@ sap.ui.define([
 	"use strict";
 
 	return BaseController.extend("coders-growth.controller.Home", {
-		irListaPersonagem() {
+		aoClicarEmVerListaPersonagem() {
 			this.__navegarPara(Constantes.ROTA_PERSONAGENS);
 		},
 
-		irListaHabilidade() {
+		aoClicarEmVerListaHabilidade() {
 			this.__navegarPara(Constantes.ROTA_HABILIDADES);
 		}
 	});

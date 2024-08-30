@@ -150,11 +150,11 @@ sap.ui.define([
                 verificaSeBuscouComFiltroNome: function(filtroNome) {
                     function verificarSeListaIncluiItemComNome(lista) {
                         return lista.getItems().every(function(elemento) {
-                            if (!elemento.getBindingContext()) {
+                            if (!elemento.getBindingContext("habilidades")) {
                                 return false;
                             }
 
-                            var nomeItem = elemento.getBindingContext().getProperty("nome");
+                            var nomeItem = elemento.getBindingContext("habilidades").getProperty("nome");
                             return nomeItem.includes(filtroNome);
                         });
                     }

@@ -2,17 +2,24 @@ sap.ui.define([
 	"coders-growth/common/BaseController",
 	"coders-growth/common/HttpService",
 	"coders-growth/common/Constantes",
-    "sap/m/MessageBox",
-    "sap/m/MessageToast",
+	"coders-growth/models/Formatador",
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/core/format/DateFormat"
-], function (BaseController, HttpService, Constantes, MessageBox, MessageToast, JSONModel, DateFormat) {
+], function (BaseController, HttpService, Constantes, Formatador, JSONModel) {
 	"use strict";
 
-	const ACAO_OK = "OK";
+	const TAMANHO_MIN_NOME = 3;
+	const TAMANHO_MAX_NOME = 50;
+	const TAMANHO_MIN_DESCRICAO = 0;
+	const TAMANHO_MAX_DESCRICAO = 200;
+	const INPUT_HABILIDADE_NOME = "inputNomeHabilidade";
+	const CHECKBOX_VINCULAR = "checkboxVincularHabilidade";
+	const INPUT_HABILIDADE_DESCRICAO = "inputDescricaoHabilidade";
 	const FRAGMENTO_ADICIONAR_HABILIDADE = "coders-growth.view.ModalFormularioHabilidade";
 
 	return BaseController.extend("coders-growth.controller.DetalhePersonagem", {
+		formatter: Formatador,
+
 		onInit: function () {
             this.__vincularRota(Constantes.ROTA_PERSONAGEM, this._aoCoincidirRota);
 		},
@@ -25,7 +32,7 @@ sap.ui.define([
         _carregarDetalhesDoPersonagem: async function () {
 			this.__exibirEspera(async () => {
 				try {
-					const personagem = await this._carregarPersonagem(this.idPersonagem);
+					const personagem = await HttpService.get(Constantes.URL_PERSONAGEM, this.idPersonagem);
 					this.__definirModelo(new JSONModel(personagem), Constantes.MODELO_PERSONAGEM);
 					this.modeloPersonagem = this.__obterModelo(Constantes.MODELO_PERSONAGEM);
 	
@@ -37,14 +44,10 @@ sap.ui.define([
 						txtEVilao.addStyleClass(Constantes.CLASSE_VILAO).removeStyleClass(Constantes.CLASSE_HEROI) : 
 						txtEVilao.addStyleClass(Constantes.CLASSE_HEROI).removeStyleClass(Constantes.CLASSE_VILAO);
 				}
-				catch (erro) {
+				catch {
 					this.__navegarPara(Constantes.ROTA_NOT_FOUND);
 				}
 			});
-		},
-
-		_carregarPersonagem: async function (id) {
-			return await HttpService.get(Constantes.URL_PERSONAGEM, id);
 		},
 
 		_carregarHabilidadesDoPersonagem: async function (habilidades) {
@@ -55,73 +58,64 @@ sap.ui.define([
 
 		_validarInputs: function () {
             let contemErro = false;
-            
-            if (!this.__validarCampoTexto("inputNomeHabilidade", 3, 50)) {
+    
+            if (!this.__validarCampoTexto(INPUT_HABILIDADE_NOME, TAMANHO_MIN_NOME, TAMANHO_MAX_NOME)) {
                 contemErro = true;
             }
 
-            if (!this.__validarCampoTexto("inputDescricaoHabilidade", 3, 50)) {
+            if (!this.__validarCampoTexto(INPUT_HABILIDADE_DESCRICAO, TAMANHO_MIN_DESCRICAO, TAMANHO_MAX_DESCRICAO)) {
                 contemErro = true;
             }
 
             return !contemErro;
         },
 
-		_iniciarHabilidade: function () {
-            return { nome: "", descricao: "" }
-        },
-
 		aoClicarEmEditarPersonagem: function() {
-			this.__navegarPara(Constantes.ROTA_EDITAR_PERSONAGEM, { idPersonagem: this.__obterModelo(Constantes.MODELO_PERSONAGEM).getData().id });
+			this.__navegarPara(Constantes.ROTA_EDITAR_PERSONAGEM, { idPersonagem: this.idPersonagem });
 		},
 
-		aoClicarEmRemoverPersonagem: async function () {
-			MessageBox.warning(Constantes.MSG_AVISO_DE_EXCLUSAO, { 
-				actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL], 
-				emphasizedAction: MessageBox.Action.OK,
-				onClose: async (acao) => {
-					this.__exibirEspera(async () => {
-						if (acao === ACAO_OK) {	
-							await HttpService.delete(Constantes.URL_PERSONAGEM, this.__obterModelo(Constantes.MODELO_PERSONAGEM).getData().id);
-							this.__navegarPara(Constantes.ROTA_PERSONAGENS);
-						}
-					});
-				}
-			});			
+		aoClicarEmExcluirPersonagem: async function () {
+			this.__exibirEspera(async () => {
+				this.__exibirMensagemDeConfirmacao(async () => {
+					await HttpService.delete(Constantes.URL_PERSONAGEM, this.idPersonagem);
+					this.__exibirMessageToast(`Personagem ${this.idPersonagem} foi excluído!`);
+					this.__navegarPara(Constantes.ROTA_PERSONAGENS);
+				});
+			});		
 		},
 
 		aoClicarEmNovaHabilidade: async function() {
-			this.__obterElementoPorId()
-			this.__definirModelo(new JSONModel(this._iniciarHabilidade()), Constantes.MODELO_HABILIDADE);
-            this.modeloHabilidade = this.__obterModelo(Constantes.MODELO_HABILIDADE);
-
 			this.__exibirEspera(async () => {
+				this.__definirModelo(new JSONModel({ nome: "", descricao: "" }), Constantes.MODELO_HABILIDADE);
+				this.modeloHabilidade = this.__obterModelo(Constantes.MODELO_HABILIDADE);
+
 				this.modalFormularioPersonagem ??= await this.loadFragment({ 
 					name: FRAGMENTO_ADICIONAR_HABILIDADE, 
 					controller: this
 				});
+
 				this.modalFormularioPersonagem.open();
 			});
 		},
 
-		aoSalvarNovaHabilidade: function() {
+		aoClicarEmSalvarNovaHabilidade: function() {
 			this.__exibirEspera(async () => {
-				if (!this._validarInputs()) {
-					MessageBox.warning(Constantes.MSG_AVISO_DE_VALIDACAO);
+				if (!this._validarInputs) {
+					this.__exibirMessageBox(Constantes.MSG_AVISO_DE_VALIDACAO, "aviso")
 					return;
 				}
 
 				const habilidade = this.modeloHabilidade.getData();
 				const idNovaHabilidade = await HttpService.post(Constantes.URL_HABILIDADE, habilidade);
-                MessageToast.show(`Habilidade ${idNovaHabilidade} criada com êxito!`, { duration: Constantes.TEMPO_5_MILISEGUNDOS, closeOnBrowserNavigation: false });
 
-				if (this.__obterElementoPorId("checkboxVincularHabilidade").getSelected()) {
+				if (this.__obterElementoPorId(CHECKBOX_VINCULAR).getSelected()) {
 					const personagemAtual = this.modeloPersonagem.getData();
 					personagemAtual.habilidades.push(idNovaHabilidade);
 					await HttpService.put(Constantes.URL_PERSONAGEM, personagemAtual.id, personagemAtual);
 				}
 
 				this.modalFormularioPersonagem.close();
+				this.__exibirMessageToast(`Habilidade ${idNovaHabilidade} criada com êxito!`);
 				this._carregarDetalhesDoPersonagem();
 			});
 		},
@@ -129,27 +123,5 @@ sap.ui.define([
 		aoFecharDialogoHabilidade: function() {
 			this.modalFormularioPersonagem.close();
 		},
-
-		formatter: {	
-            formatarNivel: function(valor) {
-                switch (valor) {
-					case 0: return Constantes.STATUS_FRACO;
-					case 1: return Constantes.STATUS_MEDIO;
-					case 2: return Constantes.STATUS_BOM;
-					case 3: return Constantes.STATUS_EXCEPCIONAL;
-					case 4: return Constantes.STATUS_EXTRAORDINARIO;
-					default: return Constantes.STATUS_DESCONHECIDO;
-				}
-            },
-			formatarProposito: function(proposito) {
-                return proposito ? Constantes.PROPOSITO_VILAO : Constantes.PROPOSITO_HEROI;
-            },
-			formatarData: function(data) {
-				if (!data) return "---";
-
-				const formatadorDeData = DateFormat.getDateTimeInstance({ pattern: "dd/MM/yyyy" });
-            	return formatadorDeData.format(new Date(data));
-			}
-        }
 	});
 });

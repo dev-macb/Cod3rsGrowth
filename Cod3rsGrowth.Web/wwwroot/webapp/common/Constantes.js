@@ -28,6 +28,9 @@ sap.ui.define([], function() {
         STATUS_EXTRAORDINARIO: "Extraordinário",
         STATUS_DESCONHECIDO: "Desconhecido",
 
+        ACAO_OK: "OK",
+        ACAO_CANCELAR: "Cancelar",
+
         PROPOSITO_HEROI: "Herói",
         PROPOSITO_VILAO: "Vilão",
 

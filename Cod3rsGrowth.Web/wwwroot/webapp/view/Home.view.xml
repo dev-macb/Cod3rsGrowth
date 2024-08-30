@@ -13,8 +13,8 @@
 					</Toolbar>
 				</headerToolbar>
 				<content>
-					<Button id="btnVerListaPersonagem" icon="sap-icon://forward" text="{i18n>home.verListaPersonagem}" press="irListaPersonagem" class="sapUiTinyMarginEnd" />
-					<Button id="btnVerListaHabilidade" icon="sap-icon://forward" text="{i18n>home.verListaHabilidade}" press="irListaHabilidade" />
+					<Button id="btnVerListaPersonagem" icon="sap-icon://forward" text="{i18n>home.verListaPersonagem}" press="aoClicarEmVerListaPersonagem" class="sapUiTinyMarginEnd" />
+					<Button id="btnVerListaHabilidade" icon="sap-icon://forward" text="{i18n>home.verListaHabilidade}" press="aoClicarEmVerListaHabilidade" />
 				</content>
 			</Panel>
 			<Panel width="auto" class="sapUiLargeMarginBeginEnd sapUiTinyMarginTop sapUiResponsiveContentPadding">

@@ -19,7 +19,7 @@
                         <Title text="{habilidade>/nome} ({habilidade>/id})" level="H2"/>
                         <ToolbarSpacer />	
                         <Button icon="sap-icon://edit" text="{i18n>geral.editar}" type="Emphasized" press=".aoClicarEmEditarHabilidade" />
-                        <Button id="botaoExcluirHabilidade" icon="sap-icon://delete" text="{i18n>geral.excluir}" press=".aoClicarEmRemoverHabilidade" />
+                        <Button id="botaoExcluirHabilidade" icon="sap-icon://delete" text="{i18n>geral.excluir}" press=".aoClicarEmExcluirHabilidade" />
                     </Toolbar>
                 </headerToolbar>
                 <content>

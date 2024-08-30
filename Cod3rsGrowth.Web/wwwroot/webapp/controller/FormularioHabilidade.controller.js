@@ -2,11 +2,9 @@ sap.ui.define([
     "coders-growth/common/BaseController",
     "coders-growth/common/HttpService",
     "coders-growth/common/Constantes",
-    "sap/m/MessageBox",
-    "sap/m/MessageToast",
     "sap/ui/model/json/JSONModel",
     "sap/ui/core/ValueState",
-], (BaseController, HttpService, Constantes, MessageBox, MessageToast, JSONModel, ValueState) => {
+], (BaseController, HttpService, Constantes, JSONModel, ValueState) => {
     "use strict";
 
     return BaseController.extend("coders-growth.controller.FormularioHabilidade", {
@@ -43,7 +41,7 @@ sap.ui.define([
 
         salvarHabilidade: async function () {
             if (!this._validarInputs()) {
-                MessageBox.warning(Constantes.MSG_AVISO_DE_VALIDACAO);
+                this.__exibirMessageBox(Constantes.MSG_AVISO_DE_VALIDACAO, "aviso");
                 return;
             }
 
@@ -51,7 +49,7 @@ sap.ui.define([
 
             this.__exibirEspera(async () => {
                 const resultado = await HttpService.post(Constantes.URL_HABILIDADE, habilidade);
-                MessageToast.show(`Habilidade ${resultado} criada com êxito!`, { duration: Constantes.TEMPO_5_MILISEGUNDOS, closeOnBrowserNavigation: false });
+                this.__exibirMessageToast(`Habilidade ${resultado} criada com êxito!`);
                 return this.__navegarPara(Constantes.ROTA_HABILIDADES);
             }); 
         }

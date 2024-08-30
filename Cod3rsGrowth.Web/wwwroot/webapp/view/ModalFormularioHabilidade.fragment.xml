@@ -13,7 +13,7 @@
         </content>
         
         <beginButton>
-            <Button text="Salvar" type="Emphasized" press="aoSalvarNovaHabilidade" />
+            <Button text="Salvar" type="Emphasized" press="aoClicarEmSalvarNovaHabilidade" />
         </beginButton>
         
         <endButton>

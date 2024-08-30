@@ -3,9 +3,10 @@ sap.ui.define([
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/core/UIComponent",
 	"sap/m/MessageBox",
+    "sap/m/MessageToast",
     "sap/ui/core/BusyIndicator",
     "sap/ui/core/ValueState",
-], function(Constantes, Controller, UIComponent, MessageBox, BusyIndicator, ValueState) {
+], function(Constantes, Controller, UIComponent, MessageBox, MessageToast, BusyIndicator, ValueState) {
 	"use strict";
 
 	return Controller.extend("coders-growth.controller.BaseController", {
@@ -76,6 +77,50 @@ sap.ui.define([
                 }
             );
 		},
+
+        __exibirMensagemDeConfirmacao: async function (acao) {
+            MessageBox.warning(Constantes.MSG_AVISO_DE_EXCLUSAO, { 
+				actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL], 
+				emphasizedAction: MessageBox.Action.OK,
+				onClose: async (evento) => {
+                    if (evento === Constantes.ACAO_OK) {
+                        await acao();
+                    }
+                }
+			});	
+        },
+
+
+        __exibirMessageBox: function (mensagem, tipo) {
+            switch (tipo) {
+                case "info":
+                    MessageBox.information(mensagem);
+                    break;
+                case "aviso":
+                    MessageBox.warning(mensagem);
+                    break;
+                case "sucesso":
+                    MessageBox.success(mensagem);
+                    break;
+                case "erro":
+                    MessageBox.error(mensagem);
+                    break;
+                default:
+                    MessageBox.show(mensagem, {
+                        icon: MessageBox.Icon.NONE,
+                        title: "Mensagem",
+                        actions: [MessageBox.Action.OK]
+                    });
+                    break;
+            }
+        },        
+
+        __exibirMessageToast: function (mensagem) {
+            MessageToast.show(mensagem, { 
+                duration: Constantes.TEMPO_5_MILISEGUNDOS, 
+                closeOnBrowserNavigation: false 
+            });
+        },
 
         __validarCampoTexto: function(id, tamanhoMin, tamanhoMax) {
             const campo = this.__obterElementoPorId(id);
