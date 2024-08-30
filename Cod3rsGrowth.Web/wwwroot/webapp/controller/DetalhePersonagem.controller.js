@@ -12,8 +12,8 @@ sap.ui.define([
 	const TAMANHO_MAX_NOME = 50;
 	const TAMANHO_MIN_DESCRICAO = 0;
 	const TAMANHO_MAX_DESCRICAO = 200;
-	const INPUT_HABILIDADE_NOME = "inputNomeHabilidade";
 	const CHECKBOX_VINCULAR = "checkboxVincularHabilidade";
+	const INPUT_HABILIDADE_NOME = "inputNomeHabilidade";
 	const INPUT_HABILIDADE_DESCRICAO = "inputDescricaoHabilidade";
 	const FRAGMENTO_ADICIONAR_HABILIDADE = "coders-growth.view.ModalFormularioHabilidade";
 

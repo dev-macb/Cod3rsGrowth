@@ -6,6 +6,8 @@ sap.ui.define([
 ], function(BaseController, HttpService, Constantes, JSONModel) {
 	"use strict";
 
+	const PROPRIEDADE_ID = "id";
+	const CONTEXTO_HABILIDADES = "habilidades";
 	const FRAGMENTO_FILTRO_HABILIDADE = "coders-growth.view.FiltroHabilidade";
 
 	return BaseController.extend("coders-growth.controller.ListaHabilidade", {
@@ -31,7 +33,7 @@ sap.ui.define([
 		},
 
 		aoClicarEmVerDetalhes: function(elemento) {
-			this.__navegarPara(Constantes.ROTA_HABILIDADE, { idHabilidade: elemento.getSource().getBindingContext("habilidades").getProperty("id") });
+			this.__navegarPara(Constantes.ROTA_HABILIDADE, { idHabilidade: elemento.getSource().getBindingContext(CONTEXTO_HABILIDADES).getProperty(PROPRIEDADE_ID) });
 		},
 
         aoFiltrarHabilidadePorNome: function(evento) {
