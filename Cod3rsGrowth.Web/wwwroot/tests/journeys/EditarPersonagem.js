@@ -5,9 +5,9 @@ sap.ui.define([
 ], (Opa5, opaTest) => {
     "use strict";
 
-    QUnit.module("EditarPersonagem");
+    QUnit.module("FormularioPersonagem - Editar");
 
-    opaTest("Verifica se formulário vem preenchido com dados do personagem", (Given, When, Then) => {
+    opaTest("Verifica se formulário vem preenchido com os dados do personagem", (Given, When, Then) => {
         // Arrange
         let idAlvo = 1;
         Given.iniciarAplicacao({ hash: `personagens/${idAlvo}/editar` });
@@ -18,7 +18,7 @@ sap.ui.define([
         Then.noFormularioPersonagem.verificaSeInputsPreenchidos();
     });
 
-    opaTest("Tenta salvar um personagem sem inserir dados inválidos", (Given, When, Then) => {
+    opaTest("Tenta salvar um personagem com dados inválidos", (Given, When, Then) => {
         // Act
         When.noFormularioPersonagem.aoInserirNome("T");
         When.noFormularioPersonagem.aoInserirVida(101);

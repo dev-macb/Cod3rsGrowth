@@ -5,7 +5,7 @@ sap.ui.define([
 ], (Opa5, opaTest) => {
     "use strict";
 
-    QUnit.module("AdicionarPersonagem");
+    QUnit.module("FormularioPersonagem - Adicionar");
 
     opaTest("Deve voltar para a listagem de personagens ao clicar no botão Voltar", (Given, When, Then) => {
         // Arrange
@@ -20,7 +20,7 @@ sap.ui.define([
         Then.iTeardownMyApp();
     });
 
-    opaTest("Tenta salvar um personagem sem inserir dados", (Given, When, Then) => {
+    opaTest("Tenta salvar um personagem sem preencher os campos do formulário", (Given, When, Then) => {
         // Arrange
         Given.iniciarAplicacao({ hash: "personagens/adicionar" });
 
@@ -34,7 +34,7 @@ sap.ui.define([
         Then.noFormularioPersonagem.verificaTipoDosInputs("Error")
     });
 
-    opaTest("Tenta salvar um personagem com sucesso", (Given, When, Then) => {
+    opaTest("Salvar um personagem com sucesso", (Given, When, Then) => {
         // Arrange
         const proximoId = 34
 

@@ -2,14 +2,17 @@ sap.ui.define([
 	"coders-growth/common/BaseController",
 	"coders-growth/common/HttpService",
 	"coders-growth/common/Constantes",
+	"coders-growth/models/Formatador",
 	"sap/ui/model/json/JSONModel",
 	"sap/ui/core/format/DateFormat",
-], function(BaseController, HttpService, Constantes, JSONModel, DateFormat) {
+], function(BaseController, HttpService, Constantes, Formatador, JSONModel, DateFormat) {
 	"use strict";
 
 	const FRAGMENTO_FILTRO_PERSONAGEM = "coders-growth.view.FiltroPersonagem";
 
 	return BaseController.extend("coders-growth.controller.ListaPersonagem", {
+		formatter: Formatador,
+
 		onInit: function() {
 			this._filtros = {};
 			this.__vincularRota(Constantes.ROTA_PERSONAGENS, this._aoConcidirRota);
@@ -28,7 +31,7 @@ sap.ui.define([
 		},
 
 		irAdicionarPersonagem: function() {
-			this.__navegarPara(Constantes.ROTA_FORMULARIO_PERSONAGEM);
+			this.__navegarPara(Constantes.ROTA_ADICIONAR_PERSONAGEM);
 		},
 
 		aoFiltrarPersonagemPorNome(evento) {
@@ -93,12 +96,6 @@ sap.ui.define([
 
 		aoClicarEmVerDetalhes: function(elemento) {
 			this.__navegarPara(Constantes.ROTA_PERSONAGEM, { idPersonagem: elemento.getSource().getBindingContext("personagens").getProperty("id") });
-		},
-
-		formatter: {
-            iconePersonagem: function(eVilao) {
-                return eVilao ? Constantes.IMG_LUVA_VERMELHA : Constantes.IMG_LUVA_AZUL;
-            }
-        }
+		}
 	});
 });

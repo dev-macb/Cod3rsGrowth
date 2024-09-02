@@ -6,7 +6,7 @@ sap.ui.define([
 ], (opaTest) => {
     "use strict";
 
-    QUnit.module("Excluir - Personagem");
+    QUnit.module("DetalhePersonagem - Excluir");
 
     opaTest("Deve exibir mensagem de confirmação ao clicar no botão excluir", (Given, When, Then) => {
         // Arrange
@@ -40,7 +40,7 @@ sap.ui.define([
         // Assert
         Then.naPaginaListaPersonagem.verificaUrl();
         Then.naPaginaListaPersonagem.verificaTituloDaPagina("Lista de Personagens");
-        Then.naPaginaListaPersonagem.verificaQuantidadeDaListaPersonagem(32);
+        Then.naPaginaListaPersonagem.verificaQuantidadeDaListaPersonagem(33);
         Then.iTeardownMyApp();
     });
 

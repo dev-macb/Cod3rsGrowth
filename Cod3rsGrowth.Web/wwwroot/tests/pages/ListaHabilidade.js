@@ -133,13 +133,13 @@ sap.ui.define([
                         errorMessage: "Mais dados não foram carregados na lista."
                     });
                 },
-                verificaSeMaisDadosForamCarregados: function() {
+                verificaSeMaisDadosForamCarregados: function(quantidade) {
                     return this.waitFor({
                         id: idListaHabilidade,
                         viewName: nomeDaView,
                         matchers: new AggregationLengthEquals({
                             name: "items",
-                            length: 13
+                            length: quantidade
                         }),
                         success: function() {
                             Opa5.assert.ok(true, "Mostrando lista completa com todos os 14 itens.");
@@ -150,11 +150,11 @@ sap.ui.define([
                 verificaSeBuscouComFiltroNome: function(filtroNome) {
                     function verificarSeListaIncluiItemComNome(lista) {
                         return lista.getItems().every(function(elemento) {
-                            if (!elemento.getBindingContext()) {
+                            if (!elemento.getBindingContext("habilidades")) {
                                 return false;
                             }
 
-                            var nomeItem = elemento.getBindingContext().getProperty("nome");
+                            var nomeItem = elemento.getBindingContext("habilidades").getProperty("nome");
                             return nomeItem.includes(filtroNome);
                         });
                     }

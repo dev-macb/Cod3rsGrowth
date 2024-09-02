@@ -1,10 +1,12 @@
 sap.ui.define([
-	"sap/ui/core/mvc/Controller",
 	"coders-growth/common/Constantes",
+	"sap/ui/core/mvc/Controller",
 	"sap/ui/core/UIComponent",
 	"sap/m/MessageBox",
-	"sap/ui/core/BusyIndicator",
-], function(Controller, Constantes, UIComponent, MessageBox, BusyIndicator) {
+    "sap/m/MessageToast",
+    "sap/ui/core/BusyIndicator",
+    "sap/ui/core/ValueState",
+], function(Constantes, Controller, UIComponent, MessageBox, MessageToast, BusyIndicator, ValueState) {
 	"use strict";
 
 	return Controller.extend("coders-growth.controller.BaseController", {
@@ -13,8 +15,8 @@ sap.ui.define([
 		},
 
 		__navegarPara: function (rotaDestino, parametros = {}) {
-			if (rotaDestino) { this.__obterRotiador().navTo(rotaDestino, parametros); }
-			else { this.__obterRotiador().navTo(Constantes.ROTA_HOME); }
+			if (rotaDestino) this.__obterRotiador().navTo(rotaDestino, parametros);
+			else this.__obterRotiador().navTo(Constantes.ROTA_HOME);
 		},
 
 		__vincularRota: function(rota, metodo) {
@@ -38,16 +40,16 @@ sap.ui.define([
         },
 
         __exibirEspera: async function (funcao, idElemento) {
-            if (idElemento) { this.__obterElementoPorId(idElemento).setBusy(true); }
-            else { BusyIndicator.show(0); }
+            if (idElemento) this.__obterElementoPorId(idElemento).setBusy(true); 
+            else BusyIndicator.show(0); 
 
             return Promise.resolve(funcao())
                 .catch((erro) => {
                     this.__exibirErroModal(erro)
                 })
                 .finally(() => {
-                    if (idElemento) { this.__obterElementoPorId(idElemento).setBusy(false); }
-                    else { BusyIndicator.hide(); }
+                    if (idElemento) this.__obterElementoPorId(idElemento).setBusy(false);
+                    else BusyIndicator.hide();
                 });
         },
 
@@ -74,6 +76,63 @@ sap.ui.define([
                     contentWidth: "500px"
                 }
             );
-		}
+		},
+
+        __exibirMensagemDeConfirmacao: async function (acao) {
+            MessageBox.warning(Constantes.MSG_AVISO_DE_EXCLUSAO, { 
+				actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL], 
+				emphasizedAction: MessageBox.Action.OK,
+				onClose: async (evento) => {
+                    if (evento === Constantes.ACAO_OK) {
+                        await acao();
+                    }
+                }
+			});	
+        },
+
+
+        __exibirMessageBox: function (mensagem, tipo) {
+            switch (tipo) {
+                case "info":
+                    MessageBox.information(mensagem);
+                    break;
+                case "aviso":
+                    MessageBox.warning(mensagem);
+                    break;
+                case "sucesso":
+                    MessageBox.success(mensagem);
+                    break;
+                case "erro":
+                    MessageBox.error(mensagem);
+                    break;
+                default:
+                    MessageBox.show(mensagem, {
+                        icon: MessageBox.Icon.NONE,
+                        title: "Mensagem",
+                        actions: [MessageBox.Action.OK]
+                    });
+                    break;
+            }
+        },        
+
+        __exibirMessageToast: function (mensagem) {
+            MessageToast.show(mensagem, { 
+                duration: Constantes.TEMPO_5_MILISEGUNDOS, 
+                closeOnBrowserNavigation: false 
+            });
+        },
+
+        __validarCampoTexto: function(id, tamanhoMin, tamanhoMax) {
+            const campo = this.__obterElementoPorId(id);
+            const valor = campo.getValue();
+
+            if (!valor || valor.length < tamanhoMin || valor.length > tamanhoMax) {
+                campo.setValueState(ValueState.Error);
+                return false; 
+            }
+
+            campo.setValueState(ValueState.None);
+            return true;
+        },
 	});
 });

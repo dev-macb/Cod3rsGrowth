@@ -8,7 +8,7 @@ sap.ui.define([
 
     QUnit.module("DetalhePersonagem");
 
-    opaTest("Deve navegar para o detalhes de um herói", (Given, When, Then) => {
+    opaTest("Deve navegar para os detalhes de um personagem com propósito heróico", (Given, When, Then) => {
         // Arrange
         let idPersonagem = 1;
         Given.iniciarAplicacao({ hash: `personagens/${idPersonagem}` });
@@ -17,11 +17,11 @@ sap.ui.define([
         Then.naPaginaDetalhePersonagem.verificaUrl(idPersonagem);
         Then.naPaginaDetalhePersonagem.verificaTituloDaPagina("Detalhes do Personagem");
         Then.naPaginaDetalhePersonagem.verificaDetalhesDoPersonagem();
-        Then.naPaginaDetalhePersonagem.verificaQuatidadeDaListaDeHabilidades(5);
+        Then.naPaginaDetalhePersonagem.verificaQuatidadeDaListaDeHabilidades(3);
         Then.naPaginaDetalhePersonagem.verificaClasseTextoEVilao("txtHeroi"); 
     });
 
-    opaTest("Deve navegar de volta para a tela de listagem", (Given, When, Then) => {
+    opaTest("Deve navegar de volta para a tela de listagem ao clicar no botão voltar", (Given, When, Then) => {
         // Act
         When.naPaginaDetalhePersonagem.aoClicarNoBotaoVoltar();
 
@@ -30,7 +30,7 @@ sap.ui.define([
         Then.naPaginaListaPersonagem.verificaTituloDaPagina("Lista de Personagens");
     });
 
-    opaTest("Deve navegar para o detalhes de um vilão", (Given, When, Then) => {
+    opaTest("Deve navegar para o detalhes de um personagem com propósito vilanesco", (Given, When, Then) => {
         // Arrange
         let nonoItem = 8;
         let id9 = 9;
@@ -47,7 +47,6 @@ sap.ui.define([
         Then.naPaginaDetalhePersonagem.verificaDetalhesDoPersonagem();
         Then.naPaginaDetalhePersonagem.verificaQuatidadeDaListaDeHabilidades(quantidade5);
         Then.naPaginaDetalhePersonagem.verificaClasseTextoEVilao(classeVilao); 
-
         Then.iTeardownMyApp();
     });
 });

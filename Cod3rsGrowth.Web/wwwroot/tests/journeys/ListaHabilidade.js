@@ -7,7 +7,7 @@ sap.ui.define([
 
     QUnit.module("ListaHabilidade");
 
-    opaTest("Deve carregar mais itens da listagem de habilidades", (Given, When, Then) => {
+    opaTest("Deve aumentar paginação ao carregar mais itens na lista", (Given, When, Then) => {
         // Arrange
         Given.iniciarAplicacao({ hash: "habilidades" });
 
@@ -16,10 +16,10 @@ sap.ui.define([
         When.naPaginaListaHabilidade.aoClicarEmCarregarMaisDadosDaLista();
 
         // Assert
-        Then.naPaginaListaHabilidade.verificaSeMaisDadosForamCarregados();
+        Then.naPaginaListaHabilidade.verificaSeMaisDadosForamCarregados(16);
     });
 
-    opaTest("Deve filtrar por nome 'Defesa'", (Given, When, Then) => {
+    opaTest("Deve exibir um item na listagem ao filtrar pelo nome 'Defesa'", (Given, When, Then) => {
         // Act
         When.naPaginaListaHabilidade.aoInserirFiltroNome("Defesa");
 
@@ -28,7 +28,7 @@ sap.ui.define([
         Then.naPaginaListaHabilidade.verificaParametroNaURL("nome=Defesa");
     });
 
-    opaTest("Deve limpar filtragem por nome", (Given, When, Then) => {
+    opaTest("Verifica se a paginação e URL estão corretos ao remover filtragem por nome", (Given, When, Then) => {
         // Act
         When.naPaginaListaHabilidade.aoInserirFiltroNome("");
 
@@ -37,7 +37,7 @@ sap.ui.define([
         Then.naPaginaListaHabilidade.verificaUrl();
     });
 
-    opaTest("Deve filtrar por nome inexistente", (Given, When, Then) => {
+    opaTest("Deve exibir lista vazia ao filtrar por nome inexistente", (Given, When, Then) => {
         // Act
         When.naPaginaListaHabilidade.aoInserirFiltroNome("HabilidadeInexistente");
 

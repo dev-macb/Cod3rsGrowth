@@ -82,8 +82,8 @@
 				},
 				{
 					"pattern": "personagens/adicionar",
-					"name": "formularioPersonagem",
-					"target": "formularioPersonagem"
+					"name": "adicionarPersonagem",
+					"target": "adicionarPersonagem"
 				},
 				{
 					"pattern": "personagens/{idPersonagem}/editar",
@@ -99,6 +99,16 @@
 					"pattern": "habilidades:?query:",
 					"name": "habilidades",
 					"target": "habilidades"
+				},
+				{
+					"pattern": "habilidades/adicionar",
+					"name": "adicionarHabilidade",
+					"target": "adicionarHabilidade"
+				},
+				{
+					"pattern": "habilidades/{idHabilidade}",
+					"name": "habilidade",
+					"target": "habilidade"
 				}
 			],
 			"targets": {
@@ -114,7 +124,7 @@
 				"personagem": {
 					"viewName": "DetalhePersonagem"
 				},
-				"formularioPersonagem": {
+				"adicionarPersonagem": {
 					"viewName": "FormularioPersonagem"
 				},
 				"editarPersonagem": {
@@ -122,6 +132,12 @@
 				},
 				"habilidades": {
 					"viewName": "ListaHabilidade"
+				},
+				"habilidade": {
+					"viewName": "DetalheHabilidade"
+				},
+				"adicionarHabilidade": {
+					"viewName": "FormularioHabilidade"
 				}
 			}
 		}

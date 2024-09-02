@@ -1,0 +1,23 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
+    <Dialog id="dialogoCadastroHabilidade" title="Adicionar Habilidade" contentWidth="500px">
+        <content>
+            <VBox class="sapUiSmallMargin">
+                <Label text="Nome" labelFor="inputNomeHabilidade" />
+                <Input id="inputNomeHabilidade" value="{habilidade>/nome}" placeholder="Digite o nome da habilidade..." />
+
+                <Label text="Descrição" labelFor="inputDescricaoHabilidade" />
+                <TextArea id="inputDescricaoHabilidade" value="{habilidade>/descricao}" placeholder="Digite a descrição da habilidade..." width="100%" rows="5" />
+
+                <CheckBox id="checkboxVincularHabilidade" text="Vincular ao personagem atual" />
+            </VBox>
+        </content>
+        
+        <beginButton>
+            <Button id="butaoSalvarHabilidade" text="Salvar" type="Emphasized" press="aoClicarEmSalvarNovaHabilidade" />
+        </beginButton>
+        
+        <endButton>
+            <Button text="Cancelar" press="aoFecharDialogoHabilidade" />
+        </endButton>
+    </Dialog>
+</core:FragmentDefinition>

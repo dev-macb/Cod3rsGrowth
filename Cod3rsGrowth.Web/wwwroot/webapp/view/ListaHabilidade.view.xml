@@ -11,16 +11,16 @@
 			<Panel id="painelListaHabilidade" width="auto" class="sapUiLargeMarginBeginEnd sapUiTinyMarginTop">
 				<headerToolbar>
 					<Toolbar>
-						<Button icon="sap-icon://add" text="{i18n>geral.adicionar}" type="Emphasized" />
+						<Button icon="sap-icon://add" text="{i18n>geral.adicionar}" type="Emphasized" press="aoClicarEmAdicionarHabilidade" />
 						<ToolbarSpacer />
 						<Button id="btnFiltroHabilidade" icon="sap-icon://filter" text="{i18n>geral.filtrar}" press="aoAbrirFiltrosHabilidade" />
-						<SearchField id="filtroNome" width="30%" liveChange="aoFiltrarHabilidadePorNome" />
+						<SearchField id="filtroNome" width="30%" change="aoFiltrarHabilidadePorNome" />
 					</Toolbar>
 				</headerToolbar>
 				<content>
-					<List id="listaHabilidade" items="{ path: '/' }" growing="true" growingThreshold="10">
+					<List id="listaHabilidade" items="{ path: 'habilidades>/' }" growing="true" growingThreshold="10">
 						<items>
-							<StandardListItem title="{nome}" description="{descricao}" type="Navigation" />
+							<StandardListItem title="{habilidades>nome}" description="{habilidades>descricao}" type="Navigation" press=".aoClicarEmVerDetalhes" />
 						</items>
 					</List>
 				</content>

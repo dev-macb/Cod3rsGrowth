@@ -6,7 +6,10 @@ sap.ui.define([
 ], function(BaseController, HttpService, Constantes, JSONModel) {
 	"use strict";
 
+	const PROPRIEDADE_ID = "id";
+	const CONTEXTO_HABILIDADES = "habilidades";
 	const FRAGMENTO_FILTRO_HABILIDADE = "coders-growth.view.FiltroHabilidade";
+
 	return BaseController.extend("coders-growth.controller.ListaHabilidade", {
         onInit: function() {
 			this._filtros = {};
@@ -17,12 +20,20 @@ sap.ui.define([
             this._carregarHabilidades();
 		},
 
-        _carregarHabilidades: async function() {
+		_carregarHabilidades: async function() {
 			this.__exibirEspera(async () => {
 				const habilidades = await HttpService.get(Constantes.URL_HABILIDADE, null, this._filtros);
-				this.__definirModelo(new JSONModel(habilidades));
+				this.__definirModelo(new JSONModel(habilidades), Constantes.MODELO_HABILIDADES);
 				this.__navegarPara(Constantes.ROTA_HABILIDADES, Object.keys(this._filtros).length === 0 ? {} : { "?query": this._filtros });
 			});
+		},
+
+		aoClicarEmAdicionarHabilidade: function() {
+			this.__navegarPara(Constantes.ROTA_ADICIONAR_HABILIDADE);
+		},
+
+		aoClicarEmVerDetalhes: function(elemento) {
+			this.__navegarPara(Constantes.ROTA_HABILIDADE, { idHabilidade: elemento.getSource().getBindingContext(CONTEXTO_HABILIDADES).getProperty(PROPRIEDADE_ID) });
 		},
 
         aoFiltrarHabilidadePorNome: function(evento) {

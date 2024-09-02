@@ -226,11 +226,11 @@ sap.ui.define([
                 verificaSeBuscouComFiltroNome: function (filtroNome) {
                     function verificarSeListaIncluiItemComNome(lista) {
                         return lista.getItems().every(function (elemento) {
-                            if (!elemento.getBindingContext()) {
+                            if (!elemento.getBindingContext("personagens")) {
                                 return false;
                             }
 
-                            var nomeItem = elemento.getBindingContext().getProperty("nome");
+                            var nomeItem = elemento.getBindingContext("personagens").getProperty("nome");
                             return nomeItem.includes(filtroNome);
                         });
                     }
@@ -269,19 +269,15 @@ sap.ui.define([
                     });
                 },
                 verificaSeBuscouComFiltroProposito: function (proposito) {
-                    function verificaPropriedadeEVilao(item) {
-                        if (!item.getBindingContext()) {
-                            return false;
-                        }
-                        var eVilao = item.getBindingContext().getProperty("eVilao");
-                        return eVilao === proposito;
-                    }
-
                     return this.waitFor({
                         id: idListaPersonagem,
                         viewName: nomeDaView,
                         matchers: function (lista) {
-                            return lista.getItems().every(verificaPropriedadeEVilao);
+                            const items = lista.getItems();
+                            return items.every(item => {
+                                const contexto = item.getBindingContext("personagens");
+                                return contexto && contexto.getProperty("eVilao") === proposito;
+                            });
                         },
                         success: function () {
                             Opa5.assert.ok(true, "A lista está filtrada corretamente pelo propósito.");

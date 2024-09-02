@@ -7,7 +7,7 @@ sap.ui.define([
 
     QUnit.module("NotFound");
 
-    opaTest("Deve navegar para uma página inexistente", (Given, When, Then) => {
+    opaTest("Deve navegar para NotFoumd ao inserir uma url inexistente", (Given, When, Then) => {
         // Arrange
         Given.iniciarAplicacao({ hash: "rota/que/nao/existe" });
 

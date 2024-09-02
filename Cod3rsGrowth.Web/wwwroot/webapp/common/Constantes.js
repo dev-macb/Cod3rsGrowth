@@ -9,12 +9,16 @@ sap.ui.define([], function() {
         ROTA_PERSONAGENS: "personagens",
         ROTA_PERSONAGEM: "personagem",
         ROTA_HABILIDADES: "habilidades",
-        ROTA_FORMULARIO_PERSONAGEM: "formularioPersonagem",
+        ROTA_ADICIONAR_PERSONAGEM: "adicionarPersonagem",
         ROTA_EDITAR_PERSONAGEM: "editarPersonagem",
+        ROTA_ADICIONAR_HABILIDADE: "adicionarHabilidade",
+        ROTA_EDITAR_HABILIDADE: "editarHabilidade",
         ROTA_NOT_FOUND: "notFound",
+        ROTA_HABILIDADE: "habilidade",
 
         MODELO_PERSONAGEM: "personagem",
         MODELO_LISTA_PERSONAGENS: "personagens",
+        MODELO_HABILIDADE: "habilidade",
         MODELO_HABILIDADES: "habilidades",
 
         STATUS_FRACO: "Fraco",
@@ -23,6 +27,9 @@ sap.ui.define([], function() {
         STATUS_EXCEPCIONAL: "Excepcional",
         STATUS_EXTRAORDINARIO: "Extraordinário",
         STATUS_DESCONHECIDO: "Desconhecido",
+
+        ACAO_OK: "OK",
+        ACAO_CANCELAR: "Cancelar",
 
         PROPOSITO_HEROI: "Herói",
         PROPOSITO_VILAO: "Vilão",
@@ -40,6 +47,8 @@ sap.ui.define([], function() {
 
         IMG_LUVA_AZUL: "images/luva_azul.png",
 	    IMG_LUVA_VERMELHA: "images/luva_vermelha.png",
+
+        TEMPO_5_MILISEGUNDOS: 5000
     };
 
     return constantes;
