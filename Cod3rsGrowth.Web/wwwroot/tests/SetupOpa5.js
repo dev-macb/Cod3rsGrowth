@@ -10,6 +10,7 @@ sap.ui.require([
     "coders-growth/tests/journeys/DetalhePersonagem",
     "coders-growth/tests/journeys/DetalhePersonagemModalAdicionar",
     "coders-growth/tests/journeys/DetalhePersonagemModalEditar",
+    "coders-growth/tests/journeys/DetalhePersonagemRemoverHabilidade",
     "coders-growth/tests/journeys/EditarPersonagem",
     "coders-growth/tests/journeys/ExcluirPersonagem",
     "coders-growth/tests/journeys/Home",

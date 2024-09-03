@@ -78,8 +78,8 @@ sap.ui.define([
             );
 		},
 
-        __exibirMensagemDeConfirmacao: async function (acao) {
-            MessageBox.warning(Constantes.MSG_AVISO_DE_EXCLUSAO, { 
+        __exibirMensagemDeConfirmacao: async function (acao, mensagem = Constantes.MSG_AVISO_DE_EXCLUSAO) {
+            MessageBox.warning(mensagem, { 
 				actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL], 
 				emphasizedAction: MessageBox.Action.OK,
 				onClose: async (evento) => {

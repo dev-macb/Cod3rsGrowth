@@ -13,6 +13,7 @@ sap.ui.define([
 	const TAMANHO_MIN_DESCRICAO = 0;
 	const TAMANHO_MAX_DESCRICAO = 200;
 	const STRING_VAZIA = "";
+	const STRING_BARRA = "/";
 	const PROPRIEDADE_ID = "id";
 	const TITULO_CADASTRO = "Cadastrar Habilidade";
 	const ID_MODAL_HABILIDADE = "dialogoCadastroHabilidade";
@@ -111,6 +112,21 @@ sap.ui.define([
 			const idHabilidadeSelecionada = evento.getSource().getBindingContext(Constantes.MODELO_HABILIDADES).getProperty(PROPRIEDADE_ID);
 			const habilidadeSelecionada = evento.getSource().getBindingContext(Constantes.MODELO_HABILIDADES).getObject();
 			this._exibirModalHabilidade(`Editar Habilidade (${idHabilidadeSelecionada})`, habilidadeSelecionada, false);
+		},
+
+		aoClicarEmExcluirHabilidade: async function (evento) {
+			const itemSelecionado = evento.getParameter("listItem").getBindingContext(Constantes.MODELO_HABILIDADES).getPath();
+			const personagem = this.modeloPersonagem.getData();
+
+			personagem.habilidades.splice(itemSelecionado.replace(STRING_BARRA, STRING_VAZIA), 1);
+
+			this.__exibirEspera(async () => {
+				this.__exibirMensagemDeConfirmacao(async () => {
+					await HttpService.put(Constantes.URL_PERSONAGEM, personagem.id, personagem);
+					this.__exibirMessageToast(`Habilidade ${this.idPersonagem} foi excluída com êxito!`);
+					this._carregarDetalhesDoPersonagem();
+				}, Constantes.MSG_AVISO_DE_DESASSOCIACAO);
+			});
 		},
 
 		aoClicarEmSalvarNovaHabilidade: function() {

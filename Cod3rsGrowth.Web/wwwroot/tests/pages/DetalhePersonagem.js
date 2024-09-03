@@ -70,6 +70,25 @@ sap.ui.define([
                         errorMessage: "Lista de habilidades não encontrada."
                     });
                 },
+                aoClicarEmExcluirHabilidade: function (indiceLista = 0) {
+                    return this.waitFor({
+                        id: "listaHabilidade",
+                        viewName: nomeDaView,
+                        success: function (lista) {
+                            const item = lista.getItems()[indiceLista];
+                            this.waitFor({
+                                controlType: "sap.m.StandardListItem",
+                                matchers: new Properties({ title: item.getTitle() }),
+                                actions: new Press({ idSuffix: "imgDel" }),
+                                success: function () {
+                                    Opa5.assert.ok(true, "Habilidade editada com sucesso.");
+                                },
+                                errorMessage: "Não foi possível clicar para editar a habilidade."
+                            });
+                        },
+                        errorMessage: "Lista de habilidades não encontrada."
+                    });
+                },
                 aoClicarEmSalvarHabilidade: function() {
                     return this.waitFor({
                         id: "butaoSalvarHabilidade",
