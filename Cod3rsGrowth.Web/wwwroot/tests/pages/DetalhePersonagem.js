@@ -3,8 +3,9 @@ sap.ui.define([
     "sap/ui/test/actions/Press",
     "sap/ui/test/matchers/Ancestor",
     "sap/ui/test/matchers/Properties",
-    "sap/ui/test/matchers/PropertyStrictEquals"
-], function (Opa5, Press, Ancestor, Properties, PropertyStrictEquals) {
+    "sap/ui/test/matchers/PropertyStrictEquals",
+    "sap/ui/test/matchers/AggregationContainsPropertyEqual"
+], function (Opa5, Press, Ancestor, Properties, PropertyStrictEquals, AggregationContainsPropertyEqual) {
     "use strict";
 
     const nomeDaView = "DetalhePersonagem";
@@ -48,6 +49,29 @@ sap.ui.define([
                         viewName: nomeDaView,
                         actions: new Press(),
                         errorMessage: "Não foi possível encontrar o botão Novo."
+                    });
+                },
+                aoClicarEmEditarHabilidade: function () {
+                    return this.waitFor({
+                        id: "listaHabilidade",
+                        controlType: "sap.m.List",
+                        success: function (oList) {
+                            const oItem = oList.getItems()[0]; // Obtém o primeiro item da lista para editar
+                            this.waitFor({
+                                controlType: "sap.m.StandardListItem",
+                                matchers: new sap.ui.test.matchers.Properties({
+                                    title: oItem.getTitle() // Garante que estamos clicando no item correto
+                                }),
+                                actions: new Press({
+                                    idSuffix: "imgDet"
+                                }),
+                                success: function () {
+                                    Opa5.assert.ok(true, "Habilidade editada com sucesso.");
+                                },
+                                errorMessage: "Não foi possível clicar para editar a habilidade."
+                            });
+                        },
+                        errorMessage: "Lista de habilidades não encontrada."
                     });
                 },
                 aoClicarEmSalvarHabilidade: function() {

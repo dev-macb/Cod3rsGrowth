@@ -12,10 +12,14 @@ sap.ui.define([
 	const TAMANHO_MAX_NOME = 50;
 	const TAMANHO_MIN_DESCRICAO = 0;
 	const TAMANHO_MAX_DESCRICAO = 200;
+	const STRING_VAZIA = "";
+	const PROPRIEDADE_ID = "id";
+	const TITULO_CADASTRO = "Cadastrar Habilidade";
+	const ID_MODAL_HABILIDADE = "dialogoCadastroHabilidade";
 	const CHECKBOX_VINCULAR = "checkboxVincularHabilidade";
 	const INPUT_HABILIDADE_NOME = "inputNomeHabilidade";
 	const INPUT_HABILIDADE_DESCRICAO = "inputDescricaoHabilidade";
-	const FRAGMENTO_ADICIONAR_HABILIDADE = "coders-growth.view.ModalFormularioHabilidade";
+	const FRAGMENTO_MODAL_HABILIDADE = "coders-growth.view.ModalFormularioHabilidade";	
 
 	return BaseController.extend("coders-growth.controller.DetalhePersonagem", {
 		formatter: Formatador,
@@ -69,6 +73,22 @@ sap.ui.define([
             return !contemErro;
         },
 
+		_exibirModalHabilidade: async function (titulo, habilidade = { nome: STRING_VAZIA, descricao: STRING_VAZIA }, exibirCheckbox = true) {
+			this.__exibirEspera(async () => {
+				this.__definirModelo(new JSONModel(habilidade), Constantes.MODELO_HABILIDADE);
+				this.modeloHabilidade = this.__obterModelo(Constantes.MODELO_HABILIDADE);
+		
+				this.modalFormularioPersonagem ??= await this.loadFragment({
+					name: FRAGMENTO_MODAL_HABILIDADE,
+					controller: this
+				});
+		
+				this.modalFormularioPersonagem.open();
+				this.__obterElementoPorId(ID_MODAL_HABILIDADE).setTitle(titulo);
+				this.__obterElementoPorId(CHECKBOX_VINCULAR).setVisible(exibirCheckbox).setSelected(false);
+			});
+		},
+
 		aoClicarEmEditarPersonagem: function() {
 			this.__navegarPara(Constantes.ROTA_EDITAR_PERSONAGEM, { idPersonagem: this.idPersonagem });
 		},
@@ -84,18 +104,13 @@ sap.ui.define([
 		},
 
 		aoClicarEmNovaHabilidade: async function() {
-			this.__exibirEspera(async () => {
-				this.__definirModelo(new JSONModel({ nome: "", descricao: "" }), Constantes.MODELO_HABILIDADE);
-				this.modeloHabilidade = this.__obterModelo(Constantes.MODELO_HABILIDADE);
+			this._exibirModalHabilidade(TITULO_CADASTRO);
+		},
 
-				this.modalFormularioPersonagem ??= await this.loadFragment({ 
-					name: FRAGMENTO_ADICIONAR_HABILIDADE, 
-					controller: this
-				});
-
-				this.modalFormularioPersonagem.open();
-				this.__obterElementoPorId(CHECKBOX_VINCULAR).setSelected(false);
-			});
+		aoClicarEmEditarHabilidade: async function (evento) {
+			const idHabilidadeSelecionada = evento.getSource().getBindingContext(Constantes.MODELO_HABILIDADES).getProperty(PROPRIEDADE_ID);
+			const habilidadeSelecionada = evento.getSource().getBindingContext(Constantes.MODELO_HABILIDADES).getObject();
+			this._exibirModalHabilidade(`Editar Habilidade (${idHabilidadeSelecionada})`, habilidadeSelecionada, false);
 		},
 
 		aoClicarEmSalvarNovaHabilidade: function() {
@@ -106,16 +121,19 @@ sap.ui.define([
 				}
 
 				const habilidade = this.modeloHabilidade.getData();
-				const idNovaHabilidade = await HttpService.post(Constantes.URL_HABILIDADE, habilidade);
+				const ehEdicao = Boolean(habilidade.id);
+				const resultado = ehEdicao 
+					? await HttpService.put(Constantes.URL_HABILIDADE, habilidade.id, habilidade)
+					: await HttpService.post(Constantes.URL_HABILIDADE, habilidade);
 
-				if (this.__obterElementoPorId(CHECKBOX_VINCULAR).getSelected()) {
+				if (!ehEdicao && this.__obterElementoPorId(CHECKBOX_VINCULAR).getSelected()) {
 					const personagemAtual = this.modeloPersonagem.getData();
-					personagemAtual.habilidades.push(idNovaHabilidade);
+					personagemAtual.habilidades.push(resultado.id || habilidade.id);
 					await HttpService.put(Constantes.URL_PERSONAGEM, personagemAtual.id, personagemAtual);
 				}
 
 				this.modalFormularioPersonagem.close();
-				this.__exibirMessageToast(`Habilidade ${idNovaHabilidade} criada com êxito!`);
+				this.__exibirMessageToast(`Habilidade ${resultado || habilidade.id} ${ehEdicao ? "editada" : "criada"} com êxito!`);
 				this._carregarDetalhesDoPersonagem();
 			});
 		},
