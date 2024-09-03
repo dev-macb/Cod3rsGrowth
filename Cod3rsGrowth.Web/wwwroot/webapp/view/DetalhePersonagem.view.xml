@@ -53,7 +53,7 @@
 							</Toolbar>
 						</headerToolbar>
 						<items>
-							<StandardListItem title="{habilidades>nome}" description="{habilidades>descricao}" type="Detail" detailPress="aoClicarEmEditarHabilidade" />
+							<StandardListItem title="{habilidades>nome}" description="{habilidades>descricao}" type="Detail" detailPress=".aoClicarEmEditarHabilidade" />
 						</items>
 					</List>
                 </content>

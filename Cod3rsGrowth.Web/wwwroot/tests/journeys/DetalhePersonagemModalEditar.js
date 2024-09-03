@@ -16,7 +16,21 @@
             When.naPaginaDetalhePersonagem.aoClicarEmEditarHabilidade();
 
             // Assert
-            Then.naPaginaDetalhePersonagem.deveHaverUmDialogoAberto(`Editar Personagem (${idHabilidadeAlvo}})`);
+            Then.naPaginaDetalhePersonagem.deveHaverUmDialogoAberto(`Editar Habilidade (${idHabilidadeAlvo})`);
+        });
+
+        opaTest("Verifica se formulário vem preenchido com os dados do personagem", (Given, When, Then) => {
+            // Arrange
+            const idHabilidadeAlvo = 1;
+
+            // Act
+            When.naPaginaDetalhePersonagem.aoInserirNomeHabilidade("Teste de Alteração");
+            When.naPaginaDetalhePersonagem.aoInserirDescricaoHabilidade("Teste de Alteração");
+            When.naPaginaDetalhePersonagem.aoClicarEmSalvarHabilidade();
+
+            // Assert
+            Then.naPaginaDetalhePersonagem.deveExibirMessageToast(`Habilidade ${idHabilidadeAlvo} editada com êxito!`);
+            Then.naPaginaDetalhePersonagem.verificaQuatidadeDaListaDeHabilidades(5);
             Then.iTeardownMyApp();
         });
     });

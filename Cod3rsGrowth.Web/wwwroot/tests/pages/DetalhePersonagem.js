@@ -51,20 +51,16 @@ sap.ui.define([
                         errorMessage: "Não foi possível encontrar o botão Novo."
                     });
                 },
-                aoClicarEmEditarHabilidade: function () {
+                aoClicarEmEditarHabilidade: function (indiceLista = 0) {
                     return this.waitFor({
                         id: "listaHabilidade",
-                        controlType: "sap.m.List",
-                        success: function (oList) {
-                            const oItem = oList.getItems()[0]; // Obtém o primeiro item da lista para editar
+                        viewName: nomeDaView,
+                        success: function (lista) {
+                            const item = lista.getItems()[indiceLista];
                             this.waitFor({
                                 controlType: "sap.m.StandardListItem",
-                                matchers: new sap.ui.test.matchers.Properties({
-                                    title: oItem.getTitle() // Garante que estamos clicando no item correto
-                                }),
-                                actions: new Press({
-                                    idSuffix: "imgDet"
-                                }),
+                                matchers: new Properties({ title: item.getTitle() }),
+                                actions: new Press({ idSuffix: "imgDet" }),
                                 success: function () {
                                     Opa5.assert.ok(true, "Habilidade editada com sucesso.");
                                 },
@@ -216,13 +212,11 @@ sap.ui.define([
                 deveHaverUmDialogoAberto: function(textoTitulo) {
                     return this.waitFor({
                         controlType: "sap.m.Dialog",
-                        matchers: new Properties({
-                            title: textoTitulo
-                        }),
-                        success: function(dialogos) {
+                        matchers: new Properties({ title: textoTitulo }),
+                        success: function (dialogos) {
                             Opa5.assert.strictEqual(dialogos.length, 1, "Um diálogo está aberto com o título correto.");
                         },
-                        errorMessage: "O diálogo esperado com o título 'Adicionar Habilidade' não está aberto."
+                        errorMessage: `O diálogo esperado com o título '${textoTitulo}' não está aberto.`
                     });
                 },
                 deveMostrarMessageBox: function (titulo, mensagem) {
