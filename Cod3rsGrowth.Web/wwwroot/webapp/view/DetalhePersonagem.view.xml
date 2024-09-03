@@ -44,16 +44,16 @@
                             <Text id="txtDataAtualizacao" text="{path: 'personagem>/atualizadoEm', formatter: '.formatter.formatarData'}"/>
                         </f:content>
                     </f:SimpleForm>
-					<List id="listaHabilidade" items="{habilidades>/}" growing="true" growingThreshold="10">
+					<List id="listaHabilidade" items="{habilidades>/}" growing="true" growingThreshold="10" mode="Delete">
 						<headerToolbar>
 							<Toolbar>
-								<Title text="{i18n>detalhesPersonagem.habilidades}" />
+                                <Title text="{i18n>detalhesPersonagem.habilidades}" />
                                 <ToolbarSpacer />	
                                 <Button id="butaoNovaHabilidade" icon="sap-icon://add" text="{i18n>geral.novo}" press=".aoClicarEmNovaHabilidade" />
 							</Toolbar>
 						</headerToolbar>
 						<items>
-							<StandardListItem title="{habilidades>nome}" description="{habilidades>descricao}" />
+							<StandardListItem title="{habilidades>nome}" description="{habilidades>descricao}" type="Detail" detailPress=".aoClicarEmEditarHabilidade" />
 						</items>
 					</List>
                 </content>

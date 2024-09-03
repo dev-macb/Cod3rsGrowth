@@ -3,8 +3,9 @@ sap.ui.define([
     "sap/ui/test/actions/Press",
     "sap/ui/test/matchers/Ancestor",
     "sap/ui/test/matchers/Properties",
-    "sap/ui/test/matchers/PropertyStrictEquals"
-], function (Opa5, Press, Ancestor, Properties, PropertyStrictEquals) {
+    "sap/ui/test/matchers/PropertyStrictEquals",
+    "sap/ui/test/matchers/AggregationContainsPropertyEqual"
+], function (Opa5, Press, Ancestor, Properties, PropertyStrictEquals, AggregationContainsPropertyEqual) {
     "use strict";
 
     const nomeDaView = "DetalhePersonagem";
@@ -48,6 +49,25 @@ sap.ui.define([
                         viewName: nomeDaView,
                         actions: new Press(),
                         errorMessage: "Não foi possível encontrar o botão Novo."
+                    });
+                },
+                aoClicarEmEditarHabilidade: function (indiceLista = 0) {
+                    return this.waitFor({
+                        id: "listaHabilidade",
+                        viewName: nomeDaView,
+                        success: function (lista) {
+                            const item = lista.getItems()[indiceLista];
+                            this.waitFor({
+                                controlType: "sap.m.StandardListItem",
+                                matchers: new Properties({ title: item.getTitle() }),
+                                actions: new Press({ idSuffix: "imgDet" }),
+                                success: function () {
+                                    Opa5.assert.ok(true, "Habilidade editada com sucesso.");
+                                },
+                                errorMessage: "Não foi possível clicar para editar a habilidade."
+                            });
+                        },
+                        errorMessage: "Lista de habilidades não encontrada."
                     });
                 },
                 aoClicarEmSalvarHabilidade: function() {
@@ -192,13 +212,11 @@ sap.ui.define([
                 deveHaverUmDialogoAberto: function(textoTitulo) {
                     return this.waitFor({
                         controlType: "sap.m.Dialog",
-                        matchers: new Properties({
-                            title: textoTitulo
-                        }),
-                        success: function(dialogos) {
+                        matchers: new Properties({ title: textoTitulo }),
+                        success: function (dialogos) {
                             Opa5.assert.strictEqual(dialogos.length, 1, "Um diálogo está aberto com o título correto.");
                         },
-                        errorMessage: "O diálogo esperado com o título 'Adicionar Habilidade' não está aberto."
+                        errorMessage: `O diálogo esperado com o título '${textoTitulo}' não está aberto.`
                     });
                 },
                 deveMostrarMessageBox: function (titulo, mensagem) {
