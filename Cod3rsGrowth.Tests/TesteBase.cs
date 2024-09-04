@@ -1,5 +1,6 @@
 using Cod3rsGrowth.Infra;
 using Cod3rsGrowth.Service;
+using Cod3rsGrowth.Tests.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Cod3rsGrowth.Tests
@@ -11,9 +12,11 @@ namespace Cod3rsGrowth.Tests
         protected TesteBase()
         {
             var colecaoServicos = new ServiceCollection();
-            
 
             StartupService.Registrar(colecaoServicos);
+            StartupInfra.Registrar(colecaoServicos, "Data Source=DESKTOP-JN18SOC\\SQLEXPRESS; Initial Catalog=Cod3rsGrowth; User ID=sa; Password=sap@123; TrustServerCertificate=True; Encrypt=False");
+            colecaoServicos.AddScoped<HabilidadeRepositorioMock>();
+            colecaoServicos.AddScoped<PersonagemRepositorioMock>();
 
             _serviceProvider = colecaoServicos.BuildServiceProvider();
         }

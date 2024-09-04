@@ -27,6 +27,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Cod3rsGrowth.Infra\Cod3rsGrowth.Infra.csproj" />
+    <ProjectReference Include="..\Cod3rsGrowth.Services\Cod3rsGrowth.Services.csproj" />
   </ItemGroup>
 
 </Project>

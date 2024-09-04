@@ -19,8 +19,7 @@ namespace Cod3rsGrowth.Tests.Tests.Habilidades
         public void ObterTodosHabilidadeRetornaLista()
         {
             // Act
-            RepositorioMock.ResetarInstancia();
-            var habilidades = _habilidadeRepositorioMock.ObterTodos;
+            var habilidades = _habilidadeRepositorioMock.ObterTodos("");
 
             // Assert
             Assert.IsType<List<Habilidade>>(habilidades);

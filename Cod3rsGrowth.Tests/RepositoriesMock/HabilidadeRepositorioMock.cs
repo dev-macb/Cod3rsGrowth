@@ -1,5 +1,8 @@
 ﻿using Cod3rsGrowth.Domain.Entities;
 using Cod3rsGrowth.Tests.RepositoriesMock;
+using FluentValidation;
+using FluentValidation.Results;
+using Cod3rsGrowth.Service.Validators;
 
 namespace Cod3rsGrowth.Tests.Repositories
 {
@@ -19,6 +22,7 @@ namespace Cod3rsGrowth.Tests.Repositories
 
         public int Adicionar(Habilidade habilidade)
         {
+            // TODO: Adicionar serviço de validação
             habilidade.Id = _habilidades.Any() ? _habilidades.Max(habilidade => habilidade.Id) + 1 : 1;
             _habilidades.Add(habilidade);
             return habilidade.Id;

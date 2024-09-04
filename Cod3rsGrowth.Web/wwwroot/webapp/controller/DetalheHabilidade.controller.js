@@ -39,7 +39,7 @@ sap.ui.define([
 			this.__exibirEspera(async () => {
 				this.__exibirMensagemDeConfirmacao(async () => {
 					await HttpService.delete(Constantes.URL_HABILIDADE, this.idHabilidade);
-					this.__exibirMessageToast(`Habilidade ${this.idHabilidade} foi excluída!`);
+					this.__exibirMessageToast(Constantes.MSG_HABILIDADE_EXCLUIDA);
 					this.__navegarPara(Constantes.ROTA_HABILIDADES);
 				});
 			});

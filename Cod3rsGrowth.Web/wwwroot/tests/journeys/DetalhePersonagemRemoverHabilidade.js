@@ -20,7 +20,7 @@ sap.ui.define([
         Then.noFormularioPersonagem.deveMostrarMessageBox("Advertência", "Tem certeza que deseja remover essa habilidade do personagem?");
         When.noFormularioPersonagem.aoFecharMessageBox("OK");
 
-        Then.naPaginaDetalhePersonagem.deveExibirMessageToast(`Habilidade ${idHabilidadeAlvo} foi excluída com êxito!`);
+        Then.naPaginaDetalhePersonagem.deveExibirMessageToast("Habilidade foi excluída com êxito!");
         Then.naPaginaDetalhePersonagem.verificaQuatidadeDaListaDeHabilidades(4);
         Then.iTeardownMyApp();
     });

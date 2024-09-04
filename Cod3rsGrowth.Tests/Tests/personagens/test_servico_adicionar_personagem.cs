@@ -280,6 +280,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
                 Velocidade = velocidadeNegativa,
                 Forca = (CategoriasEnum)forcaInvalida,
                 Inteligencia = (CategoriasEnum)inteligenciaInvalida,
+                EVilao = false
             };
             string mensagemEsperada = "O nome deve ter no mínimo 3 caracteres e no máximo 50. " +
                 "A vida deve estar entre 0 e 100. " +

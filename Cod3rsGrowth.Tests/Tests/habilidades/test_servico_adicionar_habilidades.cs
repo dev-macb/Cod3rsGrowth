@@ -1,3 +1,4 @@
+using System.ComponentModel.DataAnnotations;
 using Cod3rsGrowth.Domain.Entities;
 using Cod3rsGrowth.Tests.Repositories;
 using Cod3rsGrowth.Tests.RepositoriesMock;
@@ -48,7 +49,7 @@ namespace Cod3rsGrowth.Tests.Tests.Habilidades
             };
 
             // Act - Assert
-            var excecao = Assert.Throws<Exception>(() => _habilidadeRepositorioMock.Adicionar(habilidadeInvalida));
+            var excecao = Assert.Throws<ValidationException>(() => _habilidadeRepositorioMock.Adicionar(habilidadeInvalida));
             Assert.Equal("O nome deve ter no mínimo 3 caracteres e no máximo 50.", excecao.Message);
         }
 
@@ -64,7 +65,7 @@ namespace Cod3rsGrowth.Tests.Tests.Habilidades
             };
 
             // Act - Assert
-            var excecao = Assert.Throws<Exception>(() => _habilidadeRepositorioMock.Adicionar(habilidadeInvalida));
+            var excecao = Assert.Throws<ValidationException>(() => _habilidadeRepositorioMock.Adicionar(habilidadeInvalida));
             Assert.Equal("O nome deve ter no mínimo 3 caracteres e no máximo 50.", excecao.Message);
         }
 
@@ -84,7 +85,7 @@ namespace Cod3rsGrowth.Tests.Tests.Habilidades
 
 
             // Act - Assert
-            var excecao = Assert.Throws<Exception>(() => _habilidadeRepositorioMock.Adicionar(habilidadeInvalida));
+            var excecao = Assert.Throws<ValidationException>(() => _habilidadeRepositorioMock.Adicionar(habilidadeInvalida));
             Assert.Equal("A descrição deve ter no mínimo 0 caracteres e no máximo 200.", excecao.Message);
         }
     }
