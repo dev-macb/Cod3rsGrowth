@@ -1,46 +1,47 @@
 ﻿using Cod3rsGrowth.Domain.Entities;
-using Cod3rsGrowth.Tests.RepositoriesMock;
-using FluentValidation;
-using FluentValidation.Results;
-using Cod3rsGrowth.Service.Validators;
+using Cod3rsGrowth.Domain.Interfaces;
 
-namespace Cod3rsGrowth.Tests.Repositories
+namespace Cod3rsGrowth.Tests.RepositoriesMock
 {
-    public class HabilidadeRepositorioMock
+    public class HabilidadeRepositorioMock : IRepositorio<Habilidade>
     {
         private readonly List<Habilidade> _habilidades = RepositorioMock.ObterInstancia.Habilidades;
 
-        public IEnumerable<Habilidade> ObterTodos(string filtro)
+        public Task<IEnumerable<Habilidade>> ObterTodos(Filtro? filtro)
         {
-            return _habilidades;
+            return Task.FromResult((IEnumerable<Habilidade>)_habilidades);
         }
 
-        public Habilidade ObterPorId(int id)
+        public Task<Habilidade> ObterPorId(int id)
         {
-            return _habilidades.Find(habilidade => habilidade.Id == id) ?? throw new Exception("Habilidade não encontrada.");
+            var habilidade = _habilidades.Find(h => h.Id == id);
+            return Task.FromResult(habilidade ?? throw new Exception("Habilidade não encontrada."));
         }
 
-        public int Adicionar(Habilidade habilidade)
+        public Task<int> Adicionar(Habilidade habilidade)
         {
-            // TODO: Adicionar serviço de validação
             habilidade.Id = _habilidades.Any() ? _habilidades.Max(habilidade => habilidade.Id) + 1 : 1;
             _habilidades.Add(habilidade);
-            return habilidade.Id;
+            return Task.FromResult(habilidade.Id);
         }
 
-        public void Atualizar(int id, Habilidade habilidadeAtualizada)
+        public Task Atualizar(int id, Habilidade habilidadeAtualizada)
         {
-            var habilidadeExistente = _habilidades.Find(habilidade => habilidade.Id == id) ?? throw new Exception("Habilidade não encontrada.");
+             var habilidadeExistente = _habilidades.Find(h => h.Id == id) ?? throw new Exception("Personagem não encontrado.");
+            
             habilidadeExistente.Nome = habilidadeAtualizada.Nome;
             habilidadeExistente.Descricao = habilidadeAtualizada.Descricao;
             habilidadeExistente.AtualizadoEm = DateTime.Now;
+
+            return Task.CompletedTask;
         }
 
-        public void Deletar(int id)
+        public Task Deletar(int id)
         {
             var habilidadeExistente = _habilidades.Find(habilidade => habilidade.Id == id) ?? throw new Exception("Habilidade não encontrada.");
 
             _habilidades.Remove(habilidadeExistente);
+            return Task.CompletedTask;
         }
     }
 }

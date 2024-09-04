@@ -4,7 +4,7 @@ namespace Cod3rsGrowth.Tests.RepositoriesMock
 {
     public sealed class RepositorioMock
     {
-        private static RepositorioMock? _instance;
+        private static RepositorioMock? _instancia;
         public List<Personagem> Personagens { get; set; }
         public List<Habilidade> Habilidades { get; set; }
 
@@ -16,12 +16,12 @@ namespace Cod3rsGrowth.Tests.RepositoriesMock
 
         public static RepositorioMock ObterInstancia
         {
-            get { return _instance ??= new RepositorioMock(); }
+            get { return _instancia ??= new RepositorioMock(); }
         }
 
         public static void ResetarInstancia()
         {
-            _instance = null;
+            _instancia = null;
         }
     }
 }

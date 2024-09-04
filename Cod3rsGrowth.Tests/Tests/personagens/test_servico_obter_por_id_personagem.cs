@@ -1,20 +1,19 @@
 using Cod3rsGrowth.Domain.Enums;
 using Cod3rsGrowth.Domain.Entities;
-using Cod3rsGrowth.Tests.Repositories;
-using Microsoft.Extensions.DependencyInjection;
 using Cod3rsGrowth.Service.Services;
 using Cod3rsGrowth.Tests.RepositoriesMock;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Cod3rsGrowth.Tests.Tests.Personagens
 {
     public class TesteServicoObterPorIdPersonagem : TesteBase
     {
-        private readonly PersonagemRepositorioMock _personagemRepositorioMock;
+        private readonly PersonagemServico _personagemServico;
         private readonly List<Personagem> _personagens = RepositorioMock.ObterInstancia.Personagens;
 
         public TesteServicoObterPorIdPersonagem() : base()
         {
-            _personagemRepositorioMock = _serviceProvider.GetRequiredService<PersonagemRepositorioMock>();
+            _personagemServico = _serviceProvider.GetRequiredService<PersonagemServico>();
             RepositorioMock.ResetarInstancia();
         }
 
@@ -45,7 +44,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
         }
 
         [Fact]
-        public void DeveLancarExcecaoAoObterPorIdComIdInvalido()
+        public async void DeveLancarExcecaoAoObterPorIdComIdInvalido()
         {
             // Arrange
             int idTeste = 15, idInvalido = 99999;
@@ -64,7 +63,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
             _personagens.Add(novoPersonagem);
 
             // Act - Assert
-            var resultado = Assert.Throws<Exception>(() => _personagemRepositorioMock.ObterPorId(idInvalido));
+            var resultado = await Assert.ThrowsAsync<Exception>(() => _personagemServico.ObterPorId(idInvalido));
             Assert.Equal("Personagem não encontrado.", resultado.Message);
         }
     }

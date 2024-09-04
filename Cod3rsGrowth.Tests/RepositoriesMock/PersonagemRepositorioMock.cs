@@ -1,30 +1,31 @@
 ﻿using Cod3rsGrowth.Domain.Entities;
-using Cod3rsGrowth.Tests.RepositoriesMock;
+using Cod3rsGrowth.Domain.Interfaces;
 
-namespace Cod3rsGrowth.Tests.Repositories
+namespace Cod3rsGrowth.Tests.RepositoriesMock
 {
-    public class PersonagemRepositorioMock
+    public class PersonagemRepositorioMock  : IRepositorio<Personagem>
     {
         private readonly List<Personagem> _personagens = RepositorioMock.ObterInstancia.Personagens;
 
-        public IEnumerable<Personagem> ObterTodos(string filtro)
+        public Task<IEnumerable<Personagem>> ObterTodos(Filtro? filtro)
         {
-            return _personagens;
+            return Task.FromResult((IEnumerable<Personagem>)_personagens);
         }
 
-        public Personagem ObterPorId(int id)
+        public Task<Personagem> ObterPorId(int id)
         {
-            return _personagens.Find(personagem => personagem.Id == id) ?? throw new Exception("Personagem não encontrado.");
+            var personagem = _personagens.Find(p => p.Id == id);
+            return Task.FromResult(personagem ?? throw new Exception("Personagem não encontrado."));
         }
 
-        public int Adicionar(Personagem personagem)
+        public Task<int> Adicionar(Personagem personagem)
         {
-            personagem.Id = _personagens.Any() ? _personagens.Max(personagem => personagem.Id) + 1 : 1;
+            personagem.Id = _personagens.Any() ? _personagens.Max(p => p.Id) + 1 : 1;
             _personagens.Add(personagem);
-            return personagem.Id ?? throw new Exception("Erro oa gerar id do personagem.");
+            return Task.FromResult(personagem.Id ?? throw new Exception("Erro oa gerar id do personagem."));
         }
 
-        public void Atualizar(int id, Personagem personagemAtualizado)
+        public Task Atualizar(int id, Personagem personagemAtualizado)
         {
             var personagemExistente = _personagens.Find(personagem => personagem.Id == id) ?? throw new Exception("Personagem não encontrado.");
             personagemExistente.Nome = personagemAtualizado.Nome;
@@ -36,13 +37,15 @@ namespace Cod3rsGrowth.Tests.Repositories
             personagemExistente.Habilidades = personagemAtualizado.Habilidades;
             personagemExistente.EVilao = personagemAtualizado.EVilao;
             personagemExistente.AtualizadoEm = DateTime.Now;
+            return Task.CompletedTask;
         }
 
-        public void Deletar(int id)
+        public Task Deletar(int id)
         {
             var personagemExistente = _personagens.Find(personagem => personagem.Id == id) ?? throw new Exception("Personagem não encontrado.");
 
             _personagens.Remove(personagemExistente);
+            return Task.CompletedTask;
         }
     }
 }
