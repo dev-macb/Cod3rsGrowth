@@ -44,6 +44,7 @@ sap.ui.define([], function() {
 
         MSG_AVISO_DE_VALIDACAO: "Por favor, corrija o(s) erro(s) no formulário antes de salvar.",
         MSG_AVISO_DE_EXCLUSAO: "Tem certeza que deseja excluir o registro?",
+        MSG_AVISO_DE_DESASSOCIACAO: "Tem certeza que deseja remover essa habilidade do personagem?",
 
         IMG_LUVA_AZUL: "images/luva_azul.png",
 	    IMG_LUVA_VERMELHA: "images/luva_vermelha.png",

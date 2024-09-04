@@ -44,7 +44,7 @@
                             <Text id="txtDataAtualizacao" text="{path: 'personagem>/atualizadoEm', formatter: '.formatter.formatarData'}"/>
                         </f:content>
                     </f:SimpleForm>
-					<List id="listaHabilidade" items="{habilidades>/}" growing="true" growingThreshold="10" mode="Delete">
+					<List id="listaHabilidade" items="{ path: 'habilidades>/' }" growing="true" growingThreshold="10" mode="Delete" delete="aoClicarEmExcluirHabilidade">
 						<headerToolbar>
 							<Toolbar>
                                 <Title text="{i18n>detalhesPersonagem.habilidades}" />
