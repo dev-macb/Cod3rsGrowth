@@ -51,7 +51,7 @@ sap.ui.define([
 
         salvarHabilidade: async function () {
             if (!this._validarInputs()) {
-                this.__exibirMessageBox(Constantes.MSG_AVISO_DE_VALIDACAO, "aviso");
+                this.__exibirMessageBox(Constantes.I18N_AVISO_DE_VALIDACAO, "aviso");
                 return;
             }
 
@@ -59,7 +59,7 @@ sap.ui.define([
 
             this.__exibirEspera(async () => {
                 const idHabilidade = await HttpService.post(Constantes.URL_HABILIDADE, habilidade);
-                this.__exibirMessageToast(Constantes.MSG_HABILIDADE_CRIADA);
+                this.__exibirMessageToast(Constantes.I18N_HABILIDADE_CRIADA);
                 return this.__navegarPara(Constantes.ROTA_HABILIDADE, { idHabilidade });
             }); 
         }

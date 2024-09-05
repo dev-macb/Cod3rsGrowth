@@ -37,11 +37,11 @@ sap.ui.define([
 
 		aoClicarEmExcluirHabilidade: function () {
 			this.__exibirEspera(async () => {
-				this.__exibirMensagemDeConfirmacao(async () => {
+				this.__exibirMessageBox(async () => {
 					await HttpService.delete(Constantes.URL_HABILIDADE, this.idHabilidade);
-					this.__exibirMessageToast(Constantes.MSG_HABILIDADE_EXCLUIDA);
+					this.__exibirMessageToast(Constantes.I18N_HABILIDADE_EXCLUIDA);
 					this.__navegarPara(Constantes.ROTA_HABILIDADES);
-				});
+				}, "aviso", Constantes.I18N_AVISO_DE_EXCLUSAO);
 			});
 		}
 	});

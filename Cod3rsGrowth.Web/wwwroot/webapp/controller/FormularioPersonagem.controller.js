@@ -63,7 +63,7 @@ sap.ui.define([
         salvarPersonagem: async function() {
             this.__exibirEspera(async () => {
                 if (!this._validarInputs()) {
-                    this.__exibirMessageBox(Constantes.MSG_AVISO_DE_VALIDACAO, "aviso");
+                    this.__exibirMessageBox(Constantes.I18N_AVISO_DE_VALIDACAO, "aviso");
                     return;
                 }
 
@@ -78,12 +78,12 @@ sap.ui.define([
 
                 if (acao === ACAO_ADICIONAR) {
                     const resultado = await HttpService.post(Constantes.URL_PERSONAGEM, personagem);
-                    this.__exibirMessageToast(Constantes.MSG_PERSONAGEM_CRIADO);
+                    this.__exibirMessageToast(Constantes.I18N_PERSONAGEM_CRIADO);
                     return this.__navegarPara(Constantes.ROTA_PERSONAGEM, { idPersonagem: resultado });
                 }
 
                 await HttpService.put(Constantes.URL_PERSONAGEM, idPersonagem, personagem);
-                this.__exibirMessageToast(Constantes.MSG_PERSONAGEM_EDITADO);
+                this.__exibirMessageToast(Constantes.I18N_PERSONAGEM_EDITADO);
                 this.__navegarPara(Constantes.ROTA_PERSONAGEM, { idPersonagem });
 			});
         },
@@ -140,62 +140,31 @@ sap.ui.define([
             let contemErro = false;
             const modeloPersonagem = this.__obterModelo(Constantes.MODELO_PERSONAGEM).getData();
 
-            if (!this._validarCampoTexto(ID_INPUT_NOME, this.__obterElementoPorId(ID_INPUT_NOME).getProperty("value"), NOME_TAMANHO_MIN, NOME_TAMANHO_MAX)) {
+            if (!this.__validarCampoTexto(ID_INPUT_NOME, NOME_TAMANHO_MIN, NOME_TAMANHO_MAX)) {
                 contemErro = true;
             } 
 
-            if (!this._validarCampoNumerico(ID_INPUT_VIDA, this.__obterElementoPorId(ID_INPUT_VIDA).getProperty("value"), VIDA_VALOR_MIN, VIDA_VALOR_MAX)) {
+            if (!this.__validarCampoNumerico(ID_INPUT_VIDA, VIDA_VALOR_MIN, VIDA_VALOR_MAX)) {
                 contemErro = true;
             }
 
-            if (!this._validarCampoNumerico(ID_INPUT_ENERGIA, this.__obterElementoPorId(ID_INPUT_ENERGIA).getProperty("value"), ENERGIA_VALOR_MIN, ENERGIA_VALOR_MAX)) {
+            if (!this.__validarCampoNumerico(ID_INPUT_ENERGIA, ENERGIA_VALOR_MIN, ENERGIA_VALOR_MAX)) {
                 contemErro = true;
             }
 
-            if (!this._validarCampoNumerico(ID_INPUT_VELOCIDADE, this.__obterElementoPorId(ID_INPUT_VELOCIDADE).getProperty("value"), VELOCIDADE_VALOR_MIN, VELOCIDADE_VALOR_MAX)) {
+            if (!this.__validarCampoNumerico(ID_INPUT_VELOCIDADE, VELOCIDADE_VALOR_MIN, VELOCIDADE_VALOR_MAX)) {
                 contemErro = true;
             }
 
-            if (!this._validarCampoSelecao(ID_COMBO_FORCA, modeloPersonagem.forca)) {
+            if (!this.__validarCampoSelecao(ID_COMBO_FORCA)) {
                 contemErro = true;
             }
 
-            if (!this._validarCampoSelecao(ID_COMBO_INTELIGENCIA, modeloPersonagem.inteligencia)) {
+            if (!this.__validarCampoSelecao(ID_COMBO_INTELIGENCIA)) {
                 contemErro = true;
             }
 
             return !contemErro;
-        },
-
-        _validarCampoTexto: function(id, valor, minLen, maxLen) {
-            const campo = this.__obterElementoPorId(id);
-            if (!valor || valor.length < minLen || valor.length > maxLen) {
-                campo.setValueState(ValueState.Error);
-                return false; 
-            }
-            campo.setValueState(ValueState.None);
-            return true;
-        },
-
-        _validarCampoNumerico: function(id, valor = null, min, max) {
-            const campo = this.__obterElementoPorId(id);
-            const valorNumerico = parseFloat(valor, BASE_10);
-            if (isNaN(valorNumerico) || valorNumerico < min || valorNumerico > max) {
-                campo.setValueState(ValueState.Error);
-                return false;
-            }
-            campo.setValueState(ValueState.None);
-            return true;
-        },
-
-        _validarCampoSelecao: function(id, valor) {
-            const campo = this.__obterElementoPorId(id);
-            if (!valor) {
-                campo.setValueState(ValueState.Error);
-                return false;
-            }
-            campo.setValueState(ValueState.None);
-            return true;
-        }
+        }    
     });
 });

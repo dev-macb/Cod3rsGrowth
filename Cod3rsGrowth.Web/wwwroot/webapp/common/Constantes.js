@@ -6,15 +6,15 @@ sap.ui.define([], function() {
         URL_HABILIDADE: "https://localhost:5051/api/Habilidade",
 
         ROTA_HOME: "home",
-        ROTA_PERSONAGENS: "personagens",
-        ROTA_PERSONAGEM: "personagem",
-        ROTA_HABILIDADES: "habilidades",
-        ROTA_ADICIONAR_PERSONAGEM: "adicionarPersonagem",
-        ROTA_EDITAR_PERSONAGEM: "editarPersonagem",
-        ROTA_ADICIONAR_HABILIDADE: "adicionarHabilidade",
-        ROTA_EDITAR_HABILIDADE: "editarHabilidade",
         ROTA_NOT_FOUND: "notFound",
+        ROTA_PERSONAGENS: "personagens",
+        ROTA_HABILIDADES: "habilidades",
+        ROTA_PERSONAGEM: "personagem",
         ROTA_HABILIDADE: "habilidade",
+        ROTA_ADICIONAR_PERSONAGEM: "adicionarPersonagem",
+        ROTA_ADICIONAR_HABILIDADE: "adicionarHabilidade",
+        ROTA_EDITAR_PERSONAGEM: "editarPersonagem",
+        ROTA_EDITAR_HABILIDADE: "editarHabilidade",
 
         MODELO_PERSONAGEM: "personagem",
         MODELO_LISTA_PERSONAGENS: "personagens",
@@ -42,19 +42,20 @@ sap.ui.define([], function() {
         ID_CALENDARIO: "calendario",
         ID_TEXT_PROPOSITO: "txtEVilao",
 
-        MSG_AVISO_DE_VALIDACAO: "Por favor, corrija o(s) erro(s) no formulário antes de salvar.",
-        MSG_AVISO_DE_EXCLUSAO: "Tem certeza que deseja excluir o registro?",
-        MSG_AVISO_DE_DESASSOCIACAO: "Tem certeza que deseja remover essa habilidade do personagem?",
-        MSG_PERSONAGEM_CRIADO: "Personagem criado com êxito!",
-        MSG_PERSONAGEM_EDITADO: "Personagem editado com êxito!",
-        MSG_PERSONAGEM_EXCLUIDO: "Personagem excluído com êxito!",
-        MSG_HABILIDADE_CRIADA: "Habilidade criada com êxito!",
-        MSG_HABILIDADE_EDITADA: "Habilidade editada com êxito!",
-        MSG_HABILIDADE_EXCLUIDA: "Habilidade excluída com êxito!",
+        I18N_AVISO_DE_VALIDACAO: "geral.msg.avisoValidacao",
+        I18N_AVISO_DE_EXCLUSAO: "geral.msg.avisoExclusao",
+        I18N_AVISO_DE_DESASSOCIACAO: "geral.msg.avisoDesassociacao",
+        I18N_PERSONAGEM_CRIADO: "geral.msg.personagemCriado",
+        I18N_PERSONAGEM_EDITADO: "geral.msg.personagemEditado",
+        I18N_PERSONAGEM_EXCLUIDO: "geral.msg.personagemExcluido",
+        I18N_HABILIDADE_CRIADA: "geral.msg.habilidadeCriada",
+        I18N_HABILIDADE_EDITADA: "geral.msg.habilidadeEditada",
+        I18N_HABILIDADE_EXCLUIDA: "geral.msg.habilidadeExcluida",
 
         IMG_LUVA_AZUL: "images/luva_azul.png",
 	    IMG_LUVA_VERMELHA: "images/luva_vermelha.png",
 
+        BASE_10: 10,
         TEMPO_5_MILISEGUNDOS: 5000
     };
 

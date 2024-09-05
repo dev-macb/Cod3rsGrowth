@@ -39,6 +39,11 @@ sap.ui.define([
             return this.byId(id);
         },
 
+        __obterTextoI18N: function (chave) {
+            const pacote = this.getView().getModel("i18n").getResourceBundle();
+            return pacote.getText(chave);
+        },
+
         __exibirEspera: async function (funcao, idElemento) {
             if (idElemento) this.__obterElementoPorId(idElemento).setBusy(true); 
             else BusyIndicator.show(0); 
@@ -78,7 +83,9 @@ sap.ui.define([
             );
 		},
 
-        __exibirMensagemDeConfirmacao: async function (acao, mensagem = Constantes.MSG_AVISO_DE_EXCLUSAO) {
+        __exibirMensagemDeConfirmacao: async function (acao, chaveI18N) {
+            const mensagem = this.__obterTextoI18N(chaveI18N);
+            
             MessageBox.warning(mensagem, { 
 				actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL], 
 				emphasizedAction: MessageBox.Action.OK,
@@ -91,13 +98,23 @@ sap.ui.define([
         },
 
 
-        __exibirMessageBox: function (mensagem, tipo) {
+        __exibirMessageBox: function (acao, tipo, chaveI18N) {
+            const mensagem = this.__obterTextoI18N(chaveI18N);
+
             switch (tipo) {
                 case "info":
                     MessageBox.information(mensagem);
                     break;
                 case "aviso":
-                    MessageBox.warning(mensagem);
+                    MessageBox.warning(mensagem, { 
+                        actions: [MessageBox.Action.OK, MessageBox.Action.CANCEL], 
+                        emphasizedAction: MessageBox.Action.OK,
+                        onClose: async (evento) => {
+                            if (evento === Constantes.ACAO_OK) {
+                                await acao();
+                            }
+                        }
+                    });
                     break;
                 case "sucesso":
                     MessageBox.success(mensagem);
@@ -115,7 +132,8 @@ sap.ui.define([
             }
         },        
 
-        __exibirMessageToast: function (mensagem) {
+        __exibirMessageToast: function (chaveI18N) {
+            const mensagem = this.__obterTextoI18N(chaveI18N);
             MessageToast.show(mensagem, { 
                 duration: Constantes.TEMPO_5_MILISEGUNDOS, 
                 closeOnBrowserNavigation: false 
@@ -129,6 +147,32 @@ sap.ui.define([
             if (!valor || valor.length < tamanhoMin || valor.length > tamanhoMax) {
                 campo.setValueState(ValueState.Error);
                 return false; 
+            }
+
+            campo.setValueState(ValueState.None);
+            return true;
+        },
+
+        __validarCampoSelecao: function(id) {
+            const campo = this.__obterElementoPorId(id);
+            const valor = campo.getValue();
+
+            if (!valor) {
+                campo.setValueState(ValueState.Error);
+                return false;
+            }
+
+            campo.setValueState(ValueState.None);
+            return true;
+        },
+
+        __validarCampoNumerico: function(id, min, max) {
+            const campo = this.__obterElementoPorId(id);
+            const valorNumerico = parseFloat(campo.getValue(), Constantes.BASE_10);
+
+            if (isNaN(valorNumerico) || valorNumerico < min || valorNumerico > max) {
+                campo.setValueState(ValueState.Error);
+                return false;
             }
 
             campo.setValueState(ValueState.None);
