@@ -27,7 +27,7 @@ namespace Cod3rsGrowth.Tests.RepositoriesMock
 
         public Task Atualizar(int id, Habilidade habilidadeAtualizada)
         {
-             var habilidadeExistente = _habilidades.Find(h => h.Id == id) ?? throw new Exception("Personagem não encontrado.");
+            var habilidadeExistente = _habilidades.FirstOrDefault(h => h.Id == id) ?? throw new Exception("Habilidade não encontrada.");
             
             habilidadeExistente.Nome = habilidadeAtualizada.Nome;
             habilidadeExistente.Descricao = habilidadeAtualizada.Descricao;

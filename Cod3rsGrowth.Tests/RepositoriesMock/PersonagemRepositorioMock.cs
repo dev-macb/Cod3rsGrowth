@@ -27,7 +27,8 @@ namespace Cod3rsGrowth.Tests.RepositoriesMock
 
         public Task Atualizar(int id, Personagem personagemAtualizado)
         {
-            var personagemExistente = _personagens.Find(personagem => personagem.Id == id) ?? throw new Exception("Personagem não encontrado.");
+            var personagemExistente = _personagens.Find(p => p.Id == id) ?? throw new Exception("Personagem não encontrado.");
+
             personagemExistente.Nome = personagemAtualizado.Nome;
             personagemExistente.Vida = personagemAtualizado.Vida;
             personagemExistente.Energia = personagemAtualizado.Energia;
@@ -37,6 +38,7 @@ namespace Cod3rsGrowth.Tests.RepositoriesMock
             personagemExistente.Habilidades = personagemAtualizado.Habilidades;
             personagemExistente.EVilao = personagemAtualizado.EVilao;
             personagemExistente.AtualizadoEm = DateTime.Now;
+
             return Task.CompletedTask;
         }
 

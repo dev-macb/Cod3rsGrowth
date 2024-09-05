@@ -40,8 +40,8 @@ namespace Cod3rsGrowth.Tests.Tests.Habilidades
         public async void DeveLancarExcecaoAoAtualizarComIdInvalido()
         {
             // Arrange
-            RepositorioMock.ResetarInstancia();
-            int idTeste = 2, idInvalido = 9999;
+       
+            int idTeste = 1, idInvalido = 9999;
             _habilidades.Add(new Habilidade { Id = idTeste, Nome = "Teste", Descricao = "Uma descrição qualquer." });
             var novaHabilidade = _habilidades.Find(h => h.Id == idTeste);
             Assert.NotNull(novaHabilidade);

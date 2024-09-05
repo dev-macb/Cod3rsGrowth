@@ -31,7 +31,7 @@ sap.ui.define([
 
         // Assert
         Then.naPaginaDetalhePersonagem.deveExibirMessageToast("Habilidade editada com êxito!");
-        Then.naPaginaDetalhePersonagem.verificaQuatidadeDaListaDeHabilidades(5);
+        Then.naPaginaDetalhePersonagem.verificaQuatidadeDaListaDeHabilidades(6);
         Then.iTeardownMyApp();
     });
 });

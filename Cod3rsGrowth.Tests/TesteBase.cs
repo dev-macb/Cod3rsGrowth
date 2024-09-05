@@ -13,10 +13,11 @@ namespace Cod3rsGrowth.Tests
 
         protected TesteBase()
         {
+            var stringDeConexao = "Data Source=DESKTOP-JN18SOC\\SQLEXPRESS; Initial Catalog=Cod3rsGrowth; User ID=sa; Password=sap@123; TrustServerCertificate=True; Encrypt=False";
             var colecaoServicos = new ServiceCollection();
 
+            StartupInfra.Registrar(colecaoServicos, stringDeConexao);
             StartupService.Registrar(colecaoServicos);
-            colecaoServicos.AddScoped<ContextoConexao>();            
             colecaoServicos.AddScoped<IRepositorio<Personagem>, PersonagemRepositorioMock>();            
             colecaoServicos.AddScoped<IRepositorio<Habilidade>, HabilidadeRepositorioMock>();
 

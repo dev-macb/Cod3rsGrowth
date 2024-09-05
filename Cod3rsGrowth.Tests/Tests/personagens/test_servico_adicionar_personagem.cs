@@ -283,17 +283,16 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
                 Inteligencia = (CategoriasEnum)inteligenciaInvalida,
                 EVilao = false
             };
-            string mensagemEsperada = "O nome deve ter no mínimo 3 caracteres e no máximo 50. " +
-                "A vida deve estar entre 0 e 100. " +
-                "A energia deve estar entre 0 e 50. " +
-                "A velocidade deve estar entre 0 e 2. " +
-                "A força deve ser um valor válido de CategoriasEnum. " +
-                "A inteligência deve ser um valor válido de CategoriasEnum.";
-
 
             // Act - Assert
             var excecao = await Assert.ThrowsAsync<ValidationException>(() => _personagemServico.Adicionar(personagemInvalido));
-            Assert.Contains(mensagemEsperada, excecao.Message);
+            Assert.Contains("O nome deve ter no mínimo 3 caracteres e no máximo 50.", excecao.Message);
+            Assert.Contains("A vida deve estar entre 0 e 100.", excecao.Message);
+            Assert.Contains("A energia deve estar entre 0 e 50.", excecao.Message);
+            Assert.Contains("A velocidade deve estar entre 0 e 2.", excecao.Message);
+            Assert.Contains("A força deve ser um valor válido de CategoriasEnum.", excecao.Message);
+            Assert.Contains("A inteligência deve ser um valor válido de CategoriasEnum.", excecao.Message);
+
         }
     }
 }

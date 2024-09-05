@@ -16,7 +16,7 @@ sap.ui.define([
         When.naPaginaListaHabilidade.aoClicarEmCarregarMaisDadosDaLista();
 
         // Assert
-        Then.naPaginaListaHabilidade.verificaSeMaisDadosForamCarregados(13);
+        Then.naPaginaListaHabilidade.verificaSeMaisDadosForamCarregados(16);
     });
 
     opaTest("Deve exibir um item na listagem ao filtrar pelo nome 'Defesa'", (Given, When, Then) => {

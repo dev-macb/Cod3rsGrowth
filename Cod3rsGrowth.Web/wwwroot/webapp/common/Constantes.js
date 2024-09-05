@@ -45,15 +45,12 @@ sap.ui.define([], function() {
         MSG_AVISO_DE_VALIDACAO: "Por favor, corrija o(s) erro(s) no formulário antes de salvar.",
         MSG_AVISO_DE_EXCLUSAO: "Tem certeza que deseja excluir o registro?",
         MSG_AVISO_DE_DESASSOCIACAO: "Tem certeza que deseja remover essa habilidade do personagem?",
-
-
         MSG_PERSONAGEM_CRIADO: "Personagem criado com êxito!",
         MSG_PERSONAGEM_EDITADO: "Personagem editado com êxito!",
         MSG_PERSONAGEM_EXCLUIDO: "Personagem excluído com êxito!",
         MSG_HABILIDADE_CRIADA: "Habilidade criada com êxito!",
         MSG_HABILIDADE_EDITADA: "Habilidade editada com êxito!",
         MSG_HABILIDADE_EXCLUIDA: "Habilidade excluída com êxito!",
-
 
         IMG_LUVA_AZUL: "images/luva_azul.png",
 	    IMG_LUVA_VERMELHA: "images/luva_vermelha.png",
