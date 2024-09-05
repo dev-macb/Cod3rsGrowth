@@ -15,7 +15,7 @@ sap.ui.define([
         When.naPaginaDetalhePersonagem.aoClicarEmNovaHabilidade();
 
         // Assert
-        Then.naPaginaDetalhePersonagem.deveHaverUmDialogoAberto("Adicionar Habilidade");
+        Then.naPaginaDetalhePersonagem.deveHaverUmDialogoAberto("Cadastrar Habilidade");
     });
 
     opaTest("Tenta salvar uma habilidade sem preencher nenhum campo", (Given, When, Then) => {
@@ -37,13 +37,13 @@ sap.ui.define([
         When.naPaginaDetalhePersonagem.aoClicarEmSalvarHabilidade();
 
         // Assert
-        Then.naPaginaDetalhePersonagem.deveExibirMessageToast(`Habilidade ${idEsperado} criada com êxito!`);
+        Then.naPaginaDetalhePersonagem.deveExibirMessageToast("Habilidade criada com êxito!");
         Then.naPaginaDetalhePersonagem.verificaQuatidadeDaListaDeHabilidades(5);
     });
 
-    opaTest("Salvar uma habilidade com sucesso vinculando ao personagem atual", (Given, When, Then) => {
+    opaTest("Salvar uma habilidade com sucesso vinculando ao personagem atual", async (Given, When, Then) => {
         // Arrange
-        const idEsperado = 15;
+        const idEsperado = 14;
 
         // Act
         When.naPaginaDetalhePersonagem.aoClicarEmNovaHabilidade();
@@ -54,8 +54,9 @@ sap.ui.define([
 
 
         // Assert
-        Then.naPaginaDetalhePersonagem.deveExibirMessageToast(`Habilidade ${idEsperado} criada com êxito!`);
+        Then.naPaginaDetalhePersonagem.deveExibirMessageToast("Habilidade criada com êxito!");
         Then.naPaginaDetalhePersonagem.verificaQuatidadeDaListaDeHabilidades(6);
         Then.iTeardownMyApp();
+        await HttpService.delete(idEsperado);
     });
 });

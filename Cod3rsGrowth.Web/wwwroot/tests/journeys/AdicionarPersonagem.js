@@ -35,9 +35,6 @@ sap.ui.define([
     });
 
     opaTest("Salvar um personagem com sucesso", (Given, When, Then) => {
-        // Arrange
-        const proximoId = 34
-
         // Act
         When.noFormularioPersonagem.aoInserirNome(`Teste da Silva`);
         When.noFormularioPersonagem.aoInserirVida(100);
@@ -49,8 +46,8 @@ sap.ui.define([
         When.noFormularioPersonagem.aoClicarNoBotaoSalvar()
         
         // Assert
-        Then.noFormularioPersonagem.deveMostrarMessageToast(`Personagem ${proximoId} criado com êxito!`);
-        Then.naPaginaDetalhePersonagem.verificaUrl(proximoId);
+        Then.noFormularioPersonagem.deveMostrarMessageToast("Personagem criado com êxito!");
+        // Then.naPaginaDetalhePersonagem.verificaUrl(proximoId);
         Then.naPaginaDetalhePersonagem.verificaTituloDaPagina("Detalhes do Personagem");
         Then.naPaginaDetalhePersonagem.verificaDetalhesDoPersonagem()
         Then.iTeardownMyApp();

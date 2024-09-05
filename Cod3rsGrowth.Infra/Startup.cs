@@ -1,13 +1,12 @@
 using LinqToDB;
 using LinqToDB.AspNet;
 using FluentMigrator.Runner;
+using LinqToDB.AspNet.Logging;
 using Cod3rsGrowth.Domain.Entities;
 using Cod3rsGrowth.Infra.Migrations;
 using Cod3rsGrowth.Domain.Interfaces;
 using Cod3rsGrowth.Infra.Repositories;
 using Microsoft.Extensions.DependencyInjection;
-using LinqToDB.AspNet.Logging;
-using System.Configuration;
 
 namespace Cod3rsGrowth.Infra
 {

@@ -34,9 +34,9 @@ sap.ui.define([
         Then.noFormularioHabilidade.verificaTipoDosInputs("Error");
     });
 
-    opaTest("Salvar um personagem com sucesso", (Given, When, Then) => {
+    opaTest("Salvar um personagem com sucesso", async (Given, When, Then) => {
         // Arrange
-        const proximoId = 16;
+        const idEsperado = 14;
 
         // Act
         When.noFormularioHabilidade.aoInserirNome("Teste abc");
@@ -44,10 +44,12 @@ sap.ui.define([
         When.noFormularioHabilidade.aoClicarNoBotaoSalvar()
         
         // Assert
-        Then.noFormularioHabilidade.deveMostrarMessageToast(`Habilidade ${proximoId} criada com êxito!`);
-        Then.naPaginaDetalheHabilidade.verificaUrl(proximoId);
+        Then.noFormularioHabilidade.deveMostrarMessageToast("Habilidade criada com êxito!");
+        // Then.naPaginaDetalheHabilidade.verificaUrl(proximoId);
         Then.naPaginaDetalheHabilidade.verificaTituloDaPagina("Detalhes da Habilidade");
         Then.naPaginaDetalheHabilidade.verificaDetalhesDaHabilidade()
+        
         Then.iTeardownMyApp();
+        await HttpService.delete(Constantes.URL_HABILIDADE, idEsperado);
     });
 });

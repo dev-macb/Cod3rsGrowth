@@ -78,12 +78,12 @@ sap.ui.define([
 
                 if (acao === ACAO_ADICIONAR) {
                     const resultado = await HttpService.post(Constantes.URL_PERSONAGEM, personagem);
-                    this.__exibirMessageToast(`Personagem ${resultado} criado com êxito!`);
+                    this.__exibirMessageToast(Constantes.MSG_PERSONAGEM_CRIADO);
                     return this.__navegarPara(Constantes.ROTA_PERSONAGEM, { idPersonagem: resultado });
                 }
 
                 await HttpService.put(Constantes.URL_PERSONAGEM, idPersonagem, personagem);
-                this.__exibirMessageToast(`Personagem ${idPersonagem} atualizado com êxito!`);
+                this.__exibirMessageToast(Constantes.MSG_PERSONAGEM_EDITADO);
                 this.__navegarPara(Constantes.ROTA_PERSONAGEM, { idPersonagem });
 			});
         },

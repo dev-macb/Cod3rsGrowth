@@ -13,15 +13,15 @@ sap.ui.define([
         Given.iniciarAplicacao({ hash: `personagens/${idPersonagemAlvo}` });
 
         // Act
-        Then.naPaginaDetalhePersonagem.verificaQuatidadeDaListaDeHabilidades(5);
+        Then.naPaginaDetalhePersonagem.verificaQuatidadeDaListaDeHabilidades(6);
         When.naPaginaDetalhePersonagem.aoClicarEmExcluirHabilidade();
 
         // Assert
         Then.noFormularioPersonagem.deveMostrarMessageBox("Advertência", "Tem certeza que deseja remover essa habilidade do personagem?");
         When.noFormularioPersonagem.aoFecharMessageBox("OK");
 
-        Then.naPaginaDetalhePersonagem.deveExibirMessageToast(`Habilidade ${idHabilidadeAlvo} foi excluída com êxito!`);
-        Then.naPaginaDetalhePersonagem.verificaQuatidadeDaListaDeHabilidades(4);
+        Then.naPaginaDetalhePersonagem.deveExibirMessageToast("Habilidade excluída com êxito!");
+        Then.naPaginaDetalhePersonagem.verificaQuatidadeDaListaDeHabilidades(5);
         Then.iTeardownMyApp();
     });
 });

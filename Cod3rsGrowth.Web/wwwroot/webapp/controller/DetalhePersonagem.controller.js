@@ -98,7 +98,7 @@ sap.ui.define([
 			this.__exibirEspera(async () => {
 				this.__exibirMensagemDeConfirmacao(async () => {
 					await HttpService.delete(Constantes.URL_PERSONAGEM, this.idPersonagem);
-					this.__exibirMessageToast(`Personagem ${this.idPersonagem} foi excluído!`);
+					this.__exibirMessageToast(Constantes.MSG_PERSONAGEM_EXCLUIDO);
 					this.__navegarPara(Constantes.ROTA_PERSONAGENS);
 				});
 			});		
@@ -123,7 +123,7 @@ sap.ui.define([
 			this.__exibirEspera(async () => {
 				this.__exibirMensagemDeConfirmacao(async () => {
 					await HttpService.put(Constantes.URL_PERSONAGEM, personagem.id, personagem);
-					this.__exibirMessageToast(`Habilidade ${this.idPersonagem} foi excluída com êxito!`);
+					this.__exibirMessageToast(Constantes.MSG_HABILIDADE_EXCLUIDA);
 					this._carregarDetalhesDoPersonagem();
 				}, Constantes.MSG_AVISO_DE_DESASSOCIACAO);
 			});
@@ -144,12 +144,14 @@ sap.ui.define([
 
 				if (!ehEdicao && this.__obterElementoPorId(CHECKBOX_VINCULAR).getSelected()) {
 					const personagemAtual = this.modeloPersonagem.getData();
-					personagemAtual.habilidades.push(resultado.id || habilidade.id);
+					personagemAtual.habilidades.push(resultado || habilidade.id);
 					await HttpService.put(Constantes.URL_PERSONAGEM, personagemAtual.id, personagemAtual);
 				}
 
+				if (ehEdicao) this.__exibirMessageToast(Constantes.MSG_HABILIDADE_EDITADA);
+				else this.__exibirMessageToast(Constantes.MSG_HABILIDADE_CRIADA);
+
 				this.modalFormularioPersonagem.close();
-				this.__exibirMessageToast(`Habilidade ${resultado || habilidade.id} ${ehEdicao ? "editada" : "criada"} com êxito!`);
 				this._carregarDetalhesDoPersonagem();
 			});
 		},

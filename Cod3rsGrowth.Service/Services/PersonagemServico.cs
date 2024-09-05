@@ -45,12 +45,10 @@ namespace Cod3rsGrowth.Service.Services
 
         public async Task Atualizar(int id, Personagem personagemAtualizado)
         {
-            const string separador = "\n";
             ValidationResult resultado = _personagemValidador.Validate(personagemAtualizado);
             if (!resultado.IsValid)
             {
-                string todosErros = string.Join(separador, resultado.Errors.Select(erro => erro.ErrorMessage));
-                throw new ValidationException(todosErros);
+                throw new ValidationException(resultado.Errors);
             }
 
             await _personagemRepositorio.ObterPorId(id);

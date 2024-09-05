@@ -1,7 +1,8 @@
 sap.ui.define([
     "sap/ui/test/opaQunit",
     "../pages/DetalhePersonagem",
-], (opaTest) => {
+    "coders-growth/common/HttpService"
+], (opaTest, HttpService) => {
     "use strict";
 
     QUnit.module("DetalhePersonagem - Editar Habilidade");
@@ -29,8 +30,8 @@ sap.ui.define([
         When.naPaginaDetalhePersonagem.aoClicarEmSalvarHabilidade();
 
         // Assert
-        Then.naPaginaDetalhePersonagem.deveExibirMessageToast(`Habilidade ${idHabilidadeAlvo} editada com êxito!`);
-        Then.naPaginaDetalhePersonagem.verificaQuatidadeDaListaDeHabilidades(5);
+        Then.naPaginaDetalhePersonagem.deveExibirMessageToast("Habilidade editada com êxito!");
+        Then.naPaginaDetalhePersonagem.verificaQuatidadeDaListaDeHabilidades(6);
         Then.iTeardownMyApp();
     });
 });

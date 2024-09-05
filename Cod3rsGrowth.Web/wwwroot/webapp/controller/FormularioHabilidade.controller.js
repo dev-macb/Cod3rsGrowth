@@ -59,7 +59,7 @@ sap.ui.define([
 
             this.__exibirEspera(async () => {
                 const idHabilidade = await HttpService.post(Constantes.URL_HABILIDADE, habilidade);
-                this.__exibirMessageToast(`Habilidade ${idHabilidade} criada com êxito!`);
+                this.__exibirMessageToast(Constantes.MSG_HABILIDADE_CRIADA);
                 return this.__navegarPara(Constantes.ROTA_HABILIDADE, { idHabilidade });
             }); 
         }
