@@ -1,0 +1,145 @@
+{
+	"_version": "1.58.0",
+	"sap.app": {
+		"id": "coders-growth",
+		"title": "coders-growth",
+		"description": "Projeto de Treinamento",
+		"type": "application",
+		"i18n": {
+			"bundleUrl": "i18n/i18n_pt_BR.properties",
+			"supportedLocales": [""],
+			"fallbackLocale": ""
+		},
+		"applicationVersion": {
+			"version": "1.0.0"
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		}
+	},
+	"sap.ui5": {
+		"resources": {
+			"css": [{ "uri": "css/style.css" }]
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "coders-growth.i18n.i18n",
+					"supportedLocales": ["pt_BR", "en"],
+					"fallbackLocale": "pt_BR"
+				}
+			},
+			"personagens": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "https://localhost:5051/api/Personagem"
+			},
+			"habilidades": {
+				"type": "sap.ui.model.json.JSONModel",
+				"uri": "https://localhost:5051/api/Habilidade"
+			}
+		},
+		"rootView": {
+			"id": "app",
+			"type": "XML",
+			"async": true,
+			"viewName": "coders-growth.app.App"
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"type": "View",
+				"viewType": "XML",
+				"path": "coders-growth",
+				"controlId": "app",
+				"controlAggregation": "pages",
+				"transition": "slide",
+				"bypassed": {
+					"target": "notFound"
+				},
+				"async": true
+			},
+			"routes": [
+				{
+					"pattern": "",
+					"name": "home",
+					"target": "home"
+				},
+				{
+					"pattern": "notFound",
+					"name": "notFound",
+					"target": "notFound"
+				},
+				{
+					"pattern": "personagens:?query:",
+					"name": "personagens",
+					"target": "personagens"
+				},
+				{
+					"pattern": "personagens/adicionar",
+					"name": "adicionarPersonagem",
+					"target": "adicionarPersonagem"
+				},
+				{
+					"pattern": "personagens/{idPersonagem}/editar",
+					"name": "editarPersonagem",
+					"target": "editarPersonagem"
+				},
+				{
+					"pattern": "personagens/{idPersonagem}",
+					"name": "personagem",
+					"target": "personagem"
+				},
+				{
+					"pattern": "habilidades:?query:",
+					"name": "habilidades",
+					"target": "habilidades"
+				},
+				{
+					"pattern": "habilidades/adicionar",
+					"name": "adicionarHabilidade",
+					"target": "adicionarHabilidade"
+				},
+				{
+					"pattern": "habilidades/{idHabilidade}",
+					"name": "habilidade",
+					"target": "habilidade"
+				}
+			],
+			"targets": {
+				"home": {
+					"viewName": "app.home.Home"
+				},
+				"notFound": {
+					"viewName": "app.notFound.NotFound"
+				},
+				"personagens": {
+					"viewName": "app.personagem.lista.ListaPersonagem"
+				},
+				"personagem": {
+					"viewName": "app.personagem.detalhes.DetalhePersonagem"
+				},
+				"adicionarPersonagem": {
+					"viewName": "app.personagem.formulario.FormularioPersonagem"
+				},
+				"editarPersonagem": {
+					"viewName": "app.personagem.formulario.FormularioPersonagem"
+				},
+				"habilidades": {
+					"viewName": "app.habilidade.lista.ListaHabilidade"
+				},
+				"habilidade": {
+					"viewName": "app.habilidade.detalhes.DetalheHabilidade"
+				},
+				"adicionarHabilidade": {
+					"viewName": "app.habilidade.formulario.FormularioHabilidade"
+				}
+			}
+		}
+	}
+}

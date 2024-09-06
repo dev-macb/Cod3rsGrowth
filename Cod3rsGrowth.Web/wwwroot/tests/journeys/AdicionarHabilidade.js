@@ -48,8 +48,13 @@ sap.ui.define([
         // Then.naPaginaDetalheHabilidade.verificaUrl(proximoId);
         Then.naPaginaDetalheHabilidade.verificaTituloDaPagina("Detalhes da Habilidade");
         Then.naPaginaDetalheHabilidade.verificaDetalhesDaHabilidade()
+        try {
+            await HttpService.delete(Constantes.URL_HABILIDADE, idEsperado);
+        }
+        catch{
+            console.log("nao deletou")
+        }
         
         Then.iTeardownMyApp();
-        await HttpService.delete(Constantes.URL_HABILIDADE, idEsperado);
     });
 });

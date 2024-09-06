@@ -3,12 +3,11 @@ sap.ui.define([
     "sap/ui/test/actions/Press",
     "sap/ui/test/matchers/Ancestor",
     "sap/ui/test/matchers/Properties",
-    "sap/ui/test/matchers/PropertyStrictEquals",
-    "sap/ui/test/matchers/AggregationContainsPropertyEqual"
-], function (Opa5, Press, Ancestor, Properties, PropertyStrictEquals, AggregationContainsPropertyEqual) {
+    "sap/ui/test/matchers/PropertyStrictEquals"
+], function (Opa5, Press, Ancestor, Properties, PropertyStrictEquals) {
     "use strict";
 
-    const nomeDaView = "DetalhePersonagem";
+    const nomeDaView = "personagem.detalhes.DetalhePersonagem";
 
     Opa5.createPageObjects({
         naPaginaDetalhePersonagem: {
@@ -200,7 +199,7 @@ sap.ui.define([
                 verificaClasseTextoEVilao: function (classeEsperada) {
                     return this.waitFor({
                         id: "txtEVilao",
-                        viewName: "DetalhePersonagem",
+                        viewName: nomeDaView,
                         success: function (texto) {
                             var classeCSS = texto.aCustomStyleClasses[0];
                             var possuiClasseCSS = classeCSS.includes(classeEsperada);

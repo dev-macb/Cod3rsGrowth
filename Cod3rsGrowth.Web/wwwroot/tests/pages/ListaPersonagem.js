@@ -7,7 +7,7 @@ sap.ui.define([
 ], function (Opa5, Press, EnterText, PropertyStrictEquals, AggregationLengthEquals) {
     "use strict";
 
-    const nomeDaView = "ListaPersonagem";
+    const nomeDaView = "personagem.lista.ListaPersonagem";
     const idBotaoVoltar = "__xmlview1--paginaListaPersonagem-navButton";
     const idListaPersonagem = "listaPersonagem";
     const idFiltroNome = "filtroNome";
@@ -309,7 +309,7 @@ sap.ui.define([
                 verificaTamanhoDaLista: function (tamanho) {
                     return this.waitFor({
                         id: "listaPersonagem",
-                        viewName: "ListaPersonagem",
+                        viewName: nomeDaView,
                         matchers: new AggregationLengthEquals({ name: "items", length: tamanho }),
                         success: function() { Opa5.assert.ok(true, "A lista está paginada com 10 itens."); },
                         errorMessage: "A lista não está paginada corretamente."
