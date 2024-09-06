@@ -75,7 +75,6 @@ sap.ui.define([
 				const parametros = this._obterListaDeParametros(); 
                 const acao = parametros[parametros.length - 1];
                 const idPersonagem = parametros[parametros.length - 2];
-
                 if (acao === ACAO_ADICIONAR) {
                     const resultado = await HttpService.post(Constantes.URL_PERSONAGEM, personagem);
                     this.__exibirMessageToast(Constantes.I18N_PERSONAGEM_CRIADO);
@@ -94,6 +93,8 @@ sap.ui.define([
         },
 
         _obterListaDeParametros: function () {
+            return this.__obterRotiador().getHashChanger().getHash().split(DIVISOR_BARRA);
+        },_obterListaDeParametros: function () {
             return this.__obterRotiador().getHashChanger().getHash().split(DIVISOR_BARRA);
         },
 

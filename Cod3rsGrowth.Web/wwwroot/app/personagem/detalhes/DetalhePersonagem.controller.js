@@ -96,11 +96,11 @@ sap.ui.define([
 
 		aoClicarEmExcluirPersonagem: async function () {
 			this.__exibirEspera(async () => {
-				this.__exibirMensagemDeConfirmacao(async () => {
+				this.__exibirMessageBox(Constantes.I18N_AVISO_DE_EXCLUSAO, "aviso", async () => {
 					await HttpService.delete(Constantes.URL_PERSONAGEM, this.idPersonagem);
 					this.__exibirMessageToast(Constantes.I18N_PERSONAGEM_EXCLUIDO);
 					this.__navegarPara(Constantes.ROTA_PERSONAGENS);
-				}, Constantes.I18N_AVISO_DE_EXCLUSAO);
+				});
 			});		
 		},
 
@@ -121,18 +121,18 @@ sap.ui.define([
 			personagem.habilidades.splice(itemSelecionado.replace(STRING_BARRA, STRING_VAZIA), 1);
 
 			this.__exibirEspera(async () => {
-				this.__exibirMensagemDeConfirmacao(async () => {
+				this.__exibirMessageBox(Constantes.I18N_AVISO_DE_DESASSOCIACAO, "aviso", async () => {
 					await HttpService.put(Constantes.URL_PERSONAGEM, personagem.id, personagem);
 					this.__exibirMessageToast(Constantes.I18N_HABILIDADE_EXCLUIDA);
 					this._carregarDetalhesDoPersonagem();
-				}, Constantes.I18N_AVISO_DE_DESASSOCIACAO);
+				});
 			});
 		},
 
 		aoClicarEmSalvarNovaHabilidade: function() {
 			this.__exibirEspera(async () => {
 				if (!this._validarInputs()) {
-					this.__exibirMessageBox(Constantes.I18N_AVISO_DE_VALIDACAO, "aviso", null);
+					this.__exibirMessageBox(Constantes.I18N_AVISO_DE_VALIDACAO, "aviso");
 					return;
 				}
 

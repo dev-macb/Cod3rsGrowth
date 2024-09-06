@@ -16,10 +16,15 @@ sap.ui.define([
 	const INPUT_HABILIDADE_DESCRICAO = "inputDescricao";
     const ID_FORMULARIO_HABILIDADE = "tituloFormularioHabilidade";
     const TITULO_CADASTRAR = "Cadastrar Habilidade";
+    const TITULO_EDITAR = "Editar Habilidade";
+    const DIVISOR_BARRA = "/";
+    const SEGUNDO_PARAMETRO = 1;
+    const ACAO_ADICIONAR = "adicionar";
 
     return BaseController.extend("coders-growth.app.habilidade.formulario.FormularioHabilidade", {
         onInit: function () {
             this.__vincularRota(Constantes.ROTA_ADICIONAR_HABILIDADE, this._aoConcidirRotaAdicionar);
+            this.__vincularRota(Constantes.ROTA_EDITAR_HABILIDADE, this._aoConcidirRotaEditar);
         },
 
         _aoConcidirRotaAdicionar: function () {
@@ -29,6 +34,18 @@ sap.ui.define([
 
             this.__definirModelo(new JSONModel(this._iniciarHabilidade()), Constantes.MODELO_HABILIDADE);
             this.modeloHabilidade = this.__obterModelo(Constantes.MODELO_HABILIDADE);
+        },
+
+        _aoConcidirRotaEditar: function () {
+            this.__obterElementoPorId(ID_FORMULARIO_HABILIDADE).setText(TITULO_EDITAR);
+            this.__obterElementoPorId(INPUT_HABILIDADE_NOME).setValueState(ValueState.None);
+            this.__obterElementoPorId(INPUT_HABILIDADE_DESCRICAO).setValueState(ValueState.None);
+
+            this.__exibirEspera(async () => {
+				const habilidadeExistente = await HttpService.get(Constantes.URL_HABILIDADE, this._obterListaDeParametros()[SEGUNDO_PARAMETRO]);
+                this.__definirModelo(new JSONModel(habilidadeExistente), Constantes.MODELO_HABILIDADE);
+                this.modeloHabilidade = this.__obterModelo(Constantes.MODELO_HABILIDADE);
+			});
         },
 
         _iniciarHabilidade: function () {
@@ -49,18 +66,32 @@ sap.ui.define([
             return !contemErro;
         },
 
+        _obterListaDeParametros: function () {
+            return this.__obterRotiador().getHashChanger().getHash().split(DIVISOR_BARRA);
+        },
+
         salvarHabilidade: async function () {
-            if (!this._validarInputs()) {
-                this.__exibirMessageBox(Constantes.I18N_AVISO_DE_VALIDACAO, "aviso", null);
-                return;
-            }
-
-            const habilidade = this.modeloHabilidade.getData();
-
             this.__exibirEspera(async () => {
-                const idHabilidade = await HttpService.post(Constantes.URL_HABILIDADE, habilidade);
-                this.__exibirMessageToast(Constantes.I18N_HABILIDADE_CRIADA);
-                return this.__navegarPara(Constantes.ROTA_HABILIDADE, { idHabilidade });
+                if (!this._validarInputs()) {
+                    this.__exibirMessageBox(Constantes.I18N_AVISO_DE_VALIDACAO, "aviso");
+                    return;
+                }
+    
+                const habilidade = this.modeloHabilidade.getData();
+
+                const parametros = this._obterListaDeParametros(); 
+                const acao = parametros[parametros.length - 1];
+                const idHabilidade = parametros[parametros.length - 2];
+
+                if (acao === ACAO_ADICIONAR) {
+                    const resultado = await HttpService.post(Constantes.URL_HABILIDADE, habilidade);
+                    this.__exibirMessageToast(Constantes.I18N_HABILIDADE_CRIADA);
+                    return this.__navegarPara(Constantes.ROTA_HABILIDADE, { idHabilidade: resultado });
+                }
+
+                await HttpService.put(Constantes.URL_HABILIDADE, idHabilidade, habilidade);
+                this.__exibirMessageToast(Constantes.I18N_HABILIDADE_EDITADA);
+                this.__navegarPara(Constantes.ROTA_HABILIDADE, { idHabilidade });
             }); 
         }
     });

@@ -14,7 +14,7 @@
 						<Button id="btnAdicionarPersonagem" icon="sap-icon://add" text="{i18n>geral.adicionar}" type="Emphasized" press=".irAdicionarPersonagem" />
 						<ToolbarSpacer />		
 						<Button id="btnFiltroPersonagem" icon="sap-icon://filter" text="{i18n>geral.filtrar}" press=".aoAbrirFiltros" />
-						<SearchField id="filtroNome" width="30%" liveChange=".aoFiltrarPersonagemPorNome" />
+						<SearchField id="filtroNome" width="30%" change=".aoFiltrarPersonagemPorNome" />
 					</Toolbar>
 				</headerToolbar>
 				<content>

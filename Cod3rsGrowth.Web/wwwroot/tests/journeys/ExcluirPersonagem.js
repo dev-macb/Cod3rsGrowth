@@ -40,7 +40,7 @@ sap.ui.define([
         // Assert
         Then.naPaginaListaPersonagem.verificaUrl();
         Then.naPaginaListaPersonagem.verificaTituloDaPagina("Lista de Personagens");
-        Then.naPaginaListaPersonagem.verificaQuantidadeDaListaPersonagem(33);
+        Then.naPaginaListaPersonagem.verificaQuantidadeDaListaPersonagem(32);
         Then.iTeardownMyApp();
     });
 

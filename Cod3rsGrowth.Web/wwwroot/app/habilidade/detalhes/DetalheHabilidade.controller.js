@@ -36,7 +36,7 @@ sap.ui.define([
 		},
 
 		aoClicarEmExcluirHabilidade: function () {
-			this.__exibirEspera(Constantes.ROTA_HABILIDADES, "aviso", async () => {
+			this.__exibirEspera(async () => {
 				this.__exibirMessageBox(Constantes.I18N_AVISO_DE_EXCLUSAO, "aviso", async () => {
 					await HttpService.delete(Constantes.URL_HABILIDADE, this.idHabilidade);
 					this.__exibirMessageToast(Constantes.I18N_HABILIDADE_EXCLUIDA);
