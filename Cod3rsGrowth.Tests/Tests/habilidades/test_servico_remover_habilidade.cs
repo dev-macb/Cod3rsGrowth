@@ -21,14 +21,14 @@ namespace Cod3rsGrowth.Tests.Tests.Habilidades
         {
             // Arrange
             RepositorioMock.ResetarInstancia();
-            int idTeste = 1;
-            _habilidades.Add(new Habilidade { Id = idTeste, Nome = "Teste", Descricao = "Uma descrição qualquer." });
+            int idTeste = 8;
+            _habilidades.Add(new Habilidade { Id = idTeste, Nome = "Teste 9", Descricao = "Uma descrição qualquer." });
 
             // Act
             await _habilidadeServico.Deletar(idTeste);
 
             // Assert
-            var habilidadeNaoEncontrada = _habilidades.FirstOrDefault(habilidade => habilidade.Id == idTeste);
+            var habilidadeNaoEncontrada = _habilidades.Find(h => h.Id == idTeste);
             Assert.Null(habilidadeNaoEncontrada);
         }
 
@@ -36,8 +36,8 @@ namespace Cod3rsGrowth.Tests.Tests.Habilidades
         public async void DeveLancarExcecaoAoDeletarComIdInvalido()
         {
             // Arrange
-            int idTeste = 2, idInvalido = 99999;
-            _habilidades.Add(new Habilidade { Id = idTeste, Nome = "Teste", Descricao = "Uma descrição qualquer." });
+            int idTeste = 9, idInvalido = 99999;
+            _habilidades.Add(new Habilidade { Id = idTeste, Nome = "Teste 10", Descricao = "Uma descrição qualquer." });
 
             // Act
             var resultado = await Assert.ThrowsAsync<Exception>(() => _habilidadeServico.Deletar(idInvalido));

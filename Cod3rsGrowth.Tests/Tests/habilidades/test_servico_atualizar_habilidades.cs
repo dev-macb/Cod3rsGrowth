@@ -22,8 +22,8 @@ namespace Cod3rsGrowth.Tests.Tests.Habilidades
         {
             // Arrange
             int idTeste = 1;
-            _habilidades.Add(new Habilidade { Id = idTeste, Nome = "Teste", Descricao = "Uma descrição qualquer." });
-            var novaHabilidade = _habilidades.Find(habilidade => habilidade.Id == idTeste);
+            _habilidades.Add(new Habilidade { Id = idTeste, Nome = "Teste 2", Descricao = "Uma descrição qualquer." });
+            var novaHabilidade = _habilidades.Find(h => h.Id == idTeste);
             Assert.NotNull(novaHabilidade);
 
             // Act
@@ -32,7 +32,7 @@ namespace Cod3rsGrowth.Tests.Tests.Habilidades
             await _habilidadeServico.Atualizar(idTeste, novaHabilidade);
 
             // Assert
-            var personagemAtualizado = _habilidades.Find(habilidade => habilidade.Id == idTeste);
+            var personagemAtualizado = _habilidades.Find(h => h.Id == idTeste);
             Assert.Equivalent(novaHabilidade, personagemAtualizado);
         }
 
@@ -41,8 +41,8 @@ namespace Cod3rsGrowth.Tests.Tests.Habilidades
         {
             // Arrange
        
-            int idTeste = 1, idInvalido = 9999;
-            _habilidades.Add(new Habilidade { Id = idTeste, Nome = "Teste", Descricao = "Uma descrição qualquer." });
+            int idTeste = 2, idInvalido = 99999;
+            _habilidades.Add(new Habilidade { Id = idTeste, Nome = "Teste 3", Descricao = "Uma descrição qualquer." });
             var novaHabilidade = _habilidades.Find(h => h.Id == idTeste);
             Assert.NotNull(novaHabilidade);
 
@@ -59,7 +59,7 @@ namespace Cod3rsGrowth.Tests.Tests.Habilidades
         {
             // Arrange
             int idTeste = 3;
-            _habilidades.Add(new Habilidade { Id = idTeste, Nome = "Teste", Descricao = "Uma descrição qualquer." });
+            _habilidades.Add(new Habilidade { Id = idTeste, Nome = "Teste 4", Descricao = "Uma descrição qualquer." });
             var novaHabilidade = _habilidades.Find(habilidade => habilidade.Id == idTeste);
             Assert.NotNull(novaHabilidade);
 
@@ -74,7 +74,7 @@ namespace Cod3rsGrowth.Tests.Tests.Habilidades
         {
             // Arrange
             int idTeste = 4;
-            _habilidades.Add(new Habilidade { Id = idTeste, Nome = "Teste", Descricao = "Uma descrição qualquer." });
+            _habilidades.Add(new Habilidade { Id = idTeste, Nome = "Teste 5", Descricao = "Uma descrição qualquer." });
             var novaHabilidade = _habilidades.Find(habilidade => habilidade.Id == idTeste);
             Assert.NotNull(novaHabilidade);
 
@@ -89,7 +89,7 @@ namespace Cod3rsGrowth.Tests.Tests.Habilidades
         {
             // Arrange
             int idTeste = 5;
-            _habilidades.Add(new Habilidade { Id = idTeste, Nome = "Teste", Descricao = "Uma descrição qualquer." });
+            _habilidades.Add(new Habilidade { Id = idTeste, Nome = "Teste 6", Descricao = "Uma descrição qualquer." });
             var novaHabilidade = _habilidades.Find(habilidade => habilidade.Id == idTeste);
             Assert.NotNull(novaHabilidade);
 

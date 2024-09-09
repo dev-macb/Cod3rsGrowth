@@ -23,7 +23,7 @@ namespace Cod3rsGrowth.Tests.Tests.Habilidades
             // Arrange
             var novaHabilidade = new Habilidade
             {
-                Nome = "Teste",
+                Nome = "Teste 1",
                 Descricao = "Uma descrição qualquer."
             };
 

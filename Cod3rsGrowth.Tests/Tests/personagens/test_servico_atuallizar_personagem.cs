@@ -22,7 +22,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
         public async void AtualizarPersonagemComExito()
         {
             // Arrange
-            int idTeste = 2;
+            int idTeste = 1;
             _personagens.Add(new Personagem
             {
                 Id = idTeste,
@@ -56,7 +56,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
         public async void DeveLancarExcecaoAoAtualizarComIdInvalido()
         {
             // Arrange
-            int idTeste = 3, idInvalido = 99999;
+            int idTeste = 2, idInvalido = 99999;
             _personagens.Add(new Personagem
             {
                 Id = idTeste,
@@ -82,7 +82,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
         public async void DeveLancarExcecaoAoAtualizarComNomeCurto()
         {
             // Arrange
-            int idTeste = 4;
+            int idTeste = 3;
             _personagens.Add(new Personagem
             {
                 Id = idTeste,
@@ -108,7 +108,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
         public async void DeveLancarExcecaoAoAtualizarComNomeGrande()
         {
             // Arrange
-            int idTeste = 5;
+            int idTeste = 4;
             _personagens.Add(new Personagem
             {
                 Id = idTeste,
@@ -134,7 +134,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
         public async void DeveLancarExcecaoAoAtualizarComVidaMenorQueZero()
         {
             // Arrange
-            int idTeste = 6;
+            int idTeste = 5;
             _personagens.Add(new Personagem
             {
                 Id = idTeste,
@@ -160,7 +160,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
         public async void DeveLancarExcecaoAoAtualizarComVidaMaiorQueCem()
         {
             // Arrange
-            int idTeste = 7;
+            int idTeste = 6;
             _personagens.Add(new Personagem
             {
                 Id = idTeste,
@@ -186,7 +186,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
         public async void DeveLancarExcecaoAoAtualizarComEnergiaMenorQueZero()
         {
             // Arrange
-            int idTeste = 8;
+            int idTeste = 7;
             _personagens.Add(new Personagem
             {
                 Id = idTeste,
@@ -212,7 +212,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
         public async void DeveLancarExcecaoAoAtualizarComEnergiaMaiorQueCinquenta()
         {
             // Arrange
-            int idTeste = 9;
+            int idTeste = 8;
             _personagens.Add(new Personagem
             {
                 Id = idTeste,
@@ -238,7 +238,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
         public async void DeveLancarExcecaoAoAtualizarComVelocidadeMenorQueZero()
         {
             // Arrange
-            int idTeste = 10;
+            int idTeste = 9;
             _personagens.Add(new Personagem
             {
                 Id = idTeste,
@@ -264,7 +264,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
         public async void DeveLancarExcecaoAoAtualizarComVelocidadeMaiorQueDois()
         {
             // Arrange
-            int idTeste = 11;
+            int idTeste = 10;
             _personagens.Add(new Personagem
             {
                 Id = idTeste,
@@ -290,7 +290,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
         public async void DeveLancarExcecaoAoCriarComForcaInvalida()
         {
             // Arrange
-            int idTeste = 12;
+            int idTeste = 11;
             _personagens.Add(new Personagem
             {
                 Id = idTeste,
@@ -316,7 +316,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
         public async void DeveLancarExcecaoAoCriarComInteligenciaInvalida()
         {
             // Arrange
-            int idTeste = 13;
+            int idTeste = 12;
             _personagens.Add(new Personagem
             {
                 Id = idTeste,

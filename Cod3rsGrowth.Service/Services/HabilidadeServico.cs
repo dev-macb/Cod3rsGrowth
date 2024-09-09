@@ -42,7 +42,6 @@ namespace Cod3rsGrowth.Service.Services
 
         public async Task Atualizar(int id, Habilidade habilidadeAtualizada)
         {
-            habilidadeAtualizada.Id = id;
             ValidationResult resultado = await _habilidadeValidador.ValidateAsync(habilidadeAtualizada);
             if (!resultado.IsValid)
             {

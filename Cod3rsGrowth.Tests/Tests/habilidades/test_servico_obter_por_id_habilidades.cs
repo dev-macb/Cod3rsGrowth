@@ -20,9 +20,8 @@ namespace Cod3rsGrowth.Tests.Tests.Habilidades
         public async void ObtemHabilidadePorIdComExito()
         {
             // Arrange
-            RepositorioMock.ResetarInstancia();
-            int idTeste = 1;
-            var novaHabilidade = new Habilidade { Id = idTeste, Nome = "Teste", Descricao = "Uma descrição qualquer." };
+            int idTeste = 6;
+            var novaHabilidade = new Habilidade { Id = idTeste, Nome = "Teste 7", Descricao = "Uma descrição qualquer." };
             _habilidades.Add(novaHabilidade);
 
             // Act
@@ -36,8 +35,8 @@ namespace Cod3rsGrowth.Tests.Tests.Habilidades
         public async void DeveLancarExcecaoAoBuscarPorIdComIdInvalido()
         {
             // Arrange
-            int idTeste = 2, idInvalido = 99999;
-            var novaHabilidade = new Habilidade { Id = idTeste, Nome = "Teste", Descricao = "Uma descrição qualquer." };
+            int idTeste = 7, idInvalido = 99999;
+            var novaHabilidade = new Habilidade { Id = idTeste, Nome = "Teste 8", Descricao = "Uma descrição qualquer." };
             _habilidades.Add(novaHabilidade);
 
             // Act - Assert
