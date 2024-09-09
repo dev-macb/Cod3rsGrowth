@@ -45,21 +45,18 @@ namespace Cod3rsGrowth.Service.Services
 
         public async Task Atualizar(int id, Personagem personagemAtualizado)
         {
-            const string separador = "\n";
             ValidationResult resultado = _personagemValidador.Validate(personagemAtualizado);
             if (!resultado.IsValid)
             {
-                string todosErros = string.Join(separador, resultado.Errors.Select(erro => erro.ErrorMessage));
-                throw new ValidationException(todosErros);
+                throw new ValidationException(resultado.Errors);
             }
 
-            await _personagemRepositorio.ObterPorId(id);
             await _personagemRepositorio.Atualizar(id, personagemAtualizado);
         }
 
         public async Task Deletar(int id)
         {
-            var personagemExistente = _habilidadeRepositorio.ObterPorId(id);
+            var personagemExistente = _personagemRepositorio.ObterPorId(id);
             if (personagemExistente.Result == null) throw new ValidationException("Personagem inexistente");
 
             await _personagemRepositorio.Deletar(id);

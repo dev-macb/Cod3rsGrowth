@@ -1,13 +1,12 @@
 using LinqToDB;
 using LinqToDB.AspNet;
 using FluentMigrator.Runner;
+using LinqToDB.AspNet.Logging;
 using Cod3rsGrowth.Domain.Entities;
 using Cod3rsGrowth.Infra.Migrations;
 using Cod3rsGrowth.Domain.Interfaces;
 using Cod3rsGrowth.Infra.Repositories;
 using Microsoft.Extensions.DependencyInjection;
-using LinqToDB.AspNet.Logging;
-using System.Configuration;
 
 namespace Cod3rsGrowth.Infra
 {
@@ -25,7 +24,10 @@ namespace Cod3rsGrowth.Infra
             servicos.AddScoped<IRepositorio<PersonagensHabilidades>, PersonagensHabilidadesRepositorio>();
 
             servicos.AddFluentMigratorCore()
-                .ConfigureRunner(rb => rb.AddSqlServer().WithGlobalConnectionString(stringDeConexao).ScanIn(typeof(CriarTabelaHabilidadesMigration).Assembly).For.Migrations())
+                .ConfigureRunner(rb => rb.AddSqlServer()
+                .WithGlobalConnectionString(stringDeConexao)
+                .ScanIn(typeof(CriarTabelaHabilidadesMigration).Assembly, typeof(ResetarBancoDeDados).Assembly)
+                .For.Migrations())
                 .AddLogging(lb => lb.AddFluentMigratorConsole());
         }
 
@@ -45,16 +47,19 @@ namespace Cod3rsGrowth.Infra
             }
         }
 
-        public static void ResetarBancoDeDados(IServiceProvider serviceProvider)
+        public static void ApagarBancoDeDados(IServiceProvider serviceProvider)
         {
-            using var scope = serviceProvider.CreateScope();
-            var runner = scope.ServiceProvider.GetRequiredService<IMigrationRunner>();
-
-            if (runner.HasMigrationsToApplyUp())
+            using var escopo = serviceProvider.CreateScope();
+            var executor = escopo.ServiceProvider.GetRequiredService<IMigrationRunner>();
+            try
             {
-                if (runner.HasMigrationsToApplyDown(003)) runner.MigrateDown(002);
-                if (runner.HasMigrationsToApplyDown(002)) runner.MigrateDown(001);
-                if (runner.HasMigrationsToApplyDown(001)) runner.MigrateDown(0);
+                executor.MigrateDown(000);
+                Console.WriteLine("[*] Tabelas foram apagadas com sucesso");
+            }
+            catch (Exception excecao)
+            {
+                Console.WriteLine($"[*] Erro ao apagar as tabelas:\n{excecao.Message}");
+                throw;
             }
         }
     }
