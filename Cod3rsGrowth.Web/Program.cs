@@ -14,16 +14,17 @@ StartupService.Registrar(construtor.Services);
 
 var app = construtor.Build();
 
-
+if (chaveDeConexao == "ConexaoTeste") {
+    StartupInfra.ApagarBancoDeDados(app.Services);
+}
 StartupInfra.InicializarBancoDeDados(app.Services);
 
-
-if (app.Environment.IsDevelopment())
+app.UseFileServer(new FileServerOptions
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
-
+    FileProvider = new PhysicalFileProvider(Path.Combine(app.Environment.ContentRootPath, "wwwroot", "webapp")),
+    EnableDirectoryBrowsing = true
+});
+app.UseStaticFiles(new StaticFileOptions(){ ServeUnknownFileTypes = true });
 app.UseProblemDetailsExceptionHandler(app.Services.GetRequiredService<ILoggerFactory>());
 app.UseHttpsRedirection();
 app.UseAuthorization();
