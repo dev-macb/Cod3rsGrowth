@@ -21,12 +21,11 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
         public async void DeletarPersonagemComExito()
         {
             // Arrange
-            RepositorioMock.ResetarInstancia();
-            int idTeste = 16;
+            int idTeste = 15;
             var personagem = new Personagem
             {
                 Id = idTeste,
-                Nome = "Teste",
+                Nome = "Teste 15",
                 Vida = 100,
                 Energia = 50,
                 Velocidade = 1.0,
@@ -41,7 +40,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
             await _personagemServico.Deletar(idTeste);
 
             // Assert
-            var personagemNaoEncontrado = _personagens.Find(personagem => personagem.Id == idTeste);
+            var personagemNaoEncontrado = _personagens.Find(p => p.Id == idTeste);
             Assert.Null(personagemNaoEncontrado);
         }
 
@@ -49,11 +48,11 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
         public async void DeveLancarExcecaoAoDeletarComIdInvalido()
         {
             // Arrange
-            int idTeste = 17, idInvalido = 99999;
+            int idTeste = 16, idInvalido = 99999;
             var personagem = new Personagem
             {
                 Id = idTeste,
-                Nome = "Teste",
+                Nome = "Teste 16",
                 Vida = 100,
                 Energia = 50,
                 Velocidade = 1.0,

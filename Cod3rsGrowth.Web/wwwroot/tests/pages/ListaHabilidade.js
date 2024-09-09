@@ -7,7 +7,7 @@ sap.ui.define([
 ], function(Opa5, Press, EnterText, PropertyStrictEquals, AggregationLengthEquals) {
     "use strict";
 
-    const nomeDaView = "ListaHabilidade";
+    const nomeDaView = "habilidade.lista.ListaHabilidade";
     const idListaHabilidade = "listaHabilidade";
     const idBotaoFiltroHabilidade = "btnFiltroHabilidade";
     const idFiltroNome = "filtroNome";

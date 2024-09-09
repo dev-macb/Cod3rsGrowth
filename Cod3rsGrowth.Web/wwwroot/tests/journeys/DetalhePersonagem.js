@@ -10,14 +10,14 @@ sap.ui.define([
 
     opaTest("Deve navegar para os detalhes de um personagem com propósito heróico", (Given, When, Then) => {
         // Arrange
-        let idPersonagem = 1;
+        let idPersonagem = 2;
         Given.iniciarAplicacao({ hash: `personagens/${idPersonagem}` });
 
         // Assert
         Then.naPaginaDetalhePersonagem.verificaUrl(idPersonagem);
         Then.naPaginaDetalhePersonagem.verificaTituloDaPagina("Detalhes do Personagem");
         Then.naPaginaDetalhePersonagem.verificaDetalhesDoPersonagem();
-        Then.naPaginaDetalhePersonagem.verificaQuatidadeDaListaDeHabilidades(3);
+        Then.naPaginaDetalhePersonagem.verificaQuatidadeDaListaDeHabilidades(5);
         Then.naPaginaDetalhePersonagem.verificaClasseTextoEVilao("txtHeroi"); 
     });
 

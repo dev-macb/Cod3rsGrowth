@@ -68,7 +68,7 @@ sap.ui.define([
         When.naPaginaListaPersonagem.aoClicarEmAplicarFiltros();
 
         // Assert
-        Then.naPaginaListaPersonagem.verificaParametroNaURL("evilao=true");
+        Then.naPaginaListaPersonagem.verificaParametroNaURL("evilao", true);
         Then.naPaginaListaPersonagem.verificaSeBuscouComFiltroProposito(true);
     });
 

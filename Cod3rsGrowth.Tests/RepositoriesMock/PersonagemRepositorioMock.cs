@@ -44,7 +44,7 @@ namespace Cod3rsGrowth.Tests.RepositoriesMock
 
         public Task Deletar(int id)
         {
-            var personagemExistente = _personagens.Find(personagem => personagem.Id == id) ?? throw new Exception("Personagem não encontrado.");
+            var personagemExistente = _personagens.Find(p => p.Id == id) ?? throw new Exception("Personagem não encontrado.");
 
             _personagens.Remove(personagemExistente);
             return Task.CompletedTask;

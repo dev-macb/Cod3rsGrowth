@@ -4,7 +4,7 @@
     "main": "index.js",
     "scripts": {
         "dev": "ui5 serve -o index.html",
-        "test": "ui5 serve -o tests/integration/opaTests.qunit.html"
+        "test": "ui5 serve -o tests/TestesOpa5.html"
     },
     "keywords": [],
     "author": "",

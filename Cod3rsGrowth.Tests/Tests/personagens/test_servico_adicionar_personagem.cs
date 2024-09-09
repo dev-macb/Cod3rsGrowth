@@ -292,7 +292,6 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
             Assert.Contains("A velocidade deve estar entre 0 e 2.", excecao.Message);
             Assert.Contains("A força deve ser um valor válido de CategoriasEnum.", excecao.Message);
             Assert.Contains("A inteligência deve ser um valor válido de CategoriasEnum.", excecao.Message);
-
         }
     }
 }

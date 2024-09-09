@@ -3,12 +3,11 @@ sap.ui.define([
     "sap/ui/test/actions/Press",
     "sap/ui/test/actions/EnterText",
     "sap/ui/test/matchers/Ancestor",
-    "sap/ui/test/matchers/Properties",
-    "sap/ui/test/matchers/PropertyStrictEquals"
-], function (Opa5, Press, EnterText, Ancestor, Properties, PropertyStrictEquals) {
+    "sap/ui/test/matchers/Properties"
+], function (Opa5, Press, EnterText, Ancestor, Properties) {
     "use strict";
 
-    const nomeDaView = "FormularioHabilidade";
+    const nomeDaView = "habilidade.formulario.FormularioHabilidade";
 
     Opa5.createPageObjects({
         noFormularioHabilidade: {

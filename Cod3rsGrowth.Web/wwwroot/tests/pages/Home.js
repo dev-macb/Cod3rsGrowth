@@ -5,7 +5,7 @@ sap.ui.define([
 ], function(Opa5, Press, PropertyStrictEquals) {
     "use strict";
 
-    const nomeDaView = "Home";
+    const nomeDaView = "home.Home";
 
     Opa5.createPageObjects({
         naPaginaHome: {

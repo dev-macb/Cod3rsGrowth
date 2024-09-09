@@ -8,8 +8,8 @@ sap.ui.require([
     "coders-growth/tests/journeys/AdicionarPersonagem",
     "coders-growth/tests/journeys/DetalheHabilidade",
     "coders-growth/tests/journeys/DetalhePersonagem",
-    "coders-growth/tests/journeys/DetalhePersonagemModalAdicionar",
-    "coders-growth/tests/journeys/DetalhePersonagemModalEditar",
+    "coders-growth/tests/journeys/DetalhePersonagemAdicionarHabilidade",
+    "coders-growth/tests/journeys/DetalhePersonagemEditarHabilidade",
     "coders-growth/tests/journeys/DetalhePersonagemRemoverHabilidade",
     "coders-growth/tests/journeys/EditarPersonagem",
     "coders-growth/tests/journeys/ExcluirPersonagem",
@@ -22,7 +22,7 @@ sap.ui.require([
 
 	Opa5.extendConfig({
 		arrangements: new Startup(),
-		viewNamespace: "coders-growth.view",
+		viewNamespace: "coders-growth.app",
 		autoWait: true
 	});
 

@@ -8,7 +8,7 @@ sap.ui.define([
     ], (Opa5, Press, Ancestor, EnterText, Properties, PropertyStrictEquals) => {
     "use strict";
 
-    const nomeDaView = "FormularioPersonagem";
+    const nomeDaView = "personagem.formulario.FormularioPersonagem";
 
     Opa5.createPageObjects({
         noFormularioPersonagem: {

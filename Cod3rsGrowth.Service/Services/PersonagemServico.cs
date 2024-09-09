@@ -51,7 +51,6 @@ namespace Cod3rsGrowth.Service.Services
                 throw new ValidationException(resultado.Errors);
             }
 
-            await _personagemRepositorio.ObterPorId(id);
             await _personagemRepositorio.Atualizar(id, personagemAtualizado);
         }
 

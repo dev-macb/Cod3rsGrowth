@@ -5,7 +5,7 @@ sap.ui.define([
 ], function(Opa5, Press, PropertyStrictEquals) {
     "use strict";
 
-    const nomeDaView = "NotFound";
+    const nomeDaView = "notFound.NotFound";
 
     Opa5.createPageObjects({
         naPaginaNotFound: {

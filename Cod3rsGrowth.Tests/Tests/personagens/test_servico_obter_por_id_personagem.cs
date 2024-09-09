@@ -21,7 +21,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
         public void ObterPersonagemPorIdComExito()
         {
             // Arrange
-            int idTeste = 14;
+            int idTeste = 13;
             var novoPersonagem = new Personagem
             {
                 Id = idTeste,
@@ -47,7 +47,7 @@ namespace Cod3rsGrowth.Tests.Tests.Personagens
         public async void DeveLancarExcecaoAoObterPorIdComIdInvalido()
         {
             // Arrange
-            int idTeste = 15, idInvalido = 99999;
+            int idTeste = 14, idInvalido = 99999;
             var novoPersonagem = new Personagem
             {
                 Id = idTeste,
